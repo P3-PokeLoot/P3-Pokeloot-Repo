@@ -1,3 +1,17 @@
+<div class="col text-center">
+     <h6>Page {{currentPage}} of {{lastpage}}</h6>
+    <form class="d-inline-flex p-2" (ngSubmit)="onChangePagePrev()" #searchForm="ngForm">
+        <button class="btn btn-outline-success" type="submit">Prev Page</button>    
+    </form>  
+    <form class="d-inline-flex p-2" (ngSubmit)="onChangePageNext()" #searchForm="ngForm">
+        <button class="btn btn-outline-success" type="submit">Next Page</button>    
+    </form>
+    <br>    
+    <div class="border my-4 d-flex justify-content-center"></div>    
+    <br>
+
+</div>
+
 <div *ngIf='attemptToBuy == true' class="container">
     <div *ngIf='broughtCard'>
         <h2 class="row display: flex justify-content-center">{{broughtCard.Output}}.</h2>
@@ -95,7 +109,7 @@
 </div>
 
 <div *ngIf='attemptToBuy == false'>
-    <div *ngFor="let post of displayBoard | filter:search">
+    <div *ngFor="let post of pageOfItems | filter:search">
         <div class="container mt-4 mb-3 shadow-sm p-3 bg-body rounded">
             <div *ngIf="attemptToBuy == false" class="row">
                 <div class="col-md-7">
