@@ -1,5 +1,5 @@
 import { stringify } from '@angular/compiler/src/util';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { DisplayServiceService } from '../display-service.service';
 import { IBuy } from '../Models/IBuy';
 import { IPost } from '../Models/IPost';
@@ -15,6 +15,11 @@ export class PostsComponent implements OnInit {
   attemptToBuy: boolean = false;
   broughtCard?: IBuy;
   private userId: any = localStorage.getItem('userId');
+  pageOfItems!: IPost[];
+  //@Input() changePage = EventEmitter<any>(true);
+  currentIndex : number = 0;
+  currentPage: number = 1;
+  lastpage!: number;
   bublapedia: string = 'https://bulbapedia.bulbagarden.net/wiki/';
 
   constructor(private _displayService: DisplayServiceService) {
@@ -24,6 +29,7 @@ export class PostsComponent implements OnInit {
   //we should edit the api to also recieve the original username of poster
   ngOnInit(): void {
     this.attemptToBuy = false;
+    //this.changePage.emit(this.pageOfItems);
     this._displayService.DisplayBoard().subscribe(
       result => {
         for (let i = 0; i < result.length; i++) {
@@ -54,6 +60,9 @@ export class PostsComponent implements OnInit {
           let Post: IPost = { PostId, PokemonId, PostTime, PostDescription, Price, StillAvailable, IsShiny, UserId, UserName, SpriteLink, PostType, PokemonName, RarityId }
           this.displayBoard.push(Post);
         }
+        console.log(this.displayBoard.length)
+        this.lastpage = 1 + Math.floor(this.displayBoard.length / 5);
+        this.pageOfItems = this.displayBoard.slice(this.currentIndex, this.currentIndex + 5);
       }
     )
   }
@@ -129,5 +138,30 @@ export class PostsComponent implements OnInit {
         return 'No Card Attached'
         break;
     }
+  }
+
+  onChangePageNext() {
+    // update current page of items
+    this.currentIndex += 5;
+    if(this.currentIndex >= this.displayBoard.length - 5){
+      this.currentIndex = this.displayBoard.length - 5;
+      this.currentPage--;
+    }
+    this.currentPage++;
+    console.log(this.currentIndex);
+    this.pageOfItems = this.displayBoard.slice(this.currentIndex, this.currentIndex + 5);
+    //this.pageOfItems = pageOfItems;
+}
+  onChangePagePrev() {
+    // update current page of items
+    this.currentIndex -= 5;
+    this.currentPage--;
+    if(this.currentIndex <= 0){
+      this.currentIndex = 0;
+      this.currentPage++;
+    }
+    console.log(this.currentIndex);
+    this.pageOfItems = this.displayBoard.slice(this.currentIndex, this.currentIndex + 5);
+    //this.pageOfItems = pageOfItems;
   }
 }
