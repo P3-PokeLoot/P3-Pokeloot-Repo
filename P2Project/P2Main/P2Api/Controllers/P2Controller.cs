@@ -260,18 +260,26 @@ namespace P2Api.Controllers
         /// </summary>
         /// <param name="userId">id of desired users collection</param>
         /// <returns>A status code back to the user</returns>
-        //[HttpPost("Post/Create")]
-        //public bool newPost(Post newPost)
-        //{
-        //    User currentUser = _businessModel.GetUserById((int)newPost.userId);
+        [HttpGet("Post/{pokemonId}/{postPrice}/{isShiny}/{userId}/{descr}")]
+        public bool newPost(int pokemonId, int postPrice, bool isShiny, int userId, string descr)
+        {
+            User currentUser = _businessModel.GetUserById(userId);
+            Post post = new()
+            {
+                PokemonId = pokemonId,
+                PostDescription = descr,
+                Price = postPrice == 0 ? null : postPrice,
+                StillAvailable = true,
+                IsShiny = isShiny
+            };
 
-        //    if(currentUser != null)
-        //    {
-        //        bool isCreated = _businessModel.newPost(newPost, currentUser);
-        //        return isCreated;
-        //    }
-        //    return false;
-        //}
+            if (currentUser != null)
+            {
+                bool isCreated = _businessModel.newPost(post, currentUser);
+                return isCreated;
+            }
+            return false;
+        }
 
         /// returns list of rarity type objects from Db
         /// </summary>
@@ -297,6 +305,16 @@ namespace P2Api.Controllers
             return currentUser.CoinBalance;
         }
 
+        /// <summary>
+        /// Removes a post
+        /// </summary>
+        /// <param name="postID">PostID</param>
+        /// <returns>if successful removal</returns>
+        [HttpGet("RemovePost/{idpost}")]
+        public bool RemovePost(int idpost){
+            bool result = _businessModel.hidePost(idpost);
+            return result;
+        }
 
 
     } // end class

@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CardCollectComponent } from './cardcollect.component';
+import{ HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import { CardServiceService } from '../card-service.service';
 
 describe('CardCollectComponent', () => {
   let component: CardCollectComponent;
@@ -15,10 +17,9 @@ describe('CardCollectComponent', () => {
   }*/ 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-       /*imports: [HttpClientModule],*/ 
-       /*providers: [
-         {proivde: real service, useClass:MockCardService
-        }],*/ 
+       imports: [HttpClientTestingModule], 
+       providers: [
+         {provide: CardServiceService}], 
       declarations: [ CardCollectComponent]
     })
     .compileComponents();
