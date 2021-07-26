@@ -24,7 +24,7 @@ export class CardServiceService {
 
   private baseUrlLogin: string = 'https://pokeloot.azurewebsites.net/api/P2/UserCollection/'
 
-  private raritiesUrlPath: string = 'https://pokeloot.azurewebsites.net/api/P2/RarityTypes'  //needs updating to azure link?
+  private raritiesUrlPath: string = 'https://pokeloot.azurewebsites.net/api/P2/RarityTypes' 
 
   private rootUrl: string = 'https://pokeloot.azurewebsites.net'
   

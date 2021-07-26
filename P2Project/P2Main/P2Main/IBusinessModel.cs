@@ -36,5 +36,7 @@ namespace BusinessLayer
         public Post getPostById(int id);//tested
 
         public List<RarityType> GetRarityTypes();
+
+        public bool hidePost(int PostID);
     }
 }

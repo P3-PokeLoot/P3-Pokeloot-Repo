@@ -22,5 +22,13 @@ export const MockBadges:Badge[] =[
     {
         Title:'test',
         Completed:false
+    },
+    {
+        Title:'no',
+        Completed:false
+    },
+    {
+        Title:'simping',
+        Completed:false
     }
 ];

@@ -54,10 +54,10 @@ namespace BusinessLayer
             else if(rand > 40 && rand < 70){
                 rareId = 2;
             }
-            else if(rand >= 70 && rand < 90){
+            else if(rand >= 70 && rand < 95){
                 rareId = 3;
             }
-            else if(rand >= 90 && rand < 98){
+            else if(rand >= 95 && rand < 99){
                 rareId = 4;
             }
             else {
@@ -68,7 +68,7 @@ namespace BusinessLayer
             rand = random.Next(pokeList.Count);
             card = pokeList[rand];
 
-            int shiny = random.Next(101);
+            int shiny = random.Next(201);
             CardCollection collection = context.CardCollections.Where(x => x.UserId == currentUser.UserId && x.PokemonId == card.PokemonId).FirstOrDefault();
             if(collection == null){ //if collection is null(doesn't exist), populate the empty collection with new data and add it to the database
                 collection = new CardCollection();
@@ -79,7 +79,7 @@ namespace BusinessLayer
                 context.CardCollections.Add(collection);
                 context.SaveChanges();
             }
-            if(shiny < 99){ //Updates collection to reflect a new normal card
+            if(shiny < 199){ //Updates collection to reflect a new normal card
                 collection.QuantityNormal++;
                 context.CardCollections.Attach(collection);
                 context.Entry(collection).Property(x => x.QuantityNormal).IsModified = true;
@@ -419,6 +419,23 @@ namespace BusinessLayer
         public List<RarityType> GetRarityTypes()
         {
             return context.RarityTypes.ToList();
+        }
+
+        public bool hidePost(int PostID){
+            Post post = context.Posts.Where(x => x.PostId == PostID).FirstOrDefault();
+            if(post == null){
+                return false;
+            }
+            post.StillAvailable = false;
+            context.Posts.Attach(post);
+            context.Entry(post).Property(x => x.StillAvailable).IsModified = true;
+            try {
+                context.SaveChanges();
+            }
+            catch{
+                return false;
+            }
+            return true;
         }
 
     }//class BusinessModel

@@ -15,7 +15,7 @@ export class DisplayServiceService {
   //private url: string = '';
 
   //private url: string = 'https://localhost:44307/api/P2/DisplayBoard';
-  private urltobuy: string = 'https://localhost:44307/api/P2/buyCard/';
+  private urltobuy: string = 'https://pokeloot.azurewebsites.net/api/P2/buyCard/';
 
 
   constructor( private router:Router, private http:HttpClient) { }

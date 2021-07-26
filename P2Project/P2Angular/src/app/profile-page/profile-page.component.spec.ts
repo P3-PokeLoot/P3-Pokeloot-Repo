@@ -33,12 +33,26 @@ describe('ProfilePageComponent', () => {
   });
   //testing subscription
   it('should return a User oject with accessible properties', () => {
-    
+    expect(component.currentProfile.AccountLevel).toBe(18);
   })
   //testing ViewJohto()
-  it('should modify an array of type Badge by evaluating property values of a User object', () =>{
-    component.ViewJohto(MockUser,MockBadges)
-    expect()
+  it('1should modify an array of type Badge by evaluating property values of a User object', () =>{
+    component.ViewJohto(MockUser,MockBadges);
+    expect(MockBadges[0].Completed).toBe(true);
+    expect(MockBadges[1].Completed).toBe(true);
+    expect(MockBadges[2].Completed).toBe(true);
+  })
+  it('2should modify an array of type Badge by evaluating property values of a User object', () =>{
+    component.ViewJohto(MockUser,MockBadges);
+    expect(MockBadges[3].Completed).toBe(true);
+  })
+  it('3should modify an array of type Badge by evaluating property values of a User object', () =>{
+    component.ViewJohto(MockUser,MockBadges);
+    expect(MockBadges[4].Completed).toBe(false);
+  })
+  it('4should modify an array of type Badge by evaluating property values of a User object', () =>{
+    component.ViewJohto(MockUser,MockBadges);
+    expect(MockBadges[7].Completed).toBe(false);
   })
   it('should create', () => {
     expect(component).toBeTruthy();
