@@ -1,0 +1,40 @@
+.shinyclass {
+    color : pink;
+}
+
+.card {
+    background-color: aqua;
+}
+
+
+
+.card1 {
+    background-color: #96e6c2;
+    border-style: solid;
+    border-width: thin;
+    border-color: black;
+}
+.card2 {
+    background-color: #ADD8E6;
+    border-style: solid;
+    border-width: thin;
+    border-color: black;
+}
+.card3 {
+    background-color: #CBC3E3;
+    border-style: solid;
+    border-width: thin;
+    border-color: black;
+}
+.card4 {
+    background-color: #ffcccb;
+    border-style: solid;
+    border-width: thin;
+    border-color: black;
+}
+.card5 {
+    background-color: #FFD580;
+    border-style: solid;
+    border-width: thin;
+    border-color: black;
+}

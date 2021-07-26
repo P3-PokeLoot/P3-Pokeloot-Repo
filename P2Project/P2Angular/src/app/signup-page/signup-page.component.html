@@ -1,0 +1,52 @@
+<div class="login-wrapper">
+    <div class="card mt-5">
+        <div class="card-body">
+            <div class="text-center">
+                <!-- Form starts -->
+                <form class="form-signup" style="max-width: 580px; margin:auto" (ngSubmit)="OnSubmit(signupForm)"
+                    #signupForm="ngForm">
+                    <h1 class="h3 mt-3 font-weight-normal">Let's Get You Started On Your Journey To Becoming A Pokemon
+                        Master</h1>
+                    <img class="mt-5 pb-5" src="assets/img/professor.png" width="150" height="150" class="img-fluid"
+                        style="max-width: 300; max-height: 100;">
+
+                    <div class="alert alert-danger" role="alert" *ngIf="isFormValid">
+                        Please fill all fields
+                    </div>
+
+                    <div class="alert alert-danger" role="alert" *ngIf="isCreatedAccount">
+                        User already exists!
+                    </div>
+
+                    <label for="username" class="mb-3 mt-3 sr-only"></label>
+                    <input type="text" id="username" name="username" class="form-control form-control-lg"
+                        placeholder="Username" required autofocus ngModel>
+
+                    <label for="password" class=" mb-3 mt-3 sr-only"></label>
+                    <input type="password" id="password" name="password" class="form-control form-control-lg"
+                        placeholder="Password" required ngModel>
+
+                    <label for="Fname" class=" mb-3 mt-3 sr-only"></label>
+                    <input type="text" id="" name="Fname" class="form-control form-control-lg" placeholder="First Name"
+                        required ngModel>
+
+                    <label for="Lname" class=" mb-3 mt-3 sr-only"></label>
+                    <input type="text" id="" name="Lname" class="form-control form-control-lg" placeholder="Last Name"
+                        required ngModel>
+
+                    <label for="Email" class="form-label mb-3 mt-3 sr-only"></label>
+                    <input type="email" id="Email" name="Email" class="form-control form-control-lg" placeholder="Email"
+                        required ngModel>
+
+                    <div class="d-grid col-8 mx-auto">
+                        <button class="btn btn-danger btn-lg my-5" type="submit">Signup</button>
+                    </div>
+
+                    <h6><a routerLink="/Login" class="link-secondary">Back</a></h6>
+
+                </form>
+                <!-- Form ends -->
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <!-- Will Populate when user is Logged in -->
+        <img class="navbar-brand" src="assets/img/Pokeloot_Logo.png" width="200" height="200" class="img-fluid"
+            style="max-width: 300; max-height: 100;">
+        <!-- Will Display if User is LoggedIn -->
+        <div *ngIf="isLogin" class="collapse navbar-collapse" id="navbarNav" style="font-size:large;">
+            <ul class="nav navbar-nav">
+                <li class="nav-item active">
+                    <a routerLink="/Home" class="nav-link">Home</a>
+                </li>
+                  
+                <li class="nav-item">
+                    <a routerLink="/Game" class="nav-link">Game</a>
+                </li>
+                  
+                <li class="nav-item">
+                    <a routerLink="/Profile" class="nav-link">Profile</a>
+                </li>
+                  
+                <li class="nav-item">
+                    <a routerLink="/UnlockCard" class="nav-link">UnlockCard</a>
+                </li>
+                  
+                <li class="nav-item">
+                    <a routerLink="/Collection" class="nav-link">ViewCollection</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a (click)="Logout()" class="pointerCursor nav-link">Signout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- <nav *ngIf="isLoginNav" id="LoginPage">
+    <a class="navbar-brand" href="#">
+        <img src="assets/img/Pokeloot_Logo.png" width="200" height="200" class="img-fluid"
+            style="max-width: 300; max-height: 100;">
+    </a>
+</nav> -->

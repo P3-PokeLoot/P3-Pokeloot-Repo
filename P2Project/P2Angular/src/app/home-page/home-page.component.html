@@ -1,0 +1,30 @@
+<div class="container">
+
+    <div class="row justify-content-center my-5">
+        <div class="col text-center">
+
+            <form class="d-inline-flex p-2" (ngSubmit)="OnSubmit(searchForm)" #searchForm="ngForm">
+                <input type="text" id="search" name="search" class="form-control me-2 input-sm" placeholder="Search"
+                    aria-label="Search" ngModel>
+                <button class="btn btn-outline-success" type="submit">Search</button>
+
+            </form>
+
+            <br>
+
+            <div class="border my-4 d-flex justify-content-center"></div>
+
+            <br>
+        </div>
+
+        <div class="row d-flex justify-content-center">
+            <div class="col col-lg-8 text-center mb-3">
+                <a routerLink="/PostForm"><button class="btn btn-lg btn-warning">Create Post</button></a>
+            </div>
+            <div class="col col-lg-8">
+                <app-posts [search]="filterString"></app-posts>
+            </div>
+        </div>
+
+    </div>
+</div>

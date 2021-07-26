@@ -1,0 +1,82 @@
+<div>
+    <div style="font-size: medium; margin-left: 2rem;">
+    <label>Rarities</label>
+    
+        <select [(ngModel)]="filterValue">
+            <option [value]="0" [selected]="filterValue == 0">Any</option>
+            <!-- <option *ngFor="let x of raritiesList" [value]="x" [selected]="filterValue == x">{{x}}</option> -->
+            <option *ngFor="let x of raritiesList" [value]="x.RarityId" [selected]="filterValue == x.RarityId">{{x.RarityName}}</option>
+        </select>
+    
+        <input type="checkbox" [(ngModel)]="filterValueShiny" name="shinycheckbox" value="1" style="margin-left: 2rem;">
+        <label for="shinycheckbox">Is Shiny</label><br>
+
+
+        <button (click) = 'filterCollection()' style="justify-self: center; font-size: large;">Filter Cards</button>
+    </div>
+</div>
+
+
+
+<h2 class="row display: flex justify-content-center">Users Cards</h2>
+
+<div class="row display: flex justify-content-center" >
+    <div *ngFor="let card of userCollection" style="width: 18rem; margin: 1rem;" >
+        <div *ngIf="card.RarityId == 1" class="card1 text-center border-dark mb-3" >
+        <h5 class="card-title text-left" style="font-size: 1.45em; text-align: left;">x{{card.Quantity}}</h5>
+        <img class="card-img-top" src="{{card.SpriteLink}}" alt="{{card.PokemonName}} Image">
+        <div class="card-body">
+        <h6>Common</h6>
+        <h5 *ngIf="card.IsShiny as true; else elseBlock" class="card-title">★ {{card.PokemonName}} ★</h5>
+        <ng-template #elseBlock><h5 class="card-title">{{card.PokemonName}}</h5></ng-template>
+        <a href="{{bublapedia}}{{card.PokemonName}}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">View Details</a> <!-- make button hyperlink to pokemon info page or remove -->
+        </div>
+        </div>
+
+        <div *ngIf="card.RarityId == 2" class="card2 text-center border-dark mb-3" >
+        <h5 class="card-title text-left" style="font-size: 1.45em; text-align: left;">x{{card.Quantity}}</h5>
+        <img class="card-img-top" src="{{card.SpriteLink}}" alt="{{card.PokemonName}} Image">
+        <div class="card-body">
+        <h6>Uncommon</h6>
+        <h5 *ngIf="card.IsShiny as true; else elseBlock" class="card-title">★ {{card.PokemonName}} ★</h5>
+        <ng-template #elseBlock><h5 class="card-title">{{card.PokemonName}}</h5></ng-template>
+        <a href="{{bublapedia}}{{card.PokemonName}}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">View Details</a> <!-- make button hyperlink to pokemon info page or remove -->
+        </div>
+        </div>
+
+        <div *ngIf="card.RarityId == 3" class="card3 text-center border-dark mb-3" >
+        <h5 class="card-title text-left" style="font-size: 1.45em; text-align: left;">x{{card.Quantity}}</h5>
+        <img class="card-img-top" src="{{card.SpriteLink}}" alt="{{card.PokemonName}} Image">
+        <div class="card-body">
+        <h6>Rare</h6>
+        <h5 *ngIf="card.IsShiny as true; else elseBlock" class="card-title">★ {{card.PokemonName}} ★</h5>
+        <ng-template #elseBlock><h5 class="card-title">{{card.PokemonName}}</h5></ng-template>
+        <a href="{{bublapedia}}{{card.PokemonName}}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">View Details</a> <!-- make button hyperlink to pokemon info page or remove -->
+        </div>
+        </div>
+
+        <div *ngIf="card.RarityId == 4" class="card4 text-center border-dark mb-3" >
+        <h5 class="card-title text-left" style="font-size: 1.45em; text-align: left;">x{{card.Quantity}}</h5>
+        <img class="card-img-top" src="{{card.SpriteLink}}" alt="{{card.PokemonName}} Image">
+        <div class="card-body">
+        <h6>Mythic</h6>
+        <h5 *ngIf="card.IsShiny as true; else elseBlock" class="card-title">★ {{card.PokemonName}} ★</h5>
+        <ng-template #elseBlock><h5 class="card-title">{{card.PokemonName}}</h5></ng-template>
+        <a href="{{bublapedia}}{{card.PokemonName}}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">View Details</a> <!-- make button hyperlink to pokemon info page or remove -->
+        </div>
+        </div>
+
+        <div *ngIf="card.RarityId == 5" class="card5 text-center border-dark mb-3" >
+        <h5 class="card-title text-left" style="font-size: 1.45em; text-align: left;">x{{card.Quantity}}</h5>
+        <img class="card-img-top" src="{{card.SpriteLink}}" alt="{{card.PokemonName}} Image">
+        <div class="card-body">
+        <h6>Legendary</h6>
+        <h5 *ngIf="card.IsShiny as true; else elseBlock" class="card-title">★ {{card.PokemonName}} ★</h5>
+        <ng-template #elseBlock><h5 class="card-title">{{card.PokemonName}}</h5></ng-template>
+        <a href="{{bublapedia}}{{card.PokemonName}}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">View Details</a> <!-- make button hyperlink to pokemon info page or remove -->
+        </div>
+        </div>
+
+    </div>
+</div>
+

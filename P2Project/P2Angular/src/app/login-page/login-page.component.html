@@ -1,0 +1,36 @@
+<div class="login-wrapper">
+    <div class="card mt-5">
+        <div class="card-body">
+            <div class="text-center">
+                <!-- Form starts -->
+                <form class="form-signin" style="max-width: 580px; margin:auto" (ngSubmit)="OnSubmit(loginForm)"
+                    #loginForm="ngForm">
+                    <div class="alert alert-danger" role="alert" *ngIf="isFormValid">
+                        Please fill all fields
+                    </div>
+
+                    <div class="alert alert-danger" role="alert" *ngIf="isCredentialsValid">
+                        Invalid Username and Password
+                    </div>
+                    <h1 class="h3 mt-4 font-weight-normal">Welcome To PokeLoot</h1>
+                    <img class="mt-5 my-5 pb-5" src="assets/img/pikachu-pixel.png" width="150" height="150"
+                        class="img-fluid" style="max-width: 300; max-height: 100;">
+
+                    <label for="username" class="mb-3 my-5 sr-only"></label>
+                    <input type="text" id="username" name="username" class="form-control form-control-lg mt-3"
+                        placeholder="Username" required autofocus ngModel>
+
+                    <label for="password" class=" mb-3 mt-3 sr-only"></label>
+                    <input type="password" id="password" name="password" class="form-control form-control-lg"
+                        placeholder="Password" required ngModel>
+
+                    <div class="d-grid col-8 mx-auto">
+                        <button class="btn btn-danger btn-lg my-5" type="submit">Login</button>
+                    </div>
+                </form>
+                <!-- Form ends -->
+                <h6><a routerLink="/Signup" class="link-secondary">Signup</a></h6>
+            </div>
+        </div>
+    </div>
+</div>

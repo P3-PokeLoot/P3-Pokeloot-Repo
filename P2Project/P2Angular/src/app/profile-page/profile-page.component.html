@@ -1,0 +1,48 @@
+
+<h3>Profile</h3>
+
+<div class="ProfileCard" style="font-size:large;">
+     <div>
+     <p ><b>User ID:</b> {{currentProfile.UserId}}</p>
+     <p ><b>Level:</b> {{currentProfile.AccountLevel}}</p>
+     <p ><b>Username:</b> {{currentProfile.UserName}}</p>
+     <p ><b>Password:</b> {{currentProfile.Password}}</p>
+     <p ><b>Email:</b> {{currentProfile.Email}}</p>
+     <p ><b>Coin Balance:</b> {{currentProfile.CoinBalance}}</p>
+     <p ><b>Total Coins Earned:</b> {{currentProfile.TotalCoinsEarned}}</p>
+     </div>
+</div>
+
+
+<!-- <div>
+     <button (click)='ViewKanto(_p2,KantoBadges)'>View Collection Achievements</button>
+     <div>
+          <ng-container *ngFor="let b of KantoBadges; let i = index">
+               <img *ngIf= " b == true " src='/assets/img/johto-{{1+i}}.jpg'/> 
+               <p></p>
+          </ng-container>
+     </div>
+</div> -->
+
+<div class="container-fluid"  style="font-size:medium;">
+     <button (click)='ViewJohto(this.currentProfile,this.JohtoBadges)'>View Account Achievements</button>
+     <div class="row">
+          <div class="col" *ngFor="let b of JohtoBadges; let i = index">
+               <div class="johtobadge">{{b.Title}}</div>
+               <img class ="badgepic" *ngIf= " b.Completed == true"  src='/assets/img/johto-{{1+i}}.jpg'/> 
+          </div>   
+     </div>
+</div>
+
+
+
+
+<!-- <div>
+     <button (click)='ViewHoenn(currentProfile,HoennBadges)'>View Post Achievements</button>
+     <div>
+          <ng-container *ngFor="let b of HoennBadges; let i = index">
+               <img *ngIf= " b == true " src='/assets/img/johto-{{1+i}}.jpg'/> 
+               <p></p>
+          </ng-container>
+     </div>
+</div> -->

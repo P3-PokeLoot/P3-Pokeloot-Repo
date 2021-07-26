@@ -1,0 +1,52 @@
+
+<div *ngIf="newCard">
+    <h2 class="row display: flex justify-content-center">New Card Unlocked</h2>
+
+    <div class="row display: flex justify-content-center" >
+        <div *ngif="newCard.RarityId == 1" class="card1 text-center border-dark mb-3" style="width: 18rem; margin: 1rem;" >
+            <img class="card-img-top" src="{{newCard.MainSprite}" alt="{{newCard.PokemonName}} Image">
+            <div class="card-body">
+            <h6>Common</h6>
+            <h5 *ngIf="newCard.IsShiny as true; else elseBlock" class="card-title">★ Shiny {{newCard.PokemonName}} ★</h5>
+            <ng-template #elseBlock><h5 class="card-title">{{newCard.PokemonName}}</h5></ng-template>
+            <a href="#" class="btn btn-primary">View Details</a> <!-- make button hyperlink to pokemon info page or remove -->
+            </div>
+        </div>
+        <div *ngif="newCard.RarityId == 2" class="card2 text-center border-dark mb-3" style="width: 18rem; margin: 1rem;" >
+            <img class="card-img-top" src="{{newCard.MainSprite}" alt="{{newCard.PokemonName}} Image">
+            <div class="card-body">
+            <h6>Uncommon</h6>
+            <h5 *ngIf="newCard.IsShiny as true; else elseBlock" class="card-title">★ Shiny {{newCard.PokemonName}} ★</h5>
+            <ng-template #elseBlock><h5 class="card-title">{{newCard.PokemonName}}</h5></ng-template>
+            <a href="#" class="btn btn-primary">View Details</a> <!-- make button hyperlink to pokemon info page or remove -->
+            </div>
+        </div>
+        <div *ngif="newCard.RarityId == 3" class="card3 text-center border-dark mb-3" style="width: 18rem; margin: 1rem;" >
+            <img class="card-img-top" src="{{newCard.MainSprite}" alt="{{newCard.PokemonName}} Image">
+            <div class="card-body">
+            <h6>Rare</h6>
+            <h5 *ngIf="newCard.IsShiny as true; else elseBlock" class="card-title">★ Shiny {{newCard.PokemonName}} ★</h5>
+            <ng-template #elseBlock><h5 class="card-title">{{newCard.PokemonName}}</h5></ng-template>
+            <a href="#" class="btn btn-primary">View Details</a> <!-- make button hyperlink to pokemon info page or remove -->
+            </div>
+        </div>
+        <div *ngif="newCard.RarityId == 4" class="card4 text-center border-dark mb-3" style="width: 18rem; margin: 1rem;" >
+            <img class="card-img-top" src="{{newCard.MainSprite}" alt="{{newCard.PokemonName}} Image">
+            <div class="card-body">
+            <h6>Super Rare</h6>
+            <h5 *ngIf="newCard.IsShiny as true; else elseBlock" class="card-title">★ Shiny {{newCard.PokemonName}} ★</h5>
+            <ng-template #elseBlock><h5 class="card-title">{{newCard.PokemonName}}</h5></ng-template>
+            <a href="#" class="btn btn-primary">View Details</a> <!-- make button hyperlink to pokemon info page or remove -->
+            </div>
+        </div>
+        <div *ngif="newCard.RarityId == 4" class="card5 text-center border-dark mb-3" style="width: 18rem; margin: 1rem;" >
+            <img class="card-img-top" src="{{newCard.MainSprite}" alt="{{newCard.PokemonName}} Image">
+            <div class="card-body">
+            <h6>Specially Super Rare</h6>
+            <h5 *ngIf="newCard.IsShiny as true; else elseBlock" class="card-title">★ Shiny {{newCard.PokemonName}} ★</h5>
+            <ng-template #elseBlock><h5 class="card-title">{{newCard.PokemonName}}</h5></ng-template>
+            <a href="#" class="btn btn-primary">View Details</a> <!-- make button hyperlink to pokemon info page or remove -->
+            </div>
+        </div>
+    </div>
+</div>

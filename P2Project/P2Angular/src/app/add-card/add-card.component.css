@@ -1,0 +1,23 @@
+.shinyclass {
+    color : pink;
+}
+
+.card1 {
+    background-color: #96e6c2;
+}
+.card2 {
+    background-color: #ADD8E6;
+}
+.card3 {
+    background-color: #CBC3E3;
+}
+.card4 {
+    background-color: #ffcccb;
+}
+.card5 {
+    background-color: #FFD580;
+}
+
+.card-title{
+    word-break: keep-all;
+}
