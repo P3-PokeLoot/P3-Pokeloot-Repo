@@ -1,0 +1,8 @@
+<p>displaystatistics works!</p>
+
+<button (click)="ViewShinyLeaderboard()"> </button>
+<div class="leaderboard" *ngFor = "let d of mockDataArray">
+    <p>{{d.userId}}</p>
+    <p>{{d.username}}</p>
+    <p>{{d.countOfShiny}}</p>
+</div>

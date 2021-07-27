@@ -26,6 +26,7 @@ import { AccountService } from './account.service';
 import { AddCardComponent } from './add-card/add-card.component';
 import { CommonModule } from '@angular/common';
 import { FilterPipe } from './Pipes/filter.pipe';
+import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
 
 
 @NgModule({
@@ -44,7 +45,7 @@ import { FilterPipe } from './Pipes/filter.pipe';
     TopNavBarComponent,
     PostsComponent,
     CardCollectComponent, 
-    AddCardComponent, FilterPipe
+    AddCardComponent, FilterPipe, LeaderboardsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,3 @@
-
-
 CREATE TABLE PostTypes
 (
  PostType     int NOT NULL ,

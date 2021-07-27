@@ -1,0 +1,26 @@
+<div class="filtering">
+    <select >
+        <option *ngFor= "let list of statisticslist">
+            {{list}}
+        </option>
+    </select>
+    <input (click)="QueryFunction" type="button" value="Display Stats"/>
+</div>
+
+
+<!--Dynamically create the headers according to data that's passing in? For now just hard code it to get a visual,
+    until we get backend methods-->
+<div class="leaderboard">
+    <table>
+        <thead>
+            <td> User Id </td>
+            <td> Username </td>
+            <td> Shiny Quantity </td>
+        </thead>
+        <tr *ngFor = "let d of mockShinyDataArray"> 
+            <td>{{d.userId}}</td>
+            <td>{{d.username}}</td>
+            <td>{{d.countOfShiny}}</td>
+        </tr>
+    </table>
+</div>
