@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using RepositoryModels;
 using Microsoft.EntityFrameworkCore;
+using BuisinessLayerMethods;
 
 namespace P3_Statistics
 {
@@ -50,6 +51,7 @@ namespace P3_Statistics
                 }
             });
             services.AddDistributedMemoryCache();
+            services.AddScoped<ILeaderboardMethods, LeaderboardMethods>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
