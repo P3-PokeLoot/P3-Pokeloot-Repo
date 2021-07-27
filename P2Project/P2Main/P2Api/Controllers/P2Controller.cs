@@ -266,7 +266,7 @@ namespace P2Api.Controllers
             User currentUser = _businessModel.GetUserById(userId);
             Post post = new()
             {
-                PokemonId = pokemonId,
+                PokemonId = pokemonId == 0 ? null : pokemonId,
                 PostDescription = descr,
                 Price = postPrice == 0 ? null : postPrice,
                 StillAvailable = true,

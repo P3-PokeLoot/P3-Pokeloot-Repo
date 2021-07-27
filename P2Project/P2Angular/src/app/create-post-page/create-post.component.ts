@@ -26,7 +26,7 @@ export class CreatePostComponent implements OnInit {
   userName!: string;
   bublapedia: string = 'https://bulbapedia.bulbagarden.net/wiki/';
   userCollection: ICard[];
-  postType = [{ type: "Display" }, { type: "Sale" }];
+  postType:string[] = ["Display","Sale","Discussion"];
 
 
 
@@ -35,6 +35,7 @@ export class CreatePostComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.postType);
     let parseObj = JSON.parse(this.user);
     this.userName = parseObj['userName'];
     if (this.userId != null) {
@@ -73,6 +74,8 @@ export class CreatePostComponent implements OnInit {
 
   }
 
+  
+
 
   OnSubmit(postForm: NgForm) {
     this.isPriceValid = false;
@@ -100,10 +103,12 @@ export class CreatePostComponent implements OnInit {
       return;
     }
 
-    if (postForm.value.PokemonId.length == 0) {
-      this.isPokemonId = true;
-      return;
-    }
+    if(postForm.value.postType != 'Discussion'){
+      if (postForm.value.PokemonId == null || postForm.value.PokemonId.length == 0) {
+        this.isPokemonId = true;
+        return;
+      }
+    
 
     var card: any;
 
@@ -116,20 +121,23 @@ export class CreatePostComponent implements OnInit {
         card = null;
       }
     }
+  }
 
+    console.log("a post was created");
     let post: FullPost = {
-      pokemonId: card.PokemonId,
+      
+      pokemonId: postForm.value.postType !== 'Discussion' ? card.PokemonId : 0,
       postTime: new Date(),
       postDescription: postForm.value.textDescription,
       price: postForm.value.postType === 'Sale' ? postForm.value.Price : 0,
       stillAvailable: postForm.value.postType === 'Sale' ? true : false,
-      isShiny: card.IsShiny,
+      isShiny: postForm.value.postType !== 'Discussion' ? card.IsShiny : false,
       userId: parseInt(this.userId),
       userName: this.userName,
-      spriteLink: card.SpriteLink,
+      spriteLink: postForm.value.postType !== 'Discussion' ? card.SpriteLink : "",
       postType: postForm.value.postType,
-      pokemonName: card.PokemonName,
-      rarityId: card.RarityId,
+      pokemonName: postForm.value.postType !== 'Discussion' ? card.PokemonName ? card.pokemonName : '' : '',
+      rarityId: postForm.value.postType !== 'Discussion' ? card.RarityId : 0,
     };
 
     console.log(post);
