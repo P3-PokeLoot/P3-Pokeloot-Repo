@@ -4,6 +4,7 @@ import { CardServiceService } from '../card-service.service';
 import { ICard } from './ICard';
 import { IRarities } from './IRarities';
 import { Observable, of, BehaviorSubject } from 'rxjs';
+//import { loadavg } from 'os';
 
 
 @Component({
@@ -21,6 +22,11 @@ export class CardCollectComponent implements OnInit {
   filterValue: number;
   filterValueShiny: boolean;
   private userId = localStorage.getItem('userId');
+  pageOfItems!: ICard[];
+  //@Input() changePage = EventEmitter<any>(true);
+  currentIndex : number = 0;
+  currentPage: number = 1;
+  lastpage!: number;
   bublapedia: string = 'https://bulbapedia.bulbagarden.net/wiki/';
 
 
@@ -64,6 +70,8 @@ export class CardCollectComponent implements OnInit {
               this.fullUserCollection.push(card);
             }
           }
+          this.filterCollection();
+          
         }
       );
       this._cardcollectionService.GetRarityList().subscribe(
@@ -78,7 +86,8 @@ export class CardCollectComponent implements OnInit {
           });
         }
       );
-      this.filterCollection();
+      
+      
     }
   }
 
@@ -112,11 +121,50 @@ export class CardCollectComponent implements OnInit {
         }
       });
     }
+    if(this.userCollection != null){
+      this.load();
+    }
+  
+        
+        
 
 
 
   }
 
+  load(){
+    console.log("collenction length = " + this.userCollection.length);
+    this.currentIndex = 0;
+    this.currentPage = 1;
+    this.lastpage = 1 + Math.floor(this.userCollection.length / 25);
+    this.pageOfItems = this.userCollection.slice(this.currentIndex, this.currentIndex + 25);
+  }
+
+  onChangePageNext() {
+    // update current page of items
+    this.currentIndex += 25;
+    if(this.currentIndex >= this.userCollection.length - 25){
+      this.currentIndex = this.userCollection.length - 25;
+      this.currentPage = this.lastpage - 1;
+    }
+    this.currentPage++;
+    console.log(this.currentIndex);
+    console.log("collenction length = " + this.userCollection.length);
+    this.pageOfItems = this.userCollection.slice(this.currentIndex, this.currentIndex + 25);
+    //this.pageOfItems = pageOfItems;
+}
+  onChangePagePrev() {
+    // update current page of items
+    this.currentIndex -= 25;
+    this.currentPage--;
+    if(this.currentIndex <= 0){
+      this.currentIndex = 0;
+      this.currentPage = 1;
+    }
+    console.log(this.currentIndex);
+    this.pageOfItems = this.userCollection.slice(this.currentIndex, this.currentIndex + 25);
+    //this.pageOfItems = pageOfItems;
+  }
 
 
 
