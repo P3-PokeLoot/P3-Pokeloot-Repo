@@ -145,7 +145,7 @@ export class PostsComponent implements OnInit {
     this.currentIndex += 5;
     if(this.currentIndex >= this.displayBoard.length - 5){
       this.currentIndex = this.displayBoard.length - 5;
-      this.currentPage--;
+      this.currentPage = this.lastpage - 1;
     }
     this.currentPage++;
     console.log(this.currentIndex);
@@ -158,7 +158,7 @@ export class PostsComponent implements OnInit {
     this.currentPage--;
     if(this.currentIndex <= 0){
       this.currentIndex = 0;
-      this.currentPage++;
+      this.currentPage = 1;
     }
     console.log(this.currentIndex);
     this.pageOfItems = this.displayBoard.slice(this.currentIndex, this.currentIndex + 5);
