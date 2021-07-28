@@ -27,6 +27,7 @@ import { AccountService } from './account.service';
 import { AddCardComponent } from './add-card/add-card.component';
 import { CommonModule } from '@angular/common';
 import { FilterPipe } from './Pipes/filter.pipe';
+import { RpsGameComponent } from './rps-game/rps-game.component';
 
 
 @NgModule({
@@ -46,7 +47,7 @@ import { FilterPipe } from './Pipes/filter.pipe';
     PostsComponent,
     CardCollectComponent, 
     AddCardComponent, 
-    FilterPipe,
+    FilterPipe, RpsGameComponent,
     //JwPaginationComponent,
   ],
   imports: [
