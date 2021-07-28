@@ -1,16 +1,32 @@
-<div class="col text-center">
-     <h6>Page {{currentPage}} of {{lastpage}}</h6>
-    <form class="d-inline-flex p-2" (ngSubmit)="onChangePagePrev()">
-        <button class="btn btn-outline-success" type="submit">Prev Page</button>    
-    </form>  
-    <form class="d-inline-flex p-2" (ngSubmit)="onChangePageNext()">
-        <button class="btn btn-outline-success" type="submit">Next Page</button>    
-    </form>
-    <br>    
-    <div class="border my-4 d-flex justify-content-center"></div>    
-    <br>
+<div class="row justify-content-center my-5">
+    <div class="col text-center">
 
-</div>
+        <form class="d-inline-flex p-2" (ngSubmit)="OnSubmit(searchForm)" #searchForm="ngForm">
+            <input type="text" id="search" name="search" class="form-control me-2 input-sm" placeholder="Search for Pokémon"
+                aria-label="Search" ngModel>
+            <button class="btn btn-outline-success" type="submit">Search</button>
+
+        </form>
+
+
+        <br>
+
+        <div class="col text-center">
+            <h6>Page {{currentPage}} of {{lastpage}}</h6>
+           <form class="d-inline-flex p-2" (ngSubmit)="onChangePagePrev()">
+               <button class="btn btn-outline-success" type="submit">Prev Page</button>    
+           </form>  
+           <form class="d-inline-flex p-2" (ngSubmit)="onChangePageNext()">
+               <button class="btn btn-outline-success" type="submit">Next Page</button>    
+           </form>
+                  
+       </div>
+        <div class="border my-4 d-flex justify-content-center"></div>
+
+        <br>
+    </div>
+
+
 
 <div *ngIf='attemptToBuy == true' class="container">
     <div *ngIf='broughtCard'>
@@ -109,7 +125,7 @@
 </div>
 
 <div *ngIf='attemptToBuy == false'>
-    <div *ngFor="let post of filterPost(pageOfItems)">
+    <div *ngFor="let post of pageOfItems">
         <div class="container mt-4 mb-3 shadow-sm p-3 bg-body rounded">
             <div *ngIf="attemptToBuy == false" class="row">
                 <div class="col-md-7">
