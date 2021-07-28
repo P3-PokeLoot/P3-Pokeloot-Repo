@@ -2,7 +2,9 @@
     Choose your Pokemon!
 </h1>
 <div style="display: flex; justify-content: center;">
-    <img src ="/assets/game-api/empty.png" class="pokeball bulbasaur" (click)="Pokemon1Selected()">
-    <img src ="/assets/game-api/empty.png" class="pokeball squirtle" (click)="Pokemon2Selected()">
-    <img src ="/assets/game-api/empty.png" class="pokeball charmander" (click)="Pokemon3Selected()">
+    <img src ="/assets/game-api/empty.png" class="pokeball bulbasaur" (click)="PokemonSelected(1)">
+    <img src ="/assets/game-api/empty.png" class="pokeball squirtle" (click)="PokemonSelected(2)">
+    <img src ="/assets/game-api/empty.png" class="pokeball charmander" (click)="PokemonSelected(3)">
 </div>
+<!-- pass user choice to rps-game-outcome component  -->
+<app-rps-game-outcome [userChoice]="userChoice"></app-rps-game-outcome>

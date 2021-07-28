@@ -9,12 +9,13 @@ import { Component, Input, OnInit } from '@angular/core';
 export class RpsGameOutcomeComponent implements OnInit {
 
   //take user choice input from rps-game-pokemone-selection
+  // @Input() userChoice: number = 0;
   @Input() userChoice: number = 0;
   //Computer rps choice value
   public computerChoice: number = 0;
   //game outcome string
   public outcome?: string;
-  //specific message string 
+  //specific message string
   public message?: string;
 
   constructor() { }
@@ -24,7 +25,7 @@ export class RpsGameOutcomeComponent implements OnInit {
     this.evaluateGameOutcome(this.computerChoice, this.userChoice);
   }
 
-  //Generates a random number for computer selection 
+  //Generates a random number for computer selection
   determineComputerChoice(): void{
     this.computerChoice = Math.floor(Math.random()*3) + 1;
   }
