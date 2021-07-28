@@ -27,6 +27,7 @@ import { AccountService } from './account.service';
 import { AddCardComponent } from './add-card/add-card.component';
 import { CommonModule } from '@angular/common';
 import { FilterPipe } from './Pipes/filter.pipe';
+import { RpsGameOutcomeComponent } from './rps-game-outcome/rps-game-outcome.component';
 import { RpsGameComponent } from './rps-game/rps-game.component';
 import { RpsGamePokemonSelectionComponent } from './rps-game-pokemon-selection/rps-game-pokemon-selection.component';
 
@@ -48,6 +49,8 @@ import { RpsGamePokemonSelectionComponent } from './rps-game-pokemon-selection/r
     PostsComponent,
     CardCollectComponent, 
     AddCardComponent, 
+    FilterPipe, RpsGameOutcomeComponent,
+    FilterPipe, RpsGamePokemonSelectionComponent,
     Games-Angular-Service
     RpsGameComponent,
     FilterPipe, 
