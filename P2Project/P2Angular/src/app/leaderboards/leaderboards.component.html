@@ -1,10 +1,10 @@
 <div class="filtering">
     <select >
-        <option *ngFor= "let list of statisticslist">
-            {{list}}
+        <option *ngFor= "let l of statisticslist">
+            {{l}}
         </option>
     </select>
-    <input (click)="QueryFunction" type="button" value="Display Stats"/>
+    <input (click)="OnClickQueryFunction(s1)" type="button" value="Display Stats"/>
 </div>
 
 
@@ -17,7 +17,7 @@
             <td> Username </td>
             <td> Shiny Quantity </td>
         </thead>
-        <tr *ngFor = "let d of mockShinyDataArray"> 
+        <tr *ngFor = "let d of statisticsData"> 
             <td>{{d.userId}}</td>
             <td>{{d.username}}</td>
             <td>{{d.countOfShiny}}</td>

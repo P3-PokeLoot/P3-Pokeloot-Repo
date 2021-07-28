@@ -11,19 +11,39 @@ import { MockShinyStatisticData } from './MockShinyData';
 export class LeaderboardsComponent implements OnInit {
 
     //for now we will simply assign an observable into a property of the Display class - will refactor after service creation
-    mockShinyDataArray:MockShinyData[] = MockShinyStatisticData;
-    statisticslist:string[]=[
-      "shinystats",
-      "coinstats",
-      "poststats"
+    //mockShinyDataArray:MockShinyData[] = MockShinyStatisticData;
+    observableDataFromMethods:[]=[];
+    allStatsList:string[]=[
+      'shinystats',
+      'coinstats',
+      'poststats'
     ];
+    currentChosenStat:string='';
+    s1:string='shinystats';
+    s2:string='coinstats';
+    s3:string='poststats';
     //adding DI now, since likely will use this service to communicate w/ the stats API
-  constructor( private _leaderboardservice:LeaderboardStatsService) { }
+  constructor(private _leaderboardservice:LeaderboardStatsService) { }
 
   ngOnInit(): void {
+    
   }
 
-  QueryFunction(){
-
+  OnClickQueryFunction(chosenDropdownList:string){
+     let counter:string = chosenDropdownList;
+    switch(counter){
+      case 'shinystats': 
+      if (counter = 'shinystats') {
+        this.observableDataFromMethods != this._leaderboardservice.GetMockShinyData()}//when we get actual observable streams, then add "subscribe"
+      break; 
+      case 'coinstats': 
+      if (counter = 'coinstats') {
+        this.observableDataFromMethods != this._leaderboardservice.GetMockCoinData()}
+      break; 
+      case 'poststats': 
+      if (counter = 'poststats') {
+        this.observableDataFromMethods !=this._leaderboardservice.GetMockPostData()}
+      break; 
+    }
   }
 }

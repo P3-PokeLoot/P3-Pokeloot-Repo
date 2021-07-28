@@ -16,6 +16,8 @@ export class HomePageComponent implements OnInit {
   attemptToBuy: boolean = false;
   broughtCard?: IBuy;
   private userId: any = localStorage.getItem('userId');
+  pageOfItems?: IPost[];
+  currentIndex : number = 0;
 
   filterString: string = '';
   bublapedia: string = 'https://bulbapedia.bulbagarden.net/wiki/';
@@ -90,5 +92,11 @@ export class HomePageComponent implements OnInit {
     this.filterString = searchForm.value.search;
     console.log(this.filterString)
   }
+
+  onChangePage() {
+    // update current page of items
+    this.currentIndex +=5;
+    //this.pageOfItems = pageOfItems;
+}
 
 }

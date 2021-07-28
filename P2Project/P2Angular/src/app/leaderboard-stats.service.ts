@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { MockShinyStatisticData } from './leaderboards/MockShinyData';
+import { MockCoinStatisticData } from './leaderboards/MockCoinData';
+import { MockPostStatisticData } from './leaderboards/MockPostData';
+import { MockCoinData } from './leaderboards/IMockCoinData';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +16,16 @@ export class LeaderboardStatsService {
   // GetStat():Observable<StatType>{
   //   return this.http.get<StatType>('StatAPIurl');
   // }
-  GetData(){
+  GetMockShinyData(){
     return MockShinyStatisticData
+  }
+  // GetStat():Observable<StatType>{
+  //   return this.http.get<StatType>('StatAPIurl');
+  // }
+  GetMockCoinData(){
+    return MockCoinStatisticData
+  }
+  GetMockPostData(){
+    return MockPostStatisticData
   }
 }

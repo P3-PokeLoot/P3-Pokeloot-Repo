@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+//import { JwPaginationComponent } from 'jw-angular-pagination';
 
 
 import { AppComponent } from './app.component';
@@ -45,7 +46,9 @@ import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
     TopNavBarComponent,
     PostsComponent,
     CardCollectComponent, 
-    AddCardComponent, FilterPipe, LeaderboardsComponent
+    AddCardComponent, 
+    FilterPipe,
+    //JwPaginationComponent,
   ],
   imports: [
     BrowserModule,
