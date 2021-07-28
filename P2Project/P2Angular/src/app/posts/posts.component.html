@@ -1,9 +1,9 @@
 <div class="col text-center">
      <h6>Page {{currentPage}} of {{lastpage}}</h6>
-    <form class="d-inline-flex p-2" (ngSubmit)="onChangePagePrev()" #searchForm="ngForm">
+    <form class="d-inline-flex p-2" (ngSubmit)="onChangePagePrev()">
         <button class="btn btn-outline-success" type="submit">Prev Page</button>    
     </form>  
-    <form class="d-inline-flex p-2" (ngSubmit)="onChangePageNext()" #searchForm="ngForm">
+    <form class="d-inline-flex p-2" (ngSubmit)="onChangePageNext()">
         <button class="btn btn-outline-success" type="submit">Next Page</button>    
     </form>
     <br>    
@@ -109,7 +109,7 @@
 </div>
 
 <div *ngIf='attemptToBuy == false'>
-    <div *ngFor="let post of pageOfItems | filter:search">
+    <div *ngFor="let post of filterPost(pageOfItems)">
         <div class="container mt-4 mb-3 shadow-sm p-3 bg-body rounded">
             <div *ngIf="attemptToBuy == false" class="row">
                 <div class="col-md-7">

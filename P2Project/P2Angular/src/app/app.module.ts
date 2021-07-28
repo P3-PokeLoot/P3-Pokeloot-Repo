@@ -28,6 +28,7 @@ import { AddCardComponent } from './add-card/add-card.component';
 import { CommonModule } from '@angular/common';
 import { FilterPipe } from './Pipes/filter.pipe';
 import { RpsGameComponent } from './rps-game/rps-game.component';
+import { RpsGamePokemonSelectionComponent } from './rps-game-pokemon-selection/rps-game-pokemon-selection.component';
 
 
 @NgModule({
@@ -47,7 +48,10 @@ import { RpsGameComponent } from './rps-game/rps-game.component';
     PostsComponent,
     CardCollectComponent, 
     AddCardComponent, 
-    FilterPipe, RpsGameComponent,
+    Games-Angular-Service
+    RpsGameComponent,
+    FilterPipe, 
+    RpsGamePokemonSelectionComponent,
     //JwPaginationComponent,
   ],
   imports: [
