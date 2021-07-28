@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 
 @Component({
@@ -8,8 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RpsGameOutcomeComponent implements OnInit {
 
+  //take user choice input from rps-game-pokemone-selection
+  @Input() userChoice: number = 0;
   //Computer rps choice value
-  public computerChoice?: number;
+  public computerChoice: number = 0;
   //game outcome string
   public outcome?: string;
   //specific message string 
@@ -18,6 +20,8 @@ export class RpsGameOutcomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.determineComputerChoice();
+    this.evaluateGameOutcome(this.computerChoice, this.userChoice);
   }
 
   //Generates a random number for computer selection 
@@ -55,15 +59,15 @@ export class RpsGameOutcomeComponent implements OnInit {
       this.message = "You win! Fire is super effective against grass!"
     }
     else if(userChoice == 1 && computerChoice == 3){
-      this.outcome = "Aww you lost!"
+      this.outcome = "Aww you lost"
       this.message = "Computer wins! Fire is super effective against grass!"
     }
     else if(userChoice == 2 && computerChoice == 1){
-      this.outcome = "Aww you lost!"
+      this.outcome = "Aww you lost"
       this.message = "Computer wins! Grass is super effective against water!"
     }
     else if (userChoice == 3 && computerChoice == 2){
-      this.outcome = "Aww you lost!"
+      this.outcome = "Aww you lost"
       this.message = "Computer wins! Water is super effective against fire!"
     }
   }
