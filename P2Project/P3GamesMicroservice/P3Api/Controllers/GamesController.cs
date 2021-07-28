@@ -2,7 +2,7 @@ using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace P3GamesMicroservice.Controllers
+namespace P3Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

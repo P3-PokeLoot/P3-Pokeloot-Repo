@@ -1,0 +1,24 @@
+.pokeball{
+    margin: 2em;
+    height: 300px;
+    width: 300px;
+    border: none;
+    background-image:url("/assets/game-api/pokeball.png");
+    background-size:contain;
+}
+
+.pokeball.bulbasaur:hover{
+    background-image:url("/assets/game-api/bulb-front.png");
+    background-size:150%;
+    background-position: center;
+}
+.pokeball.squirtle:hover{
+    background-image:url("/assets/game-api/squirtle-front.png");
+    background-size:150%;
+    background-position: center;
+}
+.pokeball.charmander:hover{
+    background-image:url("/assets/game-api/char-front.png");
+    background-size:150%;
+    background-position: center;
+}
