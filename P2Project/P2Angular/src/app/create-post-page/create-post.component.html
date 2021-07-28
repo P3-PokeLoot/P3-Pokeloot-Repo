@@ -1,4 +1,22 @@
 
+<div>
+    <div style="font-size: medium; margin-left: 2rem;">
+    <label>Rarities</label>
+    
+        <select [(ngModel)]="filterValue">
+            <option [value]="0" [selected]="filterValue == 0">Any</option>
+            <!-- <option *ngFor="let x of raritiesList" [value]="x" [selected]="filterValue == x">{{x}}</option> -->
+            <option *ngFor="let x of raritiesList" [value]="x.RarityId" [selected]="filterValue == x.RarityId">{{x.RarityName}}</option>
+        </select>
+    
+        <input type="checkbox" [(ngModel)]="filterValueShiny" name="shinycheckbox" value="1" style="margin-left: 2rem;">
+        <label for="shinycheckbox">Is Shiny</label><br>
+
+
+        <button (click) = 'filterCollection()' style="justify-self: center; font-size: large;">Filter Cards</button>
+    </div>
+</div>
+
 <div class="post-wrapper">
     <div class="card mt-5">
         <div class="card-body">
