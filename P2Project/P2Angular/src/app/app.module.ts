@@ -51,7 +51,7 @@ import { RpsGamePokemonSelectionComponent } from './rps-game-pokemon-selection/r
     AddCardComponent, 
     FilterPipe, RpsGameOutcomeComponent,
     FilterPipe, RpsGamePokemonSelectionComponent,
-    Games-Angular-Service
+    //Games-Angular-Service,
     RpsGameComponent,
     FilterPipe, 
     RpsGamePokemonSelectionComponent,
