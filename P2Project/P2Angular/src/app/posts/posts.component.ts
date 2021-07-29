@@ -1,5 +1,7 @@
 import { stringify } from '@angular/compiler/src/util';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { filter } from 'rxjs/operators';
 import { DisplayServiceService } from '../display-service.service';
 import { IBuy } from '../Models/IBuy';
 import { IPost } from '../Models/IPost';
@@ -11,7 +13,9 @@ import { IPost } from '../Models/IPost';
 })
 export class PostsComponent implements OnInit {
   @Input() search!: string;
+  fullDisplayBoard!: IPost[];
   displayBoard!: IPost[];
+  oldSearch: string = "null";
   attemptToBuy: boolean = false;
   broughtCard?: IBuy;
   private userId: any = localStorage.getItem('userId');
@@ -22,8 +26,9 @@ export class PostsComponent implements OnInit {
   lastpage!: number;
   bublapedia: string = 'https://bulbapedia.bulbagarden.net/wiki/';
 
-  constructor(private _displayService: DisplayServiceService) {
+  constructor(private _displayService: DisplayServiceService, private cdr: ChangeDetectorRef) {
     this.displayBoard = [];
+    this.fullDisplayBoard = [];
   }
 
   //we should edit the api to also recieve the original username of poster
@@ -58,13 +63,40 @@ export class PostsComponent implements OnInit {
           let RarityId = result[i].rarityId;
 
           let Post: IPost = { PostId, PokemonId, PostTime, PostDescription, Price, StillAvailable, IsShiny, UserId, UserName, SpriteLink, PostType, PokemonName, RarityId }
-          this.displayBoard.push(Post);
+          this.fullDisplayBoard.push(Post);
         }
-        console.log(this.displayBoard.length)
-        this.lastpage = 1 + Math.floor(this.displayBoard.length / 5);
-        this.pageOfItems = this.displayBoard.slice(this.currentIndex, this.currentIndex + 5);
+        //this.displayBoard = this.fullDisplayBoard.filter( x => x.PokemonName?.includes(this.search) || x.PokemonName == null);
+
+        this.displayBoard = this.filterPost(this.fullDisplayBoard);
+        
       }
     )
+  }
+  //ngAfterContentInit() {
+    //this.currentPage = 1;
+    //this.lastpage = 1 + Math.floor(this.displayBoard.length / 5);
+    //this.cdr.detectChanges();
+  //}
+
+  filterPost(board : IPost[]):IPost[]{
+    let oldLength = this.lastpage;
+    if(this.oldSearch != this.search){
+    this.displayBoard = this.fullDisplayBoard.filter( x => x.PokemonName?.includes(this.search) || x.PokemonName == null);
+    this.load();
+    //this.onChangePagePrev();
+    }
+      
+ 
+    this.oldSearch = this.search;
+    return this.displayBoard;
+  }
+
+  load(){
+    console.log("collenction length = " + this.displayBoard.length);
+    this.currentIndex = 0;
+    this.currentPage = 1;
+    this.lastpage = 1 + Math.floor(this.displayBoard.length / 5);
+    this.pageOfItems = this.displayBoard.slice(this.currentIndex, this.currentIndex + 5);
   }
 
   buy(post: IPost): void {
@@ -117,6 +149,12 @@ export class PostsComponent implements OnInit {
     }
   }
 
+  OnSubmit(searchForm: NgForm) {
+    this.search = searchForm.value.search;
+    console.log(this.search);
+    this.displayBoard = this.filterPost(this.fullDisplayBoard);
+  }
+
   GetRarityDisplay(rarityId: any): string {
     switch (rarityId) {
       case 1:
@@ -129,15 +167,20 @@ export class PostsComponent implements OnInit {
         return 'Rare'
         break;
       case 4:
-        return 'Super Rare'
+        return 'Mythic'
         break;
       case 5:
-        return 'Specially Rare'
+        return 'Legendary'
         break;
       default:
         return 'No Card Attached'
         break;
     }
+  }
+
+  ngAfterViewInit() {
+    
+    this.cdr.detectChanges();
   }
 
   onChangePageNext() {

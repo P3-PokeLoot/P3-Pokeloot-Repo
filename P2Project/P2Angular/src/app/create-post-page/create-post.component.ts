@@ -6,6 +6,7 @@ import { ICard } from '../cardcollect/ICard';
 import { IPost } from '../Models/IPost';
 import { FullPost } from '../Models/Post';
 import { CreatePostService } from '../service/createPost/create-post.service';
+import { IRarities } from '../cardcollect/IRarities';
 
 
 @Component({
@@ -27,6 +28,10 @@ export class CreatePostComponent implements OnInit {
   bublapedia: string = 'https://bulbapedia.bulbagarden.net/wiki/';
   userCollection: ICard[];
   postType:string[] = ["Display","Sale","Discussion"];
+  raritiesList: IRarities[] = [];
+  filterValue: number = 0;
+  filterValueShiny: boolean = false;
+  fullUserCollection: ICard[] = [];
 
 
 
@@ -56,22 +61,66 @@ export class CreatePostComponent implements OnInit {
               let SpriteLink = Link;
               let IsShiny = false;
               let card: ICard = { PokemonId, Quantity, RarityId, SpriteLink, PokemonName, IsShiny };
-              this.userCollection.push(card);
+              this.fullUserCollection.push(card);
             }
             if (AmountShiny > 0) {
               let Quantity = AmountShiny;
               let SpriteLink = LinkShiny;
               let IsShiny = true;
               let card: ICard = { PokemonId, Quantity, RarityId, SpriteLink, PokemonName, IsShiny };
-              this.userCollection.push(card);
+              this.fullUserCollection.push(card);
             }
 
           }
+          this.filterCollection();
         }
 
       );
+      this._cardcollectionService.GetRarityList().subscribe(
+        result => {
+
+          result.forEach(element => {
+            let RarityId = element.rarityId;
+            let RarityName = element.rarityCategory;
+
+            let newRarity: IRarities = { RarityId, RarityName };
+            this.raritiesList.push(newRarity);
+          });
+        }
+      );
     }
 
+  }
+  filterCollection(): void {
+    this.userCollection = [];
+
+    if (this.filterValue == 0) {
+      if (this.filterValueShiny == false) {
+        this.userCollection = this.fullUserCollection;
+      }
+      else {
+        this.fullUserCollection.forEach(element => {
+          if (element.IsShiny == this.filterValueShiny) {
+            this.userCollection.push(element);
+          }
+        });
+      }
+
+    }
+    else {
+      this.fullUserCollection.forEach(element => {
+        if (this.filterValueShiny == false) {
+          if (element.RarityId == this.filterValue) {
+            this.userCollection.push(element);
+          }
+        }
+        else {
+          if (element.RarityId == this.filterValue && element.IsShiny == this.filterValueShiny) {
+            this.userCollection.push(element);
+          }
+        }
+      });
+    }
   }
 
   

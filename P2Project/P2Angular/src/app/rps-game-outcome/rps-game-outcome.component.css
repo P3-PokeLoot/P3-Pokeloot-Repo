@@ -1,0 +1,59 @@
+.bulbasaurfront{
+    background-image:url("/assets/game-api/bulb-front.png");
+    background-size:100%;
+    background-position: top;
+  }
+  .squirtlefront{
+    background-image:url("/assets/game-api/squirtle-front.png");
+    background-size:100%;
+    background-position: top;
+    }
+  .charmanderfront{
+    background-image:url("/assets/game-api/char-front.png");
+    background-size:100%;
+    background-position: top;
+  }
+  .bulbasaurback{
+    background-image:url("/assets/game-api/bulb-back.png");
+    background-size:150%;
+    background-position: center;
+  }
+  .squirtleback{
+    background-image:url("/assets/game-api/squirtle-back.png");
+    background-size:150%;
+    background-position: center;
+  }
+  .charmanderback{
+    background-image:url("/assets/game-api/char-back.png");
+    background-size:150%;
+    background-position: center;
+  }
+  .text{
+    text-align: center; 
+    background-image:url('/assets/game-api/text-box.png'); 
+    background-repeat: no-repeat;
+    background-size:30%;
+    background-position: center;
+    height: 100%;
+  }
+  .center {
+    margin: 0;
+    position: absolute;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+  .button {
+    background-color: #ffc107;
+    border: none;
+    border-radius: 8px;
+    color:black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+  }
+  p {  
+    padding-top: 7em; padding-bottom: 7em; 
+  }

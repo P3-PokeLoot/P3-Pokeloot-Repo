@@ -12,6 +12,9 @@ import { ViewInformationPageComponent } from './view-information-page/view-infor
 import { ViewBalancePageComponent } from './view-balance-page/view-balance-page.component';
 import { CardCollectComponent } from './cardcollect/cardcollect.component';
 import { AuthGuard } from './guards/auth.guard';
+import { RpsGameComponent } from './rps-game/rps-game.component';
+import { RpsGamePokemonSelectionComponent } from './rps-game-pokemon-selection/rps-game-pokemon-selection.component';
+
 
 
 
@@ -22,14 +25,15 @@ const routes: Routes = [
   { path: 'Home', component: HomePageComponent, canActivate: [AuthGuard] },
   { path: 'Profile', component: ProfilePageComponent, canActivate: [AuthGuard] },
   { path: 'Game', component: GamePageComponent, canActivate: [AuthGuard] },
+  { path: 'PokeRPS', component: RpsGamePokemonSelectionComponent, canActivate: [AuthGuard] },
   { path: 'Collection', component: CardCollectComponent, canActivate: [AuthGuard] },
   { path: 'TradeCard', component: TradeCardPageComponent, canActivate: [AuthGuard] },
   { path: 'UnlockCard', component: UnlockCardPageComponent, canActivate: [AuthGuard] },
   { path: 'ViewInformation', component: ViewInformationPageComponent, canActivate: [AuthGuard] },
   { path: 'ViewBalance', component: ViewBalancePageComponent, canActivate: [AuthGuard] },
   { path: 'PostForm', component: CreatePostComponent, canActivate: [AuthGuard] },
+  { path: 'Game/RPS', component: RpsGameComponent, canActivate: [AuthGuard]},
   { path: '**', component: HomePageComponent },
-
 ];
 
 

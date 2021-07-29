@@ -20,5 +20,15 @@ namespace P3Api.Controllers
         {
             return StatusCode(200, i);
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetGameDetails(int id)
+        {
+            //Wait until table is defined
+
+            //_context.Games.Where(x => x.id == id).FirstOrDefault();
+
+            return StatusCode(200);
+        }
     }
 }
