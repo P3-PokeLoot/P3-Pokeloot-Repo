@@ -10,7 +10,7 @@ namespace BuisinessLayerMethods
 {
     public interface ILeaderboardMethods
     {
-        List<CardCollection> TopTenShinyUsers();
+        List<CardCollection> UserMostShinyPokemon(int number);
         List<MVPShiny> TopShinyTotal(int number);
     }
 }

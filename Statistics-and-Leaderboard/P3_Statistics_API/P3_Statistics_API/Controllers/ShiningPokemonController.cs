@@ -23,11 +23,11 @@ namespace P3_Statistics_API.Controllers
         }
 
 
-        [HttpGet("TopTenShinyUsers")]
-        public IActionResult TopTenShinyUsers()
+        [HttpGet("[action]/{userMost}")]
+        public IActionResult DisplayUserMostShinyPokemon(int userMost)
         {
            
-            List<CardCollection> userShinyList = _leaderboard.TopTenShinyUsers();
+            List<CardCollection> userShinyList = _leaderboard.UserMostShinyPokemon(userMost);
 
             if (userShinyList == null)
             {

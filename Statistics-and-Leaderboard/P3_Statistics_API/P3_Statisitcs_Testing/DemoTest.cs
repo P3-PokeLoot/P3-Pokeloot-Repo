@@ -87,7 +87,7 @@ namespace P3_Statisitcs_Testing
                 context.SaveChanges();
                 //some method perhaps
 
-                List<CardCollection> list = leaderTest.TopTenShinyUsers();
+                List<CardCollection> list = leaderTest.UserMostShinyPokemon(3);
 
                 // Assert
                 Assert.NotNull(list);
@@ -100,6 +100,10 @@ namespace P3_Statisitcs_Testing
             }
             
         }
+
+
+
+
 
 
         [Fact]

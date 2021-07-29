@@ -32,13 +32,13 @@ namespace BuisinessLayerMethods
         }
 
 
-        public List<CardCollection> TopTenShinyUsers()
+        public List<CardCollection> UserMostShinyPokemon(int userMost)
         {
             List<CardCollection> usersShiny = null;
 
             usersShiny = (from user in context.CardCollections
                           orderby user.QuantityShiny descending
-                          select user).Take(10).ToList();
+                          select user).Take(userMost).ToList();
 
             return usersShiny;
         }
