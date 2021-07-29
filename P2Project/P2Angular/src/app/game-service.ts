@@ -12,7 +12,7 @@ import { catchError, retry } from 'rxjs/operators';
 
 export class GameService {
   private GameList = [
-    { image: "assets/img/Poke_Ball.png", title: "Rock Paper Scissors", description: "Some quick example text to build on the card title and make up the bulk of the card\'s content." },
+    { image: "assets/img/Poke_Ball.png", title: "Rock Paper Scissors", description: "Some quick example text to build on the card title and make up the bulk of the card\'s content.", link: "/Game/RPS" },
     { image: "assets/img/Poke_Ball.png", title: "Clicker Game", description: "Some quick example text to build on the card title and make up the bulk of the card\'s content." },
     { image: "assets/img/Poke_Ball.png", title: "Coming soon Game", description: "Some quick example text to build on the card title and make up the bulk of the card\'s content." },
     { image: "assets/img/Poke_Ball.png", title: "Coming soon Game", description: "Some quick example text to build on the card title and make up the bulk of the card\'s content." },
