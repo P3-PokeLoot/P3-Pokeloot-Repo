@@ -21,9 +21,27 @@
            </form>
                   
        </div>
+       <div>
+        <div style="font-size: medium; margin-left: 2rem;">
+        <label>Post Type: </label>
+        
+            <select [(ngModel)]="filterValue" style="padding: 2px;">
+                <option [value]="0" [selected]="filterValue == 0">Any</option>
+                <!-- <option *ngFor="let x of raritiesList" [value]="x" [selected]="filterValue == x">{{x}}</option> -->
+                <option *ngFor="let x of typeList" [value]="x.TypeId" [selected]="filterValue == x.TypeId">{{x.TypeName}}</option>
+            </select>
+            <br>
+            
+    
+    
+            <button (click) = 'filterPost(fullDisplayBoard)'  class="btn btn-outline-success" style="justify-self: center;">Filter Posts</button>
+        </div>
+    </div>
         <div class="border my-4 d-flex justify-content-center"></div>
 
         <br>
+
+        
     </div>
 
 

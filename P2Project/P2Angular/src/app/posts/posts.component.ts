@@ -5,6 +5,7 @@ import { filter } from 'rxjs/operators';
 import { DisplayServiceService } from '../display-service.service';
 import { IBuy } from '../Models/IBuy';
 import { IPost } from '../Models/IPost';
+import { IType } from './IType';
 
 @Component({
   selector: 'app-posts',
@@ -24,6 +25,8 @@ export class PostsComponent implements OnInit {
   currentIndex : number = 0;
   currentPage: number = 1;
   lastpage!: number;
+  filterValue: number = 0;
+  typeList : IType[] = [{TypeId : 1, TypeName: "Discussion"}, {TypeId : 2, TypeName: "Display"}, {TypeId : 3, TypeName: "Sale"}];
   bublapedia: string = 'https://bulbapedia.bulbagarden.net/wiki/';
 
   constructor(private _displayService: DisplayServiceService, private cdr: ChangeDetectorRef) {
@@ -80,14 +83,27 @@ export class PostsComponent implements OnInit {
 
   filterPost(board : IPost[]):IPost[]{
     let oldLength = this.lastpage;
-    if(this.oldSearch != this.search){
+    //if(this.oldSearch != this.search){
+    if(this.filterValue == 0){  
     this.displayBoard = this.fullDisplayBoard.filter( x => x.PokemonName?.includes(this.search) || x.PokemonName == null);
     this.load();
-    //this.onChangePagePrev();
+    }else{
+      if(this.filterValue == 1){
+        this.displayBoard = this.fullDisplayBoard.filter(x => x.PostType == "Discussion");
+        this.load();
+      }else if(this.filterValue == 2){
+        this.displayBoard = this.fullDisplayBoard.filter( x => x.PokemonName?.includes(this.search)).filter(x => x.PostType == "Display");
+        this.load();
+      }else{
+        this.displayBoard = this.fullDisplayBoard.filter( x => x.PokemonName?.includes(this.search)).filter(x => x.PostType == "Sale");
+        this.load();
+      }
     }
+    //this.onChangePagePrev();
+    //}
       
  
-    this.oldSearch = this.search;
+    //this.oldSearch = this.search;
     return this.displayBoard;
   }
 
