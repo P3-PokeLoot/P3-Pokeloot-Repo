@@ -11,5 +11,6 @@ namespace BuisinessLayerMethods
     public interface ILeaderboardMethods
     {
         List<CardCollection> TopTenShinyUsers();
+        List<MVPShiny> TopShinyTotal(int number);
     }
 }

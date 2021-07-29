@@ -26,7 +26,7 @@ namespace P3_Statistics_API.Controllers
         [HttpGet("TopTenShinyUsers")]
         public IActionResult TopTenShinyUsers()
         {
-            string error;
+           
             List<CardCollection> userShinyList = _leaderboard.TopTenShinyUsers();
 
             if (userShinyList == null)
@@ -40,44 +40,23 @@ namespace P3_Statistics_API.Controllers
         }
 
 
-
-
-
-
-
-
-
-
-        // GET: api/<ShiningPokemonController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        [HttpGet("[action]/{topUsers}")]
+        public IActionResult MVPShinyUsers(int topUsers)
         {
-            return new string[] { "value1", "value2" };
+
+            List<MVPShiny> userShinyList = _leaderboard.TopShinyTotal(topUsers);
+
+            if (userShinyList == null)
+            {
+                return StatusCode(400);
+            }
+            else
+            {
+                return StatusCode(200, userShinyList);
+            }
         }
 
-        // GET api/<ShiningPokemonController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
 
-        // POST api/<ShiningPokemonController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
 
-        // PUT api/<ShiningPokemonController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<ShiningPokemonController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }
