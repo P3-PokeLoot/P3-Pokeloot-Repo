@@ -1,4 +1,6 @@
-export const MockPostStatisticData=[{
+import { MockPostData } from "./IMockPostData";
+
+export const MockPostStatisticData:MockPostData[] =[{
     userId:1,
     username:'user1',
     countOfPosts:10,

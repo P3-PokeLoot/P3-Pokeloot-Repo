@@ -1,7 +1,9 @@
 //this is a class that Mocks shiny statistic data
 
+import { MockShinyData } from "./IMockShinyData";
+
 //we will need to bring username to have more precise leaderboards - requires a join of tables
-export const MockShinyStatisticData = [
+export const MockShinyStatisticData:MockShinyData[] = [
     {userId:1,
     username:'user1',
     countOfShiny:2},

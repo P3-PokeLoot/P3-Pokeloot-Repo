@@ -19,6 +19,13 @@ describe('LeaderboardsComponent', () => {
     fixture.detectChanges();
   });
 
+  //testing pagination properties
+
+  //testing pagination methods
+  
+  //testing inserting data into array properties
+
+  //testing dropdown methods
   it('should create', () => {
     expect(component).toBeTruthy();
   });

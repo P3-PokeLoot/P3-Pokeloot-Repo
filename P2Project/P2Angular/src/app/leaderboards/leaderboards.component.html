@@ -1,26 +1,46 @@
-<div class="filtering">
-    <select >
-        <option *ngFor= "let l of statisticslist">
+<!--This is the top row of leaderboards component-->
+<div class="filteringdata"> 
+    <!--1: Categorical drop down-->
+    <select class="choosingstatistic">
+        <option *ngFor= "let l of allStatsOptions">
             {{l}}
         </option>
     </select>
-    <input (click)="OnClickQueryFunction(s1)" type="button" value="Display Stats"/>
+    <input (click)="OnClickQueryFunction(currentChosenStat)" type="button" value="Submit"/>
+    <!--2: Numerical dropwdown-->
+    <select class="choosingnumber">
+        <option *ngFor= "let l of allNumbersOptions" onchange="if (this.selectedIndex) OnClickQueryFunction()">
+            {{l}}
+        </option>
+    </select>
+    <input (click)="OnClickNumberFunction()" type="button" value="Submit"/>
+    <!--3:Pages for pagination-->
+    <div class="col text-center">
+        <h6>Page {{currentPage}} of {{lastpage}}</h6>
+       <form class="d-inline-flex p-2" (ngSubmit)="onChangePagePrev()" #searchForm="ngForm">
+           <button class="btn btn-outline-success" type="submit">Prev Page</button>    
+       </form>  
+       <form class="d-inline-flex p-2" (ngSubmit)="onChangePageNext()" #searchForm="ngForm">
+           <button class="btn btn-outline-success" type="submit">Next Page</button>    
+       </form>
+       <br>    
+       <div class="border my-4 d-flex justify-content-center"></div>    
+       <br>
+    </div>
 </div>
 
 
-<!--Dynamically create the headers according to data that's passing in? For now just hard code it to get a visual,
-    until we get backend methods-->
-<div class="leaderboard">
-    <table>
-        <thead>
-            <td> User Id </td>
-            <td> Username </td>
-            <td> Shiny Quantity </td>
-        </thead>
-        <tr *ngFor = "let d of statisticsData"> 
-            <td>{{d.userId}}</td>
-            <td>{{d.username}}</td>
-            <td>{{d.countOfShiny}}</td>
-        </tr>
-    </table>
+<button (click)="ServiceTest()"></button>
+
+<!--If the data array is not empty, then dynamically iterate over the array and print out data according to bootstraps grid sys-->
+<div class="container-fluid"  style="font-size:medium;" *ngIf="observableDataFromMethods">
+    <div class="row" > <!--Logic to access the "keys" of the key-value pairs inserted into the "row" class via ngFor-->
+        <div class="col" *ngFor="let o of observableDataFromMethods; let i = index"><!--Logic to insert values of dataarray-->
+             <div class="prop">{{o}}</div>
+        </div>   
+    </div>
 </div>
+
+
+
+

@@ -1,4 +1,6 @@
-export const MockCoinStatisticData=[{
+import { MockCoinData } from "./IMockCoinData";
+
+export const MockCoinStatisticData:MockCoinData[]=[{
     userId:1,
     username:'user1',
     coinBalance:100,

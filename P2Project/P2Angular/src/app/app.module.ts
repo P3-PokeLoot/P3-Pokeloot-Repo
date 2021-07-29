@@ -48,6 +48,7 @@ import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
     CardCollectComponent, 
     AddCardComponent, 
     FilterPipe,
+    LeaderboardsComponent,
     //JwPaginationComponent,
   ],
   imports: [
