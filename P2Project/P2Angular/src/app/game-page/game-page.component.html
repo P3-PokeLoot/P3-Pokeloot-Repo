@@ -1,7 +1,21 @@
-<br/>
+<!-- <br/>
 <br/>
 <br/>
 <div class="row display: justify-self: center;">
     <h4>You currently have {{currentUserCoinBalance}} coins!</h4>
     <button (click) = 'playGame()' style="justify-self: center; font-size: large;">Click me to earn coins!</button>
+</div> -->
+
+
+<div style="font-size: small;" class="row row-cols-2 row-cols-md-3 g-4 mt-3">
+    <div *ngFor="let game of gameList" class="card mx-4" style="width: 20rem;">
+        <div class="col">
+            <img style="background-color: chocolate;" src="{{game.image}}" class="card-img-top">
+            <div class="card-body">
+                <h5 class="card-title">{{game.title}}</h5>
+                <p class="card-text">{{game.description}}</p>
+                <a routerLink="{{game.link}}" class="btn btn-danger">Lets Play</a>
+            </div>
+        </div>
+    </div>
 </div>
