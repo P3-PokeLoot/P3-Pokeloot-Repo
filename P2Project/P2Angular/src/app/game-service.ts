@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHandler } from "@angular/common/http";
 import { Observable, of, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { catchError, retry } from 'rxjs/operators';
@@ -11,23 +11,11 @@ import { catchError, retry } from 'rxjs/operators';
 })
 
 export class GameService {
-  private GameList = [
-    { image: "assets/img/Poke_Ball.png", title: "Rock Paper Scissors", description: "Some quick example text to build on the card title and make up the bulk of the card\'s content.", link: "/Game/RPS" },
-    { image: "assets/img/Poke_Ball.png", title: "Clicker Game", description: "Some quick example text to build on the card title and make up the bulk of the card\'s content." },
-    { image: "assets/img/Poke_Ball.png", title: "Coming soon Game", description: "Some quick example text to build on the card title and make up the bulk of the card\'s content." },
-    { image: "assets/img/Poke_Ball.png", title: "Coming soon Game", description: "Some quick example text to build on the card title and make up the bulk of the card\'s content." },
-    { image: "assets/img/Poke_Ball.png", title: "Coming soon Game", description: "Some quick example text to build on the card title and make up the bulk of the card\'s content." },
-    { image: "assets/img/Poke_Ball.png", title: "Coming soon Game", description: "Some quick example text to build on the card title and make up the bulk of the card\'s content." },
-    { image: "assets/img/Poke_Ball.png", title: "Coming soon Game", description: "Some quick example text to build on the card title and make up the bulk of the card\'s content." },
-    { image: "assets/img/Poke_Ball.png", title: "Coming soon Game", description: "Some quick example text to build on the card title and make up the bulk of the card\'s content." },
-    { image: "assets/img/Poke_Ball.png", title: "Coming soon Game", description: "Some quick example text to build on the card title and make up the bulk of the card\'s content." },
-
-  ];
-
 
 
   private gameUrlPath: string = 'https://pokeloot.azurewebsites.net/api/P2/EarnCoins/';
   private userBalanceUrlPath: string = 'https://pokeloot.azurewebsites.net/api/P2/Balance/';
+  private gameListUrl: string = 'https://localhost:44301/api/Games/List';
 
 
 
@@ -41,7 +29,8 @@ export class GameService {
     return this.http.get<any>(this.userBalanceUrlPath + localStorage.getItem('userId'))
   }
 
+  // Grabs the list of games desciption that are avaiable to be displayed in the game page.
   GetList(): Observable<any[]> {
-    return of(this.GameList);
+    return this.http.get<any>(this.gameListUrl);
   }
 }
