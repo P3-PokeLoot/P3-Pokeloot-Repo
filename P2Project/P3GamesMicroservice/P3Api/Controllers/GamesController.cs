@@ -1,6 +1,8 @@
 using System;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using P3Database;
 
 namespace P3Api.Controllers
 {
@@ -9,26 +11,19 @@ namespace P3Api.Controllers
     public class GamesController : ControllerBase
     {
         private readonly ILogger<GamesController> _logger;
+        private readonly DataContext _dataContext;
 
-        public GamesController(ILogger<GamesController> logger)
+        public GamesController(ILogger<GamesController> logger, DataContext dataContext)
         {
-            logger = _logger;
+            _logger = logger;
+            _dataContext = dataContext;
         }
 
-        [HttpGet("Test")]
-        public IActionResult Testing(int i)
+        [HttpGet("List")]
+        public IActionResult GetGameInfoList()
         {
-            return StatusCode(200, i);
-        }
-
-        [HttpGet("{id}")]
-        public IActionResult GetGameDetails(int id)
-        {
-            //Wait until table is defined
-
-            //_context.Games.Where(x => x.id == id).FirstOrDefault();
-
-            return StatusCode(200);
+            var games = _dataContext.GameInfoes.ToList();
+            return StatusCode(200, games);
         }
     }
 }
