@@ -32,6 +32,11 @@ namespace BuisinessLayerMethods
         }
 
 
+        /// <summary>
+        /// Display the users pokemon that have more reapeted shiny
+        /// </summary>
+        /// <param name="userMost"></param>
+        /// <returns></returns>
         public List<CardCollection> UserMostShinyPokemon(int userMost)
         {
             List<CardCollection> usersShiny = null;
@@ -45,7 +50,11 @@ namespace BuisinessLayerMethods
 
 
 
-
+        /// <summary>
+        /// Display the players with most shinys
+        /// </summary>
+        /// <param name="topUser"></param>
+        /// <returns></returns>
         public List<MVPShiny> TopShinyTotal(int topUser)
         {
 

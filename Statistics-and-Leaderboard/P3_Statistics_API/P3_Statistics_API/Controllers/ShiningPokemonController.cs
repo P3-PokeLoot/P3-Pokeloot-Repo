@@ -22,7 +22,11 @@ namespace P3_Statistics_API.Controllers
             _leaderboard = leaderboard;
         }
 
-
+        /// <summary>
+        /// Display the users pokemon that have more reapeted shiny
+        /// </summary>
+        /// <param name="userMost"></param>
+        /// <returns></returns>
         [HttpGet("[action]/{userMost}")]
         public IActionResult DisplayUserMostShinyPokemon(int userMost)
         {
@@ -39,7 +43,11 @@ namespace P3_Statistics_API.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Display the players with most shinys
+        /// </summary>
+        /// <param name="topUsers"></param>
+        /// <returns></returns>
         [HttpGet("[action]/{topUsers}")]
         public IActionResult MVPShinyUsers(int topUsers)
         {
