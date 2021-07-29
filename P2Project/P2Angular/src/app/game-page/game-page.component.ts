@@ -10,33 +10,35 @@ export class GamePageComponent implements OnInit {
 
   private userId = localStorage.getItem('userId');
   public currentUserCoinBalance = {} as any;
+  public gameList!: Array<any>;
 
-  constructor(private _gameService: GameService) { 
+  constructor(private _gameService: GameService) {
     this.currentUserCoinBalance = {} as any;
   }
 
   ngOnInit(): void {
-    if(this.userId != null)
-    {
+    if (this.userId != null) {
       this._gameService.GetBalance().subscribe(
         result => {
-          let coinBalance   = result;
+          let coinBalance = result;
 
           this.currentUserCoinBalance = coinBalance;
           console.log(this.currentUserCoinBalance);
         });
     }
+
+    this._gameService.GetList().subscribe(result => { this.gameList = result; })
   }
 
   playGame(): void {
 
-    const numCoinsToAdd : number = 15;
+    const numCoinsToAdd: number = 15;
     this._gameService.AddCoins(numCoinsToAdd).subscribe();
 
 
     this._gameService.GetBalance().subscribe(
       result => {
-        let coinBalance   = result;
+        let coinBalance = result;
 
         this.currentUserCoinBalance = coinBalance;
         console.log(this.currentUserCoinBalance);
