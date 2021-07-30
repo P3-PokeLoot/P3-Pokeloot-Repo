@@ -50,7 +50,13 @@ namespace P3Api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseHttpsRedirection();
+
             app.UseRouting();
+
+            app.UseCors("dev");
+
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
