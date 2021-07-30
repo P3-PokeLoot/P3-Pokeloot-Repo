@@ -1,27 +1,28 @@
-
 <h1 style="text-align: center">{{outcome}}</h1>
 
 <div style="display: flex; justify-content: center; margin: -4rem;">
-    <div *ngIf= "userChoice == 1">
-        <img src ="/assets/game-api/empty.png" class="bulbasaurback">
+    <div *ngIf="userChoice == 1">
+        <img src="/assets/game-api/empty.png" class="bulbasaurback">
     </div>
-    <div *ngIf= "userChoice == 2">
-        <img src ="/assets/game-api/empty.png" class="squirtleback">
+    <div *ngIf="userChoice == 2">
+        <img src="/assets/game-api/empty.png" class="squirtleback">
     </div>
-    <div *ngIf= "userChoice == 3">
-        <img src ="/assets/game-api/empty.png" class="charmanderback">
+    <div *ngIf="userChoice == 3">
+        <img src="/assets/game-api/empty.png" class="charmanderback">
     </div>
-    <div *ngIf= "computerChoice == 1">
-        <img src ="/assets/game-api/empty.png" class="bulbasaurfront">
+    <div *ngIf="computerChoice == 1">
+        <img src="/assets/game-api/empty.png" class="bulbasaurfront">
     </div>
-    <div *ngIf= "computerChoice == 2">
-        <img src ="/assets/game-api/empty.png" class="squirtlefront">
+    <div *ngIf="computerChoice == 2">
+        <img src="/assets/game-api/empty.png" class="squirtlefront">
     </div>
-    <div *ngIf= "computerChoice == 3">
-        <img src ="/assets/game-api/empty.png" class="charmanderfront">
+    <div *ngIf="computerChoice == 3">
+        <img src="/assets/game-api/empty.png" class="charmanderfront">
     </div>
 </div>
-<p class = "text"> {{message}}</p>
+<div class="text">
+    <p> {{message}}</p>
+</div>
 <div class="center">
-    <button class ="button" (click)="playAgain()">Play Again?</button>
+    <button class="button" (click)="playAgain()">Play Again?</button>
 </div>

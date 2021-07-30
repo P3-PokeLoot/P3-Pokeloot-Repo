@@ -19,6 +19,4 @@ export class RpsGamePokemonSelectionComponent implements OnInit {
   PokemonSelected(i : number): void{
     this.userChoiceEmitter.emit(i);
   }
-
-
 }
