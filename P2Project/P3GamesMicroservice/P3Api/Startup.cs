@@ -32,6 +32,17 @@ namespace P3Api
             {
                 opt.UseInMemoryDatabase(databaseName: "Testing");
             }); //Add in sqlserver connection string once set up
+
+            services.AddCors((options) =>
+            {
+                options.AddPolicy(name: "dev", builder =>
+                {
+                    builder
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowAnyOrigin();
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
