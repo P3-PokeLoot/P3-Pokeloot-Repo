@@ -31,10 +31,8 @@ export class GamePageComponent implements OnInit {
   }
 
   playGame(): void {
-
     const numCoinsToAdd: number = 15;
     this._gameService.AddCoins(numCoinsToAdd).subscribe();
-
 
     this._gameService.GetBalance().subscribe(
       result => {
@@ -43,9 +41,5 @@ export class GamePageComponent implements OnInit {
         this.currentUserCoinBalance = coinBalance;
         console.log(this.currentUserCoinBalance);
       });
-
-
   }
-
-
 }
