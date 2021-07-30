@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'app-rps-game-pokemon-selection',
@@ -8,7 +8,8 @@ import { Component, Input, OnInit } from '@angular/core';
 export class RpsGamePokemonSelectionComponent implements OnInit {
 
   // this refers to userChoice within rps-game-outcome' userChoice
-  @Input() userChoice : number = 0;
+  @Output() userChoiceEmitter = new EventEmitter<number>();
+
 
   constructor() { }
 
@@ -16,10 +17,7 @@ export class RpsGamePokemonSelectionComponent implements OnInit {
   }
 
   PokemonSelected(i : number): void{
-
-    // alert('Pekemon 1 is selected');
-    this.userChoice = i;
-    alert(`Pekemon ${this.userChoice} is selected`);
+    this.userChoiceEmitter.emit(i);
   }
 
 

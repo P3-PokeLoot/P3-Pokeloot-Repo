@@ -24,5 +24,9 @@ export class RpsGameComponent implements OnInit {
     this.userSelection = userSelection;
     this.gameState = this.State.PresentOutcome;
   }
+
+  restartGame(){
+    this.gameState = this.State.SelectPokemon;
+  }
 }
 
