@@ -1,15 +1,36 @@
 <br>
 <br>
 <br>
-<div class="row display: flex justify-content-center" style="font-size:large;">Click the button below to open a new card for 100 coins!</div>
+<div class="row display: flex justify-content-center" style="font-size:large;"><h1 class="row display: flex justify-content-center">{{currentUserCoinBalance}} Coins Remaining</h1></div>
 <br>
 <br>
 <div class="row justify-content-center" style="font-size:medium;">
-<div class="col text-center">
-    <h6>{{currentUserCoinBalance}} Coins Remaining</h6><br>
-    <img *ngIf="newCard.PokemonName == null && tooPoor == false" src="assets/img/Poke_Ball.png" alt="lootbox img"><br>
-    <button (click) = 'openLootbox()' style="justify-self: center; font-size: large;">Open Card Pack</button>
-</div>>
+<table class="col text-center" style="width:55%">
+    <tr class="col text-center" style="width:55%">
+    <td title="Normal card pack">
+        <h4>Click the button below<br>
+            to open a new card for<br> 
+            100 coins!</h4><br>
+        <img src="../../assets/img/Great_Ball.png" alt="lootbox img"><br>
+        <button (click) = 'openLootbox(1)' title="Normal card pack" style="justify-self: center; font-size: large;">Open Card Pack</button>
+    </td>
+    <td title="Gaurantee a rare card or higher">
+        <h4>Click the button below<br>
+            to open a new card for<br> 
+            500 coins!</h4><br>
+        <img src="../../assets/img/Ultra_Ball.png" alt="lootbox img"><br>
+        <button (click) = 'openLootbox(2)' title="Gaurantee a rare card or higher" style="justify-self: center; font-size: large;">Open Card Pack</button>
+    </td>
+    <td title="Gaurantee a shiny card" >
+        <h4>Click the button below<br>
+            to open a new card for<br> 
+            1000 coins!</h4><br>
+        <img src="../../assets/img/Safari_Ball.png" alt="lootbox img"><br>
+        <button (click) = 'openLootbox(3)' title="Gaurantee a shiny card" style="justify-self: center; font-size: large;">Open Card Pack</button>
+    </td>
+    </tr>
+</table>
+
 
 
 
