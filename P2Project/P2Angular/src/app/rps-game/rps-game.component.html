@@ -1,15 +1,16 @@
-<h4>RPS Pokemon</h4>
 
-<h1 *ngIf="gameState === State.SelectPokemon">Gamestate is SelectPokemon</h1>
-<h1 *ngIf="gameState === State.PresentOutcome">Gamestate is PresentOutcome</h1>
+<div class="container">
+    <h4>RPS Pokemon</h4>
 
-<!--
-<app-rps-game-pokemon-selection 
-    *ngIf="gameState === State.SelectPokemon"
->
-</app-rps-game-pokemon-selection>
-<app-rps-game-outcome 
-    *ngIf="gameState === State.PresentOutcome"
->
-</app-rps-game-outcome>
--->
+    <app-rps-game-pokemon-selection 
+        *ngIf="gameState === State.SelectPokemon"
+        (userChoiceEmitter)="setUserInput($event)">
+    </app-rps-game-pokemon-selection>
+
+    <app-rps-game-outcome 
+        *ngIf="gameState === State.PresentOutcome" 
+        [userChoice]="userSelection"
+        (playAgainEmitter)="restartGame()"
+        >
+    </app-rps-game-outcome>
+</div>
