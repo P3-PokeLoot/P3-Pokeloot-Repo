@@ -37,7 +37,8 @@
 <br>
 <br>
 <br>
-<br> 
+<br>
+<div *ngIf="!tooPoor"> 
 <div *ngIf="newCard.PokemonName != null">
 
     <div *ngIf="newCard" style="font-size:medium;">
@@ -92,6 +93,7 @@
         </div>
     </div>
 
+</div>
 </div>
 <div *ngIf="tooPoor" class="row display: flex justify-content-center" >
     <div class="card6 text-center border-dark mb-3" style="width: 18rem; margin: 1rem;" >

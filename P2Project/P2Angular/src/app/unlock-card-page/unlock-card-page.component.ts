@@ -42,8 +42,19 @@ export class UnlockCardPageComponent implements OnInit {
   openLootbox(boxType: number): void {
     if(this.userId != null)
     {
+      let amount: number = 0;
+      if(boxType == 1){
+        amount = 100;
+      }
+      else if(boxType == 2){
+        amount = 500;
+      }
+      else{
+        amount = 1000;
+      }
       if(this.currentUserCoinBalance >= 100)
       {
+        this.tooPoor = false;
         this._cardcollectionService.RollLootbox(boxType).subscribe(
           result => {
             let PokemonId     = result[0].Key.PokemonId;
