@@ -65,7 +65,16 @@ namespace P3_Statistics_API.Controllers
                 return StatusCode(201, result);
         }
 
+        [HttpGet("TopCompletedCollection")]
+        public IActionResult TopCompletedCollectionController(int maxnumber)
+        {
+            var result = _LeaderboardMethods.TopPercentageCompletedCollection(maxnumber);
 
+            if (result == null)
+                return StatusCode(404);
+            else
+                return StatusCode(201, result);
+        }
 
     }
 }
