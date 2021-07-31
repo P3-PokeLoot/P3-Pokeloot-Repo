@@ -33,6 +33,22 @@ img{
     80% { transform: translate(-1px, -1px) rotate(1deg); }
     90% { transform: translate(1px, 2px) rotate(0deg); }
     100% { transform: translate(1px, -2px) rotate(-1deg); }
+
+    from {
+        box-shadow: 0 0 10px -10px rgb(63, 11, 250);
+      }
+      to {
+        box-shadow: 0 0 10px 10px rgb(97, 235, 5);
+      }
+  }
+
+  @keyframes glow {
+    from {
+      box-shadow: 0 0 10px -10px rgb(233, 7, 222);
+    }
+    to {
+      box-shadow: 0 0 10px 10px rgb(233, 7, 7);
+    }
   }
 
 .card1 {
@@ -41,10 +57,12 @@ img{
     border-width: thin;
     border-color: black;
     height: 150%;
-    box-shadow: 0px 0px 10px rgb(233, 7, 7);
+   
+    animation: glow 1s infinite alternate;
 }
 .card1:hover {
-    box-shadow: 0px 0px 10px rgb(233, 7, 222);
+    
+    
     /* Start the shake animation and make the animation last for 0.5 seconds */
     animation: shake 0.5s;
   
@@ -58,10 +76,10 @@ img{
     border-width: thin;
     border-color: black;
     height: 150%;
-    box-shadow: 0px 0px 10px rgb(233, 7, 7);
+    animation: glow 1s infinite alternate;
 }
 .card2:hover {
-    box-shadow: 0px 0px 10px rgb(233, 7, 222);
+   
     /* Start the shake animation and make the animation last for 0.5 seconds */
     animation: shake 0.5s;
   
@@ -69,17 +87,17 @@ img{
     animation-iteration-count: infinite;
   }
 .card3 {
+    animation: glow 1s infinite alternate;
     background-color: #CBC3E3;
     border-style: solid;
     border-width: thin;
     border-color: black;
     height: 150%;
-    box-shadow: 0px 0px 10px rgb(233, 7, 7);
+    animation: glow 1s infinite alternate;
 }
 .card3:hover {
     
     
-    box-shadow: 0px 0px 10px rgb(233, 7, 222);
     /* Start the shake animation and make the animation last for 0.5 seconds */
     animation: shake 0.5s;
   
@@ -92,10 +110,10 @@ img{
     border-width: thin;
     border-color: black;
     height: 150%;
-    box-shadow: 0px 0px 10px rgb(233, 7, 7);
+    animation: glow 1s infinite alternate;
 }
 .card4:hover {
-    box-shadow: 0px 0px 10px rgb(233, 7, 222);
+    
     /* Start the shake animation and make the animation last for 0.5 seconds */
     animation: shake 0.5s;
   
@@ -108,11 +126,10 @@ img{
     border-width: thin;
     border-color: black;
     height: 150%;
-    box-shadow: 0px 0px 10px rgb(233, 7, 7);
+    animation: glow 1s infinite alternate;
 }
 .card5:hover {
     
-    box-shadow: 0px 0px 10px rgb(233, 7, 222);
     /* Start the shake animation and make the animation last for 0.5 seconds */
     animation: shake 0.5s;
   
@@ -126,10 +143,10 @@ img{
     border-style: solid;
     border-width: thin;
     border-color: black;
-    box-shadow: 0px 0px 10px rgb(233, 7, 7);
+    animation: glow 1s infinite alternate;
 }
 .card6:hover {
-    box-shadow: 0px 0px 10px rgb(233, 7, 222);
+    
     /* Start the shake animation and make the animation last for 0.5 seconds */
     animation: shake 0.5s;
   
