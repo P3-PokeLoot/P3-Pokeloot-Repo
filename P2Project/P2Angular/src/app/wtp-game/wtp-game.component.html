@@ -1,0 +1,11 @@
+<div>
+    <app-wtp-game-selection 
+        *ngIf="gameState === State.SelectPokemon" 
+        (userChoiceEmitter)="setUserInput($event)">
+    </app-wtp-game-selection>
+
+    <app-wtp-game-outcome 
+        *ngIf="gameState === State.PresentOutcome" [userChoice]="userSelection"
+        (playAgainEmitter)="restartGame()">
+    </app-wtp-game-outcome>
+</div>
