@@ -17,7 +17,7 @@ namespace BusinessLayer
             int numOptions = 4;
             string pictureUrl, correctPokemon;
             string[] options = new string[numOptions];
-            
+
             // get the pokemon to guess
             dynamic temp = JsonConvert.DeserializeObject(RandomPokemon());
             pictureUrl = temp.sprites.front_default;
@@ -31,7 +31,7 @@ namespace BusinessLayer
                 while(options[i] == null)
                 {
                     temp = JsonConvert.DeserializeObject(RandomPokemon());
-                    if(options.Where(x => x == temp.name).FirstOrDefault() == null && temp.name != "pikachu") // if name not already an option? and not pikachu because pikachu always option
+                    if(options.Where(x => x == temp.name.ToString()).FirstOrDefault() == null && temp.name.ToString() != "pikachu") // if name not already an option? and not pikachu because pikachu always option
                         options[i] = temp.name;
                 }
             }
@@ -42,7 +42,8 @@ namespace BusinessLayer
             options = options.OrderBy(x => rand.Next()).ToArray();
 
             // make an object to return
-            // watdo
+            WtpGame wtpGame = new WtpGame(pictureUrl, correctPokemon, options);
+            gameObject = JsonConvert.SerializeObject(wtpGame);
             return gameObject;
         }
 
@@ -57,12 +58,12 @@ namespace BusinessLayer
             var body = @"";
             request.AddParameter("text/plain", body, ParameterType.RequestBody);
             IRestResponse response = client.Execute(request);
-            dynamic myObject = JsonConvert.DeserializeObject(response.Content);
-            if (myObject != null && myObject.Count != 0)
-            {
-                pokemon = myObject.sprites.front_default;
-            }
-            return pokemon;
+            return response.Content;
+            //dynamic myObject = JsonConvert.DeserializeObject(response.Content);
+            //if (myObject != null && myObject.Count != 0)
+            //{
+            //    pokemon = myObject.sprites.front_default;
+            //}
         }
     }
 }

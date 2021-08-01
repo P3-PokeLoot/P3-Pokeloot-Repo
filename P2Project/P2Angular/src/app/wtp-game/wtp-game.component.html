@@ -5,7 +5,7 @@
     </app-wtp-game-selection>
 
     <app-wtp-game-outcome 
-        *ngIf="gameState === State.PresentOutcome" [userChoice]="userSelection"
+        *ngIf="userWin !== undefined && gameState === State.PresentOutcome"
         (playAgainEmitter)="restartGame()">
     </app-wtp-game-outcome>
 </div>

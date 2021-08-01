@@ -1,4 +1,7 @@
-<div style="display: flex; justify-content: center;">
-    <img src ="/assets/game-api/wtp-center.png">
-    buttons go here
+<div id="wtp-div">
+    <img src ="{{pictureUrl}}" id="blackout">
+</div>
+
+<div id="btn-div">
+    <button id="pokemon-btn" *ngFor="let x of options" (click) = "PokemonSelected(x)">{{x | titlecase}}</button>
 </div>

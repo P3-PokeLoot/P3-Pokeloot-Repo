@@ -29,10 +29,10 @@ namespace P3Api.Controllers
             return StatusCode(200, games);
         }
 
-        [HttpGet("random")]
+        [HttpGet("Wtp")]
         public IActionResult GetRandomPokemon()
         {
-            var pokemon = _businessModel.RandomPokemon();
+            var pokemon = _businessModel.WhosThatPokemonGame();
             return StatusCode(200, pokemon);
         }
     }
