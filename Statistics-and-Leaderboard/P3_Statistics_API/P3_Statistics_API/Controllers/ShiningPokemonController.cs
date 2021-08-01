@@ -30,7 +30,7 @@ namespace P3_Statistics_API.Controllers
         [HttpGet("[action]/{userMost}")]
         public IActionResult DisplayUserMostShinyPokemon(int userMost)
         {
-           
+
             List<CardCollection> userShinyList = _leaderboard.UserMostShinyPokemon(userMost);
 
             if (userShinyList == null)
@@ -65,6 +65,73 @@ namespace P3_Statistics_API.Controllers
         }
 
 
+
+        /// <summary>
+        /// Display total cards of unique pokemons a user have
+        /// </summary>
+        /// <param name="topUsers"></param>
+        /// <returns></returns>
+        [HttpGet("[action]/{topUsers}")]
+        public IActionResult UsersTotalCollection(int topUsers)
+        {
+
+            List<UsersCollection> userCollectionQty = _leaderboard.GetUserTotalCollection(topUsers);
+
+            if (userCollectionQty == null)
+            {
+                return StatusCode(400);
+            }
+            else
+            {
+                return StatusCode(200, userCollectionQty);
+            }
+        }
+
+
+
+        /// <summary>
+        /// Display the total amount of unique pokemons in the world from the DB
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("[action]")]
+        public IActionResult GetTotalPokemon()
+        {
+
+            int total_pokemon = _leaderboard.GetTotalPokemon();
+
+            if (total_pokemon == 0)
+            {
+                return StatusCode(400);
+            }
+            else
+            {
+                return StatusCode(200, total_pokemon);
+            }
+        }
+
+
+
+        /// <summary>
+        ///  Display the total amount of cards a user have
+        /// </summary>
+        /// <param name="topUser"></param>
+        /// <returns></returns>
+        [HttpGet("[action]/{topUser}")]
+        public IActionResult GetTotalCardUserHave(int topUser)
+        {
+            List<UsersCollection> userCardAmount = _leaderboard.GetUserTotalAmount(topUser);
+
+            if (userCardAmount == null)
+            {
+                return StatusCode(400);
+            }
+            else
+            {
+                return StatusCode(200, userCardAmount);
+            }
+
+
+        }
 
     }
 }

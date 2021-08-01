@@ -79,6 +79,77 @@ namespace BuisinessLayerMethods
 
         }
 
+
+
+        /// <summary>
+        /// Display total cards of unique pokemons a user have
+        /// </summary>
+        /// <param name="topUsers"></param>
+        /// <returns></returns>
+        public List<UsersCollection> GetUserTotalCollection(int topUsers)
+        {
+            List<User> table_1 = context.Users.ToList();
+            List<CardCollection> table_2 = context.CardCollections.ToList();
+
+            var userCollection = (from table2 in table_2
+                                  join table1 in table_1
+                                  on table2.UserId equals table1.UserId
+                                  group table2 by table1.UserId into temp
+
+                                  select new UsersCollection
+                                  {
+                                      UserId = temp.Key,
+                                      FirstName = temp.First().User.FirstName,
+                                      LastName = temp.First().User.LastName,
+                                      Total_Collection = temp.Count(x => x.PokemonId >= 0)
+
+                                  }).OrderByDescending(x => x.Total_Collection).Take(topUsers).ToList();
+
+            return userCollection;
+        }
+
+
+
+
+        /// <summary>
+        /// Get the total amount of cards a user have
+        /// </summary>
+        /// <param name="topUser"></param>
+        /// <returns></returns>
+        public List<UsersCollection> GetUserTotalAmount(int topUser) {
+
+            List<User> table_1 = context.Users.ToList();
+            List<CardCollection> table_2 = context.CardCollections.ToList();
+
+            var userAmount = (from table2 in table_2
+                                  join table1 in table_1
+                                  on table2.UserId equals table1.UserId
+                                  group table2 by table1.UserId into temp
+
+                                  select new UsersCollection
+                                  {
+                                      UserId = temp.Key,
+                                      FirstName = temp.First().User.FirstName,
+                                      LastName = temp.First().User.LastName,
+                                      Total_Collection = temp.Sum(x => x.QuantityShiny) + temp.Sum(x => x.QuantityNormal)
+
+                                  }).OrderByDescending(x => x.Total_Collection).Take(topUser).ToList();
+            return userAmount;
+
+        }
+
+        /// <summary>
+        /// Display the total amount of unique pokemons in the world from the DB
+        /// </summary>
+        /// <returns></returns>
+        public int GetTotalPokemon()
+        {
+
+            int totalPokemon = context.PokemonCards.Count();
+
+            return totalPokemon;
+            
+        }
     }
 }
 
