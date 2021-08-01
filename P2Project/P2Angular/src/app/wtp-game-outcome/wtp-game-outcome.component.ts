@@ -6,22 +6,23 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./wtp-game-outcome.component.css']
 })
 export class WtpGameOutcomeComponent implements OnInit {
-  @Input() userWin?: boolean;
+  @Input() result?: string;
   @Output() playAgainEmitter = new EventEmitter();
   outcomeText?:string;
 
   constructor() {}
 
   ngOnInit(): void {
-    console.log(this.userWin);
-    if(this.userWin == true)
-    {
-      this.outcomeText = "You win!";
-    }
-    else
-    {
-      this.outcomeText = "You lose!"
-    }
+    console.log("Initialized");
+    this.determineResult();
   }
 
+  determineResult():void{
+    console.log('result ' + this.result);
+    this.outcomeText = this.result;
+  }
+
+  playAgain(){
+    this.playAgainEmitter.emit();
+  }
 }
