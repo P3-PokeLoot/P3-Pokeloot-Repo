@@ -1,5 +1,12 @@
 <div class="row justify-content-center my-5">
     <div class="col text-center">
+ 
+        
+        <div class="row d-flex justify-content-center">
+        <div class="col col-lg-8 text-center mb-3 " style="margin-bottom: -20%;">
+            <a routerLink="/PostForm"><button class="btn btn-lg btn-warning">Create Post</button></a>
+        </div>
+        </div>
 
         <form class="d-inline-flex p-2" (ngSubmit)="OnSubmit(searchForm)" #searchForm="ngForm">
             <input type="text" id="search" name="search" class="form-control me-2 input-sm" placeholder="Search for Pokémon"
@@ -34,7 +41,7 @@
             
     
     
-            <button (click) = 'filterPost(fullDisplayBoard)'  class="btn btn-outline-success" style="justify-self: center;">Filter Posts</button>
+            <button (click) = 'filterPost(fullDisplayBoard)'  class="btn btn-outline-success" style="justify-self: center; margin-top: 5px;">Filter Posts</button>
         </div>
     </div>
         <div class="border my-4 d-flex justify-content-center"></div>

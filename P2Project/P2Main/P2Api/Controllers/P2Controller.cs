@@ -26,7 +26,7 @@ namespace P2Api.Controllers
         /// </summary>
         /// <param name="businessModel">Business model object</param>
         /// <param name="logger">Logger object</param>
-        public P2Controller(IBusinessModel businessModel , ILogger<P2Controller> logger)
+        public P2Controller(IBusinessModel businessModel, ILogger<P2Controller> logger)
         {
             this._businessModel = businessModel;
             this._logger = logger;
@@ -42,22 +42,26 @@ namespace P2Api.Controllers
         {
             List<FullPost> result = new List<FullPost>();
             List<Post> playerList = _businessModel.getDisplayBoard();
-            foreach(Post post in playerList){
+            foreach (Post post in playerList)
+            {
                 DisplayBoard displayBoard = _businessModel.getPostInfo(post.PostId);
                 string mainSprite = "https://wiki.p-insurgence.com/images/0/09/722.png";
-                string cardName ="";
+                string cardName = "";
                 int cardRare = 0;
-                if(post.PokemonId != null){
-                    if(post.IsShiny == true){
+                if (post.PokemonId != null)
+                {
+                    if (post.IsShiny == true)
+                    {
                         mainSprite = _businessModel.getPokemonById((int)post.PokemonId).SpriteLinkShiny;
                     }
-                    else{
+                    else
+                    {
                         mainSprite = _businessModel.getPokemonById((int)post.PokemonId).SpriteLink;
                     }
-                   cardName = _businessModel.getPokemonById((int)post.PokemonId).PokemonName;
-                   cardRare = _businessModel.getPokemonById((int)post.PokemonId).RarityId;
+                    cardName = _businessModel.getPokemonById((int)post.PokemonId).PokemonName;
+                    cardRare = _businessModel.getPokemonById((int)post.PokemonId).RarityId;
                 }
-                
+
                 FullPost instance = new FullPost()
                 {
                     PostId = post.PostId,
@@ -89,7 +93,8 @@ namespace P2Api.Controllers
         /// <param name="userId">Current User</param>
         /// <returns>Dictionary conation output and outcome</returns>
         [HttpGet("buyCard/{postId}/{userId}")]
-        public string buyCard(int postId, int userId){
+        public string buyCard(int postId, int userId)
+        {
             Dictionary<string, bool> result = new Dictionary<string, bool>();
             Post post = _businessModel.getPostById(postId);
             User currentUser = _businessModel.GetUserById(userId);
@@ -127,23 +132,43 @@ namespace P2Api.Controllers
             return currentUser;
         }
 
-
+        
 
         /// <summary>
-        /// https://localhost:44307/api/P2/Lootbox/2
+        /// https://localhost:44307/api/P2/Lootbox/2/1
         /// Gets a random pokemon and adds it the the users collection with the id passed in
         /// </summary>
         /// <param name="userId">user id for user rolling lootbox</param>
+        /// <param name="boxType">type of box to roll</param
         /// <returns>Serialized string of dict containing PokemonCard object of the random choice and shiny boolean</returns>
-        [HttpGet("Lootbox/{userId}")]
+        [HttpGet("Lootbox/{userId}/{boxType}")]
         //public Dictionary<PokemonCard, bool> Lootbox(int userId)
-        public string Lootbox(int userId)
+        public string Lootbox(int userId, int boxType)
         {
-            const int lootBoxCost = 100;
             User currentUser = _businessModel.GetUserById(userId);
-            _businessModel.incrementUserBalance(currentUser, -lootBoxCost);
+            Dictionary<PokemonCard, bool> newCard;
+            if (boxType == 1)
+            {
+                const int lootBoxCost = 100;
+                _businessModel.incrementUserBalance(currentUser, -lootBoxCost);
+                newCard = _businessModel.rollLootbox(currentUser, 1);
+            }
+            else if (boxType == 2)
+            {
+                const int lootBoxCost = 500;
+                _businessModel.incrementUserBalance(currentUser, -lootBoxCost);
+                newCard = _businessModel.rollLootbox(currentUser, 2);
+            }
+            else
+            {
+                const int lootBoxCost = 1000;
+                _businessModel.incrementUserBalance(currentUser, -lootBoxCost);
+                newCard = _businessModel.rollLootbox(currentUser, 3);
+            }
 
-            Dictionary<PokemonCard, bool> newCard = _businessModel.rollLootbox(currentUser);
+
+
+            //Dictionary<PokemonCard, bool> newCard = _businessModel.rollLootbox(currentUser, 1);
             string json = JsonConvert.SerializeObject(newCard.ToList());
             return json;
         }
@@ -198,16 +223,16 @@ namespace P2Api.Controllers
         /// <param name="userId">id of desired users collection</param>
         /// <returns>Serialized string of dict containing PokemonCard object and its relation to the users collection for quanities</returns>
         [HttpPost("Signup")]
-        public ActionResult Signup(User userObj) 
+        public ActionResult Signup(User userObj)
         {
             bool isCreated = _businessModel.signUp(userObj);
-               
-            if(isCreated) 
-            { 
-            return CreatedAtAction("Signup", new { name = userObj.FirstName, ok = true }, new {ok = true, newUser = userObj});
+
+            if (isCreated)
+            {
+                return CreatedAtAction("Signup", new { name = userObj.FirstName, ok = true }, new { ok = true, newUser = userObj });
             }
 
-            return BadRequest(new { message="Error User already Exist", status=-1});
+            return BadRequest(new { message = "Error User already Exist", status = -1 });
         }
 
         /// <summary>
@@ -222,9 +247,9 @@ namespace P2Api.Controllers
             bool isDeleted;
             try
             {
-               isDeleted = _businessModel.RemoveUser(userId);
+                isDeleted = _businessModel.RemoveUser(userId);
 
-               if (!isDeleted)
+                if (!isDeleted)
                 {
                     return NotFound($"Employee with Id = {userId} not found");
                 }
@@ -311,7 +336,8 @@ namespace P2Api.Controllers
         /// <param name="postID">PostID</param>
         /// <returns>if successful removal</returns>
         [HttpGet("RemovePost/{idpost}")]
-        public bool RemovePost(int idpost){
+        public bool RemovePost(int idpost)
+        {
             bool result = _businessModel.hidePost(idpost);
             return result;
         }

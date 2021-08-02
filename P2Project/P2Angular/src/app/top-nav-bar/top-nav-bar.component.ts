@@ -11,6 +11,7 @@ export class TopNavBarComponent implements OnInit {
 
   LoginStatus$!: Observable<boolean>;
   isLogin!: boolean;
+  toggleNavbar:boolean = false;
 
   constructor(public authenticatationService: AuthenticationService) { }
 
