@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using BuisinessLayerMethods;
 using System.Collections.Generic;
+using System.Data.Common;
+using System.Configuration;
 
 namespace P3_Statisitcs_Testing
 {
@@ -202,8 +204,18 @@ namespace P3_Statisitcs_Testing
         public void TopPercentageCompletedCollectionTest()
         {
             //Arrange
+           // ConnectionStringSettings dbconext= ConfigurationManager.ConnectionStrings["Server=localhost\\SQLEXPRESS;Database=p3;Trusted_Connection=True;"];
+           // DbConnection conn;
+           // DbConnection context = dbconext.ConnectionString;
+           // string conn = ;
 
-            
+
+           // P3Context context = new P3Context();
+           // DbConnection conn = context.Database.OpenConnection("Server=localhost\\SQLEXPRESS;Database=p3;Trusted_Connection=True;");
+
+
+
+
 
             // Create a dummy user 
             User user1 = new User()
@@ -298,8 +310,8 @@ namespace P3_Statisitcs_Testing
             };
 
             //Act
-            using (var context = new P3Context(options))
-            {
+           // using (var context = new P3Context(options))
+           // {
                 //verify that the db was deleted and created anew
                 context.Database.EnsureDeleted();//delete any Db from a previous test
 
@@ -318,14 +330,43 @@ namespace P3_Statisitcs_Testing
                 context.PokemonCards.Add(pokemon2);
                 context.PokemonCards.Add(pokemon3);
                 context.PokemonCards.Add(pokemon4);
-                context.SaveChanges();
+                
                 //Assert
 
                 var list1 = dbtest.TopPercentageCompletedCollection(1);
                 Assert.NotNull(list1);
                 Assert.Equal(2, list1.Count());
-            }
+           // }
         }
+
+
+
+
+        //##############################################
+     /*   public void GetUsersTest()
+        {
+            string connectionString = GetConnectionString();
+
+            using (TransactionScope ts = new TransactionScope())
+            {
+                using (SqlConnection connection =
+                    new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    DataLayer dataAccessLayer = new DataLayer();
+
+                    DataSet dataSet = dataAccessLayer.GetUsers();
+                    AddNewUser("Fred", connection);
+
+                    dataSet = dataAccessLayer.GetUsers();
+                    DataRow[] dr = dataSet.Tables[0].Select("[UserName] = 'Fred'");
+                    Assert.AreEqual(1, dr.Length);
+                }
+            }
+        }*/
+
+        //##############################################
+
 
 
 
