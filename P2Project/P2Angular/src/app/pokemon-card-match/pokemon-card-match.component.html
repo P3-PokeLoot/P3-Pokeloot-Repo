@@ -1,0 +1,16 @@
+<p>enter user1Id and user2Id to see if they have some pokemon-card-match !</p>
+
+<!-- enter user1Id  -->
+<div>
+  <label for="user1Id">user1Id</label>
+  <input type="text" id="user1Id" #user1Id>
+  <button (click)="getUser1CardCollection(user1Id.value)"; user1Id.value=''>submit</button>
+</div>
+
+<!-- enter user2Id  -->
+<div>
+  <label for="user2Id">user2Id</label>
+  <input type="text" id="user2Id" #user2Id>
+  <button (click)="getUser1CardCollection(user2Id.value)"; user2Id.value=''>submit</button>
+</div>
+
