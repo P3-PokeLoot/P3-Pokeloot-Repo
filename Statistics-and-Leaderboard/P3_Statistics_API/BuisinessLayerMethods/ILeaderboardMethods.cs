@@ -14,6 +14,7 @@ namespace BuisinessLayerMethods
         List<MVPShiny> TopShinyTotal(int number);
         List<UsersCollection> GetUserTotalCollection(int number);
         int GetTotalPokemon();
-        List<UsersCollection> GetUserTotalAmount(int topUser);
+        List<UsersCollection> GetUserTotalAmount(int number);
+        PercentageOwnCard GetPercentageOwnCard(string name);
     }
 }

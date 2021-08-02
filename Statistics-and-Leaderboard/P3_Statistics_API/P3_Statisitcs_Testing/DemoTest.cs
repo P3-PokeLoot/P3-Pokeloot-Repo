@@ -113,7 +113,7 @@ namespace P3_Statisitcs_Testing
         {
             // Arrange
 
-            //Set values for CardCollection Table
+            // Set values for CardCollection Table
             CardCollection userMostShiny_1 = new()
             {
                 PokemonId = 1,
@@ -159,7 +159,7 @@ namespace P3_Statisitcs_Testing
 
             };
 
-            //Set users table
+            // Set users table
             User user_1 = new()
             {
                 UserId = 1,
@@ -259,7 +259,7 @@ namespace P3_Statisitcs_Testing
         {
 
             // Arrange
-            //Set users table
+            // Set users table
             User user_1 = new()
             {
                 UserId = 1,
@@ -317,7 +317,7 @@ namespace P3_Statisitcs_Testing
             };
 
 
-            //Set CardCollection
+            // Set CardCollection
             CardCollection userMostShiny_1 = new()
             {
                 PokemonId = 1,
@@ -383,7 +383,7 @@ namespace P3_Statisitcs_Testing
             };
 
 
-            //Act
+            // Act
             using (var context = new P3Context(options))
             {
 
@@ -391,7 +391,7 @@ namespace P3_Statisitcs_Testing
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
 
-                //some method perhaps
+                // some method perhaps
                 LeaderboardMethods leaderTest = new LeaderboardMethods(context);
 
                 context.Users.Add(user_1);
@@ -426,9 +426,9 @@ namespace P3_Statisitcs_Testing
         /*========================= TEST 3 GUILLERMO ======================================*/
         [Fact]
         public async Task GetTotalPokemonsInTheDB() {
-            //Arrange
+            // Arrange
 
-            //Set Pokemons Cards
+            // Set Pokemons Cards
             PokemonCard card_1 = new PokemonCard()
             {
                 PokemonId = 1,
@@ -469,14 +469,14 @@ namespace P3_Statisitcs_Testing
 
             };
 
-            //Act
+            // Act
             using (var context = new P3Context(options))
             {
 
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
 
-                //some method perhaps
+                // some method perhaps
                 LeaderboardMethods leaderTest = new LeaderboardMethods(context);
 
                 context.PokemonCards.Add(card_1);
@@ -488,7 +488,7 @@ namespace P3_Statisitcs_Testing
 
                 int totalpokemons = leaderTest.GetTotalPokemon();
 
-                //Assert
+                // Assert
                 Assert.Equal(4, totalpokemons);
 
             }
@@ -502,7 +502,7 @@ namespace P3_Statisitcs_Testing
         public async Task GetTotalCardAmountUserHave()
         {
             // Arrange
-            //Set users table
+            // Set users table
             User user_1 = new()
             {
                 UserId = 1,
@@ -560,7 +560,7 @@ namespace P3_Statisitcs_Testing
             };
 
 
-            //Set CardCollection
+            // Set CardCollection
             CardCollection userMostShiny_1 = new()
             {
                 PokemonId = 1,
@@ -626,7 +626,7 @@ namespace P3_Statisitcs_Testing
             };
 
 
-            //Act
+            // Act
             using (var context = new P3Context(options))
             {
 
@@ -634,7 +634,7 @@ namespace P3_Statisitcs_Testing
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
 
-                //some method perhaps
+                // Some method perhaps
                 LeaderboardMethods leaderTest = new LeaderboardMethods(context);
 
                 context.Users.Add(user_1);
@@ -664,8 +664,186 @@ namespace P3_Statisitcs_Testing
                );
             }
 
+        }
+
+        /*========================= TEST 5 GUILLERMO ======================================*/
+
+        [Fact]
+        public async Task PercentageOfAllUsersThatCurrentlyOwnThisCard()
+        {
+            // Arrange
+            // Set a card
+            PokemonCard card_1 = new PokemonCard()
+            {
+                PokemonId = 3,
+                RarityId = 1,
+                SpriteLink = "SP-card_1",
+                SpriteLinkShiny = "SP-card_1",
+                PokemonName = "Mew"
+
+            };
 
 
+            // Set users table
+            User user_1 = new()
+            {
+                UserId = 1,
+                FirstName = "user1",
+                LastName = "user1",
+                UserName = "user1",
+                Password = "user1",
+                Email = "user1",
+                CoinBalance = 0,
+                AccountLevel = 10,
+                TotalCoinsEarned = 10
+
+            };
+
+            User user_2 = new()
+            {
+                UserId = 2,
+                FirstName = "user2",
+                LastName = "user2",
+                UserName = "user2",
+                Password = "user2",
+                Email = "user2",
+                CoinBalance = 0,
+                AccountLevel = 10,
+                TotalCoinsEarned = 10
+
+            };
+
+            User user_3 = new()
+            {
+                UserId = 3,
+                FirstName = "user3",
+                LastName = "user3",
+                UserName = "user3",
+                Password = "user3",
+                Email = "user3",
+                CoinBalance = 0,
+                AccountLevel = 10,
+                TotalCoinsEarned = 10
+
+            };
+
+            User user_4 = new()
+            {
+                UserId = 4,
+                FirstName = "user4",
+                LastName = "user4",
+                UserName = "user4",
+                Password = "user4",
+                Email = "user4",
+                CoinBalance = 0,
+                AccountLevel = 10,
+                TotalCoinsEarned = 10
+
+            };
+
+            // Set CardCollection
+            CardCollection userMostShiny_1 = new()
+            {
+                PokemonId = 1,
+                UserId = 1,
+                QuantityNormal = 10,
+                QuantityShiny = 2,
+
+            };
+
+            CardCollection userMostShiny_2 = new()
+            {
+                PokemonId = 3,
+                UserId = 2,
+                QuantityNormal = 13,
+                QuantityShiny = 8,
+
+            };
+
+            CardCollection userMostShiny_3 = new()
+            {
+                PokemonId = 3,
+                UserId = 3,
+                QuantityNormal = 1,
+                QuantityShiny = 6,
+
+            };
+
+            CardCollection userMostShiny_4 = new()
+            {
+                PokemonId = 4,
+                UserId = 3,
+                QuantityNormal = 1,
+                QuantityShiny = 34,
+
+            };
+
+            CardCollection userMostShiny_5 = new()
+            {
+                PokemonId = 5,
+                UserId = 4,
+                QuantityNormal = 1,
+                QuantityShiny = 225,
+
+            };
+
+
+            CardCollection userMostShiny_6 = new()
+            {
+                PokemonId = 7,
+                UserId = 4,
+                QuantityNormal = 1,
+                QuantityShiny = 225,
+
+            };
+
+            CardCollection userMostShiny_7 = new()
+            {
+                PokemonId = 3,
+                UserId = 4,
+                QuantityNormal = 1,
+                QuantityShiny = 225,
+
+            };
+
+
+            // Act
+            using (var context = new P3Context(options))
+            {
+
+                context.Database.EnsureDeleted();
+                context.Database.EnsureCreated();
+
+                LeaderboardMethods test = new LeaderboardMethods(context);
+
+                context.PokemonCards.Add(card_1);
+                context.SaveChanges();
+
+                context.Users.Add(user_1);
+                context.Users.Add(user_2);
+                context.Users.Add(user_3);
+                context.Users.Add(user_4);
+                context.SaveChanges();
+
+                context.CardCollections.Add(userMostShiny_1);
+                context.CardCollections.Add(userMostShiny_2);
+                context.CardCollections.Add(userMostShiny_3);
+                context.CardCollections.Add(userMostShiny_4);
+                context.CardCollections.Add(userMostShiny_5);
+                context.CardCollections.Add(userMostShiny_6);
+                context.CardCollections.Add(userMostShiny_7);
+                context.SaveChanges();
+
+                // Assert
+                PercentageOwnCard poc = test.GetPercentageOwnCard("Mew");
+                Assert.NotNull(poc);
+                Assert.Equal("Mew",poc.PokemonName);
+                Assert.Equal(4, poc.Total_Users);
+                Assert.Equal(3, poc.TotalQy);
+                Assert.Equal(75, poc.Percentage_OwnCard);
+                
+            }
+           
         }
     }
 }

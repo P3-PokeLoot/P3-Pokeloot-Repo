@@ -23,7 +23,7 @@ namespace P3_Statistics_API.Controllers
         }
 
         /// <summary>
-        /// Display the users pokemon that have more reapeted shiny
+        /// Retrive the users with most shinys for pokmemon 
         /// </summary>
         /// <param name="userMost"></param>
         /// <returns></returns>
@@ -44,7 +44,7 @@ namespace P3_Statistics_API.Controllers
         }
 
         /// <summary>
-        /// Display the players with most shinys
+        /// Display the Sum of all shinys a user has
         /// </summary>
         /// <param name="topUsers"></param>
         /// <returns></returns>
@@ -67,7 +67,7 @@ namespace P3_Statistics_API.Controllers
 
 
         /// <summary>
-        /// Display total cards of unique pokemons a user have
+        /// Display the amount of unique pokemons a user have in the collection
         /// </summary>
         /// <param name="topUsers"></param>
         /// <returns></returns>
@@ -90,7 +90,7 @@ namespace P3_Statistics_API.Controllers
 
 
         /// <summary>
-        /// Display the total amount of unique pokemons in the world from the DB
+        /// Display the total amount of unique pokemons in the database that exist
         /// </summary>
         /// <returns></returns>
         [HttpGet("[action]")]
@@ -130,6 +130,30 @@ namespace P3_Statistics_API.Controllers
                 return StatusCode(200, userCardAmount);
             }
 
+        }
+
+
+        /// <summary>
+        /// Users can see the percentage of all users that currently own this pokemon card.
+        /// </summary>
+        /// <param name="pokemonName"></param>
+        /// <returns></returns>
+        [HttpGet("[action]/{pokemonName}")]
+        public IActionResult GetCardPorcentage(string pokemonName)
+        {
+            pokemonName = pokemonName.ToLower();
+
+            PercentageOwnCard cardporcentage = _leaderboard.GetPercentageOwnCard(pokemonName);
+
+
+            if (pokemonName == null)
+            {
+                return StatusCode(400);
+            }
+            else
+            {
+                return StatusCode(200, pokemonName);
+            }
         }
 
     }

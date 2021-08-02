@@ -137,6 +137,38 @@ namespace BuisinessLayerMethods
 
         }
 
+
+
+        /// <summary>
+        ///  Users can see the percentage of all users that currently own this pokemon card.
+        /// </summary>
+        /// <param name="pokemon_name"></param>
+        /// <returns></returns>
+        public PercentageOwnCard GetPercentageOwnCard(string pokemon_name)
+        {
+            //Search for the card by name
+            PokemonCard pokemon_card = context.PokemonCards.Where(x => x.PokemonName.ToLower().Equals(pokemon_name)).First();
+
+            double x = context.Users.Count();
+
+            double total_users_own = context.CardCollections.Where(x => x.PokemonId == pokemon_card.PokemonId).Count();
+
+            
+            PercentageOwnCard pokemon_percentage = new PercentageOwnCard() {
+
+                PokemonId = pokemon_card.PokemonId,
+                PokemonName = pokemon_card.PokemonName,
+                RarityId = pokemon_card.RarityId,
+                SpriteLink = pokemon_card.SpriteLink,
+                SpriteLinkShiny = pokemon_card.SpriteLinkShiny,
+                Total_Users = context.Users.Count(),
+                TotalQy = total_users_own,
+                Percentage_OwnCard = (total_users_own / x)*100
+
+            };
+            return pokemon_percentage;
+        }
+
         /// <summary>
         /// Display the total amount of unique pokemons in the database that exist
         /// </summary>
