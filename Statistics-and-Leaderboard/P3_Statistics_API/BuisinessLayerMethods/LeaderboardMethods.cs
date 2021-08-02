@@ -147,7 +147,7 @@ namespace BuisinessLayerMethods
         public PercentageOwnCard GetPercentageOwnCard(string pokemon_name)
         {
             //Search for the card by name
-            PokemonCard pokemon_card = context.PokemonCards.Where(x => x.PokemonName.ToLower().Equals(pokemon_name)).First();
+            PokemonCard pokemon_card = context.PokemonCards.Where(x => x.PokemonName.Equals(pokemon_name)).First();
 
             double x = context.Users.Count();
 

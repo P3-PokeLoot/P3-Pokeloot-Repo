@@ -141,7 +141,7 @@ namespace P3_Statistics_API.Controllers
         [HttpGet("[action]/{pokemonName}")]
         public IActionResult GetCardPorcentage(string pokemonName)
         {
-            pokemonName = pokemonName.ToLower();
+            //pokemonName = pokemonName.ToLower();
 
             PercentageOwnCard cardporcentage = _leaderboard.GetPercentageOwnCard(pokemonName);
 
