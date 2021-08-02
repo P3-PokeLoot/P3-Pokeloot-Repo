@@ -7,7 +7,7 @@ import { GamesService, WtpGame } from '../games.service';
   styleUrls: ['./wtp-game-selection.component.css']
 })
 export class WtpGameSelectionComponent implements OnInit {
-  @Output() resultEmitter = new EventEmitter<string>();
+  @Output() resultEmitter = new EventEmitter<{result:string, picture?:string, win?:boolean}>();
   pictureUrl?:string;
   correctPokemon?:string;
   options?:string[];
@@ -27,11 +27,11 @@ export class WtpGameSelectionComponent implements OnInit {
     if(userSelection == this.correctPokemon)
     {
       console.log('win');
-      this.resultEmitter.emit("You win!");
+      this.resultEmitter.emit({result:"Correct! It's "+ this.correctPokemon+"!", picture:this.pictureUrl, win:true});
     }
     else{
       console.log('lose');
-      this.resultEmitter.emit("You Lose!");
+      this.resultEmitter.emit({result:"Sorry, It's " + this.correctPokemon + "! You lose.", picture:this.pictureUrl, win:false});
     }
   }
 }

@@ -12,7 +12,7 @@ enum WtpGameState {
 })
 
 export class WtpGameComponent implements OnInit {
-  userInput?:string;
+  outcome?:{result:string, picture?:string, win?:boolean};
   State = WtpGameState;
   gameState: WtpGameState = WtpGameState.SelectPokemon;
 
@@ -21,8 +21,8 @@ export class WtpGameComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  setUserInput(userInput: string) {
-    this.userInput = userInput;
+  setUserInput(outcome: {result:string, picture?:string, win?:boolean}) {
+    this.outcome = outcome;
     this.gameState = this.State.PresentOutcome;
   }
 

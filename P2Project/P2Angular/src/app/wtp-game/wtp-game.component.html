@@ -4,10 +4,9 @@
         (resultEmitter)="setUserInput($event)">
     </app-wtp-game-selection>
 
-    <ng-template [ngIf]='!!userInput'>
-        <app-wtp-game-outcome 
-            *ngIf='gameState === State.PresentOutcome'
-            (playAgainEmitter)="restartGame()"><div></div>
-        </app-wtp-game-outcome>
-    </ng-template>
+
+    <app-wtp-game-outcome 
+        *ngIf='gameState === State.PresentOutcome' [result]="outcome"
+        (playAgainEmitter)="restartGame()">
+    </app-wtp-game-outcome>
 </div>

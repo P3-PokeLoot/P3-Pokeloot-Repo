@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { GameService } from '../game-service';
 
 @Component({
   selector: 'app-wtp-game-outcome',
@@ -6,11 +7,15 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./wtp-game-outcome.component.css']
 })
 export class WtpGameOutcomeComponent implements OnInit {
-  @Input() result?: string;
+  @Input() result?: {result:string, picture?:string, win?:boolean};
   @Output() playAgainEmitter = new EventEmitter();
   outcomeText?:string;
+  pictureUrl?:string;
+  win?:boolean;
+  numCoinsToAdd: number = 50;
+  currentUserCoinBalance = {} as any;
 
-  constructor() {}
+  constructor(private _gameService: GameService) {}
 
   ngOnInit(): void {
     console.log("Initialized");
@@ -19,7 +24,18 @@ export class WtpGameOutcomeComponent implements OnInit {
 
   determineResult():void{
     console.log('result ' + this.result);
-    this.outcomeText = this.result;
+    this.outcomeText = this.result?.result;
+    this.pictureUrl = this.result?.picture;
+    this.win = this.result?.win;
+    if(this.win == true)
+    {
+      this._gameService.AddCoins(this.numCoinsToAdd).subscribe();
+      this._gameService.GetBalance().subscribe(
+        result => {
+          let coinBalance   = result;
+          this.currentUserCoinBalance = coinBalance;
+        });
+    }
   }
 
   playAgain(){
