@@ -248,15 +248,10 @@ namespace P3_Statisitcs_Testing
                 Assert.Collection(listTest,
                     info => Assert.Equal(225, info.TotalShiny),
                     info => Assert.Equal(40, info.TotalShiny),
-                    info => Assert.Equal(8, info.TotalShiny)
-               
+                    info => Assert.Equal(8, info.TotalShiny)       
                );
             }
-
-
         }
-
-
 
         /*========================= TEST 3 GUILLERMO ======================================*/
         [Fact]

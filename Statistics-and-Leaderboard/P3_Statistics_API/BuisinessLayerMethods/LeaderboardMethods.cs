@@ -17,7 +17,6 @@ namespace BuisinessLayerMethods
         /// </summary>
         /// <param name="context">Db context</param>
         /// 
-
         public LeaderboardMethods(P3Context context)
         {
             this.context = context;
@@ -33,7 +32,7 @@ namespace BuisinessLayerMethods
 
 
         /// <summary>
-        /// Display the users pokemon that have more reapeted shiny
+        /// Retrive the users with most shinys for pokmemon 
         /// </summary>
         /// <param name="userMost"></param>
         /// <returns></returns>
@@ -51,7 +50,7 @@ namespace BuisinessLayerMethods
 
 
         /// <summary>
-        /// Display the players with most shinys
+        /// Display the Sum of all shinys a user has
         /// </summary>
         /// <param name="topUser"></param>
         /// <returns></returns>
@@ -82,7 +81,7 @@ namespace BuisinessLayerMethods
 
 
         /// <summary>
-        /// Display total cards of unique pokemons a user have
+        /// Display the amount of unique pokemons a user have in the collection
         /// </summary>
         /// <param name="topUsers"></param>
         /// <returns></returns>
@@ -101,7 +100,7 @@ namespace BuisinessLayerMethods
                                       UserId = temp.Key,
                                       FirstName = temp.First().User.FirstName,
                                       LastName = temp.First().User.LastName,
-                                      Total_Collection = temp.Count(x => x.PokemonId >= 0)
+                                      Total_Collection = temp.Count(x => x.PokemonId >= 0) 
 
                                   }).OrderByDescending(x => x.Total_Collection).Take(topUsers).ToList();
 
@@ -139,7 +138,7 @@ namespace BuisinessLayerMethods
         }
 
         /// <summary>
-        /// Display the total amount of unique pokemons in the world from the DB
+        /// Display the total amount of unique pokemons in the database that exist
         /// </summary>
         /// <returns></returns>
         public int GetTotalPokemon()

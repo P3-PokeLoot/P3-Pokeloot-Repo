@@ -130,7 +130,6 @@ namespace P3_Statistics_API.Controllers
                 return StatusCode(200, userCardAmount);
             }
 
-
         }
 
     }
