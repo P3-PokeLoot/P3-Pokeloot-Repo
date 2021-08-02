@@ -32,9 +32,13 @@
     text-align: center; 
     background-image:url('/assets/game-api/text-box.png'); 
     background-repeat: no-repeat;
-    background-size:30%;
+    background-size:35%;
     background-position: center;
-    height: 100%;
+    height: 300px;
+    white-space: pre-wrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .center {
     margin: 0;
