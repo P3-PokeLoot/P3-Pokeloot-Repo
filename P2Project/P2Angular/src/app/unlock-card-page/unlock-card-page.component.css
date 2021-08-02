@@ -8,51 +8,151 @@
     justify-content: center; /* Added */
 }
 img{
-    width: 200px;
-    height: 200px;
+    width: 30%;
+    height: 30%;
+}
+.card-img-top{
+    width: 100%;
+    height: 100%;
 }
 
 .shinyclass {
     color : pink;
 }
 
+
+@keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+
+    from {
+        box-shadow: 0 0 10px -10px rgb(63, 11, 250);
+      }
+      to {
+        box-shadow: 0 0 10px 10px rgb(97, 235, 5);
+      }
+  }
+
+  @keyframes glow {
+    from {
+      box-shadow: 0 0 10px -10px rgb(233, 7, 222);
+    }
+    to {
+      box-shadow: 0 0 10px 10px rgb(233, 7, 7);
+    }
+  }
+
 .card1 {
     background-color: #96e6c2;
     border-style: solid;
     border-width: thin;
     border-color: black;
+    height: 150%;
+   
+    animation: glow 1s infinite alternate;
 }
+.card1:hover {
+    
+    
+    /* Start the shake animation and make the animation last for 0.5 seconds */
+    animation: shake 0.5s;
+  
+    /* When the animation is finished, start again */
+    animation-iteration-count: infinite;
+  }
+  
 .card2 {
     background-color: #ADD8E6;
     border-style: solid;
     border-width: thin;
     border-color: black;
+    height: 150%;
+    animation: glow 1s infinite alternate;
 }
+.card2:hover {
+   
+    /* Start the shake animation and make the animation last for 0.5 seconds */
+    animation: shake 0.5s;
+  
+    /* When the animation is finished, start again */
+    animation-iteration-count: infinite;
+  }
 .card3 {
+    animation: glow 1s infinite alternate;
     background-color: #CBC3E3;
     border-style: solid;
     border-width: thin;
     border-color: black;
+    height: 150%;
+    animation: glow 1s infinite alternate;
 }
+.card3:hover {
+    
+    
+    /* Start the shake animation and make the animation last for 0.5 seconds */
+    animation: shake 0.5s;
+  
+    /* When the animation is finished, start again */
+    animation-iteration-count: infinite;
+  }
 .card4 {
     background-color: #ffcccb;
     border-style: solid;
     border-width: thin;
     border-color: black;
+    height: 150%;
+    animation: glow 1s infinite alternate;
 }
+.card4:hover {
+    
+    /* Start the shake animation and make the animation last for 0.5 seconds */
+    animation: shake 0.5s;
+  
+    /* When the animation is finished, start again */
+    animation-iteration-count: infinite;
+  }
 .card5 {
     background-color: #FFD580;
     border-style: solid;
     border-width: thin;
     border-color: black;
+    height: 150%;
+    animation: glow 1s infinite alternate;
 }
+.card5:hover {
+    
+    /* Start the shake animation and make the animation last for 0.5 seconds */
+    animation: shake 0.5s;
+  
+    /* When the animation is finished, start again */
+    animation-iteration-count: infinite;
+  }
 
 .card6{
+    height: 100%;
     background-color: rgb(202, 201, 201);
     border-style: solid;
     border-width: thin;
     border-color: black;
+    animation: glow 1s infinite alternate;
 }
+.card6:hover {
+    
+    /* Start the shake animation and make the animation last for 0.5 seconds */
+    animation: shake 0.5s;
+  
+    /* When the animation is finished, start again */
+    animation-iteration-count: infinite;
+  }
 
 .card-title{
     word-break: keep-all;

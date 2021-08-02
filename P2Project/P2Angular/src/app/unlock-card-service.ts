@@ -16,8 +16,8 @@ export class UnlockCardService {
 
   constructor(private http: HttpClient) { }
 
-  RollLootbox():Observable<any[]>{
-    return this.http.get<any>('https://pokeloot.azurewebsites.net/api/P2/Lootbox/' + localStorage.getItem('userId'))
+  RollLootbox(boxType: number):Observable<any[]>{
+    return this.http.get<any>('https://localhost:44307/api/P2/Lootbox/' + localStorage.getItem('userId') + '/' + boxType)
   }
 
   Balance():Observable<any[]>{
