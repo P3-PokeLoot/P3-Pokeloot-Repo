@@ -23,11 +23,11 @@ export class GamePageComponent implements OnInit {
           let coinBalance = result;
 
           this.currentUserCoinBalance = coinBalance;
-          console.log(this.currentUserCoinBalance);
         });
     }
 
     this._gameService.GetList().subscribe(result => { this.gameList = result; })
+
   }
 
   playGame(): void {
@@ -39,7 +39,6 @@ export class GamePageComponent implements OnInit {
         let coinBalance = result;
 
         this.currentUserCoinBalance = coinBalance;
-        console.log(this.currentUserCoinBalance);
       });
   }
 }

@@ -1,28 +1,5 @@
 
-<div>
-    <div style="font-size: medium; margin-left: 2rem;">
-    <label>Rarities</label>
-    
-        <select [(ngModel)]="filterValue">
-            <option [value]="0" [selected]="filterValue == 0">Any</option>
-            <!-- <option *ngFor="let x of raritiesList" [value]="x" [selected]="filterValue == x">{{x}}</option> -->
-            <option *ngFor="let x of raritiesList" [value]="x.RarityId" [selected]="filterValue == x.RarityId">{{x.RarityName}}</option>
-        </select>
-    
-        <input type="checkbox" [(ngModel)]="filterValueShiny" name="shinycheckbox" value="1" style="margin-left: 2rem;">
-        <label for="shinycheckbox">Is Shiny</label><br>
 
-        <label>Generations</label>
-        <select [(ngModel)]="genValue">
-            
-            <!-- <option *ngFor="let x of raritiesList" [value]="x" [selected]="filterValue == x">{{x}}</option> -->
-            <option *ngFor="let x of genOptions" [value]="x" [selected]="genValue == x">{{x}}</option>
-        </select><br>
-
-
-        <button (click) = 'filterCollection()' style="justify-self: center; font-size: large;">Filter Cards</button>
-    </div>
-</div>
 
 
 <div class="post-wrapper">
@@ -81,6 +58,30 @@
                                 {{GetRarityDisplay(card.RarityId)}}
                             </option>
                         </select>
+                        <div>
+                            <div style="font-size: medium; margin-left: 2rem;">
+                            <label>Rarities</label>
+                            
+                                <select [(ngModel)]="filterValue">
+                                    <option [value]="0" [selected]="filterValue == 0">Any</option>
+                                    <!-- <option *ngFor="let x of raritiesList" [value]="x" [selected]="filterValue == x">{{x}}</option> -->
+                                    <option *ngFor="let x of raritiesList" [value]="x.RarityId" [selected]="filterValue == x.RarityId">{{x.RarityName}}</option>
+                                </select>
+                            
+                                <input type="checkbox" [(ngModel)]="filterValueShiny" name="shinycheckbox" value="1" style="margin-left: 2rem;">
+                                <label for="shinycheckbox">Is Shiny</label><br>
+                        
+                                <label>Generations</label>
+                                <select [(ngModel)]="genValue">
+                                    
+                                    <!-- <option *ngFor="let x of raritiesList" [value]="x" [selected]="filterValue == x">{{x}}</option> -->
+                                    <option *ngFor="let x of genOptions" [value]="x" [selected]="genValue == x">{{x}}</option>
+                                </select><br>
+                        
+                        
+                                <button (click) = 'filterCollection()' style="justify-self: center; font-size: large;">Filter Cards</button>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="mt-3 w-100">

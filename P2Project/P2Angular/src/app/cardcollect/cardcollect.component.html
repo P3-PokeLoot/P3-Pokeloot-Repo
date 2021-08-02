@@ -1,4 +1,21 @@
-<div>
+
+
+
+
+<h2 class="row display: flex justify-content-center">Users Cards</h2>
+
+<div class="col text-center">
+    <h6>Page {{currentPage}} of {{lastpage}}</h6>
+   <form class="d-inline-flex p-2" (ngSubmit)="onChangePagePrev()" #searchForm="ngForm">
+       <button class="btn btn-outline-success" type="submit">Prev Page</button>    
+   </form>  
+   <form class="d-inline-flex p-2" (ngSubmit)="onChangePageNext()" #searchForm="ngForm">
+       <button class="btn btn-outline-success" type="submit">Next Page</button>    
+   </form>
+   <br>    
+   <div class="border my-4 d-flex justify-content-center"></div>    
+   <br>
+   <div>
     <div style="font-size: medium; margin-left: 2rem;">
     <label>Rarities</label>
     
@@ -22,22 +39,6 @@
         <button (click) = 'filterCollection()' style="justify-self: center; font-size: large;">Filter Cards</button>
     </div>
 </div>
-
-
-
-<h2 class="row display: flex justify-content-center">Users Cards</h2>
-
-<div class="col text-center">
-    <h6>Page {{currentPage}} of {{lastpage}}</h6>
-   <form class="d-inline-flex p-2" (ngSubmit)="onChangePagePrev()" #searchForm="ngForm">
-       <button class="btn btn-outline-success" type="submit">Prev Page</button>    
-   </form>  
-   <form class="d-inline-flex p-2" (ngSubmit)="onChangePageNext()" #searchForm="ngForm">
-       <button class="btn btn-outline-success" type="submit">Next Page</button>    
-   </form>
-   <br>    
-   <div class="border my-4 d-flex justify-content-center"></div>    
-   <br>
 
 </div>
 

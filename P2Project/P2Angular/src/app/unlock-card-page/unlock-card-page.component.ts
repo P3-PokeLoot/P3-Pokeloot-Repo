@@ -16,6 +16,7 @@ export class UnlockCardPageComponent implements OnInit {
   newCard : IUnlockCard;
   currentUserCoinBalance : any;
   tooPoor: boolean = false;
+  ///boxType: number = 1;
   bublapedia: string = 'https://bulbapedia.bulbagarden.net/wiki/';
 
   constructor(private _cardcollectionService: UnlockCardService) { 
@@ -38,12 +39,23 @@ export class UnlockCardPageComponent implements OnInit {
      }
   }
 
-  openLootbox(): void {
+  openLootbox(boxType: number): void {
     if(this.userId != null)
     {
+      let amount: number = 0;
+      if(boxType == 1){
+        amount = 100;
+      }
+      else if(boxType == 2){
+        amount = 500;
+      }
+      else{
+        amount = 1000;
+      }
       if(this.currentUserCoinBalance >= 100)
       {
-        this._cardcollectionService.RollLootbox().subscribe(
+        this.tooPoor = false;
+        this._cardcollectionService.RollLootbox(boxType).subscribe(
           result => {
             let PokemonId     = result[0].Key.PokemonId;
             let RarityId      = result[0].Key.RarityId;
