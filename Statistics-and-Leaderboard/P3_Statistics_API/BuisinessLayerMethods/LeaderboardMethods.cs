@@ -100,9 +100,6 @@ namespace BuisinessLayerMethods
             try
             {
                 string sql = @"select top "+ mx +" (cast(count(distinct(C.PokemonId)) as float) / count(distinct(P.PokemonId))) * 100 as Card_collection , count(distinct(P.PokemonId)) as total , U.UserId , U.FirstName from CardCollection C , Users U , PokemonCards P where C.UserId = U.UserId group by u.UserId , u.FirstName order by Card_collection desc";
-
-             //   DbConnection conn = context.Database.GetDbConnection();
-
                 dataResult = conn.Query<TopPersentCompletedCollectionModel>(sql);
             }
             catch (Exception e)
