@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BusinessLayer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -32,6 +33,8 @@ namespace P3Api
             {
                 opt.UseInMemoryDatabase(databaseName: "Testing");
             }); //Add in sqlserver connection string once set up
+            
+            services.AddScoped<IBusinessModel, BusinessModel>();
 
             services.AddCors((options) =>
             {

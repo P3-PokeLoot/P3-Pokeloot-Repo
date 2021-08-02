@@ -11,9 +11,14 @@ export class GamesService {
 
   private BaseUrl = "localhost";
   private GamesUrl = "api/game/"; //Not sure how this is going to work once kubernetes-itized
-
+  private WtpUrl = "https://localhost:44301/api/Games/Wtp";
+  
   GetGamesList(): Observable<GameInfo[]>{
     return this.http.get<GameInfo[]>(this.BaseUrl + this.GamesUrl + "list");
+  }
+
+  GetWtpGame(): Observable<WtpGame>{
+    return this.http.get<WtpGame>(this.WtpUrl)
   }
 }
 
@@ -24,3 +29,10 @@ export interface GameInfo
   imgUrl: string,
   route: string
 };
+
+export interface WtpGame
+{
+  pictureUrl: string,
+  correctPokemon: string,
+  options: string[],
+}
