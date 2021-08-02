@@ -30,6 +30,9 @@ import { FilterPipe } from './Pipes/filter.pipe';
 import { RpsGameOutcomeComponent } from './rps-game-outcome/rps-game-outcome.component';
 import { RpsGameComponent } from './rps-game/rps-game.component';
 import { RpsGamePokemonSelectionComponent } from './rps-game-pokemon-selection/rps-game-pokemon-selection.component';
+import { WtpGameComponent } from './wtp-game/wtp-game.component';
+import { WtpGameSelectionComponent } from './wtp-game-selection/wtp-game-selection.component';
+import { WtpGameOutcomeComponent } from './wtp-game-outcome/wtp-game-outcome.component';
 
 
 @NgModule({
@@ -54,7 +57,7 @@ import { RpsGamePokemonSelectionComponent } from './rps-game-pokemon-selection/r
     //Games-Angular-Service,
     RpsGameComponent,
     FilterPipe, 
-    RpsGamePokemonSelectionComponent,
+    RpsGamePokemonSelectionComponent, WtpGameComponent, WtpGameSelectionComponent, WtpGameOutcomeComponent,
     //JwPaginationComponent,
   ],
   imports: [

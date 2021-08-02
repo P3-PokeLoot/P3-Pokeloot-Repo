@@ -1,0 +1,23 @@
+#result{
+    text-align: center;
+    white-space: pre-wrap;
+}
+.center {
+    margin: 0;
+    position: absolute;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+#wtp-div{
+    margin-top: 10em;
+    display: flex; 
+    justify-content: center; 
+    background-image: url(/assets/game-api/wtp-center.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+#sprite{
+    width: 450px;
+}
