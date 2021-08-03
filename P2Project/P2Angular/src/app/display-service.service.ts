@@ -14,7 +14,7 @@ export class DisplayServiceService {
   private url: string = 'https://pokeloot.azurewebsites.net/api/P2/DisplayBoard';
   //private url: string = '';
 
-  //private url: string = 'https://localhost:44307/api/P2/DisplayBoard';
+  private localurl: string = 'https://localhost:44307/api/P2/EditPrice/';
   private urltobuy: string = 'https://pokeloot.azurewebsites.net/api/P2/buyCard/';
 
 
@@ -28,4 +28,10 @@ export class DisplayServiceService {
       let newUrl = this.urltobuy + postId + '/' + userId + '/';
       return this.http.get<any>(newUrl);
   }
+
+  editPost(postId: number, newPrice: string):Observable<boolean>{
+    let newUrl = this.localurl + postId + '/' + newPrice + '/';
+    return this.http.get<any>(newUrl);
+  }
+
 }

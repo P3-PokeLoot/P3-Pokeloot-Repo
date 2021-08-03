@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { FullPost } from '../Models/Post';
 import { IPost } from '../Models/IPost';
+import { DisplayServiceService } from '../display-service.service';
 
 @Component({
   selector: 'app-edit-post',
@@ -15,7 +16,10 @@ export class EditPostComponent implements OnInit {
   @Input() currentPost!: IPost;
   submittedSuccesfully = false;
   isPriceValid?: boolean;
-  constructor() { }
+
+  constructor(private _displayService: DisplayServiceService ,private route:Router) { 
+
+  }
 
   ngOnInit(): void {
     console.log("im at editing page");
@@ -29,6 +33,21 @@ export class EditPostComponent implements OnInit {
       this.isPriceValid = true;
       return;
     }
+
+    this.route.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+      this.route.navigate(['/Home']);
+});
+
+    this._displayService.editPost(this.currentPost.PostId, postForm.value.Price).subscribe(
+      result => {
+        console.log(result);
+        //let currentUrl = this.route.url;
+        this.route.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+          this.route.navigate(['/Home']);
+    });
+      },
+      error => console.log(error)
+    );
   }
 
 }
