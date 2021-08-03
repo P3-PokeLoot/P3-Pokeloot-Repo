@@ -1146,6 +1146,64 @@ namespace UnitTests
             }
         }
 
+        [Fact]
+        public void editPriceTest()
+        {
+            // Arange
+
+            Post testPost1 = new Post()
+            {
+                PokemonId = 150,
+                PostDescription = "this is a sales post",
+                Price = 20,
+            };
+            Post testPost2 = new Post()
+            {
+                PokemonId = 150,
+                PostDescription = "this is a display post",
+            };
+            
+
+            bool post1;
+            bool post2;
+            bool post3;
+            Post result;
+            
+            
+
+
+            // Act
+            using (var context = new P2DbClass(options))    // creates in memory database
+            {
+                context.Database.EnsureDeleted();
+                context.Database.EnsureCreated();
+
+                BusinessModel testBusinessModel = new BusinessModel(context);
+
+
+                context.Posts.Add(testPost1);
+                context.Posts.Add(testPost2);
+                context.SaveChanges();
+                testPost1.PostId = 1;
+
+                post1 = testBusinessModel.editPrice(1, 200);
+                post2 = testBusinessModel.editPrice(2, 200);
+                post3= testBusinessModel.editPrice(3, 200);
+                result = context.Posts.Where(x => x.PostId == testPost1.PostId).FirstOrDefault();
+
+
+                // Assert
+                Assert.True(post1);
+                Assert.True(!post2);
+                Assert.True(!post3);
+                Assert.True(result.Price == 200);
+              
+                
+
+
+            }
+        }
+
 
     }
 

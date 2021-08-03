@@ -15,6 +15,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { RpsGameComponent } from './rps-game/rps-game.component';
 import { RpsGamePokemonSelectionComponent } from './rps-game-pokemon-selection/rps-game-pokemon-selection.component';
 import { WtpGameComponent } from './wtp-game/wtp-game.component';
+import { EditPostComponent } from './edit-post/edit-post.component';
 
 
 
@@ -30,6 +31,7 @@ const routes: Routes = [
   { path: 'Collection', component: CardCollectComponent, canActivate: [AuthGuard] },
   { path: 'TradeCard', component: TradeCardPageComponent, canActivate: [AuthGuard] },
   { path: 'UnlockCard', component: UnlockCardPageComponent, canActivate: [AuthGuard] },
+  { path: 'EditPost', component: EditPostComponent, canActivate: [AuthGuard] },
   { path: 'ViewInformation', component: ViewInformationPageComponent, canActivate: [AuthGuard] },
   { path: 'ViewBalance', component: ViewBalancePageComponent, canActivate: [AuthGuard] },
   { path: 'PostForm', component: CreatePostComponent, canActivate: [AuthGuard] },
