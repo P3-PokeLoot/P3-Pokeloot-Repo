@@ -1,0 +1,11 @@
+<div class="container text-center ">
+    <h4 class="my-4">RPS Pokemon</h4>
+
+    <app-rps-game-pokemon-selection *ngIf="gameState === State.SelectPokemon"
+        (userChoiceEmitter)="setUserInput($event)">
+    </app-rps-game-pokemon-selection>
+
+    <app-rps-game-outcome *ngIf="gameState === State.PresentOutcome" [userChoice]="userSelection"
+        (playAgainEmitter)="restartGame()">
+    </app-rps-game-outcome>
+</div>

@@ -4,6 +4,7 @@ import { CardServiceService } from '../card-service.service';
 import { ICard } from './ICard';
 import { IRarities } from './IRarities';
 import { Observable, of, BehaviorSubject } from 'rxjs';
+import { IGen } from './IGen';
 //import { loadavg } from 'os';
 
 
@@ -20,6 +21,7 @@ export class CardCollectComponent implements OnInit {
   raritiesList: IRarities[];
   //raritiesList: number[];
   filterValue: number;
+  //genList: IGen[];
   filterValueShiny: boolean;
   private userId = localStorage.getItem('userId');
   pageOfItems!: ICard[];
@@ -27,6 +29,9 @@ export class CardCollectComponent implements OnInit {
   currentIndex : number = 0;
   currentPage: number = 1;
   lastpage!: number;
+  genList: IGen[];
+  genValue: string = "Any";
+  genOptions: string[] = ["Any", "Kanto", "Johto", "Hoen", "Sinnoh", "Unova", "Kalos", "Alola", "Galar"];
   bublapedia: string = 'https://bulbapedia.bulbagarden.net/wiki/';
 
 
@@ -37,11 +42,40 @@ export class CardCollectComponent implements OnInit {
     this.filterValue = 0;
     this.filterValueShiny = false;
     this.raritiesList = [];
+    this.genList = [];
   }
 
 
   ngOnInit(): void {
 
+    for(let i: number = 0; i <= 809; i++){
+      if(i <= 151){
+        this.genList.push({PokemonId: i, GenName: "Kanto"});
+      }
+      else if(i > 151 && i <= 251 ){
+        this.genList.push({PokemonId: i, GenName: "Johto"});
+      }
+      else if(i > 251 && i <= 386 ){
+        this.genList.push({PokemonId: i, GenName: "Hoen"});
+      }
+      else if(i > 386 && i <= 493 ){
+        this.genList.push({PokemonId: i, GenName: "Sinnoh"});
+      }
+      else if(i > 493 && i <= 649 ){
+        this.genList.push({PokemonId: i, GenName: "Unova"});
+      }
+      else if(i > 649 && i <= 721 ){
+        this.genList.push({PokemonId: i, GenName: "Kalos"});
+      }
+      else if(i > 721 && i <= 809 ){
+        this.genList.push({PokemonId: i, GenName: "Alola"});
+      }
+      else{
+        this.genList.push({PokemonId: i, GenName: "Galar"});
+      }
+    }
+ 
+    //console.log(this.genList);
     if (this.userId != null) {
       this._cardcollectionService.GetCardsList(this.userId).subscribe(
         result => {
@@ -96,12 +130,32 @@ export class CardCollectComponent implements OnInit {
 
     if (this.filterValue == 0) {
       if (this.filterValueShiny == false) {
+        if(this.genValue == "Any"){
         this.userCollection = this.fullUserCollection;
+        }else{
+          this.fullUserCollection.forEach(element => {
+            if (element.IsShiny == this.filterValueShiny) {
+              let generation = this.genList.filter(x => x.PokemonId == element.PokemonId)[0];
+              //console.log(generation);
+              if(generation.GenName == this.genValue){
+              this.userCollection.push(element);
+              }
+            }
+          });
+        }
       }
       else {
         this.fullUserCollection.forEach(element => {
           if (element.IsShiny == this.filterValueShiny) {
+            if(this.genValue == "Any"){
+              this.userCollection.push(element);
+            }else{
+            let generation = this.genList.filter(x => x.PokemonId == element.PokemonId)[0];
+            //console.log(generation);
+            if(generation.GenName == this.genValue){
             this.userCollection.push(element);
+            }
+            }
           }
         });
       }
@@ -111,12 +165,26 @@ export class CardCollectComponent implements OnInit {
       this.fullUserCollection.forEach(element => {
         if (this.filterValueShiny == false) {
           if (element.RarityId == this.filterValue) {
+            if(this.genValue == "Any"){
+              this.userCollection.push(element);
+            }else{
+            let generation = this.genList.filter(x => x.PokemonId == element.PokemonId)[0];
+            if(generation.GenName == this.genValue){
             this.userCollection.push(element);
+            }
+          }
           }
         }
         else {
           if (element.RarityId == this.filterValue && element.IsShiny == this.filterValueShiny) {
+            if(this.genValue == "Any"){
+              this.userCollection.push(element);
+            }else{
+            let generation = this.genList.filter(x => x.PokemonId == element.PokemonId)[0];
+            if(generation.GenName == this.genValue){
             this.userCollection.push(element);
+            }
+            }
           }
         }
       });
