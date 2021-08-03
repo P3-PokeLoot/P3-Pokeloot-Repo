@@ -10,17 +10,19 @@ import { MVPShiny } from './leaderboards/IMVPShiny';
 export class LeaderboardStatsService {
 
   constructor(private http:HttpClient) { }
-  chosenNumber:number=0;
+  //Every method takes in an input, which will be the requested number of objects requested from Db. 
+  //This input will be a property on the leaderboards component called 'chosenNumber'. 
+
 
   //Coin Controller API service calls
-  GetTopCurrentBalanceList():Observable<User[]>{//outputs a list of User type
-    return this.http.get<User[]>('https://localhost:44303/TopCurrentBalanceList?maxnumber='+this.chosenNumber);
+  GetTopCurrentBalanceList(input:number):Observable<User[]>{//outputs a list of User type
+    return this.http.get<User[]>('https://localhost:44303/TopCurrentBalanceList?maxnumber='+input);
   }
-  GetTopEarnedCoinsList():Observable<User[]>{//outputs a list of User type
-    return this.http.get<User[]>('https://localhost:44303/TopEarnedCoinsist?maxnumber='+this.chosenNumber);
+  GetTopEarnedCoinsList(input:number):Observable<User[]>{//outputs a list of User type
+    return this.http.get<User[]>('https://localhost:44303/TopEarnedCoinsist?maxnumber='+input);
   }
-  GetTopSpentCoinsList():Observable<User[]>{//outputs a list of User type
-    return this.http.get<User[]>('https://localhost:44303/TopSpentCoinsist?maxnumber='+this.chosenNumber);
+  GetTopSpentCoinsList(input:number):Observable<User[]>{//outputs a list of User type
+    return this.http.get<User[]>('https://localhost:44303/TopSpentCoinsist?maxnumber='+input);
   }
 
   //Shining Controller API service calls.

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+//import { resourceLimits } from 'worker_threads';
 import { LeaderboardStatsService } from '../leaderboard-stats.service';
-import { UserCoinData } from './UserCoinData';
 
 @Component({
   selector: 'app-leaderboards',
@@ -8,6 +8,9 @@ import { UserCoinData } from './UserCoinData';
   styleUrls: ['./leaderboards.component.css']
 })
 export class LeaderboardsComponent implements OnInit {
+
+  //Don't forget: change the connection string in the P3 Main API from p2 connection string to the correct p3 string. I was using P2 string since that database actually had data.
+  //Change back app module & app routing module. Change connection string. 
 
   /*This had been the general design approach for this component:
   1) Component loads with only dropdown lists and pages on screen
@@ -25,15 +28,16 @@ export class LeaderboardsComponent implements OnInit {
     lastpage: number=1;
 
 
+    //component property that will be updated everytime user selects a dropdown option and click button
+    chosenNumber:number=20;
+    chosenStat:string='topcoinbalance';
+    chosenService:number=2;
+
     //store observable streams into here so that it can be iterated on & displayed in html
     observableData:any[]=[];
     headersArray:any[]=[];
     columnsArray:any[]=[];
-    serviceArray:any[]=[
-      this._leaderboardservice.GetTopCurrentBalanceList(),
-      this._leaderboardservice.GetTopEarnedCoinsList(),
-      this._leaderboardservice.GetTopSpentCoinsList(),
-    ];
+
     
 
     //array of all options that will reflect onto the "categorical dropdown list"
@@ -51,9 +55,6 @@ export class LeaderboardsComponent implements OnInit {
       100,
     ];
 
-    //component property that will be updated everytime user selects a dropdown option and click button
-    chosenNumber:number=10;
-    chosenStat:string='';
     
 
   //===============================CLASS CONSTRUCTOR SECTION===============================
@@ -69,12 +70,12 @@ export class LeaderboardsComponent implements OnInit {
   //==========================================CLASS METHOD SECTION ===============================
   //METHOD 1: FUNCTION THAT TAKES IN STRING FROM THE FRONTEND CATEGORY DROPDOWN to choose a service method
 
-  ChooseServiceMethod(option:string){ //function takes in a string value from "categorical dropdown list"
+  AssignChosenStatFromDropdown(option:string){ //function takes in a string value from "categorical dropdown list"
     this.chosenStat = option;
     console.log('the user chose the following stat:' + this.chosenStat);
   }
 //METHOD 2: TAKES IN NUMBER FROM THE FRONTEND NUMBER DROPDOWN
-  ChooseNumberOfRows(int:number){
+  AssignChosenNumberFromDropdown(int:number){
     this.chosenNumber = int;
     console.log('the number of items to return is:' + this.chosenNumber);
   }
@@ -86,21 +87,79 @@ export class LeaderboardsComponent implements OnInit {
   
   */
  //METHOD 3: INVOKES SERVICE METHOD AND MAKES HEADERS ARRAY AND COLUMNS ARRAY WITH THE RECEIVED DATA
-  CreatingTableData(chosenStat:string,chosenNumber:number){
-     this._leaderboardservice.GetTopCurrentBalanceList().subscribe(
-       result => {
-         this.observableData = result; 
-         result.forEach(element => {
-           this.headersArray=Object.keys(element);
-         });
-           result.forEach(element => {
-             this.columnsArray.push(Object.values(element));
-           });
+  AssignChosenService(option:string): number {
+    this.chosenStat = option;
+    for(let i = 0; i < this.allStatsOptions.length; i++){
+      if(this.chosenStat = this.allStatsOptions[i]){
+        this.chosenService=i;
+        break;
       }
-    );
+    }
+    return this.chosenService;
+  }  
+
+  SelectChosenService(){
+    switch(this.chosenService){
+    case 1:
+      this._leaderboardservice.GetTopCurrentBalanceList(this.chosenNumber).subscribe(
+        result => {
+          this.observableData = result; 
+       });
+       this.CreateArraysFromObservable();
+       console.log('this is case'+this.chosenService);
+        break;
+    case 2:
+      this._leaderboardservice.GetTopEarnedCoinsList(this.chosenNumber).subscribe(
+        result => {
+          this.observableData = result; 
+      });
+      this.CreateArraysFromObservable();
+      console.log('this is case'+this.chosenService);
+      break;
+      // case 3:
+      //   this._leaderboardservice.GetTopSpentCoinsList(this.chosenNumber).subscribe(
+      //     result => {
+      //       this.observableData = result; 
+      //    });
+      //    this.CreateArraysFromObservable();
+      //   break;
+    }
   }
 
-  //Method 4: Clean up table and "reset" the observable stream arrays 
+  //METHOD 4: METHOD THAT CREATES HEADERS ARRAY AND COLUMNS ARRAY WITH THE RECEIVED DATA 
+  //I separated this method into method 5 & method 6
+  CreatingTableData(){
+    this._leaderboardservice.GetTopCurrentBalanceList(this.chosenNumber).subscribe(
+      result => {
+        this.observableData = result; 
+        result.forEach(element => {//these 2 lines of code allows us to create table columns
+          this.headersArray=Object.keys(element);
+        });
+          result.forEach(element => {//these 2 lines of code allows us to create table cells and fill them
+            this.columnsArray.push(Object.values(element));
+          });
+     }
+   );
+ }
+
+ //METHOD 5: This is a generic method that intakes any service method and maps the observable to a class property
+  IntakeObservableData(){
+  this._leaderboardservice.GetTopCurrentBalanceList(this.chosenNumber).subscribe(
+    result => {
+      this.observableData = result; 
+   });
+}
+
+ //Method 6: This is a generic method that makes arrays to loop over for html display
+ CreateArraysFromObservable(){
+  this.observableData.forEach(element => {//these 2 lines of code allows us to create table columns
+    this.headersArray=Object.keys(element);
+  });
+  this.observableData.forEach(element => {//these 2 lines of code allows us to create table cells and fill them
+    this.columnsArray.push(Object.values(element));
+  });
+}
+  //Method 5: Clean up table and "reset" the observable stream arrays 
   ResetDataArrays(){
     this.observableData=[];
     this.headersArray=[];

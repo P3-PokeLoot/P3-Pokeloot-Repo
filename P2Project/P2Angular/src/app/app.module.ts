@@ -5,7 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 //import { JwPaginationComponent } from 'jw-angular-pagination';
-
+import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
 
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './home-page/home-page.component';
@@ -64,6 +64,7 @@ import { EditPostComponent } from './edit-post/edit-post.component';
     WtpGameOutcomeComponent, 
     EditPostComponent,
     //JwPaginationComponent,
+    //LeaderboardsComponent,
   ],
   imports: [
     BrowserModule,

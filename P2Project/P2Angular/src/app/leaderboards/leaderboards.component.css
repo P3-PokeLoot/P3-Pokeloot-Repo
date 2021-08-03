@@ -1,3 +1,9 @@
+.flex-cointainer{
+    display: flex;
+}
+.flex-child{
+    flex: 1;
+}
 /* dropdownlist */
 select {
     -webkit-appearance: none;
@@ -17,14 +23,13 @@ select {
     color: #fff;
     cursor: pointer;
 }
-select::-ms-expand {
-    display: none;
-}
-select:hover::after {
-    color: #F39C12;
-}
+
 /*dropdownlist description - trying to float the spans next to each other*/
-#numdropdown+desc,#catdropdown+desc{
+#numdropdown+desc {
+    margin: 0px;
+    float: left;
+}
+#catdropdown+desc{
     margin: 0px;
     float: left;
 }
