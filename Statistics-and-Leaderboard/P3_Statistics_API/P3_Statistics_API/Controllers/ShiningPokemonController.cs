@@ -15,9 +15,9 @@ namespace P3_Statistics_API.Controllers
     public class ShiningPokemonController : ControllerBase
     {
 
-        private readonly ILeaderboardMethods _leaderboard;
+        private readonly ILeaderboardBuissnes _leaderboard;
 
-        public ShiningPokemonController(ILeaderboardMethods leaderboard)
+        public ShiningPokemonController(ILeaderboardBuissnes leaderboard)
         {
             _leaderboard = leaderboard;
         }

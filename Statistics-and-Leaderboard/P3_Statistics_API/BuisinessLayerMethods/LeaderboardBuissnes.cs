@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BuisinessLayerMethods
 {
-    public class LeaderboardMethods : ILeaderboardMethods
+    public class LeaderboardBuissnes : ILeaderboardBuissnes
     {
         private readonly P3Context context;
 
@@ -17,7 +17,7 @@ namespace BuisinessLayerMethods
         /// </summary>
         /// <param name="context">Db context</param>
         /// 
-        public LeaderboardMethods(P3Context context)
+        public LeaderboardBuissnes(P3Context context)
         {
             this.context = context;
         }
@@ -25,7 +25,7 @@ namespace BuisinessLayerMethods
         /// <summary>
         /// Constructor for leaderboard class that takes no constructor
         /// </summary>
-        public LeaderboardMethods()
+        public LeaderboardBuissnes()
         {
             this.context = new P3Context();
         }
@@ -147,7 +147,7 @@ namespace BuisinessLayerMethods
         public PercentageOwnCard GetPercentageOwnCard(string pokemon_name)
         {
             //Search for the card by name
-            PokemonCard pokemon_card = context.PokemonCards.Where(x => x.PokemonName.Equals(pokemon_name)).First();
+            PokemonCard pokemon_card = context.PokemonCards.Where(x => x.PokemonName.ToLower().Equals(pokemon_name.ToLower())).First();
 
             double x = context.Users.Count();
 

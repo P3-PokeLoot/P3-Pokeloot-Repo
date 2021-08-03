@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BuisinessLayerMethods
 {
-    public interface ILeaderboardMethods
+    public interface ILeaderboardBuissnes
     {
         List<CardCollection> UserMostShinyPokemon(int number);
         List<MVPShiny> TopShinyTotal(int number);

@@ -78,7 +78,7 @@ namespace P3_Statisitcs_Testing
             using (var context = new P3Context(options))
             {
                 
-                LeaderboardMethods leaderTest = new LeaderboardMethods(context);
+                LeaderboardBuissnes leaderTest = new LeaderboardBuissnes(context);
 
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
@@ -221,7 +221,7 @@ namespace P3_Statisitcs_Testing
             using (var context = new P3Context(options))
             {
 
-                LeaderboardMethods leaderTest = new LeaderboardMethods(context);
+                LeaderboardBuissnes leaderTest = new LeaderboardBuissnes(context);
 
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
@@ -392,7 +392,7 @@ namespace P3_Statisitcs_Testing
                 context.Database.EnsureCreated();
 
                 // some method perhaps
-                LeaderboardMethods leaderTest = new LeaderboardMethods(context);
+                LeaderboardBuissnes leaderTest = new LeaderboardBuissnes(context);
 
                 context.Users.Add(user_1);
                 context.Users.Add(user_2);
@@ -477,7 +477,7 @@ namespace P3_Statisitcs_Testing
                 context.Database.EnsureCreated();
 
                 // some method perhaps
-                LeaderboardMethods leaderTest = new LeaderboardMethods(context);
+                LeaderboardBuissnes leaderTest = new LeaderboardBuissnes(context);
 
                 context.PokemonCards.Add(card_1);
                 context.PokemonCards.Add(card_2);
@@ -635,7 +635,7 @@ namespace P3_Statisitcs_Testing
                 context.Database.EnsureCreated();
 
                 // Some method perhaps
-                LeaderboardMethods leaderTest = new LeaderboardMethods(context);
+                LeaderboardBuissnes leaderTest = new LeaderboardBuissnes(context);
 
                 context.Users.Add(user_1);
                 context.Users.Add(user_2);
@@ -814,7 +814,7 @@ namespace P3_Statisitcs_Testing
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
 
-                LeaderboardMethods test = new LeaderboardMethods(context);
+                LeaderboardBuissnes test = new LeaderboardBuissnes(context);
 
                 context.PokemonCards.Add(card_1);
                 context.SaveChanges();
@@ -835,7 +835,7 @@ namespace P3_Statisitcs_Testing
                 context.SaveChanges();
 
                 // Assert
-                PercentageOwnCard poc = test.GetPercentageOwnCard("Mew");
+                PercentageOwnCard poc = test.GetPercentageOwnCard("MEW");
                 Assert.NotNull(poc);
                 Assert.Equal("Mew",poc.PokemonName);
                 Assert.Equal(4, poc.Total_Users);

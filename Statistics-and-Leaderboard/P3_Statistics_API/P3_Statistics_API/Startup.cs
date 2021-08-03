@@ -51,7 +51,7 @@ namespace P3_Statistics
                 }
             });
             services.AddDistributedMemoryCache();
-            services.AddScoped<ILeaderboardMethods, LeaderboardMethods>();
+            services.AddScoped<ILeaderboardBuissnes, LeaderboardBuissnes>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
