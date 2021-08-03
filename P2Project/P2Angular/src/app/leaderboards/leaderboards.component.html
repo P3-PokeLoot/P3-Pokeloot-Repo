@@ -1,0 +1,76 @@
+<!--This is the top row of leaderboards component-->
+<div class="filteringdata"> 
+    <!--1: Categorical dropdown list-->
+    <span id="catdropdown+desc">
+        <p class = "choose">Leaderboard Stats:</p>
+        <select class="categoricaldropdownlist">
+            <option *ngFor= "let l of allStatsOptions">
+                {{l}}
+            </option>
+        </select>
+        <input (click)="ChooseServiceMethod(chosenStat)" type="button" value="Confirm"/>
+    </span>
+    <!--2: Numerical dropwdown list-->
+    <span id="numdropdown+desc">
+        <p class = "choose">Number of results:</p>
+        <select class="numericaldropdownlist">
+            <!--we want to take the chosen dropdown "option" and send it to the component. Initially, I tried to do this based off 
+            the "change" event for dropdown lists, but this threw me an error I couldn't fix. Additionally, I inferred it might
+            cause more future issues if -->
+            <option *ngFor= "let option of allNumbersOptions" (change)="ChooseNumberOfRows(option)"> <!--Whenever user selects dropdown, we want "currentChosenNumber" to equal that option via the bound method-->
+                {{option}}
+            </option>
+        </select>
+        <input type="button" (click)="ResetDataArrays()" value="Reset"/> <!--Button doesn't do anything right now, just for show-->
+    </span>
+    
+    <!--3:Pages for pagination-->
+    <div class="col text-center">
+        <h6>Page {{currentPage}} of {{lastpage}}</h6>
+       <form class="d-inline-flex p-2" (ngSubmit)="onChangePagePrev()" #searchForm="ngForm">
+           <button class="btn btn-outline-success" type="submit">Prev Page</button>    
+       </form>  
+       <form class="d-inline-flex p-2" (ngSubmit)="onChangePageNext()" #searchForm="ngForm">
+           <button class="btn btn-outline-success" type="submit">Next Page</button>    
+       </form>
+       <br>    
+       <div class="border my-4 d-flex justify-content-center"></div>    
+       <br>
+    </div>
+</div>
+
+<!--These buttons are placeholders until I can implement functionality for a user to choose a dropdown option & send that 
+as a parameter to the internal component method-->
+<button (click)="CreatingTableData()"></button>
+
+<br>
+<br>
+<br>
+
+<!--This is the data table that outputs to users. Need to implement logic so that it only displays one table at a time...-->
+<div>
+    
+    <table class="datatable" *ngIf="observableData"><!--This line says "if observabledata exists in component, make a table"-->
+        <thead class="datahead">
+            <tr>
+                <!--This creates the table headers based each element in headersArray-->
+                <td class="dataheadcell" *ngFor="let h of headersArray"> 
+                    {{h}}
+                </td>   
+            </tr>
+        </thead>
+        <tbody>
+            <!--This creates rows for each object "c" in columnsArray, then a table cell for each property "o" of each object "c" in columnsArray-->
+            <tr class="datarow" *ngFor="let c of columnsArray"> 
+                <td class="datarowcell" *ngFor="let o of c"> 
+                    {{o}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+
+

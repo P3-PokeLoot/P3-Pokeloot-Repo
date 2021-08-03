@@ -1,0 +1,64 @@
+/* dropdownlist */
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    outline: 0;
+    background: green;
+    background-image: none;
+    border:1px solid black;
+}
+select {
+    width: 20%;
+    height: 100%;
+    margin: 0;
+    padding: 0 0 0 .5em;
+    color: #fff;
+    cursor: pointer;
+}
+select::-ms-expand {
+    display: none;
+}
+select:hover::after {
+    color: #F39C12;
+}
+/*dropdownlist description - trying to float the spans next to each other*/
+#numdropdown+desc,#catdropdown+desc{
+    margin: 0px;
+    float: left;
+}
+
+/* leaderboard */
+.datarow{
+    background-color: rgb(54,45,92, .5);
+}
+
+.datacell{
+    background-color: rgb(137,132,164, .5);
+}
+
+.dataheadcell .datarowcell {
+    column-width: auto;
+}
+
+.datatable{
+    margin: 0px;
+    padding: 0px;
+}
+
+td{
+    height: 30px;
+}
+/* leaderboard 
+.leaderboard {
+    -webkit-transform: translate(0%, 0%);
+    transform: translate(0%, 0%);
+    width: 285px;
+    height: 200px;
+    background: -webkit-linear-gradient(top, #3a404d, #181c26);
+    background: linear-gradient(to bottom, #3a404d, #181c26);
+    border-radius: 10px;
+    box-shadow: 0 7px 30px rgba(62, 9, 11, 0.3);
+    overflow-x: hidden;
+  }*/
