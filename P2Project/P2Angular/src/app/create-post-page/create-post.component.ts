@@ -6,6 +6,8 @@ import { ICard } from '../cardcollect/ICard';
 import { IPost } from '../Models/IPost';
 import { FullPost } from '../Models/Post';
 import { CreatePostService } from '../service/createPost/create-post.service';
+import { IRarities } from '../cardcollect/IRarities';
+import { IGen } from '../cardcollect/IGen';
 
 
 @Component({
@@ -26,15 +28,52 @@ export class CreatePostComponent implements OnInit {
   userName!: string;
   bublapedia: string = 'https://bulbapedia.bulbagarden.net/wiki/';
   userCollection: ICard[];
-  postType = [{ type: "Display" }, { type: "Sale" }];
+  postType:string[] = ["Display","Sale","Discussion"];
+  raritiesList: IRarities[] = [];
+  filterValue: number = 0;
+  filterValueShiny: boolean = false;
+  genList: IGen[];
+  genValue: string = "Any";
+  genOptions: string[] = ["Any", "Kanto", "Johto", "Hoen", "Sinnoh", "Unova", "Kalos", "Alola", "Galar"];
+  fullUserCollection: ICard[] = [];
 
 
 
   constructor(private _cardcollectionService: CardServiceService, private _createPostService: CreatePostService, private route: Router) {
-    this.userCollection = []
+    this.userCollection = [];
+    this.genList = [];
   }
 
   ngOnInit(): void {
+
+    for(let i: number = 0; i <= 809; i++){
+      if(i <= 151){
+        this.genList.push({PokemonId: i, GenName: "Kanto"});
+      }
+      else if(i > 151 && i <= 251 ){
+        this.genList.push({PokemonId: i, GenName: "Johto"});
+      }
+      else if(i > 251 && i <= 386 ){
+        this.genList.push({PokemonId: i, GenName: "Hoen"});
+      }
+      else if(i > 386 && i <= 493 ){
+        this.genList.push({PokemonId: i, GenName: "Sinnoh"});
+      }
+      else if(i > 493 && i <= 649 ){
+        this.genList.push({PokemonId: i, GenName: "Unova"});
+      }
+      else if(i > 649 && i <= 721 ){
+        this.genList.push({PokemonId: i, GenName: "Kalos"});
+      }
+      else if(i > 721 && i <= 809 ){
+        this.genList.push({PokemonId: i, GenName: "Alola"});
+      }
+      else{
+        this.genList.push({PokemonId: i, GenName: "Galar"});
+      }
+    }
+
+    console.log(this.postType);
     let parseObj = JSON.parse(this.user);
     this.userName = parseObj['userName'];
     if (this.userId != null) {
@@ -55,23 +94,104 @@ export class CreatePostComponent implements OnInit {
               let SpriteLink = Link;
               let IsShiny = false;
               let card: ICard = { PokemonId, Quantity, RarityId, SpriteLink, PokemonName, IsShiny };
-              this.userCollection.push(card);
+              this.fullUserCollection.push(card);
             }
             if (AmountShiny > 0) {
               let Quantity = AmountShiny;
               let SpriteLink = LinkShiny;
               let IsShiny = true;
               let card: ICard = { PokemonId, Quantity, RarityId, SpriteLink, PokemonName, IsShiny };
-              this.userCollection.push(card);
+              this.fullUserCollection.push(card);
             }
 
           }
+          this.filterCollection();
         }
 
+      );
+      this._cardcollectionService.GetRarityList().subscribe(
+        result => {
+
+          result.forEach(element => {
+            let RarityId = element.rarityId;
+            let RarityName = element.rarityCategory;
+
+            let newRarity: IRarities = { RarityId, RarityName };
+            this.raritiesList.push(newRarity);
+          });
+        }
       );
     }
 
   }
+  filterCollection(): void {
+    this.userCollection = [];
+
+    if (this.filterValue == 0) {
+      if (this.filterValueShiny == false) {
+        if(this.genValue == "Any"){
+        this.userCollection = this.fullUserCollection;
+        }else{
+          this.fullUserCollection.forEach(element => {
+            if (element.IsShiny == this.filterValueShiny) {
+              let generation = this.genList.filter(x => x.PokemonId == element.PokemonId)[0];
+              //console.log(generation);
+              if(generation.GenName == this.genValue){
+              this.userCollection.push(element);
+              }
+            }
+          });
+        }
+      }
+      else {
+        this.fullUserCollection.forEach(element => {
+          if (element.IsShiny == this.filterValueShiny) {
+            if(this.genValue == "Any"){
+              this.userCollection.push(element);
+            }else{
+            let generation = this.genList.filter(x => x.PokemonId == element.PokemonId)[0];
+            //console.log(generation);
+            if(generation.GenName == this.genValue){
+            this.userCollection.push(element);
+            }
+            }
+          }
+        });
+      }
+
+    }
+    else {
+      this.fullUserCollection.forEach(element => {
+        if (this.filterValueShiny == false) {
+          if (element.RarityId == this.filterValue) {
+            if(this.genValue == "Any"){
+              this.userCollection.push(element);
+            }else{
+            let generation = this.genList.filter(x => x.PokemonId == element.PokemonId)[0];
+            if(generation.GenName == this.genValue){
+            this.userCollection.push(element);
+            }
+          }
+          }
+        }
+        else {
+          if (element.RarityId == this.filterValue && element.IsShiny == this.filterValueShiny) {
+            if(this.genValue == "Any"){
+              this.userCollection.push(element);
+            }else{
+            let generation = this.genList.filter(x => x.PokemonId == element.PokemonId)[0];
+            if(generation.GenName == this.genValue){
+            this.userCollection.push(element);
+            }
+            }
+          }
+        }
+      });
+    }
+    
+    }
+
+  
 
 
   OnSubmit(postForm: NgForm) {
@@ -100,10 +220,12 @@ export class CreatePostComponent implements OnInit {
       return;
     }
 
-    if (postForm.value.PokemonId.length == 0) {
-      this.isPokemonId = true;
-      return;
-    }
+    if(postForm.value.postType != 'Discussion'){
+      if (postForm.value.PokemonId == null || postForm.value.PokemonId.length == 0) {
+        this.isPokemonId = true;
+        return;
+      }
+    
 
     var card: any;
 
@@ -116,20 +238,23 @@ export class CreatePostComponent implements OnInit {
         card = null;
       }
     }
+  }
 
+    console.log("a post was created");
     let post: FullPost = {
-      pokemonId: card.PokemonId,
+      
+      pokemonId: postForm.value.postType !== 'Discussion' ? card.PokemonId : 0,
       postTime: new Date(),
       postDescription: postForm.value.textDescription,
       price: postForm.value.postType === 'Sale' ? postForm.value.Price : 0,
       stillAvailable: postForm.value.postType === 'Sale' ? true : false,
-      isShiny: card.IsShiny,
+      isShiny: postForm.value.postType !== 'Discussion' ? card.IsShiny : false,
       userId: parseInt(this.userId),
       userName: this.userName,
-      spriteLink: card.SpriteLink,
+      spriteLink: postForm.value.postType !== 'Discussion' ? card.SpriteLink : "",
       postType: postForm.value.postType,
-      pokemonName: card.PokemonName,
-      rarityId: card.RarityId,
+      pokemonName: postForm.value.postType !== 'Discussion' ? card.PokemonName ? card.pokemonName : '' : '',
+      rarityId: postForm.value.postType !== 'Discussion' ? card.RarityId : 0,
     };
 
     console.log(post);
@@ -157,10 +282,10 @@ export class CreatePostComponent implements OnInit {
         return 'Rare'
         break;
       case 4:
-        return 'Super Rare'
+        return 'Mythic'
         break;
       case 5:
-        return 'Specially Rare'
+        return 'Lengendary'
         break;
       default:
         return 'No Card Attached'

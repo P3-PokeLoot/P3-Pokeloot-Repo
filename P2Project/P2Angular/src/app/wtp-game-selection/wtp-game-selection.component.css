@@ -1,0 +1,32 @@
+#wtp-div{
+    margin-top: 10em;
+    display: flex; 
+    justify-content: center; 
+    background-image: url(/assets/game-api/wtp-center.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#blackout{
+    -webkit-filter: grayscale(100%) brightness(0);
+    filter: brightness(0);
+    opacity: 1;
+    width: 450px;
+}
+
+#pokemon-btn{
+    padding: 1em;
+    font-family: 'Press Start 2P';
+    margin: 10px;
+    border-radius: 4px;
+    width: 25em;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#btn-div{
+    display:block;
+    justify-content: center;
+}

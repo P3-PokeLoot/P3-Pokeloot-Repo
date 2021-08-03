@@ -1,0 +1,17 @@
+<div id="wtp-div">
+    <img src="{{pictureUrl}}" id="sprite">
+</div>
+<div>
+    <h1 id="result">
+        {{outcomeText | titlecase}}
+    </h1>
+    <h2 id="result" *ngIf="win === true">
+        You earned {{numCoinsToAdd}} coins!
+    </h2>
+    <h2 id="result" *ngIf="win === true">
+        Current Balance: {{currentUserCoinBalance}}
+    </h2>
+</div>
+<div class="center">
+    <button class="button" (click)="playAgain()">Play Again?</button>
+</div>

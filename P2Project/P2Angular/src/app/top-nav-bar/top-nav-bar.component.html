@@ -1,11 +1,29 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-        <!-- Will Populate when user is Logged in -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-toggleable-sm fixed-top">
+    
+        
         <img class="navbar-brand" src="assets/img/Pokeloot_Logo.png" width="200" height="200" class="img-fluid"
             style="max-width: 300; max-height: 100;">
-        <!-- Will Display if User is LoggedIn -->
-        <div *ngIf="isLogin" class="collapse navbar-collapse" id="navbarNav" style="font-size:large;">
-            <ul class="nav navbar-nav">
+        
+        <div *ngIf="isLogin" class="navbar-toggler" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation" style="border: none;">
+            <div class="dropdown">
+            <button class="dropdown-button" type="button" data-toggle="collapse" (click)="toggleNavbar = !toggleNavbar">
+                <span>Menu</span>
+            </button>
+            <div *ngIf="toggleNavbar" class="dropdown-list"> 
+                <span>
+                <a routerLink="/Home" class="nav-link">Home</a>
+                <a routerLink="/Game" class="nav-link">Game</a>
+                <a routerLink="/Profile" class="nav-link">Profile</a>
+                <a routerLink="/UnlockCard" class="nav-link">Unlock <br>Card</a>
+                <a routerLink="/Collection" class="nav-link">View <br>Collection</a>
+                <a (click)="Logout()" class="pointerCursor nav-link">Signout</a>
+                </span>
+            </div> 
+            </div>
+        </div>
+        <div *ngIf="isLogin" class="collapse navbar-collapse" id="navbarSupportedContent" style="font-size:large;" >
+            
+            <ul class="nav navbar-nav mr-auto">
                 <li class="nav-item active">
                     <a routerLink="/Home" class="nav-link">Home</a>
                 </li>
@@ -19,25 +37,19 @@
                 </li>
                   
                 <li class="nav-item">
-                    <a routerLink="/UnlockCard" class="nav-link">UnlockCard</a>
+                    <a routerLink="/UnlockCard" class="nav-link">Unlock Card</a>
                 </li>
                   
                 <li class="nav-item">
-                    <a routerLink="/Collection" class="nav-link">ViewCollection</a>
+                    <a routerLink="/Collection" class="nav-link">View Collection</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav ms-auto">
                 <li class="nav-item">
                     <a (click)="Logout()" class="pointerCursor nav-link">Signout</a>
                 </li>
-            </ul>
+            </ul> 
         </div>
-    </div>
-</nav>
+   
+</nav> 
 
-<!-- <nav *ngIf="isLoginNav" id="LoginPage">
-    <a class="navbar-brand" href="#">
-        <img src="assets/img/Pokeloot_Logo.png" width="200" height="200" class="img-fluid"
-            style="max-width: 300; max-height: 100;">
-    </a>
-</nav> -->

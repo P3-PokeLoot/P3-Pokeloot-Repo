@@ -1,4 +1,21 @@
-<div>
+
+
+
+
+<h2 class="row display: flex justify-content-center">Users Cards</h2>
+
+<div class="col text-center">
+    <h6>Page {{currentPage}} of {{lastpage}}</h6>
+   <form class="d-inline-flex p-2" (ngSubmit)="onChangePagePrev()" #searchForm="ngForm">
+       <button class="btn btn-outline-success" type="submit">Prev Page</button>    
+   </form>  
+   <form class="d-inline-flex p-2" (ngSubmit)="onChangePageNext()" #searchForm="ngForm">
+       <button class="btn btn-outline-success" type="submit">Next Page</button>    
+   </form>
+   <br>    
+   <div class="border my-4 d-flex justify-content-center"></div>    
+   <br>
+   <div>
     <div style="font-size: medium; margin-left: 2rem;">
     <label>Rarities</label>
     
@@ -11,17 +28,22 @@
         <input type="checkbox" [(ngModel)]="filterValueShiny" name="shinycheckbox" value="1" style="margin-left: 2rem;">
         <label for="shinycheckbox">Is Shiny</label><br>
 
+        <label>Generations</label>
+        <select [(ngModel)]="genValue">
+            
+            <!-- <option *ngFor="let x of raritiesList" [value]="x" [selected]="filterValue == x">{{x}}</option> -->
+            <option *ngFor="let x of genOptions" [value]="x" [selected]="genValue == x">{{x}}</option>
+        </select><br>
+
 
         <button (click) = 'filterCollection()' style="justify-self: center; font-size: large;">Filter Cards</button>
     </div>
 </div>
 
-
-
-<h2 class="row display: flex justify-content-center">Users Cards</h2>
+</div>
 
 <div class="row display: flex justify-content-center" >
-    <div *ngFor="let card of userCollection" style="width: 18rem; margin: 1rem;" >
+    <div *ngFor="let card of pageOfItems" style="width: 18rem; margin: 1rem;" >
         <div *ngIf="card.RarityId == 1" class="card1 text-center border-dark mb-3" >
         <h5 class="card-title text-left" style="font-size: 1.45em; text-align: left;">x{{card.Quantity}}</h5>
         <img class="card-img-top" src="{{card.SpriteLink}}" alt="{{card.PokemonName}} Image">

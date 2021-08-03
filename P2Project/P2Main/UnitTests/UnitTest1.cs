@@ -508,7 +508,7 @@ namespace UnitTests
                 QuantityNormal = 0,
                 QuantityShiny = 1
             };
-            
+
 
             Dictionary<CardCollection, PokemonCard> result;
             Dictionary<CardCollection, PokemonCard> failResult;
@@ -648,17 +648,17 @@ namespace UnitTests
                 testUser.UserId = 1;
 
                 //since this uses rng, its impossible to test all the edge cases, but ran this about 10 times and had no errors
-                result1 = testBusinessModel.rollLootbox(testUser);
-                result2 = testBusinessModel.rollLootbox(testUser);
-                result3 = testBusinessModel.rollLootbox(testUser);
-                result4 = testBusinessModel.rollLootbox(testUser);
-                result5 = testBusinessModel.rollLootbox(testUser);
-                result6 = testBusinessModel.rollLootbox(testUser);
-                result7 = testBusinessModel.rollLootbox(testUser);
-                result8 = testBusinessModel.rollLootbox(testUser);
-                result9 = testBusinessModel.rollLootbox(testUser);
-                result10 = testBusinessModel.rollLootbox(testUser);
-                result11 = testBusinessModel.rollLootbox(testUser);
+                result1 = testBusinessModel.rollLootbox(testUser, 1);
+                result2 = testBusinessModel.rollLootbox(testUser, 1);
+                result3 = testBusinessModel.rollLootbox(testUser, 1);
+                result4 = testBusinessModel.rollLootbox(testUser, 1);
+                result5 = testBusinessModel.rollLootbox(testUser, 1);
+                result6 = testBusinessModel.rollLootbox(testUser, 2);
+                result7 = testBusinessModel.rollLootbox(testUser, 2);
+                result8 = testBusinessModel.rollLootbox(testUser, 2);
+                result9 = testBusinessModel.rollLootbox(testUser, 2);
+                result10 = testBusinessModel.rollLootbox(testUser, 3);
+                result11 = testBusinessModel.rollLootbox(testUser, 3);
                 cardCollection = context.CardCollections.Where(x => x.UserId == testUser.UserId).ToList();
                 resultUser = context.Users.Where(x => x.UserId == testUser.UserId).FirstOrDefault();
 
@@ -684,6 +684,30 @@ namespace UnitTests
                 Assert.True(result5.Any());
                 Assert.True(result5.Keys.Count == 1);
                 Assert.True(result5.Values.Any());
+                Assert.True(result10.Any());
+                Assert.True(result10.Keys.Count == 1);
+                Assert.True(result10.Values.Any());
+                Assert.True(result10.Values.First());
+                Assert.True(result11.Any());
+                Assert.True(result11.Keys.Count == 1);
+                Assert.True(result11.Values.Any());
+                Assert.True(result11.Values.First());
+                Assert.True(result6.Any());
+                Assert.True(result6.Keys.Count == 1);
+                Assert.True(result6.Keys.First().RarityId == 3 || result6.Keys.First().RarityId == 4 || result6.Keys.First().RarityId == 5);
+                Assert.True(result6.Values.Any());
+                Assert.True(result7.Any());
+                Assert.True(result7.Keys.Count == 1);
+                Assert.True(result7.Keys.First().RarityId == 3 || result7.Keys.First().RarityId == 4 || result7.Keys.First().RarityId == 5);
+                Assert.True(result7.Values.Any());
+                Assert.True(result8.Any());
+                Assert.True(result8.Keys.Count == 1);
+                Assert.True(result8.Keys.First().RarityId == 3 || result8.Keys.First().RarityId == 4 || result8.Keys.First().RarityId == 5);
+                Assert.True(result8.Values.Any());
+                Assert.True(result9.Any());
+                Assert.True(result9.Keys.Count == 1);
+                Assert.True(result9.Values.Any());
+                Assert.True(result9.Keys.First().RarityId == 3 || result9.Keys.First().RarityId == 4 || result9.Keys.First().RarityId == 5);
 
             }
         }
@@ -952,7 +976,7 @@ namespace UnitTests
             Post failPost;
             Post resultPost;
             Post realPost;
-            
+
 
             // Act
             using (var context = new P2DbClass(options))    // creates in memory database
@@ -993,7 +1017,7 @@ namespace UnitTests
             };
 
             Post realPost;
-    
+
 
             // Act
             using (var context = new P2DbClass(options))    // creates in memory database
@@ -1007,7 +1031,7 @@ namespace UnitTests
                 context.Posts.Add(testPost1);
                 context.SaveChanges();
 
-              
+
                 realPost = context.Posts.Where(x => x.PostId == 1).FirstOrDefault();
 
                 // Assert
@@ -1022,26 +1046,26 @@ namespace UnitTests
         public void buildNoContext()
         {
             // Arange
-           
+
 
             User realUser;
 
 
             // Act
-                      
-
-                BusinessModel testBusinessModel = new BusinessModel();
 
 
+            BusinessModel testBusinessModel = new BusinessModel();
 
-                realUser = testBusinessModel.context.Users.Where(x => x.UserId == 1).FirstOrDefault();
 
-                // Assert
-                Assert.True(testBusinessModel.context != null);
-                Assert.Equal(1, realUser.UserId);
-                Assert.Equal("alain.duplan", realUser.UserName);
 
-            
+            realUser = testBusinessModel.context.Users.Where(x => x.UserId == 1).FirstOrDefault();
+
+            // Assert
+            Assert.True(testBusinessModel.context != null);
+            Assert.Equal(1, realUser.UserId);
+            Assert.Equal("alain.duplan", realUser.UserName);
+
+
         }
 
         [Fact]
@@ -1122,10 +1146,68 @@ namespace UnitTests
             }
         }
 
+        [Fact]
+        public void editPriceTest()
+        {
+            // Arange
+
+            Post testPost1 = new Post()
+            {
+                PokemonId = 150,
+                PostDescription = "this is a sales post",
+                Price = 20,
+            };
+            Post testPost2 = new Post()
+            {
+                PokemonId = 150,
+                PostDescription = "this is a display post",
+            };
+            
+
+            bool post1;
+            bool post2;
+            bool post3;
+            Post result;
+            
+            
+
+
+            // Act
+            using (var context = new P2DbClass(options))    // creates in memory database
+            {
+                context.Database.EnsureDeleted();
+                context.Database.EnsureCreated();
+
+                BusinessModel testBusinessModel = new BusinessModel(context);
+
+
+                context.Posts.Add(testPost1);
+                context.Posts.Add(testPost2);
+                context.SaveChanges();
+                testPost1.PostId = 1;
+
+                post1 = testBusinessModel.editPrice(1, 200);
+                post2 = testBusinessModel.editPrice(2, 200);
+                post3= testBusinessModel.editPrice(3, 200);
+                result = context.Posts.Where(x => x.PostId == testPost1.PostId).FirstOrDefault();
+
+
+                // Assert
+                Assert.True(post1);
+                Assert.True(!post2);
+                Assert.True(!post3);
+                Assert.True(result.Price == 200);
+              
+                
+
+
+            }
+        }
+
 
     }
 
-        
-    }
+
+}
 
 

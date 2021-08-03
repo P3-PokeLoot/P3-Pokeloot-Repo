@@ -52,6 +52,11 @@ namespace P3_Statistics
             });
             services.AddDistributedMemoryCache();
             services.AddScoped<ILeaderboardBuissnes, LeaderboardBuissnes>();
+            services.AddControllersWithViews();
+            services.AddMvc().AddSessionStateTempDataProvider();
+            services.AddSession();
+            services.AddScoped<ILeaderboardMethods, LeaderboardModel>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
