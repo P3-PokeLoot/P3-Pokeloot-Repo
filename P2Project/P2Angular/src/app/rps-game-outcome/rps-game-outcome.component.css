@@ -35,7 +35,9 @@
     background-size:35%;
     background-position: center;
     height: 300px;
+    /*width: 50%;*/
     white-space: pre-wrap;
+    word-wrap: break-word;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -60,4 +62,6 @@
   }
   p {  
     padding-top: 7em; padding-bottom: 7em; 
+    width: 30%
+    
   }

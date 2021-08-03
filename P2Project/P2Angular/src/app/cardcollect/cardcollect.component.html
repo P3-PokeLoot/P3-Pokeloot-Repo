@@ -2,9 +2,11 @@
 
 
 
-<h2 class="row display: flex justify-content-center">Users Cards</h2>
+<h2 class="row display: flex justify-content-center" ></h2>
 
 <div class="col text-center">
+    <h6>Page {{currentPage}} of {{lastpage}}</h6>
+    <h2 class="row display: flex justify-content-center" style="padding-top: 10%;">Users Cards</h2>
     <h6>Page {{currentPage}} of {{lastpage}}</h6>
    <form class="d-inline-flex p-2" (ngSubmit)="onChangePagePrev()" #searchForm="ngForm">
        <button class="btn btn-outline-success" type="submit">Prev Page</button>    
@@ -41,6 +43,7 @@
 </div>
 
 </div>
+
 
 <div class="row display: flex justify-content-center" >
     <div *ngFor="let card of pageOfItems" style="width: 18rem; margin: 1rem;" >

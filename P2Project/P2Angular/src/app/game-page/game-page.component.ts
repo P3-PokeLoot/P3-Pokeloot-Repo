@@ -27,7 +27,7 @@ export class GamePageComponent implements OnInit {
     }
 
     this._gameService.GetList().subscribe(result => { this.gameList = result; })
-
+    console.log("arrived at game");
   }
 
   playGame(): void {
