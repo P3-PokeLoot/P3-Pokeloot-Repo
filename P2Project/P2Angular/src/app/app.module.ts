@@ -35,6 +35,7 @@ import { WtpGameSelectionComponent } from './wtp-game-selection/wtp-game-selecti
 import { WtpGameOutcomeComponent } from './wtp-game-outcome/wtp-game-outcome.component';
 import { PokemonCardMatchComponent } from './pokemon-card-match/pokemon-card-match.component';
 import { EditPostComponent } from './edit-post/edit-post.component';
+import { FriendsComponent } from './friends/friends.component';
 import { WamGameComponent } from './wam-game/wam-game.component';
 
 
@@ -64,6 +65,7 @@ import { WamGameComponent } from './wam-game/wam-game.component';
     WtpGameComponent, 
     WtpGameSelectionComponent, 
     WtpGameOutcomeComponent, 
+    FriendsComponent,
     EditPostComponent,
     PokemonCardMatchComponent,
     //JwPaginationComponent,
