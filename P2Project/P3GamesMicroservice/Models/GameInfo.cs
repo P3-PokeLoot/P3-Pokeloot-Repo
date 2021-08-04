@@ -1,11 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+
+#nullable disable
+
 namespace Models
 {
-    public class GameInfo
+    public partial class GameInfo
     {
-        public int Id {get; set;}
-        public string Description {get; set;}
-        public string Title {get; set;}
-        public string ImagePath {get; set;}
-        public string Route{get;set;}
+        public int Id { get; set; }
+        public string Description { get; set; }
+        public string Title { get; set; }
+        public string ImagePath { get; set; }
+        public string Route { get; set; }
     }
 }

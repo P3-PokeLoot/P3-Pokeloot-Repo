@@ -25,7 +25,7 @@ namespace P3Api.Controllers
         [HttpGet("List")]
         public IActionResult GetGameInfoList()
         {
-            var games = _dataContext.GameInfoes.ToList();
+            var games = _dataContext.GameInfos.ToList();
             return StatusCode(200, games);
         }
 
