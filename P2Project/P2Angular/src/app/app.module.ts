@@ -37,6 +37,7 @@ import { WtpGameOutcomeComponent } from './wtp-game-outcome/wtp-game-outcome.com
 import { CapGameComponent } from './cap-game/cap-game.component';
 import { CapGameCatchComponent } from './cap-game-catch/cap-game-catch.component';
 import { CapGameResultComponent } from './cap-game-result/cap-game-result.component';
+import { EditPostComponent } from './edit-post/edit-post.component';
 
 
 @NgModule({
@@ -62,6 +63,11 @@ import { CapGameResultComponent } from './cap-game-result/cap-game-result.compon
     RpsGameComponent,
     FilterPipe, 
     RpsGamePokemonSelectionComponent, WtpGameComponent, WtpGameSelectionComponent, WtpGameOutcomeComponent, CapGameComponent, CapGameCatchComponent, CapGameResultComponent,
+    RpsGamePokemonSelectionComponent, 
+    WtpGameComponent, 
+    WtpGameSelectionComponent, 
+    WtpGameOutcomeComponent, 
+    EditPostComponent,
     //JwPaginationComponent,
   ],
   imports: [

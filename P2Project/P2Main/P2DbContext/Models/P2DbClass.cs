@@ -29,7 +29,7 @@ namespace P2DbContext.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=tcp:p2pokelootserver.database.windows.net,1433;Initial Catalog=PokeLoot;Persist Security Info=False;User ID=christian.romero@revature.net@p2pokelootserver;Password=P2PokeLoot;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+                optionsBuilder.UseSqlServer("Server=tcp:databasetempp3.database.windows.net,1433;Initial Catalog=P3Database;Persist Security Info=False;User ID=P3Group;Password=Cheeseburger!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             }
         }
 
