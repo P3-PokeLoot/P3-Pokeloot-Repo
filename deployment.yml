@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: podthirdimage
+  labels:
+    app: app01test
+  annotations:
+spec:
+  selector:
+    matchLabels:
+      app: app01test
+  replicas: 2
+  # strategy:
+  #   type: RollingUpdate
+  #     maxSurge: 1
+  #     maxUnavailible: 0
+  template:
+    metadata:
+      labels:
+        app: app01test
+    spec:
+      containers:
+      - name: app01test
+        image: gregious/p3testrepo:thirdimage
+        # imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        # livenessProbe:
+        #   httpGet:
+        #     path: /status
+        #     port: 5000
+        #   initialDelaySeconds: 3
+        #   periodSeconds: 3
+        # resources:
+        #   requests:
+        #     memory: "64Mi"
+        #     cpu: "50m"
+        #   limits:
+        #     memory: "256Mi"
+        #     cpu: "500m"
+      containers:
+      - name: app02test
+        image: gregious/p3testrepo:thirdimage
+        # imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        # livenessProbe:
+        #   httpGet:
+        #     path: /status
+        #     port: 5000
+        #   initialDelaySeconds: 3
+        #   periodSeconds: 3
+        # resources:
+        #   requests:
+        #     memory: "64Mi"
+        #     cpu: "50m"
+        #   limits:
+        #     memory: "256Mi"
+        #     cpu: "500m"
