@@ -25,7 +25,7 @@ stages:
         containerRegistry: 'DockerHub'
         repository: 'gregious/p3angular'
         command: 'build'
-        Dockerfile: '**/Dockerfile'
+        Dockerfile: 'P3-Pokeloot-Repo/P2Project/P2Angular/Dockerfile'
     - task: Docker@2
       inputs:
         containerRegistry: 'DockerHub'
