@@ -42,12 +42,18 @@ export class EditPostComponent implements OnInit {
       result => {
         console.log(result);
         //let currentUrl = this.route.url;
-        this.route.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-          this.route.navigate(['/Home']);
-    });
+        this.refresh();
       },
       error => console.log(error)
     );
+  }
+
+  refresh(){
+    this.route.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+      this.route.navigate(['/Home']);
+    });
+    this.route.navigate(['/Home']);
+    this.route.navigateByUrl('/Home');
   }
 
 }
