@@ -51,6 +51,7 @@ namespace P3_Statistics
                 }
             });
             services.AddDistributedMemoryCache();
+            services.AddScoped<ILeaderboardBuissnes, LeaderboardBuissnes>();
             services.AddControllersWithViews();
             services.AddMvc().AddSessionStateTempDataProvider();
             services.AddSession();
