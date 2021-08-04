@@ -1,14 +1,15 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: podthirdimage
+  name: p3angular
   labels:
-    app: app01test
+    app: p3angular
   annotations:
 spec:
   selector:
     matchLabels:
-      app: app01test
+      app: p3angular
   replicas: 2
   # strategy:
   #   type: RollingUpdate
@@ -17,43 +18,181 @@ spec:
   template:
     metadata:
       labels:
-        app: app01test
+        app: p3angular
     spec:
       containers:
-      - name: app01test
-        image: gregious/p3testrepo:thirdimage
-        # imagePullPolicy: Always
+      - name: p3angular
+        image: gregious/p3angular:v1
+        imagePullPolicy: Always
         ports:
-        - containerPort: 80
-        # livenessProbe:
-        #   httpGet:
-        #     path: /status
-        #     port: 5000
-        #   initialDelaySeconds: 3
-        #   periodSeconds: 3
-        # resources:
-        #   requests:
-        #     memory: "64Mi"
-        #     cpu: "50m"
-        #   limits:
-        #     memory: "256Mi"
-        #     cpu: "500m"
+        - name: http
+          containerPort: 80
+        livenessProbe:
+          httpGet:
+            path: /status
+            port: 5000
+          initialDelaySeconds: 3
+          periodSeconds: 3
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: p3mainapi
+  labels:
+    app: p3mainapi
+  annotations:
+spec:
+  selector:
+    matchLabels:
+      app: p3mainapi
+  replicas: 2
+  # strategy:
+  #   type: RollingUpdate
+  #     maxSurge: 1
+  #     maxUnavailible: 0
+  template:
+    metadata:
+      labels:
+        app: p3mainapi
+    spec:
       containers:
-      - name: app02test
-        image: gregious/p3testrepo:thirdimage
-        # imagePullPolicy: Always
+      - name: p3mainapi
+        image: gregious/p3mainapi:v1
+        imagePullPolicy: Always
         ports:
-        - containerPort: 80
+        - name: http
+          containerPort: 8001
         # livenessProbe:
         #   httpGet:
         #     path: /status
         #     port: 5000
         #   initialDelaySeconds: 3
         #   periodSeconds: 3
-        # resources:
-        #   requests:
-        #     memory: "64Mi"
-        #     cpu: "50m"
-        #   limits:
-        #     memory: "256Mi"
-        #     cpu: "500m"
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: p3mainservice
+spec:
+  ports:
+  - port: 8001
+  selector:
+    app: p3mainapi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: p3gamesapi
+  labels:
+    app: p3gamesapi
+  annotations:
+spec:
+  selector:
+    matchLabels:
+      app: p3gamesapi
+  replicas: 2
+  # strategy:
+  #   type: RollingUpdate
+  #     maxSurge: 1
+  #     maxUnavailible: 0
+  template:
+    metadata:
+      labels:
+        app: p3gamesapi
+    spec:
+      containers:
+      - name: p3gamesapi
+        image: gregious/p3gamesapi:v1
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 8002
+        # livenessProbe:
+        #   httpGet:
+        #     path: /status
+        #     port: 5000
+        #   initialDelaySeconds: 3
+        #   periodSeconds: 3
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: p3gamesservice
+spec:
+  ports:
+  - port: 8002
+  selector:
+    app: p3gamesapi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: p3statisticsapi
+  labels:
+    app: p3statisticsapi
+  annotations:
+spec:
+  selector:
+    matchLabels:
+      app: p3statisticsapi
+  replicas: 2
+  # strategy:
+  #   type: RollingUpdate
+  #     maxSurge: 1
+  #     maxUnavailible: 0
+  template:
+    metadata:
+      labels:
+        app: p3statisticsapi
+    spec:
+      containers:
+      - name: p3statisticsapi
+        image: gregious/p3statisticsapi:v1
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 8003
+        # livenessProbe:
+        #   httpGet:
+        #     path: /status
+        #     port: 5000
+        #   initialDelaySeconds: 3
+        #   periodSeconds: 3
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: p3statisticsservice
+spec:
+  ports:
+  - port: 8003
+  selector:
+    app: p3statisticsapi
