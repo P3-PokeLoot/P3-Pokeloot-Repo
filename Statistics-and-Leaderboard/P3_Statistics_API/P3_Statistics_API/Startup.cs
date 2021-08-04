@@ -15,6 +15,7 @@ using RepositoryModels;
 using Microsoft.EntityFrameworkCore;
 using BuisinessLayerMethods;
 
+
 namespace P3_Statistics
 {
     public class Startup
@@ -52,6 +53,7 @@ namespace P3_Statistics
             });
             services.AddDistributedMemoryCache();
             services.AddScoped<ILeaderboardBuissnes, LeaderboardBuissnes>();
+            services.AddScoped<IRarityMethods, RarityMethods>();
             services.AddControllersWithViews();
             services.AddMvc().AddSessionStateTempDataProvider();
             services.AddSession();
