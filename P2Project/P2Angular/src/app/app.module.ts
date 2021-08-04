@@ -33,6 +33,7 @@ import { RpsGamePokemonSelectionComponent } from './rps-game-pokemon-selection/r
 import { WtpGameComponent } from './wtp-game/wtp-game.component';
 import { WtpGameSelectionComponent } from './wtp-game-selection/wtp-game-selection.component';
 import { WtpGameOutcomeComponent } from './wtp-game-outcome/wtp-game-outcome.component';
+import { PokemonCardMatchComponent } from './pokemon-card-match/pokemon-card-match.component';
 import { EditPostComponent } from './edit-post/edit-post.component';
 import { FriendsComponent } from './friends/friends.component';
 
@@ -63,7 +64,9 @@ import { FriendsComponent } from './friends/friends.component';
     WtpGameComponent, 
     WtpGameSelectionComponent, 
     WtpGameOutcomeComponent, 
-    EditPostComponent, FriendsComponent,
+    FriendsComponent,
+    EditPostComponent,
+    PokemonCardMatchComponent,
     //JwPaginationComponent,
   ],
   imports: [

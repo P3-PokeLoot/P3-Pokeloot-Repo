@@ -33,7 +33,7 @@ namespace P3_Statistics
             {
                 options.AddPolicy(name: "dev", builder =>
                 {
-                    builder.WithOrigins("http://localhost:4200")
+                    builder.WithOrigins("http://localhost:4200", "http://20.106.64.124/")
                     .AllowAnyHeader()
                     .AllowAnyMethod();
                 });
