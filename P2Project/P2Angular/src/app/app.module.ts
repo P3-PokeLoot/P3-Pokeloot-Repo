@@ -35,6 +35,7 @@ import { WtpGameSelectionComponent } from './wtp-game-selection/wtp-game-selecti
 import { WtpGameOutcomeComponent } from './wtp-game-outcome/wtp-game-outcome.component';
 import { PokemonCardMatchComponent } from './pokemon-card-match/pokemon-card-match.component';
 import { EditPostComponent } from './edit-post/edit-post.component';
+import { WamGameComponent } from './wam-game/wam-game.component';
 
 
 @NgModule({
@@ -66,6 +67,7 @@ import { EditPostComponent } from './edit-post/edit-post.component';
     EditPostComponent,
     PokemonCardMatchComponent,
     //JwPaginationComponent,
+    WamGameComponent,
   ],
   imports: [
     BrowserModule,

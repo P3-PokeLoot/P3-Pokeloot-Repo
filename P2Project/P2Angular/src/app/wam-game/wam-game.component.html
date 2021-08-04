@@ -1,0 +1,39 @@
+<br>
+<br>
+<br>
+<br>
+<div class="container text-center">
+    <h4 class="my-4">Whack-A-Diglett</h4>
+    <span class="info">Score:<span id="score">{{score}}</span></span>
+    <span class="info">Time:<span id="time-left">{{time}}</span></span>
+</div>
+    <div class="grid-container">
+        <div class="grid-item" (click)="remove_img('1'); testhit(1)"><img *ngIf = 'random == 1' src="/assets/game-api/empty.png" class="diglettfront" id = "1"></div>
+        <div class="grid-item" (click)="remove_img('2'); testhit(2)"><img *ngIf = 'random == 2' src="/assets/game-api/empty.png" class="diglettfront" id = "2"></div>  
+        <div class="grid-item" (click)="remove_img('3'); testhit(3)"><img *ngIf = 'random == 3' src="/assets/game-api/empty.png" class="diglettfront" id = "3"></div>
+        <div class="grid-item" (click)="remove_img('4'); testhit(4)"><img *ngIf = 'random == 4' src="/assets/game-api/empty.png" class="diglettfront" id = "4"></div>
+        <div class="grid-item" (click)="remove_img('5'); testhit(5)"><img *ngIf = 'random == 5' src="/assets/game-api/empty.png" class="diglettfront" id = "5"></div>  
+        <div class="grid-item" (click)="remove_img('6'); testhit(6)"><img *ngIf = 'random == 6' src="/assets/game-api/empty.png" class="diglettfront" id = "6"></div>
+        <div class="grid-item" (click)="remove_img('7'); testhit(7)"><img *ngIf = 'random == 7' src="/assets/game-api/empty.png" class="diglettfront" id = "7"></div>
+        <div class="grid-item" (click)="remove_img('8'); testhit(8)"><img *ngIf = 'random == 8' src="/assets/game-api/empty.png" class="diglettfront" id = "8"></div> 
+        <div class="grid-item" (click)="remove_img('9'); testhit(9)"><img *ngIf = 'random == 9' src="/assets/game-api/empty.png" class="diglettfront" id = "9"></div>  
+        <div class="grid-item" (click)="remove_img('10'); testhit(10)"><img *ngIf = 'random == 10' src="/assets/game-api/empty.png" class="diglettfront" id = "10"></div>
+      </div>
+    <br>
+    <div class="container text-center">
+    <p id="result" *ngIf="gameOver === true"> You earned {{numCoinsToAdd}} coins!</p>
+    <div *ngIf = 'gameStart == false'>
+      <div class = "dif">
+        <p>Select Difficulty:</p>
+        <input type="radio" id="easy" name="difficulty" [(ngModel)] = "difficulty" [value] = 1>
+        <label for="easy">Trainer (1x Coins)</label><br>
+        <input type="radio" id="medium" name="difficulty" [(ngModel)] = "difficulty" [value] = 2>
+        <label for="medium">Gym Leader (2x Coins)</label><br>
+        <input type="radio" id="hard" name="difficulty" [(ngModel)] = "difficulty" [value] = 3>
+        <label for="hard">Master (3x Coins)</label>
+      </div>
+      <button class="button" (click)="startGame()">Start</button>
+    </div>
+</div>
+
+
