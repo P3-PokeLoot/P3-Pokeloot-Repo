@@ -5,7 +5,7 @@
 trigger:
 - main
 
-pool: gregpcs
+
 
 resources:
 - repo: self
@@ -19,8 +19,8 @@ stages:
   jobs:
   - job: Build
     displayName: Build
-    pool:
-      vmImage: ubuntu-latest
+    pool: gregpcs
+      #vmImage: ubuntu-latest
     steps:
     - task: Docker@2
       inputs:
