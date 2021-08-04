@@ -16,6 +16,7 @@ import { RpsGameComponent } from './rps-game/rps-game.component';
 import { RpsGamePokemonSelectionComponent } from './rps-game-pokemon-selection/rps-game-pokemon-selection.component';
 import { WtpGameComponent } from './wtp-game/wtp-game.component';
 import { EditPostComponent } from './edit-post/edit-post.component';
+import { WamGameComponent } from './wam-game/wam-game.component';
 
 
 
@@ -37,6 +38,7 @@ const routes: Routes = [
   { path: 'PostForm', component: CreatePostComponent, canActivate: [AuthGuard] },
   { path: 'Game/RPS', component: RpsGameComponent, canActivate: [AuthGuard]},
   { path: 'Game/WhosThatPokemon', component: WtpGameComponent, canActivate: [AuthGuard] },
+  { path: 'Game/WhackADiglett', component: WamGameComponent, canActivate: [AuthGuard] },
   { path: '**', component: HomePageComponent },
 ];
 
