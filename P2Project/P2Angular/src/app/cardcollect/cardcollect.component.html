@@ -6,6 +6,7 @@
 
 <div class="col text-center">
     <h6>Page {{currentPage}} of {{lastpage}}</h6>
+    
     <h2 class="row display: flex justify-content-center" style="padding-top: 10%;">Users Cards</h2>
     <h6>Page {{currentPage}} of {{lastpage}}</h6>
    <form class="d-inline-flex p-2" (ngSubmit)="onChangePagePrev()" #searchForm="ngForm">
@@ -14,6 +15,8 @@
    <form class="d-inline-flex p-2" (ngSubmit)="onChangePageNext()" #searchForm="ngForm">
        <button class="btn btn-outline-success" type="submit">Next Page</button>    
    </form>
+   <br>
+   <button *ngIf="differentUser" class="btn btn-success btn-sm" aria-disabled="true" id="editbutton" (click)="friends()">Back to List</button>
    <br>    
    <div class="border my-4 d-flex justify-content-center"></div>    
    <br>
