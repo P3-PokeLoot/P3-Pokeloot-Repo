@@ -1,0 +1,9 @@
+<div class="text-center">
+    <h1 *ngIf="result === 'Success'">You caught {{pokemonName | titlecase}}!</h1>
+    <h1 *ngIf="result === 'Failure'">{{pokemonName | titlecase}} got away</h1>
+    <img *ngIf="result === 'Success'" src="/assets/game-api/pokeball.png">
+    <img *ngIf="result === 'Failure'" src={{pokemonImgSrc}}>
+    <br/>
+    <br/>
+    <button class="btn btn-primary" (click)="playAgain()">Play Again?</button>
+</div>
