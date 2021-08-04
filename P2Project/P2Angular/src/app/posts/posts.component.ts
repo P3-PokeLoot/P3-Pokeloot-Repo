@@ -19,15 +19,17 @@ export class PostsComponent implements OnInit {
   oldSearch: string = "null";
   attemptToBuy: boolean = false;
   broughtCard?: IBuy;
-  private userId: any = localStorage.getItem('userId');
+  userId: any = localStorage.getItem('userId');
   pageOfItems!: IPost[];
   //@Input() changePage = EventEmitter<any>(true);
   currentIndex : number = 0;
   currentPage: number = 1;
   lastpage!: number;
   filterValue: number = 0;
+  currentPost: number = 0;
   typeList : IType[] = [{TypeId : 1, TypeName: "Discussion"}, {TypeId : 2, TypeName: "Display"}, {TypeId : 3, TypeName: "Sale"}];
   bublapedia: string = 'https://bulbapedia.bulbagarden.net/wiki/';
+  edit:boolean = false;
 
   constructor(private _displayService: DisplayServiceService, private cdr: ChangeDetectorRef) {
     this.displayBoard = [];
@@ -137,6 +139,10 @@ export class PostsComponent implements OnInit {
         this.broughtCard = { Output, Result, Price, UserName, SpriteLink, PokemonName, RarityId, IsShiny };
       }
     )
+  }
+  clickt(post: IPost){
+    this.edit = !this.edit;
+    this.currentPost = post.PostId;
   }
 
   GetCardColor(rarityId: any): string {

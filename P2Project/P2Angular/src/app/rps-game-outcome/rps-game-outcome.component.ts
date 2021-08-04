@@ -46,45 +46,45 @@ export class RpsGameOutcomeComponent implements OnInit {
   evaluateGameOutcome(computerChoice: number, userChoice: number): void {
     if (userChoice == 1 && computerChoice == 1) {
       this.outcome = "Looks like a tie"
-      this.message = "Tie! Grass is not very effective against grass!"
+      this.message = "Tie! \nGrass is not very effective against grass!"
     }
     else if (userChoice == 2 && computerChoice == 2) {
       this.outcome = "Looks like a tie"
-      this.message = "Tie! Water is not very effective against water!"
+      this.message = "Tie! \nWater is not very effective against water!"
     }
     else if (userChoice == 3 && computerChoice == 3) {
       this.outcome = "Looks like a tie"
-      this.message = "Tie! Fire is not very effective against fire!"
+      this.message = "Tie! \nFire is not very effective against fire!"
     }
     else if (userChoice == 1 && computerChoice == 2) {
       this.outcome = "Yay you won"
+      this.message = "You win! \nGrass is super effective against water!"
       this.userWon = true;
-      this.message = "You win! Grass is super effective against water!"
       this._gameService.AddCoins(this.numCoinsToAdd).subscribe();
     }
     else if (userChoice == 2 && computerChoice == 3) {
       this.outcome = "Yay you won"
-      this.message = "You win! Water is super effective against fire!"
+      this.message = "You win! \nWater is super effective against fire!"
       this.userWon = true;
       this._gameService.AddCoins(this.numCoinsToAdd).subscribe();
     }
     else if (userChoice == 3 && computerChoice == 1) {
       this.outcome = "Yay you won"
-      this.message = "You win! Fire is super effective against grass!"
+      this.message = "You win! \nFire is super effective against grass!"
       this.userWon = true;
       this._gameService.AddCoins(this.numCoinsToAdd).subscribe();
     }
     else if (userChoice == 1 && computerChoice == 3) {
       this.outcome = "Aww you lost"
-      this.message = "Computer wins! Fire is super effective against grass!"
+      this.message = "Computer wins! \nFire is super effective against grass!"
     }
     else if (userChoice == 2 && computerChoice == 1) {
       this.outcome = "Aww you lost"
-      this.message = "Computer wins! Grass is super effective against water!"
+      this.message = "Computer wins! \nGrass is super effective against water!"
     }
     else if (userChoice == 3 && computerChoice == 2) {
       this.outcome = "Aww you lost"
-      this.message = "Computer wins! Water is super effective against fire!"
+      this.message = "Computer wins! \nWater is super effective against fire!"
     }
   }
 

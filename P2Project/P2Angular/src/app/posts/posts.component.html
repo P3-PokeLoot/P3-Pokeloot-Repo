@@ -173,8 +173,12 @@
                         </div>
                         <div *ngIf="post.PostType == 'Sale'">
 
-                            <button (click)='buy(post)' class="btn btn-success btn-sm" aria-disabled="true">Price:
-                                {{post.Price}} coins</button>
+                            <button (click)='buy(post)' class="btn btn-success btn-sm" aria-disabled="true" id="buybutton">Price:
+                                {{post.Price}} coins</button>  
+                                <button *ngIf="userId == post.UserId" class="btn btn-success btn-sm" aria-disabled="true" id="editbutton" (click)="clickt(post)">Edit</button>
+                                <div>
+                                <app-edit-post *ngIf="edit && userId == post.UserId && currentPost == post.PostId" [currentPost]="post"></app-edit-post>
+                                </div>
                         </div>
                     </div>
 

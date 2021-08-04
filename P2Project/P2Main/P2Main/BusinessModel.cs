@@ -512,6 +512,34 @@ namespace BusinessLayer
             return true;
         }
 
+
+        public bool editPrice(int postID, int newPrice)
+        {
+            Post post = context.Posts.Where(x => x.PostId == postID).FirstOrDefault();
+            if (post == null)
+            {
+                return false;
+            }
+            if(post.Price == null)
+            {
+                return false;
+            }
+            post.Price = newPrice;
+            context.Posts.Attach(post);
+            context.Entry(post).Property(x => x.Price).IsModified = true;
+            try
+            {
+                context.SaveChanges();
+            }
+            catch
+            {
+                return false;
+            }
+
+
+
+            return true;
+        }
         
 
 

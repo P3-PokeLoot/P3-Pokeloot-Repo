@@ -29,6 +29,17 @@
 
 }
 
+#buybutton{
+  margin-right: 5px;
+}
+#editbutton{
+  background-color: rgb(66, 66, 243);
+  margin-left: 5px;
+}
+#editbutton:hover{
+  background-color: rgb(57, 57, 204);
+}
+
 .dot {
   margin-bottom: 2px;
   height: 5px;

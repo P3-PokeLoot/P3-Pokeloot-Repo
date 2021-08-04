@@ -342,6 +342,19 @@ namespace P2Api.Controllers
             return result;
         }
 
+        /// <summary>
+        /// edits price of post
+        /// </summary>
+        /// <param name="postID">PostID</param>
+        /// <param name="newPrice">new price</param>
+        /// <returns>if successful removal</returns>
+        [HttpGet("EditPrice/{idpost}/{newPrice}")]
+        public bool EditPrice(int idpost, int newPrice)
+        {
+            bool result = _businessModel.editPrice(idpost, newPrice);
+            return result;
+        }
+
 
     } // end class
 } // end namespace
