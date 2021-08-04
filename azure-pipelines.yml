@@ -19,7 +19,7 @@ stages:
   jobs:
   - job: Build
     displayName: Build
-    pool: gregpcs
+    pool: gregspcs
       #vmImage: ubuntu-latest
     steps:
     - task: Docker@2
