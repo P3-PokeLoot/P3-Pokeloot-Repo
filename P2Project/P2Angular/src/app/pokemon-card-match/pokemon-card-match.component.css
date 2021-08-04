@@ -1,0 +1,37 @@
+.divStyle{
+  margin-top: 8%;
+}
+
+/* front of the card */
+.card{
+  width: 250px;
+  height: 250px;
+  background-color: purple;
+  margin: 3px;
+  float: left;
+  /* position: absolute; */
+  transform-style: preserve-3d;
+  transform: 1s;
+
+}
+
+.back {
+  width: 250px;
+  height: 250px;
+  margin: 3px;
+  float: left;
+  /* position: absolute; */
+  transform-style: preserve-3d;
+  transform: 1s;
+
+  background-color: white;
+  /* transform: rotateY(180deg); */
+}
+
+.flipped{
+  transform: rotateY(180deg);
+}
+.divFloat{
+  float: left;
+}
+

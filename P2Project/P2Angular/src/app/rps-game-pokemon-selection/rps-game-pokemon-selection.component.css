@@ -1,12 +1,18 @@
 .pokeball{
     margin: 2em;
-    height: 300px;
-    width: 300px;
+    margin-right: 10%;
+    margin-left: 10%;
+    height: 100%;
+    width: 100%;
     border: none;
     background-image:url("/assets/game-api/pokeball.png");
     background-size:contain;
 }
 
+td{
+    margin-right: 10%;
+    margin-left: 10%;
+}
 .pokeball.bulbasaur:hover{
     background-image:url("/assets/game-api/bulb-front.png");
     background-size:150%;
