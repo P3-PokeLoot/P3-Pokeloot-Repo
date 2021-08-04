@@ -1,4 +1,4 @@
-namespace P3Database
+namespace Models
 {
     public class GameInfo
     {

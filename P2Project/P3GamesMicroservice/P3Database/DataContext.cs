@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using Models;
 
 namespace P3Database
 {
