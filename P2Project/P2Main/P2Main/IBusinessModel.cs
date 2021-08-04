@@ -41,5 +41,7 @@ namespace BusinessLayer
         public List<RarityType> GetRarityTypes();
 
         public bool hidePost(int PostID);
+
+        public bool editPrice(int postID, int newPrice);
     }
 }

@@ -34,6 +34,7 @@ import { WtpGameComponent } from './wtp-game/wtp-game.component';
 import { WtpGameSelectionComponent } from './wtp-game-selection/wtp-game-selection.component';
 import { WtpGameOutcomeComponent } from './wtp-game-outcome/wtp-game-outcome.component';
 import { PokemonCardMatchComponent } from './pokemon-card-match/pokemon-card-match.component';
+import { EditPostComponent } from './edit-post/edit-post.component';
 
 
 @NgModule({
@@ -58,7 +59,12 @@ import { PokemonCardMatchComponent } from './pokemon-card-match/pokemon-card-mat
     //Games-Angular-Service,
     RpsGameComponent,
     FilterPipe, 
-    RpsGamePokemonSelectionComponent, WtpGameComponent, WtpGameSelectionComponent, WtpGameOutcomeComponent, PokemonCardMatchComponent,
+    RpsGamePokemonSelectionComponent, 
+    WtpGameComponent, 
+    WtpGameSelectionComponent, 
+    WtpGameOutcomeComponent, 
+    EditPostComponent,
+    PokemonCardMatchComponent,
     //JwPaginationComponent,
   ],
   imports: [

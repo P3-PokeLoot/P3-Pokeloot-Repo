@@ -147,10 +147,14 @@ export class CardCollectComponent implements OnInit {
       else {
         this.fullUserCollection.forEach(element => {
           if (element.IsShiny == this.filterValueShiny) {
+            if(this.genValue == "Any"){
+              this.userCollection.push(element);
+            }else{
             let generation = this.genList.filter(x => x.PokemonId == element.PokemonId)[0];
             //console.log(generation);
             if(generation.GenName == this.genValue){
             this.userCollection.push(element);
+            }
             }
           }
         });
@@ -173,9 +177,13 @@ export class CardCollectComponent implements OnInit {
         }
         else {
           if (element.RarityId == this.filterValue && element.IsShiny == this.filterValueShiny) {
+            if(this.genValue == "Any"){
+              this.userCollection.push(element);
+            }else{
             let generation = this.genList.filter(x => x.PokemonId == element.PokemonId)[0];
             if(generation.GenName == this.genValue){
             this.userCollection.push(element);
+            }
             }
           }
         }
