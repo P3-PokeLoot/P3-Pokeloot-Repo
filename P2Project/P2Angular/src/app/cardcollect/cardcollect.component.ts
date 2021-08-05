@@ -27,7 +27,7 @@ export class CardCollectComponent implements OnInit {
   private userId = localStorage.getItem('userId');
   pageOfItems!: ICard[];
   @Input() differentUser?: string;
-  checkFavorites?: boolean;
+  checkFavorites: boolean;
   currentIndex : number = 0;
   currentPage: number = 1;
   lastpage!: number;
@@ -42,6 +42,7 @@ export class CardCollectComponent implements OnInit {
     this.userCollection = [];
     this.fullUserCollection = [];
     this.filterValue = 0;
+    this.checkFavorites = false;
     this.filterValueShiny = false;
     this.raritiesList = [];
     this.genList = [];
@@ -134,9 +135,8 @@ export class CardCollectComponent implements OnInit {
 
   filterCollection(): void {
     this.userCollection = [];
-    if(this.checkFavorites){
-      this.userCollection = this.userCollection.filter(x => x.IsFavorite == true);
-    }
+    
+    
 
     if (this.filterValue == 0) {
       if (this.filterValueShiny == false) {
@@ -199,6 +199,11 @@ export class CardCollectComponent implements OnInit {
         }
       });
     }
+
+    if(this.checkFavorites){
+      this.userCollection = this.userCollection.filter(x => x.IsFavorite == true);
+    }
+    
     if(this.userCollection != null){
       this.load();
     }

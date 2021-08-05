@@ -21,8 +21,8 @@
    <br>
    <div>
     <div style="font-size: medium; margin-left: 2rem;">
-    <label>Rarities</label>
     
+        <label>Rarities</label>
         <select [(ngModel)]="filterValue">
             <option [value]="0" [selected]="filterValue == 0">Any</option>
             <!-- <option *ngFor="let x of raritiesList" [value]="x" [selected]="filterValue == x">{{x}}</option> -->
@@ -31,12 +31,12 @@
     
         <input type="checkbox" [(ngModel)]="filterValueShiny" name="shinycheckbox" value="1" style="margin-left: 2rem;">
         <label for="shinycheckbox">Is Shiny</label><br>
-        <input type="checkbox" [(ngModel)]="filterValueShiny" name="shinycheckbox" value="1" style="margin-left: 2rem;">
-        <label for="shinycheckbox">Is Shiny</label><br>
+
+        <input type="checkbox" [(ngModel)]="checkFavorites" name="favoritecheckbox" value="1" style="margin-left: 2rem;">
+        <label for="favoritecheckbox">Favorites</label><br>
 
         <label>Generations</label>
-        <select [(ngModel)]="genValue">
-            
+        <select [(ngModel)]="genValue">            
             <!-- <option *ngFor="let x of raritiesList" [value]="x" [selected]="filterValue == x">{{x}}</option> -->
             <option *ngFor="let x of genOptions" [value]="x" [selected]="genValue == x">{{x}}</option>
         </select><br>

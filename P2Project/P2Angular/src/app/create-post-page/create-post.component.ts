@@ -32,6 +32,7 @@ export class CreatePostComponent implements OnInit {
   raritiesList: IRarities[] = [];
   filterValue: number = 0;
   filterValueShiny: boolean = false;
+  checkFavorites: boolean = false;
   genList: IGen[];
   genValue: string = "Any";
   genOptions: string[] = ["Any", "Kanto", "Johto", "Hoen", "Sinnoh", "Unova", "Kalos", "Alola", "Galar"];
@@ -191,6 +192,10 @@ export class CreatePostComponent implements OnInit {
       });
     }
     
+    if(this.checkFavorites){
+      this.userCollection = this.userCollection.filter(x => x.IsFavorite == true);
+    }
+
     }
 
   
