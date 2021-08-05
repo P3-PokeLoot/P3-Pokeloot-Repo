@@ -14,6 +14,8 @@
    <form class="d-inline-flex p-2" (ngSubmit)="onChangePageNext()" #searchForm="ngForm">
        <button class="btn btn-outline-success" type="submit">Next Page</button>    
    </form>
+   <br>
+   <button *ngIf="differentUser" class="btn btn-success btn-sm" aria-disabled="true" id="editbutton" (click)="friends()">Back to List</button>
    <br>    
    <div class="border my-4 d-flex justify-content-center"></div>    
    <br>

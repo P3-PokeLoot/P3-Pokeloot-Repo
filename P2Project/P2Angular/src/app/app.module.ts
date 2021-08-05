@@ -39,6 +39,8 @@ import { CapGameCatchComponent } from './cap-game-catch/cap-game-catch.component
 import { CapGameResultComponent } from './cap-game-result/cap-game-result.component';
 import { PokemonCardMatchComponent } from './pokemon-card-match/pokemon-card-match.component';
 import { EditPostComponent } from './edit-post/edit-post.component';
+import { FriendsComponent } from './friends/friends.component';
+import { WamGameComponent } from './wam-game/wam-game.component';
 
 
 @NgModule({
@@ -68,9 +70,11 @@ import { EditPostComponent } from './edit-post/edit-post.component';
     WtpGameComponent, 
     WtpGameSelectionComponent, 
     WtpGameOutcomeComponent, 
+    FriendsComponent,
     EditPostComponent,
     PokemonCardMatchComponent,
     //JwPaginationComponent,
+    WamGameComponent,
   ],
   imports: [
     BrowserModule,

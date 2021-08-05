@@ -18,6 +18,8 @@ import { WtpGameComponent } from './wtp-game/wtp-game.component';
 import { CapGameComponent } from './cap-game/cap-game.component';
 import { PokemonCardMatchComponent } from './pokemon-card-match/pokemon-card-match.component';
 import { EditPostComponent } from './edit-post/edit-post.component';
+import { FriendsComponent } from './friends/friends.component';
+import { WamGameComponent } from './wam-game/wam-game.component';
 
 
 
@@ -36,9 +38,11 @@ const routes: Routes = [
   { path: 'ViewInformation', component: ViewInformationPageComponent, canActivate: [AuthGuard] },
   { path: 'ViewBalance', component: ViewBalancePageComponent, canActivate: [AuthGuard] },
   { path: 'PostForm', component: CreatePostComponent, canActivate: [AuthGuard] },
-  { path: 'Game/RPS', component: RpsGameComponent, canActivate: [AuthGuard]},
+  { path: 'Game/RPS', component: RpsGameComponent, canActivate: [AuthGuard] },
+  { path: 'Friends', component: FriendsComponent, canActivate: [AuthGuard] },
   { path: 'Game/WhosThatPokemon', component: WtpGameComponent, canActivate: [AuthGuard] },
   { path: 'Game/CAP', component: CapGameComponent, canActivate: [AuthGuard]},
+  { path: 'Game/WhackADiglett', component: WamGameComponent, canActivate: [AuthGuard] },
   { path: 'Game/PokemonCardMatch', component: PokemonCardMatchComponent, canActivate: [AuthGuard] },
   { path: '**', component: HomePageComponent },
 ];
