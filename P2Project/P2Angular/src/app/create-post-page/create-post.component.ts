@@ -93,14 +93,16 @@ export class CreatePostComponent implements OnInit {
               let Quantity = Amount;
               let SpriteLink = Link;
               let IsShiny = false;
-              let card: ICard = { PokemonId, Quantity, RarityId, SpriteLink, PokemonName, IsShiny };
+              let IsFavorite = false;
+              let card: ICard = { PokemonId, Quantity, RarityId, SpriteLink, PokemonName, IsShiny, IsFavorite };
               this.fullUserCollection.push(card);
             }
             if (AmountShiny > 0) {
               let Quantity = AmountShiny;
               let SpriteLink = LinkShiny;
               let IsShiny = true;
-              let card: ICard = { PokemonId, Quantity, RarityId, SpriteLink, PokemonName, IsShiny };
+              let IsFavorite = false;
+              let card: ICard = { PokemonId, Quantity, RarityId, SpriteLink, PokemonName, IsShiny, IsFavorite };
               this.fullUserCollection.push(card);
             }
 

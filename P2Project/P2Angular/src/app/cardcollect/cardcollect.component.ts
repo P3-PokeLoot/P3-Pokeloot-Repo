@@ -27,6 +27,7 @@ export class CardCollectComponent implements OnInit {
   private userId = localStorage.getItem('userId');
   pageOfItems!: ICard[];
   @Input() differentUser?: string;
+  checkFavorites?: boolean;
   currentIndex : number = 0;
   currentPage: number = 1;
   lastpage!: number;
@@ -97,14 +98,16 @@ export class CardCollectComponent implements OnInit {
               let Quantity = Amount;
               let SpriteLink = Link;
               let IsShiny = false;
-              let card: ICard = { PokemonId, Quantity, RarityId, SpriteLink, PokemonName, IsShiny };
+              let IsFavorite = false;
+              let card: ICard = { PokemonId, Quantity, RarityId, SpriteLink, PokemonName, IsShiny, IsFavorite };
               this.fullUserCollection.push(card);
             }
             if (AmountShiny > 0) {
               let Quantity = AmountShiny;
               let SpriteLink = LinkShiny;
               let IsShiny = true;
-              let card: ICard = { PokemonId, Quantity, RarityId, SpriteLink, PokemonName, IsShiny };
+              let IsFavorite = false;
+              let card: ICard = { PokemonId, Quantity, RarityId, SpriteLink, PokemonName, IsShiny, IsFavorite };
               this.fullUserCollection.push(card);
             }
           }
@@ -131,6 +134,9 @@ export class CardCollectComponent implements OnInit {
 
   filterCollection(): void {
     this.userCollection = [];
+    if(this.checkFavorites){
+      this.userCollection = this.userCollection.filter(x => x.IsFavorite == true);
+    }
 
     if (this.filterValue == 0) {
       if (this.filterValueShiny == false) {
@@ -244,6 +250,17 @@ export class CardCollectComponent implements OnInit {
     });
     this.route.navigate(['/Friends']);
     this.route.navigateByUrl('/Friends');
+  }
+
+  favorite(card: ICard){
+    if(card.IsFavorite){
+      //do something
+    }
+    else{
+      //do something else
+    }
+    //do need to reload the page as we will only see favorites in profile
+    card.IsFavorite = !card.IsFavorite;
   }
 
 
