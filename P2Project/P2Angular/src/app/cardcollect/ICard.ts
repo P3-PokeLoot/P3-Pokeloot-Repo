@@ -5,5 +5,6 @@ export interface ICard{
       SpriteLink  :     string;
       PokemonName :     string;
       IsShiny     :     boolean;
+      IsFavorite  :     boolean;
 }
 
