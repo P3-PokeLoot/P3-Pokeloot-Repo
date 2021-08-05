@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './profile-statistic-child.component.html',
   styleUrls: ['./profile-statistic-child.component.css']
 })
-export class ProfileStatisticChildComponent implements OnInit {
+export class UnlockCardStatisticChildComponent implements OnInit {
 
   constructor() { }
 
