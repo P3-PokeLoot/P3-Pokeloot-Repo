@@ -34,6 +34,7 @@ import { WtpGameComponent } from './wtp-game/wtp-game.component';
 import { WtpGameSelectionComponent } from './wtp-game-selection/wtp-game-selection.component';
 import { WtpGameOutcomeComponent } from './wtp-game-outcome/wtp-game-outcome.component';
 import { EditPostComponent } from './edit-post/edit-post.component';
+import { ProfileStatisticChildComponent } from './profile-statistic-child/profile-statistic-child.component';
 
 
 @NgModule({
@@ -65,6 +66,7 @@ import { EditPostComponent } from './edit-post/edit-post.component';
     EditPostComponent,
     //JwPaginationComponent,
     LeaderboardsComponent,
+    ProfileStatisticChildComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { UserModel_Coins } from './Models/IUser_Coin';
-import { MVPModel_Shiny } from './Models/IMVPShiny';
+import { UserModel_Coins } from '../../Models/IUser_Coin';
+import { MVPModel_Shiny } from '../../Models/IMVPShiny';
 
 @Injectable({
   providedIn: 'root'

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 //import { resourceLimits } from 'worker_threads';
-import { LeaderboardStatsService } from '../leaderboard-stats.service';
+import { LeaderboardStatsService } from '../service/leaderboards/leaderboard-stats.service';
 
 @Component({
   selector: 'app-leaderboards',

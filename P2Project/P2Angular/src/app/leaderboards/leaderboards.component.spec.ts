@@ -1,6 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { LeaderboardStatsService } from '../leaderboard-stats.service';
+import { LeaderboardStatsService } from '../service/leaderboards/leaderboard-stats.service';
 
 import { LeaderboardsComponent } from './leaderboards.component';
 import { MockCoinBalanceObservable } from './leaderboards_mocks/MockCoinBalanceData';
@@ -16,7 +16,8 @@ describe('LeaderboardsComponent', () => {
       imports: [HttpClientTestingModule],
       providers:[{
         provide: LeaderboardStatsService, use: MockLeaderBoardService
-      }]
+      },
+    ]
     })
     .compileComponents();
   });
@@ -24,6 +25,7 @@ describe('LeaderboardsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(LeaderboardsComponent);
     component = fixture.componentInstance;
+    //const testcoin:MockCoinBalanceObservable=new MockCoinBalanceObservable(); <- find correct way
     fixture.detectChanges();
   });
 
@@ -63,12 +65,17 @@ describe('LeaderboardsComponent', () => {
   });
   //Testing Method 3
   it('should create two arrays from 1 observable stream',()=>{
-    //component.observableData = MockCoinBalanceObservable.MockCoinDataArray;
-    
+    //Arange
+    let testcoin:MockCoinBalanceObservable=new MockCoinBalanceObservable();
+
+    //Act
+
+    //Assert
   });
   //Testing Method 4
   it('should assign a class property value (based off a different class property) by iterating through an array',()=>{
-    //component.observableData = MockCoinBalanceObservable.MockCoinDataArray;
+    let testcoin:MockCoinBalanceObservable = new MockCoinBalanceObservable();
+    component.observableData = testcoin.MockCoinDataArray;
     
   });
   //Testing Method 5
