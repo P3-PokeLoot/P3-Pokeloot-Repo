@@ -15,6 +15,7 @@ namespace P2DbContext.Models
         public int PostType1 { get; set; }
         public string PostCategory { get; set; }
 
+        [Newtonsoft.Json.JsonIgnore]
         public virtual ICollection<DisplayBoard> DisplayBoards { get; set; }
     }
 }

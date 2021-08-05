@@ -15,6 +15,7 @@ namespace P2DbContext.Models
         public int RarityId { get; set; }
         public string RarityCategory { get; set; }
 
+        [Newtonsoft.Json.JsonIgnore]
         public virtual ICollection<PokemonCard> PokemonCards { get; set; }
     }
 }
