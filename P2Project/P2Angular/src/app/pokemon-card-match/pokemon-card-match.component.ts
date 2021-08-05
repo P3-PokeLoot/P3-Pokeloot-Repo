@@ -26,36 +26,39 @@ export class PokemonCardMatchComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
+    // this.flippedc1,  this.flippedc2, this.flippedc3 , this.flippedc4  = false;
     this.flippedc1  = false;
     this.flippedc2  = false;
     this.flippedc3  = false;
     this.flippedc4  = false;
   }
 
-  updateCounter(value: string) : void {
+  updateCounter(value: string) : void { // alert(this.firstClick);
     if(this.firstClick == ""){
       this.firstClick = value;
       this.counter++;
-      // alert(this.firstClick);
     }
     else if(this.secondClick == "") {
       this.secondClick = value;
       this.counter++;
       // alert(this.secondClick);
       if(this.firstClick == this.secondClick) {
-        alert("You Win");
         this.firstClick = "";
         this.secondClick = "";
         this.counter = 0 ;
-        this.flippedc1  = false;
-        this.flippedc2  = false;
-        this.flippedc3  = false;
-        this.flippedc4  = false;
-
+        // alert("You find Matched card");
+        if(value =="1") {
+          this.flippedc1=true;
+          this.flippedc3=true;
+        }
+        else if(value =="2") {
+          this.flippedc2=true;
+          this.flippedc4=true;
+        }
       }
       else{
-        alert("You Loose");
-        this.firstClick = "";
+        // alert("You Loose");
+        this.firstClick ="";
         this.secondClick = "";
         this.counter = 0 ;
         this.flippedc1  = false;
@@ -63,19 +66,19 @@ export class PokemonCardMatchComponent implements OnInit {
         this.flippedc3  = false;
         this.flippedc4  = false;
       }
+      // check if plaer win the game
+      if(this.flippedc1==true&&this.flippedc2==true&&this.flippedc3==true&&this.flippedc4==true){
+          alert("YOU WIN");
+          this.flippedc1  = false;
+          this.flippedc2  = false;
+          this.flippedc3  = false;
+          this.flippedc4  = false;
+
+      }
+
+
     }
 
-    // if(this.counter >= 2){
-    //   this.firstClick = "";
-    //   this.secondClick = "";
-    //   this.counter = 0 ;
-    // }
-
-
-
   }
-
-
-
 }
 
