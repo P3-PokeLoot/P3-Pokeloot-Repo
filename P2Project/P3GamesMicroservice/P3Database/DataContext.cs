@@ -26,16 +26,16 @@ namespace P3Database
                 new GameInfo{
                     Id = itemId++,
                     Description = "Battle pokemon using type advantage to win!",
-                    Title = "Pokemon RPS",
+                    Title = "Pokemon Rock Paper Scissors",
                     ImagePath = "",
                     Route = "/Game/RPS"
                 },
                 new GameInfo{
                     Id = itemId++,
-                    Description = "Here is a test game item",
-                    Title = "Test game #1",
+                    Description = "Guess the Pokemon based on the silhouette!",
+                    Title = "Who's That Pokemon!",
                     ImagePath = "",
-                    Route = "/Game/Test1"
+                    Route = "/Game/WhosThatPokemon"
                 },
                 new GameInfo{
                     Id = itemId++,

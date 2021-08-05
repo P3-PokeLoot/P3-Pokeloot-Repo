@@ -10,7 +10,7 @@ import { GameService } from '../game-service';
 export class RpsGameOutcomeComponent implements OnInit {
 
   // number of coins that user wins
-  private numCoinsToAdd: number = 20;
+  public numCoinsToAdd: number = 20;
   //take user choice input from rps-game-pokemone-selection
   // @Input() userChoice: number = 0;
   @Input() userChoice?: number;
