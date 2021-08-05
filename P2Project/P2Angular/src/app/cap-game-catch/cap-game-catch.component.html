@@ -1,0 +1,9 @@
+<div class="catchButton text-center">
+    <button class="btn btn-primary" (click)="emitCatchChance()">Throw pokeball!</button>
+</div>
+
+
+<img src="{{pictureUrl}}" class="center">
+<div class="center">
+    <div [@catchChance]="determineCatchChance()" ></div>
+</div>

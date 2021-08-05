@@ -5,6 +5,8 @@
 trigger:
 - main
 
+
+
 resources:
 - repo: self
 
@@ -17,15 +19,15 @@ stages:
   jobs:
   - job: Build
     displayName: Build
-    pool:
-      vmImage: ubuntu-latest
+    pool: gregspcs
+      #vmImage: ubuntu-latest
     steps:
     - task: Docker@2
       inputs:
         containerRegistry: 'DockerHub'
         repository: 'gregious/p3angular'
         command: 'build'
-        Dockerfile: 'P3-Pokeloot-Repo/P2Project/P2Angular/Dockerfile'
+        Dockerfile: '$(Build.SourcesDirectory)/P2Project/P2Angular/Dockerfile'
     - task: Docker@2
       inputs:
         containerRegistry: 'DockerHub'
