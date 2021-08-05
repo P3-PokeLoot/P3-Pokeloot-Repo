@@ -1,0 +1,19 @@
+<p>cap-game works!</p>
+<br/>
+<br/>
+<br/>
+
+<div  class="container">
+    <app-cap-game-catch 
+        *ngIf="currentState === GameState.Catch" 
+        (catchChanceEmitter)="setCatchChance($event)"
+    ></app-cap-game-catch>
+    <app-cap-game-result 
+        *ngIf="currentState === GameState.Result" 
+        [catchChanceResult]="catchChance"
+        [pokemonImgSrc]="pokemonUrl"
+        [pokemonName]="pokemonName"
+        (playAgainEmitter)="playAgain()"
+    ></app-cap-game-result>
+</div>
+
