@@ -3,7 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  urlstat: "wat",
+  urlmain: "http://pokeloot.azurewebsites.net/api/P2/",
+  urlgame: "http://localhost:44301/api/Games/",
+  urlmainlocalonly: "http://localhost:44301/api/P2/",
 };
 
 /*

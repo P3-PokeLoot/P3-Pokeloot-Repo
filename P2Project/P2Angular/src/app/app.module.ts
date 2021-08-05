@@ -65,7 +65,7 @@ import { EditPostComponent } from './edit-post/edit-post.component';
     WtpGameOutcomeComponent, 
     EditPostComponent,
     PokemonCardMatchComponent,
-    //JwPaginationComponent,
+    //JwPaginationComponent
   ],
   imports: [
     BrowserModule,
