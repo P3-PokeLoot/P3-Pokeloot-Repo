@@ -29,10 +29,10 @@ export class LeaderboardsComponent implements OnInit {
 
 
     //component property that will be updated everytime user selects a dropdown option and click button
-    chosenNumber:number=20;
-    chosenStat:string='topcoinbalance';
-    chosenService:number=2;
-
+    chosenNumber:number;
+    chosenStat:string='';
+    chosenService:number;
+    
     //store observable streams into here so that it can be iterated on & displayed in html
     observableData:any[]=[];
     headersArray:any[]=[];
@@ -55,6 +55,7 @@ export class LeaderboardsComponent implements OnInit {
       100,
     ];
 
+
     
 
   //===============================CLASS CONSTRUCTOR SECTION===============================
@@ -62,6 +63,8 @@ export class LeaderboardsComponent implements OnInit {
   constructor(private _leaderboardservice:LeaderboardStatsService) {
     this.observableData=[];
     this.pageOfItems=[];
+    this.chosenNumber=1;
+    this.chosenService=1;
    }
 
   ngOnInit(): void {
@@ -87,20 +90,43 @@ export class LeaderboardsComponent implements OnInit {
   
   */
  //METHOD 3: INVOKES SERVICE METHOD AND MAKES HEADERS ARRAY AND COLUMNS ARRAY WITH THE RECEIVED DATA
-  AssignChosenService(option:string): number {
-    this.chosenStat = option;
-    for(let i = 0; i < this.allStatsOptions.length; i++){
-      if(this.chosenStat = this.allStatsOptions[i]){
-        this.chosenService=i;
-        break;
+  AssignChosenService(): number {
+    console.log('this is the start AssignChosenService');
+    console.log(this.chosenStat);
+    console.log(this.chosenNumber);
+    console.log(this.chosenService);
+    let i = 0;
+
+      for(let i = 0; i < this.allStatsOptions.length; i++){
+        //when we "match", stop the loop
+        if(this.chosenStat = this.allStatsOptions[i]){
+          this.chosenService=i;
+          console.log('the new chosenservice value is'+this.chosenService);
+          break;
+        }
       }
-    }
+      console.log('this is the end AssignChosenService');
+      console.log(this.chosenService);
     return this.chosenService;
   }  
 
+  //Method 4:
   SelectChosenService(){
+    //step 1: get case number based off string
+
+    //  for(let i = 0; i < this.allStatsOptions.length; i++){
+    //    if(this.chosenStat == this.allStatsOptions[i]){
+    //      this.chosenService=i;
+    //      break;
+    //    }
+    //  }
+    //step 2:
+    console.log('this is the start selectChosenService');
+    console.log(this.chosenStat);
+    console.log(this.chosenNumber);
+    console.log(this.chosenService);
     switch(this.chosenService){
-    case 1:
+    case 0:
       this._leaderboardservice.GetTopCurrentBalanceList(this.chosenNumber).subscribe(
         result => {
           this.observableData = result; 
@@ -108,7 +134,7 @@ export class LeaderboardsComponent implements OnInit {
        this.CreateArraysFromObservable();
        console.log('this is case'+this.chosenService);
         break;
-    case 2:
+    case 1:
       this._leaderboardservice.GetTopEarnedCoinsList(this.chosenNumber).subscribe(
         result => {
           this.observableData = result; 
@@ -126,23 +152,8 @@ export class LeaderboardsComponent implements OnInit {
     }
   }
 
-  //METHOD 4: METHOD THAT CREATES HEADERS ARRAY AND COLUMNS ARRAY WITH THE RECEIVED DATA 
-  //I separated this method into method 5 & method 6
-  CreatingTableData(){
-    this._leaderboardservice.GetTopCurrentBalanceList(this.chosenNumber).subscribe(
-      result => {
-        this.observableData = result; 
-        result.forEach(element => {//these 2 lines of code allows us to create table columns
-          this.headersArray=Object.keys(element);
-        });
-          result.forEach(element => {//these 2 lines of code allows us to create table cells and fill them
-            this.columnsArray.push(Object.values(element));
-          });
-     }
-   );
- }
 
- //METHOD 5: This is a generic method that intakes any service method and maps the observable to a class property
+ //METHOD 6: This is a generic method that intakes any service method and maps the observable to an array of type any in the class
   IntakeObservableData(){
   this._leaderboardservice.GetTopCurrentBalanceList(this.chosenNumber).subscribe(
     result => {
@@ -150,7 +161,7 @@ export class LeaderboardsComponent implements OnInit {
    });
 }
 
- //Method 6: This is a generic method that makes arrays to loop over for html display
+ //Method 7: This is a generic method that makes arrays to loop over for html display
  CreateArraysFromObservable(){
   this.observableData.forEach(element => {//these 2 lines of code allows us to create table columns
     this.headersArray=Object.keys(element);
@@ -159,7 +170,7 @@ export class LeaderboardsComponent implements OnInit {
     this.columnsArray.push(Object.values(element));
   });
 }
-  //Method 5: Clean up table and "reset" the observable stream arrays 
+  //Method 8: Clean up table by "resetting" the observable stream arrays 
   ResetDataArrays(){
     this.observableData=[];
     this.headersArray=[];

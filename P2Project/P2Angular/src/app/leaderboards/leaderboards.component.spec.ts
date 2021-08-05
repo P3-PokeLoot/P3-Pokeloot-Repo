@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LeaderboardStatsService } from '../leaderboard-stats.service';
 
 import { LeaderboardsComponent } from './leaderboards.component';
-import { MockLeaderBoardService } from './MockLeaderboardService';
+import { MockLeaderBoardService } from './leaderboards_mocks/MockLeaderboardService';
 
 describe('LeaderboardsComponent', () => {
   let component: LeaderboardsComponent;
@@ -61,10 +61,32 @@ describe('LeaderboardsComponent', () => {
     
   });
   //Testing Method 4
-  it('should "clean out/empty" 3 data-filled arrays',()=>{
+  it('should invoke a service method, insert observable stream to class property, and invoke another method',()=>{
+
+  });
+  //Testing Method 5:
+  it('should create two arrays from an array of objects',()=>{
+
+  });
+  //Method 6:
+  it('should should take an observable stream and map it to a class array',()=>{
 
   });
 
+  //Method 7:
+  it('should set arrays filled with data to empty arrays',()=>{
+    //Arrange
+    
+    //Act
+
+    //Asset
+    expect(component.observableData.length).toBe(0);
+    expect(component.observableData.entries).toBe(null);
+    expect(component.headersArray.length).toBe(0);
+    expect(component.headersArray.entries).toBe(null);
+    expect(component.columnsArray.length).toBe(0);
+    expect(component.columnsArray.entries).toBe(null);
+  });
 
   it('should create ', () => {
     expect(component).toBeTruthy();

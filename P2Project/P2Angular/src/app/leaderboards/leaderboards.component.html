@@ -12,45 +12,35 @@ as a parameter to the internal component method-->
 
 <!--USER INTERFACE FOR CHOOSING STATISTICS AND NUMBER OF RESULTS-->
 <div class="flex-container"> 
-    <input type="button" (click)="SelectChosenService()" value="CreateTableButton"/>
     <input type="button" (click)="ResetDataArrays()" value="Reset"/> 
     <!--1: Categorical dropdown list-->
     <div class="flex-child">
-        <label>
+        <label for="categoricaldropdownlist">
             Leaderboard Stats:
-            <select class="categoricaldropdownlist">
-                <option *ngFor= "let l of allStatsOptions" (change)="AssignChosenStatFromDropdown(chosenStat)">
-                    {{l}}
+            <select class="categoricaldropdownlist" [(ngModel)]="chosenStat" (change)="AssignChosenStatFromDropdown(chosenStat)">
+                <option  *ngFor= "let item of allStatsOptions" [ngValue]="item" >
+                   {{item}}
                 </option>
             </select>
         </label>
 
-        <input (click)="AssignChosenStatFromDropdown(chosenStat)" type="button" value="Confirm"/>
     </div>
     <!--2: Numerical dropwdown list-->
     <div class="flex-child">
-        <label>
+        <label for="numericaldropdownlist">
             Results Number:
-            <select class="numericaldropdownlist">
-                <!--we want to take the chosen dropdown "option" and send it to the component. Initially, I tried to do this based off 
-                the "change" event for dropdown lists, but this threw me an error I couldn't fix. Additionally, I inferred it might
-                cause more future issues if -->
-                <option *ngFor= "let option of allNumbersOptions" (change)="AssignChosenNumberFromDropdown(chosenNumber)"> <!--Whenever user selects dropdown, we want "currentChosenNumber" to equal that option via the bound method-->
+            <select class="numericaldropdownlist" [(ngModel)]="chosenNumber" (change)="AssignChosenNumberFromDropdown(chosenNumber)">
+                <option *ngFor= "let option of allNumbersOptions" [ngValue]="option"> <!--Whenever user selects dropdown, we want "currentChosenNumber" to equal that option via the bound method-->
                     {{option}}
                 </option>
             </select>
         </label>
         
-        <input type="button" (click)="AssignChosenNumberFromDropdown(chosenNumber); AssignChosenStatFromDropdown(chosenStat)" value="Confirm"/> 
     </div>
-    <div>
-        <label>
-            This button invokes two methods
-            <input type="button" (click)="SelectChosenService()" value="Confirm Stat+Results"/>
-        </label>
-    </div>
+    <input type="button" (click)="AssignChosenService();SelectChosenService()" value="Show Leaderboard"/>
 
 
+<img src="src/app/img/leaderboards component_adobespark.png" alt-text="mega-alakazam"/>
 </div>
 
 <!--TABLE SECTION-->

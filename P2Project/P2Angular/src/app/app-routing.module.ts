@@ -38,7 +38,7 @@ const routes: Routes = [
   { path: 'PostForm', component: CreatePostComponent, canActivate: [AuthGuard] },
   { path: 'Game/RPS', component: RpsGameComponent, canActivate: [AuthGuard]},
   { path: 'Game/WhosThatPokemon', component: WtpGameComponent, canActivate: [AuthGuard] },
-  //{ path: 'Leaderboard', component: LeaderboardsComponent, canActivate: [AuthGuard] },
+  { path: 'Leaderboard', component: LeaderboardsComponent, canActivate: [AuthGuard] },
   { path: '**', component: HomePageComponent },
   
 ];

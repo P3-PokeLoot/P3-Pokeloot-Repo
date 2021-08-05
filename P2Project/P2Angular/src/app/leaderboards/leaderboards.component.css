@@ -1,5 +1,6 @@
 .flex-cointainer{
     display: flex;
+    background-color: rgb(140, 221, 190, .35);
 }
 .flex-child{
     flex: 1;
@@ -55,15 +56,4 @@ select {
 td{
     height: 30px;
 }
-/* leaderboard 
-.leaderboard {
-    -webkit-transform: translate(0%, 0%);
-    transform: translate(0%, 0%);
-    width: 285px;
-    height: 200px;
-    background: -webkit-linear-gradient(top, #3a404d, #181c26);
-    background: linear-gradient(to bottom, #3a404d, #181c26);
-    border-radius: 10px;
-    box-shadow: 0 7px 30px rgba(62, 9, 11, 0.3);
-    overflow-x: hidden;
-  }*/
+

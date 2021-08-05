@@ -64,7 +64,7 @@ import { EditPostComponent } from './edit-post/edit-post.component';
     WtpGameOutcomeComponent, 
     EditPostComponent,
     //JwPaginationComponent,
-    //LeaderboardsComponent,
+    LeaderboardsComponent,
   ],
   imports: [
     BrowserModule,
