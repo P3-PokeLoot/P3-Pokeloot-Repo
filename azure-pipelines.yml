@@ -1,0 +1,38 @@
+# Docker
+# Build a Docker image
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+- main
+
+
+
+resources:
+- repo: self
+
+variables:
+  tag: '$(Build.BuildId)'
+
+stages:
+- stage: Build
+  displayName: Build image
+  jobs:
+  - job: Build
+    displayName: Build
+    pool: gregspcs
+      #vmImage: ubuntu-latest
+    steps:
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'DockerHub'
+        repository: 'gregious/p3angular'
+        command: 'build'
+        Dockerfile: '$(Build.SourcesDirectory)/P2Project/P2Angular/Dockerfile'
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'DockerHub'
+        repository: 'gregious/p3angular'
+        command: 'push'
+        tags: 'gregious/$(Build.BuildId)'
+        addPipelineData: false
+        addBaseImageData: false

@@ -8,7 +8,9 @@ CREATE TABLE PostTypes
 
  CONSTRAINT PK_posttypes PRIMARY KEY CLUSTERED (PostType ASC)
 );
-GO
+
+SELECT * FROM PostTypes;
+
 --------------------------------------------------
 CREATE TABLE RarityTypes
 (

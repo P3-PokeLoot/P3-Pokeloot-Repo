@@ -15,6 +15,7 @@ using RepositoryModels;
 using Microsoft.EntityFrameworkCore;
 using BuisinessLayerMethods;
 
+
 namespace P3_Statistics
 {
     public class Startup
@@ -33,7 +34,7 @@ namespace P3_Statistics
             {
                 options.AddPolicy(name: "dev", builder =>
                 {
-                    builder.WithOrigins("http://localhost:4200")
+                    builder.WithOrigins("http://localhost:4200", "http://20.106.64.124/")
                     .AllowAnyHeader()
                     .AllowAnyMethod();
                 });
@@ -51,6 +52,8 @@ namespace P3_Statistics
                 }
             });
             services.AddDistributedMemoryCache();
+            services.AddScoped<ILeaderboardBuissnes, LeaderboardBuissnes>();
+            services.AddScoped<IRarityMethods, RarityMethods>();
             services.AddControllersWithViews();
             services.AddMvc().AddSessionStateTempDataProvider();
             services.AddSession();
