@@ -31,7 +31,7 @@ namespace P3Api
             services.AddSwaggerGen();
             services.AddDbContext<DataContext>(opt =>
             {
-                opt.UseInMemoryDatabase(databaseName: "Testing");
+                opt.UseSqlServer("Server=tcp:databasetempp3.database.windows.net,1433;Initial Catalog=GamesMicroserviceDB;Persist Security Info=False;User ID=P3Group;Password=Cheeseburger!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             }); //Add in sqlserver connection string once set up
             
             services.AddScoped<IBusinessModel, BusinessModel>();
