@@ -10,7 +10,10 @@ namespace BusinessLayer
 {
     public class BusinessModel : IBusinessModel
     {
-        // method to create and return game object
+        /// <summary>
+        /// Creates a game object for Who's that Pokemon and returns data for a new game.
+        /// </summary>
+        /// <returns>Game object that holds data for Who's that Pokemon</returns>
         public string WhosThatPokemonGame()
         {
             string gameObject = "";
@@ -31,7 +34,7 @@ namespace BusinessLayer
                 while(options[i] == null)
                 {
                     temp = JsonConvert.DeserializeObject(RandomPokemon());
-                    if(options.Where(x => x == temp.name.ToString()).FirstOrDefault() == null && temp.name.ToString() != "pikachu") // if name not already an option? and not pikachu because pikachu always option
+                    if(options.Where(x => x == temp.name.ToString()).FirstOrDefault() == null && temp.name.ToString() != "pikachu") // if name not already an option and not pikachu, because pikachu always option
                         options[i] = temp.name;
                 }
             }
@@ -47,11 +50,16 @@ namespace BusinessLayer
             return gameObject;
         }
 
+        /// <summary>
+        /// Calls Poke API and gets a random Pokemon details.
+        /// </summary>
+        /// <returns>Serialized Pokemon data for a random Pokemon.</returns>
         public string RandomPokemon()
         {
+            // get random number for pokemon id
             var rand = new Random();
             int id = rand.Next(1, 899); // 898 total pokemon?
-            string pokemon = "";
+            // make http request
             var client = new RestClient("https://pokeapi.co/api/v2/pokemon/"+id);
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
@@ -59,11 +67,6 @@ namespace BusinessLayer
             request.AddParameter("text/plain", body, ParameterType.RequestBody);
             IRestResponse response = client.Execute(request);
             return response.Content;
-            //dynamic myObject = JsonConvert.DeserializeObject(response.Content);
-            //if (myObject != null && myObject.Count != 0)
-            //{
-            //    pokemon = myObject.sprites.front_default;
-            //}
         }
     }
 }
