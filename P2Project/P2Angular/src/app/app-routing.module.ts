@@ -16,7 +16,10 @@ import { RpsGameComponent } from './rps-game/rps-game.component';
 import { RpsGamePokemonSelectionComponent } from './rps-game-pokemon-selection/rps-game-pokemon-selection.component';
 import { WtpGameComponent } from './wtp-game/wtp-game.component';
 import { CapGameComponent } from './cap-game/cap-game.component';
-
+import { PokemonCardMatchComponent } from './pokemon-card-match/pokemon-card-match.component';
+import { EditPostComponent } from './edit-post/edit-post.component';
+import { FriendsComponent } from './friends/friends.component';
+import { WamGameComponent } from './wam-game/wam-game.component';
 
 
 
@@ -31,18 +34,22 @@ const routes: Routes = [
   { path: 'Collection', component: CardCollectComponent, canActivate: [AuthGuard] },
   { path: 'TradeCard', component: TradeCardPageComponent, canActivate: [AuthGuard] },
   { path: 'UnlockCard', component: UnlockCardPageComponent, canActivate: [AuthGuard] },
+  { path: 'EditPost', component: EditPostComponent, canActivate: [AuthGuard] },
   { path: 'ViewInformation', component: ViewInformationPageComponent, canActivate: [AuthGuard] },
   { path: 'ViewBalance', component: ViewBalancePageComponent, canActivate: [AuthGuard] },
   { path: 'PostForm', component: CreatePostComponent, canActivate: [AuthGuard] },
-  { path: 'Game/RPS', component: RpsGameComponent, canActivate: [AuthGuard]},
+  { path: 'Game/RPS', component: RpsGameComponent, canActivate: [AuthGuard] },
+  { path: 'Friends', component: FriendsComponent, canActivate: [AuthGuard] },
   { path: 'Game/WhosThatPokemon', component: WtpGameComponent, canActivate: [AuthGuard] },
   { path: 'Game/CAP', component: CapGameComponent, canActivate: [AuthGuard]},
+  { path: 'Game/WhackADiglett', component: WamGameComponent, canActivate: [AuthGuard] },
+  { path: 'Game/PokemonCardMatch', component: PokemonCardMatchComponent, canActivate: [AuthGuard] },
   { path: '**', component: HomePageComponent },
 ];
 
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {onSameUrlNavigation : 'reload'})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

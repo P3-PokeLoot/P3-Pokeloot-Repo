@@ -1,10 +1,11 @@
 import { IcuPlaceholder } from '@angular/compiler/src/i18n/i18n_ast';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CardServiceService } from '../card-service.service';
 import { ICard } from './ICard';
 import { IRarities } from './IRarities';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import { IGen } from './IGen';
+import { Router } from '@angular/router';
 //import { loadavg } from 'os';
 
 
@@ -25,7 +26,7 @@ export class CardCollectComponent implements OnInit {
   filterValueShiny: boolean;
   private userId = localStorage.getItem('userId');
   pageOfItems!: ICard[];
-  //@Input() changePage = EventEmitter<any>(true);
+  @Input() differentUser?: string;
   currentIndex : number = 0;
   currentPage: number = 1;
   lastpage!: number;
@@ -36,7 +37,7 @@ export class CardCollectComponent implements OnInit {
 
 
 
-  constructor(private _cardcollectionService: CardServiceService) {
+  constructor(private _cardcollectionService: CardServiceService, private route :Router) {
     this.userCollection = [];
     this.fullUserCollection = [];
     this.filterValue = 0;
@@ -48,6 +49,9 @@ export class CardCollectComponent implements OnInit {
 
   ngOnInit(): void {
 
+    if(this.differentUser){
+      this.userId = this.differentUser;
+    }
     for(let i: number = 0; i <= 809; i++){
       if(i <= 151){
         this.genList.push({PokemonId: i, GenName: "Kanto"});
@@ -147,10 +151,14 @@ export class CardCollectComponent implements OnInit {
       else {
         this.fullUserCollection.forEach(element => {
           if (element.IsShiny == this.filterValueShiny) {
+            if(this.genValue == "Any"){
+              this.userCollection.push(element);
+            }else{
             let generation = this.genList.filter(x => x.PokemonId == element.PokemonId)[0];
             //console.log(generation);
             if(generation.GenName == this.genValue){
             this.userCollection.push(element);
+            }
             }
           }
         });
@@ -173,9 +181,13 @@ export class CardCollectComponent implements OnInit {
         }
         else {
           if (element.RarityId == this.filterValue && element.IsShiny == this.filterValueShiny) {
+            if(this.genValue == "Any"){
+              this.userCollection.push(element);
+            }else{
             let generation = this.genList.filter(x => x.PokemonId == element.PokemonId)[0];
             if(generation.GenName == this.genValue){
             this.userCollection.push(element);
+            }
             }
           }
         }
@@ -224,6 +236,14 @@ export class CardCollectComponent implements OnInit {
     console.log(this.currentIndex);
     this.pageOfItems = this.userCollection.slice(this.currentIndex, this.currentIndex + 25);
     //this.pageOfItems = pageOfItems;
+  }
+
+  friends(){
+    this.route.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+      this.route.navigate(['/Friends']);
+    });
+    this.route.navigate(['/Friends']);
+    this.route.navigateByUrl('/Friends');
   }
 
 
