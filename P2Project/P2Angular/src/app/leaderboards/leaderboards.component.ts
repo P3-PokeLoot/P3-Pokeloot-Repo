@@ -42,7 +42,6 @@ export class LeaderboardsComponent implements OnInit {
 
     //array of all options that will reflect onto the "categorical dropdown list"
     allStatsOptions:string[]=[
-      '---',
       'topcoinbalance',
       'topearnedcoins',
       'topcoinsspent',
@@ -83,86 +82,8 @@ export class LeaderboardsComponent implements OnInit {
     console.log('the number of items to return is:' + this.chosenNumber);
   }
 
-  //METHOD 3: METHOD TO MAP DATA FROM OBSERVABLE ARRAY OF OBJECTS TO USABLE ARRAYS FOR HTML
-  /*attempts:
-  1) creating an array with the names and paranthese of service methods and appending subscribe - fail
-  2) creating a string array and simply changing the strings of the service method name - fail
-  
-  */
- //METHOD 3: INVOKES SERVICE METHOD AND MAKES HEADERS ARRAY AND COLUMNS ARRAY WITH THE RECEIVED DATA
-  AssignChosenService(): number {
-    console.log('this is the start AssignChosenService');
-    console.log(this.chosenStat);
-    console.log(this.chosenNumber);
-    console.log(this.chosenService);
-    let i = 0;
-
-      for(let i = 0; i < this.allStatsOptions.length; i++){
-        //when we "match", stop the loop
-        if(this.chosenStat = this.allStatsOptions[i]){
-          this.chosenService=i;
-          console.log('the new chosenservice value is'+this.chosenService);
-          break;
-        }
-      }
-      console.log('this is the end AssignChosenService');
-      console.log(this.chosenService);
-    return this.chosenService;
-  }  
-
-  //Method 4:
-  SelectChosenService(){
-    //step 1: get case number based off string
-
-    //  for(let i = 0; i < this.allStatsOptions.length; i++){
-    //    if(this.chosenStat == this.allStatsOptions[i]){
-    //      this.chosenService=i;
-    //      break;
-    //    }
-    //  }
-    //step 2:
-    console.log('this is the start selectChosenService');
-    console.log(this.chosenStat);
-    console.log(this.chosenNumber);
-    console.log(this.chosenService);
-    switch(this.chosenService){
-    case 0:
-      this._leaderboardservice.GetTopCurrentBalanceList(this.chosenNumber).subscribe(
-        result => {
-          this.observableData = result; 
-       });
-       this.CreateArraysFromObservable();
-       console.log('this is case'+this.chosenService);
-        break;
-    case 1:
-      this._leaderboardservice.GetTopEarnedCoinsList(this.chosenNumber).subscribe(
-        result => {
-          this.observableData = result; 
-      });
-      this.CreateArraysFromObservable();
-      console.log('this is case'+this.chosenService);
-      break;
-      // case 3:
-      //   this._leaderboardservice.GetTopSpentCoinsList(this.chosenNumber).subscribe(
-      //     result => {
-      //       this.observableData = result; 
-      //    });
-      //    this.CreateArraysFromObservable();
-      //   break;
-    }
-  }
-
-
- //METHOD 6: This is a generic method that intakes any service method and maps the observable to an array of type any in the class
-  IntakeObservableData(){
-  this._leaderboardservice.GetTopCurrentBalanceList(this.chosenNumber).subscribe(
-    result => {
-      this.observableData = result; 
-   });
-}
-
- //Method 7: This is a generic method that makes arrays to loop over for html display
- CreateArraysFromObservable(){
+//Method 3: This is a generic method that makes arrays to loop over for html display
+CreateArraysFromObservable(){
   this.observableData.forEach(element => {//these 2 lines of code allows us to create table columns
     this.headersArray=Object.keys(element);
   });
@@ -170,7 +91,59 @@ export class LeaderboardsComponent implements OnInit {
     this.columnsArray.push(Object.values(element));
   });
 }
-  //Method 8: Clean up table by "resetting" the observable stream arrays 
+ //METHOD 4: Looks at the chosenStat variable and returns it's index value to be used as a 'case value'
+  AssignChosenService() {
+    console.log('this is the start AssignChosenService');
+    console.log(this.chosenService);
+
+      for(let i = 0; i < this.allStatsOptions.length; i++){
+        //when we "match", stop the loop
+        if(this.chosenStat == this.allStatsOptions[i]){
+          this.chosenService=i;
+          console.log('the new chosenservice value is'+this.chosenService);
+          break;
+        }
+      }
+      console.log(this.chosenService);
+      console.log('this is the end AssignChosenService');
+  }  
+
+  //Method 5: Runs method 4 to get a 'case value', then executes different cases based on the returned 'case value'
+  SelectChosenService(){
+    //step 1: get case number based off string
+    this.AssignChosenService();
+    //step 2: run a case, based off return value from step 1
+    console.log('this is the start selectChosenService');
+    console.log(this.chosenService);
+    switch(this.chosenService){
+    case 1:
+      this._leaderboardservice.GetTopCurrentBalanceList(this.chosenNumber).subscribe(
+        result => {
+          this.observableData = result; 
+       });
+       this.CreateArraysFromObservable();
+       console.log('this is case'+this.chosenService);
+        break;
+    case 2:
+      this._leaderboardservice.GetTopEarnedCoinsList(this.chosenNumber).subscribe(
+        result => {
+          this.observableData = result; 
+      });
+      this.CreateArraysFromObservable();
+      console.log('this is case'+this.chosenService);
+      break;
+      case 3:
+        this._leaderboardservice.GetTopSpentCoinsList(this.chosenNumber).subscribe(
+          result => {
+            this.observableData = result; 
+         });
+         this.CreateArraysFromObservable();
+        console.log('this is case'+this.chosenService);
+        break;
+    }
+  }
+
+  //Method 6: Clean up table by "resetting" the observable stream arrays 
   ResetDataArrays(){
     this.observableData=[];
     this.headersArray=[];

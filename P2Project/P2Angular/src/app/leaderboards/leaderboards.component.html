@@ -12,21 +12,17 @@ as a parameter to the internal component method-->
 
 <!--USER INTERFACE FOR CHOOSING STATISTICS AND NUMBER OF RESULTS-->
 <div class="flex-container"> 
-    <input type="button" (click)="ResetDataArrays()" value="Reset"/> 
     <!--1: Categorical dropdown list-->
     <div class="flex-child">
         <label for="categoricaldropdownlist">
             Leaderboard Stats:
-            <select class="categoricaldropdownlist" [(ngModel)]="chosenStat" (change)="AssignChosenStatFromDropdown(chosenStat)">
+            <select class="categoricaldropdownlist" [(ngModel)]="chosenStat" (change)="AssignChosenStatFromDropdown(chosenStat); ResetDataArrays()">
                 <option  *ngFor= "let item of allStatsOptions" [ngValue]="item" >
                    {{item}}
                 </option>
             </select>
         </label>
-
-    </div>
     <!--2: Numerical dropwdown list-->
-    <div class="flex-child">
         <label for="numericaldropdownlist">
             Results Number:
             <select class="numericaldropdownlist" [(ngModel)]="chosenNumber" (change)="AssignChosenNumberFromDropdown(chosenNumber)">
@@ -35,12 +31,15 @@ as a parameter to the internal component method-->
                 </option>
             </select>
         </label>
-        
+    <!--buttons & logo-->
+        <input type="button" (click)="SelectChosenService()" value="Show Leaderboard"/>
+        <input type="button" (click)="ResetDataArrays()" value="Reset"/> 
+        <img class="bigbrain" src='/assets/img/leaderboards_component_adobespark.png' alt-text="mega-alakazam"/>
     </div>
-    <input type="button" (click)="AssignChosenService();SelectChosenService()" value="Show Leaderboard"/>
+    
 
 
-<img src="src/app/img/leaderboards component_adobespark.png" alt-text="mega-alakazam"/>
+
 </div>
 
 <!--TABLE SECTION-->

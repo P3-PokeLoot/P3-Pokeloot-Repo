@@ -1,7 +1,6 @@
 export class MockServiceData{
-    constructor(){}
     
-    MockCoinBalanceObservable:[]=[];
+    MockCoinBalanceObservable:number=0;
     MockTopEarnedObservable:[]=[];
     MockSpentObservable:[]=[];
     MockShinyObservable:[]=[];
