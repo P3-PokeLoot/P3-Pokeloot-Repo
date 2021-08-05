@@ -41,6 +41,7 @@ import { PokemonCardMatchComponent } from './pokemon-card-match/pokemon-card-mat
 import { EditPostComponent } from './edit-post/edit-post.component';
 import { FriendsComponent } from './friends/friends.component';
 import { WamGameComponent } from './wam-game/wam-game.component';
+import { HangManComponent } from './hang-man/hang-man.component';
 
 
 @NgModule({
@@ -75,6 +76,7 @@ import { WamGameComponent } from './wam-game/wam-game.component';
     PokemonCardMatchComponent,
     //JwPaginationComponent,
     WamGameComponent,
+    HangManComponent,
   ],
   imports: [
     BrowserModule,

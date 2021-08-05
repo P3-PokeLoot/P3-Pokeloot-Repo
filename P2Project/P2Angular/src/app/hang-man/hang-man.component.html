@@ -1,0 +1,29 @@
+
+    <div class="divStyle">
+        <section id="gallows" class="generalSection">
+            <h4>gallows</h4>
+            <img id = "image" class="strike" src="./assets/hang-man/strike-{{counter}}.png" alt="strike">
+            <p id="dashes"> </p>
+        </section>
+
+        <section id="strikes" class="generalSection ">
+            <h4 class="divStyle">round :  {{ counter }}</h4>
+            <p id="strikesLetters">  </p>
+        </section>
+
+        <section id="guess" class="generalSection">
+            <h4>guess</h4>
+                <form id="guessForm" #GUESSEDWORD>
+                    <fieldset>
+                        <legend>Guess a word Please</legend>
+                        <label>
+                            word: <input id="guessWord" type="text" name="word" [(ngModel)]="userGuess" placeholder="ENTER A WORD" />
+                        </label>
+                    </fieldset>
+                    <button type="submit" (click)="drawGallows()" GUESSEDWORD.value="">Submit</button>
+                </form>
+        </section>
+
+    </div>
+
+
