@@ -13,7 +13,7 @@ namespace BuisinessLayerMethods
         List<User> TopEarnedCoins(int maxnumber);
         List<User> TopSpentCoins(int maxnumber);
 
-        IEnumerable<TopPersentCompletedCollectionModel> TopPercentageCompletedCollection(int maxnumber);
+        List<TopPersentCompletedCollectionModel> TopPercentageCompletedCollection(int maxnumber);
 
 
 
