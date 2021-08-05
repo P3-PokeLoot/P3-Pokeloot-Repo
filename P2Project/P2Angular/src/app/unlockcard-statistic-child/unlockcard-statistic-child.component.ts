@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile-statistic-child.component.css']
 })
 export class UnlockCardStatisticChildComponent implements OnInit {
-
+//This is the child component for the unlock card component. It will display aggregate data related to unlock card, such as:
+// "percent of people who have unlocked this card" and anything else appropriate
   constructor() { }
 
   ngOnInit(): void {
