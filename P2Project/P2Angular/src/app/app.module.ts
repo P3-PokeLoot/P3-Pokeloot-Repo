@@ -39,7 +39,7 @@ import { CapGameCatchComponent } from './cap-game-catch/cap-game-catch.component
 import { CapGameResultComponent } from './cap-game-result/cap-game-result.component';
 import { PokemonCardMatchComponent } from './pokemon-card-match/pokemon-card-match.component';
 import { EditPostComponent } from './edit-post/edit-post.component';
-import { UnlockCardStatisticChildComponent } from './unlockcard-statistic-child/unlockcard-statistic-child.component';
+import { UnlockcardStatisticChildComponent } from './unlockcard-statistic-child/unlockcard-statistic-child.component';
 import { FriendsComponent } from './friends/friends.component';
 import { WamGameComponent } from './wam-game/wam-game.component';
 
@@ -76,8 +76,8 @@ import { WamGameComponent } from './wam-game/wam-game.component';
     PokemonCardMatchComponent,
     //JwPaginationComponent,
     LeaderboardsComponent,
-    UnlockCardStatisticChildComponent,
     WamGameComponent,
+    UnlockcardStatisticChildComponent,
   ],
   imports: [
     BrowserModule,

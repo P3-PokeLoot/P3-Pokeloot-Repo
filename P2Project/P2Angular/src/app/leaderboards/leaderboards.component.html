@@ -52,7 +52,6 @@ as a parameter to the internal component method-->
 
 <!--This is the data table that outputs to users. Need to implement logic so that it only displays one table at a time...-->
 <div>
-    
     <table class="datatable" *ngIf="observableData"><!--This line says "if observabledata exists in component, make a table"-->
         <thead class="datahead">
             <tr>
@@ -73,7 +72,9 @@ as a parameter to the internal component method-->
     </table>
 </div>
 
+<table mat-table [dataSource]="columnsArray">
 
+</table>
 <!--PAGES SECTION-->
 
 <!--3:Pages for pagination-->

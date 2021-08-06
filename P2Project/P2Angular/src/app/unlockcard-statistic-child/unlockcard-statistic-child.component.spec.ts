@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UnlockCardStatisticChildComponent } from './unlockcard-statistic-child.component';
+import { UnlockcardStatisticChildComponent } from './unlockcard-statistic-child.component';
 
-describe('ProfileStatisticChildComponent', () => {
-  let component: UnlockCardStatisticChildComponent;
-  let fixture: ComponentFixture<UnlockCardStatisticChildComponent>;
+describe('UnlockcardStatisticChildComponent', () => {
+  let component: UnlockcardStatisticChildComponent;
+  let fixture: ComponentFixture<UnlockcardStatisticChildComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UnlockCardStatisticChildComponent ]
+      declarations: [ UnlockcardStatisticChildComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UnlockCardStatisticChildComponent);
+    fixture = TestBed.createComponent(UnlockcardStatisticChildComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
