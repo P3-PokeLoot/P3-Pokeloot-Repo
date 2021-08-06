@@ -6,21 +6,24 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace P2DbContext.Models
 {
-    public partial class P2DbClass : DbContext
+    public partial class P3DbClass : DbContext
     {
-        public P2DbClass()
+        public P3DbClass()
         {
         }
 
-        public P2DbClass(DbContextOptions<P2DbClass> options)
+        public P3DbClass(DbContextOptions<P3DbClass> options)
             : base(options)
         {
         }
 
         public virtual DbSet<CardCollection> CardCollections { get; set; }
         public virtual DbSet<DisplayBoard> DisplayBoards { get; set; }
+        public virtual DbSet<FriendsList> FriendsLists { get; set; }
+        public virtual DbSet<Message> Messages { get; set; }
         public virtual DbSet<PokemonCard> PokemonCards { get; set; }
         public virtual DbSet<Post> Posts { get; set; }
+        public virtual DbSet<PostComment> PostComments { get; set; }
         public virtual DbSet<PostType> PostTypes { get; set; }
         public virtual DbSet<RarityType> RarityTypes { get; set; }
         public virtual DbSet<User> Users { get; set; }
@@ -95,6 +98,54 @@ namespace P2DbContext.Models
                     .HasConstraintName("FK_101");
             });
 
+            modelBuilder.Entity<FriendsList>(entity =>
+            {
+                entity.HasKey(e => new { e.SentRequest, e.RecievedRequest })
+                    .HasName("PK_friends");
+
+                entity.ToTable("FriendsList");
+
+                entity.HasIndex(e => e.SentRequest, "fkIdx_27");
+
+                entity.HasIndex(e => e.SentRequest, "fkIdx_28");
+
+                entity.Property(e => e.DateAdded).HasColumnType("date");
+
+                entity.HasOne(d => d.RecievedRequestNavigation)
+                    .WithMany(p => p.FriendsListRecievedRequestNavigations)
+                    .HasForeignKey(d => d.RecievedRequest)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_26");
+
+                entity.HasOne(d => d.SentRequestNavigation)
+                    .WithMany(p => p.FriendsListSentRequestNavigations)
+                    .HasForeignKey(d => d.SentRequest)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_25");
+            });
+
+            modelBuilder.Entity<Message>(entity =>
+            {
+                entity.Property(e => e.Content)
+                    .IsRequired()
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Timestamp).HasColumnType("datetime");
+
+                entity.HasOne(d => d.Receiver)
+                    .WithMany(p => p.MessageReceivers)
+                    .HasForeignKey(d => d.ReceiverId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Msg__ReceiverId__787EE5A0");
+
+                entity.HasOne(d => d.Sender)
+                    .WithMany(p => p.MessageSenders)
+                    .HasForeignKey(d => d.SenderId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Msg__SenderId__778AC167");
+            });
+
             modelBuilder.Entity<PokemonCard>(entity =>
             {
                 entity.HasKey(e => e.PokemonId)
@@ -140,6 +191,31 @@ namespace P2DbContext.Models
                     .WithMany(p => p.Posts)
                     .HasForeignKey(d => d.PokemonId)
                     .HasConstraintName("FK_113");
+            });
+
+            modelBuilder.Entity<PostComment>(entity =>
+            {
+                entity.HasKey(e => e.CommentId)
+                    .HasName("PK__PostComm__C3B4DFCA471DF1D2");
+
+                entity.Property(e => e.CommentContent)
+                    .IsRequired()
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.CommentTimestamp).HasColumnType("datetime");
+
+                entity.HasOne(d => d.CommentPost)
+                    .WithMany(p => p.PostComments)
+                    .HasForeignKey(d => d.CommentPostId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__PostComme__Comme__06CD04F7");
+
+                entity.HasOne(d => d.CommentUser)
+                    .WithMany(p => p.PostComments)
+                    .HasForeignKey(d => d.CommentUserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__PostComme__Comme__07C12930");
             });
 
             modelBuilder.Entity<PostType>(entity =>

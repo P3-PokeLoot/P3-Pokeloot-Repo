@@ -46,7 +46,7 @@ namespace P2Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "P2Api", Version = "v1" });
             });
 
-            services.AddDbContext<P2DbClass>(options =>
+            services.AddDbContext<P3DbClass>(options =>
             {
                 if (!options.IsConfigured)
                 {
