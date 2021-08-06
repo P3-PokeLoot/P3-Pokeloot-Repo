@@ -83,6 +83,11 @@ namespace BusinessLayer
             return response.Content;
         }
 
+        /// <summary>
+        /// Updates a user's rps game record with a win or creates a new record if one does not already exist
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns>Boolean indicating whether the update was successful (true) or not (false)</returns>
         public bool RpsWin(int userId)
         {
             bool success = false;
@@ -115,6 +120,11 @@ namespace BusinessLayer
             }
         }
 
+        /// <summary>
+        /// Updates a user's rps game record or creates a new record if one does not already exist
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns>Boolean indicating whether the update was successful (true) or not (false)</returns>
         public bool RpsLose(int userId)
         {
             bool success = false;
@@ -145,6 +155,11 @@ namespace BusinessLayer
             }
         }
 
+        /// <summary>
+        /// Updates a user's wtp game record with a win or creates a new record if one does not already exist
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns> Boolean indicating whether the update was successful (true) or not (false)</returns>
         public bool WtpWin(int userId)
         {
             bool success = false;
@@ -177,6 +192,11 @@ namespace BusinessLayer
             }
         }
 
+        /// <summary>
+        /// Updates a user's wtp game record or creates a new record if one does not already exist
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns>Boolean indicating whether the update was successful (true) or not (false)</returns>
         public bool WtpLose(int userId)
         {
             bool success = false;
@@ -207,6 +227,11 @@ namespace BusinessLayer
             }
         }
 
+        /// <summary>
+        /// Updates a user's cap game record with a win or creates a new record if one does not already exist
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns>Boolean indicating whether the update was successful (true) or not (false)</returns>
         public bool CapWin(int userId)
         {
             bool success = false;
@@ -239,6 +264,11 @@ namespace BusinessLayer
             }
         }
 
+        /// <summary>
+        /// Updates a user's cap game record or creates a new record if one does not already exist
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns>Boolean indicating whether the update was successful (true) or not (false)</returns>
         public bool CapLose(int userId)
         {
             bool success = false;
@@ -268,6 +298,12 @@ namespace BusinessLayer
                 return success;
             }
         }
+
+        /// <summary>
+        /// Retrieves a user's record for the rps game
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns>A string of the number of games a user has won out of the total number of games played (wins/total games)</returns>
         public string RpsRecord(int userId)
         {
             string winRecord = null;
@@ -286,6 +322,11 @@ namespace BusinessLayer
             }
         }
 
+        /// <summary>
+        /// Retrieves a user's record for the wtp game
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns>A string of the number of games a user has won out of the total number of games played (wins/total games)</returns>
         public string WtpRecord(int userId)
         {
             string winRecord = null;
@@ -304,6 +345,11 @@ namespace BusinessLayer
             }
         }
 
+        /// <summary>
+        /// Retrieves a user's record for the cap game
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns>A string of the number of games a user has won out of the total number of games played (wins/total games)</returns>
         public string CapRecord(int userId)
         {
             string winRecord = null;
