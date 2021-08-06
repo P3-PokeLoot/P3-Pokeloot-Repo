@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { GameService } from '../game-service';
 
 @Component({
   selector: 'app-cap-game-result',
@@ -12,8 +13,9 @@ export class CapGameResultComponent implements OnInit {
   @Input() pokemonName?: string;
   @Output() playAgainEmitter = new EventEmitter();
   result?: string;
+  numCoinsToAdd: number = 100;
 
-  constructor() { }
+  constructor(private _gameService: GameService) { }
 
   playAgain(){
     this.playAgainEmitter.emit();
@@ -22,14 +24,15 @@ export class CapGameResultComponent implements OnInit {
   ngOnInit(): void {
     if(this.catchChanceResult != undefined){
       let rand = Math.random();
-      if(this.catchChanceResult === 0 && rand < 0.75)
+      if((this.catchChanceResult === 0 && rand < 0.75) ||
+         (this.catchChanceResult === 1 && rand < 0.50) ||
+         (this.catchChanceResult === 2 && rand < 0.25)){
         this.result = "Success";
-      else if(this.catchChanceResult === 1 && rand < 0.5)
-        this.result = "Success";
-      else if(this.catchChanceResult === 2 && rand < 0.25)
-        this.result = "Success";
+        this._gameService.AddCoins(this.numCoinsToAdd).subscribe();
+      }
       else
         this.result = "Failure";
     }
+
   }
 }

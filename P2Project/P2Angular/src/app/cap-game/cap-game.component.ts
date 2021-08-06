@@ -29,7 +29,6 @@ export class CapGameComponent implements OnInit {
   playAgain(){
     this.currentState = this.GameState.Catch;
   }
-
 }
 
 enum GameState{
