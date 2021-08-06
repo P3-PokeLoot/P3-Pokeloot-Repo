@@ -45,7 +45,7 @@
 </table>
 </div>
 <div *ngIf="selectFriend">
-    <button class="btn btn-success btn-sm" aria-disabled="true" id="editbutton" (click)="selectFriend = undefined">Back to List</button>
+    <button class="btn btn-success btn-sm" aria-disabled="true" id="editbutton" (click)="refresh()">Back to List</button>
     <app-cardcollect [differentUser]="selectFriend"></app-cardcollect>
 </div>
 
