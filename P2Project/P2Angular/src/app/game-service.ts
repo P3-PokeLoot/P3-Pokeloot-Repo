@@ -16,7 +16,8 @@ export class GameService {
 
   private gameUrlPath = `${environment.urlmain}EarnCoins/`;
   private userBalanceUrlPath = `${environment.urlmain}Balance/`;
-  private gameListUrl = `${environment.urlgame}List`;
+  private GamesUrl = `${environment.urlgame}`;
+
 
   constructor(private router: Router, private http: HttpClient) { }
 

@@ -5,9 +5,9 @@
 export const environment = {
   production: false,
   urlstat: "wat",
-  urlmain: "http://pokeloot.azurewebsites.net/api/P2/",
-  urlgame: "http://localhost:44301/api/Games/",
-  urlmainlocalonly: "http://localhost:44301/api/P2/",
+  urlmain: "https://localhost:44301/api/P3/",
+  urlgame: "https://localhost:44301/api/Games/",
+  urlmainlocalonly: "https://localhost:44301/api/P3/",
 };
 
 /*
