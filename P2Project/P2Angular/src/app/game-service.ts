@@ -3,6 +3,7 @@ import { HttpClient, HttpHandler } from "@angular/common/http";
 import { Observable, of, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { catchError, retry } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -13,9 +14,10 @@ import { catchError, retry } from 'rxjs/operators';
 export class GameService {
 
 
-  private gameUrlPath: string = 'https://pokeloot.azurewebsites.net/api/P2/EarnCoins/';
-  private userBalanceUrlPath: string = 'https://pokeloot.azurewebsites.net/api/P2/Balance/';
-  private GamesUrl: string = 'https://localhost:44301/api/Games/'
+  private gameUrlPath = `${environment.urlmain}EarnCoins/`;
+  private userBalanceUrlPath = `${environment.urlmain}Balance/`;
+  private GamesUrl = `${environment.urlgame}`;
+
 
   constructor(private router: Router, private http: HttpClient) { }
 

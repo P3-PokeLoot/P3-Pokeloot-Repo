@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { map } from 'rxjs/operators';
 
 export class AuthenticationService {
 
-  private baseUrlLogin: string = "https://pokeloot.azurewebsites.net/api/P2/Login/"
+  private baseUrlLogin = `${environment.urlmain}Login/`
   private loginStatus = new BehaviorSubject<boolean>(this.CheckLoginStatus());
   private userId = new BehaviorSubject<string>(localStorage.getItem('userId') as string);
 

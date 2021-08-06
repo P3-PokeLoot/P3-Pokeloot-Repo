@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class GamesService {
 
   private BaseUrl = "localhost";
   private GamesUrl = "api/game/"; //Not sure how this is going to work once kubernetes-itized
-  private WtpUrl = "https://localhost:44301/api/Games/Wtp";
+  private WtpUrl = `${environment.urlgame}Wtp`;
   
   GetGamesList(): Observable<GameInfo[]>{
     return this.http.get<GameInfo[]>(this.BaseUrl + this.GamesUrl + "list");
