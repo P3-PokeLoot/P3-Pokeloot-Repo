@@ -1,5 +1,6 @@
 ﻿using Models;
 using Newtonsoft.Json;
+using P3Database;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,18 @@ namespace BusinessLayer
 {
     public class BusinessModel : IBusinessModel
     {
+        private DataContext _context;
+
+        public BusinessModel (DataContext context)
+        {
+            _context = context;
+        }
+
+        public BusinessModel()
+        {
+            _context = new DataContext();
+        }
+
         /// <summary>
         /// Creates a game object for Who's that Pokemon and returns data for a new game.
         /// </summary>
@@ -68,6 +81,245 @@ namespace BusinessLayer
             request.AddParameter("text/plain", body, ParameterType.RequestBody);
             IRestResponse response = client.Execute(request);
             return response.Content;
+        }
+
+        public bool RpsWin(int userId)
+        {
+            bool success = false;
+            try
+            {
+                var record = _context.RpsgameStats.Where(x => x.UserId == userId).FirstOrDefault();
+                if (record != null) // record exists for user
+                {
+                    record.GamesWon += 1;
+                    record.TotalGamesPlayed += 1;
+                    _context.RpsgameStats.Update(record);
+                    _context.SaveChanges();
+                    success = true;
+                }
+                else // no record for user
+                {
+                    RpsgameStat newRecord = new RpsgameStat();
+                    newRecord.UserId = userId;
+                    newRecord.GamesWon = 1;
+                    newRecord.TotalGamesPlayed = 1;
+                    _context.RpsgameStats.Add(record);
+                    _context.SaveChanges();
+                    success = true;
+                }
+                return success;
+            }
+            catch
+            {
+                return success;
+            }
+        }
+
+        public bool RpsLose(int userId)
+        {
+            bool success = false;
+            try
+            {
+                var record = _context.RpsgameStats.Where(x => x.UserId == userId).FirstOrDefault();
+                if (record != null) // record exists for user
+                {
+                    record.TotalGamesPlayed += 1;
+                    _context.RpsgameStats.Update(record);
+                    _context.SaveChanges();
+                    success = true;
+                }
+                else // no record for user
+                {
+                    RpsgameStat newRecord = new RpsgameStat();
+                    newRecord.UserId = userId;
+                    newRecord.TotalGamesPlayed = 1;
+                    _context.RpsgameStats.Add(record);
+                    _context.SaveChanges();
+                    success = true;
+                }
+                return success;
+            }
+            catch
+            {
+                return success;
+            }
+        }
+
+        public bool WtpWin(int userId)
+        {
+            bool success = false;
+            try
+            {
+                var record = _context.WtpgameStats.Where(x => x.UserId == userId).FirstOrDefault();
+                if (record != null) // record exists for user
+                {
+                    record.GamesWon += 1;
+                    record.TotalGamesPlayed += 1;
+                    _context.WtpgameStats.Update(record);
+                    _context.SaveChanges();
+                    success = true;
+                }
+                else // no record for user
+                {
+                    WtpgameStat newRecord = new WtpgameStat();
+                    newRecord.UserId = userId;
+                    newRecord.GamesWon = 1;
+                    newRecord.TotalGamesPlayed = 1;
+                    _context.WtpgameStats.Add(record);
+                    _context.SaveChanges();
+                    success = true;
+                }
+                return success;
+            }
+            catch
+            {
+                return success;
+            }
+        }
+
+        public bool WtpLose(int userId)
+        {
+            bool success = false;
+            try
+            {
+                var record = _context.WtpgameStats.Where(x => x.UserId == userId).FirstOrDefault();
+                if (record != null) // record exists for user
+                {
+                    record.TotalGamesPlayed += 1;
+                    _context.WtpgameStats.Update(record);
+                    _context.SaveChanges();
+                    success = true;
+                }
+                else // no record for user
+                {
+                    WtpgameStat newRecord = new WtpgameStat();
+                    newRecord.UserId = userId;
+                    newRecord.TotalGamesPlayed = 1;
+                    _context.WtpgameStats.Add(record);
+                    _context.SaveChanges();
+                    success = true;
+                }
+                return success;
+            }
+            catch
+            {
+                return success;
+            }
+        }
+
+        public bool CapWin(int userId)
+        {
+            bool success = false;
+            try
+            {
+                var record = _context.CapgameStats.Where(x => x.UserId == userId).FirstOrDefault();
+                if (record != null) // record exists for user
+                {
+                    record.GamesWon += 1;
+                    record.TotalGamesPlayed += 1;
+                    _context.CapgameStats.Update(record);
+                    _context.SaveChanges();
+                    success = true;
+                }
+                else // no record for user
+                {
+                    CapgameStat newRecord = new CapgameStat();
+                    newRecord.UserId = userId;
+                    newRecord.GamesWon = 1;
+                    newRecord.TotalGamesPlayed = 1;
+                    _context.CapgameStats.Add(record);
+                    _context.SaveChanges();
+                    success = true;
+                }
+                return success;
+            }
+            catch
+            {
+                return success;
+            }
+        }
+
+        public bool CapLose(int userId)
+        {
+            bool success = false;
+            try
+            {
+                var record = _context.CapgameStats.Where(x => x.UserId == userId).FirstOrDefault();
+                if (record != null) // record exists for user
+                {
+                    record.TotalGamesPlayed += 1;
+                    _context.CapgameStats.Update(record);
+                    _context.SaveChanges();
+                    success = true;
+                }
+                else // no record for user
+                {
+                    CapgameStat newRecord = new CapgameStat();
+                    newRecord.UserId = userId;
+                    newRecord.TotalGamesPlayed = 1;
+                    _context.CapgameStats.Add(record);
+                    _context.SaveChanges();
+                    success = true;
+                }
+                return success;
+            }
+            catch
+            {
+                return success;
+            }
+        }
+        public double RpsRecord(int userId)
+        {
+            double winRecord = 0;
+            try
+            {
+                var record = _context.RpsgameStats.Where(x => x.UserId == userId).FirstOrDefault();
+                if (record != null)
+                {
+                    winRecord = (double)(record.GamesWon / record.TotalGamesPlayed);
+                }
+                return winRecord;
+            }
+            catch
+            {
+                return winRecord;
+            }
+        }
+
+        public double WtpRecord(int userId)
+        {
+            double winRecord = 0;
+            try
+            {
+                var record = _context.WtpgameStats.Where(x => x.UserId == userId).FirstOrDefault();
+                if (record != null)
+                {
+                    winRecord = (double)(record.GamesWon / record.TotalGamesPlayed);
+                }
+                return winRecord;
+            }
+            catch
+            {
+                return winRecord;
+            }
+        }
+
+        public double CapRecord(int userId)
+        {
+            double winRecord = 0;
+            try
+            {
+                var record = _context.CapgameStats.Where(x => x.UserId == userId).FirstOrDefault();
+                if (record != null)
+                {
+                    winRecord = (double)(record.GamesWon / record.TotalGamesPlayed);
+                }
+                return winRecord;
+            }
+            catch
+            {
+                return winRecord;
+            }
         }
     }
 }
