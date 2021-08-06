@@ -17,9 +17,8 @@ export class GamesService {
     return this.http.get<GameInfo[]>(this.BaseUrl + this.GamesUrl + "list");
   }
 
-  GetWtpGame(): Observable<WtpGame>{
-    return this.http.get<WtpGame>(this.WtpUrl)
-  }
+  
+
 }
 
 //Just an idea so far - Subject to change upon adding into the database
@@ -30,9 +29,3 @@ export interface GameInfo
   route: string
 };
 
-export interface WtpGame
-{
-  pictureUrl: string,
-  correctPokemon: string,
-  options: string[],
-}
