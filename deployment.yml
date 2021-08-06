@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: p3angular
-        image: gregious/p3angular:v4
+        image: gregious/p3angular:v7
         imagePullPolicy: Always
         ports:
         - name: http
@@ -89,7 +89,7 @@ metadata:
   name: main
 spec:
   ports:
-  - port: 8081
+  - port: 80
   selector:
     app: p3mainapi
 ---
@@ -141,7 +141,7 @@ metadata:
   name: game
 spec:
   ports:
-  - port: 8082
+  - port: 80
   selector:
     app: p3gamesapi
 ---
@@ -193,7 +193,7 @@ metadata:
   name: statistic
 spec:
   ports:
-  - port: 8083
+  - port: 80
   selector:
     app: p3statisticsapi
 # ---

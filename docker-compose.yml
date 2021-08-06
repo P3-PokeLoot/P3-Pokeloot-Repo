@@ -1,7 +1,7 @@
 version: '3.3'
 services:
     p3pokelootangular:
-        image: gregious/p3angular:v4
+        image: gregious/p3angular:v6
         ports:
         - "8080:80"
         environment:
