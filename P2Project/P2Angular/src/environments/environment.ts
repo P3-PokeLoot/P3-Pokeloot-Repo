@@ -5,9 +5,9 @@
 export const environment = {
   production: false,
   urlstat: "wat",
-  urlmain: "https://localhost:44301/api/P3/",
+  urlmain: "https://localhost:44307/api/P3/",
   urlgame: "https://localhost:44301/api/Games/",
-  urlmainlocalonly: "https://localhost:44301/api/P3/",
+  urlmainlocalonly: "https://localhost:44307/api/P3/",
 };
 
 /*
