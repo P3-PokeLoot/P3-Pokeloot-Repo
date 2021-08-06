@@ -1537,12 +1537,11 @@ namespace UnitTests
 
                 // Assert
                 Assert.Equal("You can't be friends with yourself!", resultUser1);
-                Assert.Equal("Your are now friends with {friendName}!", resultUser2);
-                Assert.Equal("You are already friends with {friendName}!", resultUser3);
-                Assert.Equal("", resultUser4);
-                Assert.Equal("", resultUser5);
-
-
+                Assert.Equal("You already sent a request to genericUser2, wait for them to accept it.", resultUser2);
+                Assert.Equal("You are already friends with genericUser3!", resultUser3);
+                Assert.Equal("You are already friends with genericUser4!", resultUser4);
+                Assert.Equal("Your are now friends with genericUser5!", resultUser5);
+                Assert.Equal("You sent a request to genericUser6!", resultUser6);
 
             }
         }
