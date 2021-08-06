@@ -54,7 +54,7 @@
                         <select name="PokemonId" class="form-select form-select-lg mt-4" aria-label="Default select example"
                             ngModel>
                             <option value="">Select Card</option>
-                            <option *ngFor="let card of userCollection" [value]="card.PokemonId">{{card.PokemonName}}:
+                            <option *ngFor="let card of userCollection" [value]="card.PokemonId"><p *ngIf="card.IsShiny">shiny </p>{{card.PokemonName}}:
                                 {{GetRarityDisplay(card.RarityId)}}
                             </option>
                         </select>
@@ -71,6 +71,9 @@
                                 <input type="checkbox" [(ngModel)]="filterValueShiny" name="shinycheckbox" value="1" style="margin-left: 2rem;">
                                 <label for="shinycheckbox">Is Shiny</label><br>
                         
+                                <input type="checkbox" [(ngModel)]="checkFavorites" name="favoritecheckbox" value="1" style="margin-left: 2rem;">
+                                <label for="favoritecheckbox">Favorites</label><br>
+
                                 <label>Generations</label>
                                 <select [(ngModel)]="genValue">
                                     
