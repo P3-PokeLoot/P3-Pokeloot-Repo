@@ -94,12 +94,13 @@ export class CardCollectComponent implements OnInit {
             let Link = result[i].Value.SpriteLink;
             let LinkShiny = result[i].Value.SpriteLinkShiny;
             let PokemonName = result[i].Value.PokemonName;
+            let Favorite = result[i].Value.IsFavorite;
 
             if (Amount > 0) {
               let Quantity = Amount;
               let SpriteLink = Link;
               let IsShiny = false;
-              let IsFavorite = false;
+              let IsFavorite = Favorite;
               let card: ICard = { PokemonId, Quantity, RarityId, SpriteLink, PokemonName, IsShiny, IsFavorite };
               this.fullUserCollection.push(card);
             }
@@ -107,7 +108,7 @@ export class CardCollectComponent implements OnInit {
               let Quantity = AmountShiny;
               let SpriteLink = LinkShiny;
               let IsShiny = true;
-              let IsFavorite = false;
+              let IsFavorite = Favorite;
               let card: ICard = { PokemonId, Quantity, RarityId, SpriteLink, PokemonName, IsShiny, IsFavorite };
               this.fullUserCollection.push(card);
             }
@@ -258,6 +259,9 @@ export class CardCollectComponent implements OnInit {
   }
 
   favorite(card: ICard){
+    if(this.differentUser){
+      return;
+    }
     if(card.IsFavorite){
       //do something
     }

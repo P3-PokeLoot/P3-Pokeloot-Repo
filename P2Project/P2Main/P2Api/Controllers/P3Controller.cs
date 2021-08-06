@@ -132,7 +132,7 @@ namespace P2Api.Controllers
             return currentUser;
         }
 
-        
+
 
         /// <summary>
         /// https://localhost:44307/api/P2/Lootbox/2/1
@@ -355,7 +355,12 @@ namespace P2Api.Controllers
             return result;
         }
 
-
+        [HttpGet("Favorite/{UserId}/{Poke}")]
+        public bool Favorite(int UserId, int Poke)
+        {
+            bool result = _businessModel.favoriteCard(UserId, Poke);
+            return result;
+        }
     } // end class
 } // end namespace
 

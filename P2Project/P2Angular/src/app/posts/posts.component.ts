@@ -140,6 +140,10 @@ export class PostsComponent implements OnInit {
       }
     )
   }
+
+  addFriend(post:IPost){
+    
+  }
   clickt(post: IPost){
     this.edit = !this.edit;
     this.currentPost = post.PostId;

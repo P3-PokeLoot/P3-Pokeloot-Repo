@@ -171,11 +171,15 @@
                         <div class="mb-auto mt-4 p-2 bd-highlight">
                             <p class="h5">{{post.PostDescription}}</p>
                         </div>
+                        <div *ngIf="userId != post.UserId">
+                            <button class="btn btn-success btn-sm" aria-disabled="true" id="addbutton" (click)="addFriend(post)">Edit</button>
+                        </div>
                         <div *ngIf="post.PostType == 'Sale'">
 
                             <button (click)='buy(post)' class="btn btn-success btn-sm" aria-disabled="true" id="buybutton">Price:
                                 {{post.Price}} coins</button>  
                                 <button *ngIf="userId == post.UserId" class="btn btn-success btn-sm" aria-disabled="true" id="editbutton" (click)="clickt(post)">Edit</button>
+                                
                                 <div>
                                 <app-edit-post *ngIf="edit && userId == post.UserId && currentPost == post.PostId" [currentPost]="post"></app-edit-post>
                                 </div>

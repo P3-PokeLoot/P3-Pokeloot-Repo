@@ -43,5 +43,10 @@ namespace BusinessLayer
         public bool hidePost(int PostID);
 
         public bool editPrice(int postID, int newPrice);
+
+        public bool favoriteCard(int UserId, int Poke);
+
+        public List<FullFriend> GetFriends(int UserId);
+        public string friendAction(int userid, int friendId);
     }
 }
