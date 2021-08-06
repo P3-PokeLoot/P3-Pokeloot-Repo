@@ -8,20 +8,50 @@
     <span class="info">Time:<span id="time-left">{{time}}</span></span>
 </div>
     <div class="grid-container">
-        <div class="grid-item" (click)="remove_img('1'); testhit(1)"><img *ngIf = 'random == 1' src="/assets/game-api/empty.png" class="diglettfront" id = "1"></div>
-        <div class="grid-item" (click)="remove_img('2'); testhit(2)"><img *ngIf = 'random == 2' src="/assets/game-api/empty.png" class="diglettfront" id = "2"></div>  
-        <div class="grid-item" (click)="remove_img('3'); testhit(3)"><img *ngIf = 'random == 3' src="/assets/game-api/empty.png" class="diglettfront" id = "3"></div>
-        <div class="grid-item" (click)="remove_img('4'); testhit(4)"><img *ngIf = 'random == 4' src="/assets/game-api/empty.png" class="diglettfront" id = "4"></div>
-        <div class="grid-item" (click)="remove_img('5'); testhit(5)"><img *ngIf = 'random == 5' src="/assets/game-api/empty.png" class="diglettfront" id = "5"></div>  
-        <div class="grid-item" (click)="remove_img('6'); testhit(6)"><img *ngIf = 'random == 6' src="/assets/game-api/empty.png" class="diglettfront" id = "6"></div>
-        <div class="grid-item" (click)="remove_img('7'); testhit(7)"><img *ngIf = 'random == 7' src="/assets/game-api/empty.png" class="diglettfront" id = "7"></div>
-        <div class="grid-item" (click)="remove_img('8'); testhit(8)"><img *ngIf = 'random == 8' src="/assets/game-api/empty.png" class="diglettfront" id = "8"></div> 
-        <div class="grid-item" (click)="remove_img('9'); testhit(9)"><img *ngIf = 'random == 9' src="/assets/game-api/empty.png" class="diglettfront" id = "9"></div>  
-        <div class="grid-item" (click)="remove_img('10'); testhit(10)"><img *ngIf = 'random == 10' src="/assets/game-api/empty.png" class="diglettfront" id = "10"></div>
+        <div class="grid-item" (mousedown)="remove_img('1'); testhit(1)">
+          <img *ngIf = 'random == 1' src="/assets/game-api/empty.png" class="diglettfront" id = "1">
+          <img *ngIf = 'randomBonus == 1' src="/assets/game-api/empty.png" class="dugtriofront" id = "1">
+        </div>
+        <div class="grid-item" (mousedown)="remove_img('2'); testhit(2)">
+          <img *ngIf = 'random == 2' src="/assets/game-api/empty.png" class="diglettfront" id = "2">
+          <img *ngIf = 'randomBonus == 2' src="/assets/game-api/empty.png" class="dugtriofront" id = "2">
+        </div>  
+        <div class="grid-item" (mousedown)="remove_img('3'); testhit(3)">
+          <img *ngIf = 'random == 3' src="/assets/game-api/empty.png" class="diglettfront" id = "3">
+          <img *ngIf = 'randomBonus == 3' src="/assets/game-api/empty.png" class="dugtriofront" id = "3">
+        </div>
+        <div class="grid-item" (mousedown)="remove_img('4'); testhit(4)">
+          <img *ngIf = 'random == 4' src="/assets/game-api/empty.png" class="diglettfront" id = "4">
+          <img *ngIf = 'randomBonus == 4' src="/assets/game-api/empty.png" class="dugtriofront" id = "4">
+        </div>
+        <div class="grid-item" (mousedown)="remove_img('5'); testhit(5)">
+          <img *ngIf = 'random == 5' src="/assets/game-api/empty.png" class="diglettfront" id = "5">
+          <img *ngIf = 'randomBonus == 5' src="/assets/game-api/empty.png" class="dugtriofront" id = "5">
+        </div>  
+        <div class="grid-item" (mousedown)="remove_img('6'); testhit(6)">
+          <img *ngIf = 'random == 6' src="/assets/game-api/empty.png" class="diglettfront" id = "6">
+          <img *ngIf = 'randomBonus == 6' src="/assets/game-api/empty.png" class="dugtriofront" id = "6">
+        </div>
+        <div class="grid-item" (mousedown)="remove_img('7'); testhit(7)">
+          <img *ngIf = 'random == 7' src="/assets/game-api/empty.png" class="diglettfront" id = "7">
+          <img *ngIf = 'randomBonus == 7' src="/assets/game-api/empty.png" class="dugtriofront" id = "7">
+        </div>
+        <div class="grid-item" (mousedown)="remove_img('8'); testhit(8)">
+          <img *ngIf = 'random == 8' src="/assets/game-api/empty.png" class="diglettfront" id = "8">
+          <img *ngIf = 'randomBonus == 8' src="/assets/game-api/empty.png" class="dugtriofront" id = "8">
+        </div> 
+        <div class="grid-item" (mousedown)="remove_img('9'); testhit(9)">
+          <img *ngIf = 'random == 9' src="/assets/game-api/empty.png" class="diglettfront" id = "9">
+          <img *ngIf = 'randomBonus == 9' src="/assets/game-api/empty.png" class="dugtriofront" id = "9">
+        </div>  
+        <div class="grid-item" (mousedown)="remove_img('10'); testhit(10)">
+          <img *ngIf = 'random == 10' src="/assets/game-api/empty.png" class="diglettfront" id = "10">
+          <img *ngIf = 'randomBonus == 10' src="/assets/game-api/empty.png" class="dugtriofront" id = "10">
+        </div>
       </div>
     <br>
     <div class="container text-center">
-    <p id="result" *ngIf="gameOver === true"> You earned {{numCoinsToAdd}} coins!</p>
+    <p id="result" *ngIf="gameOver == true"> You earned {{numCoinsToAdd}} coins!</p>
     <div *ngIf = 'gameStart == false'>
       <div class = "dif">
         <p>Select Difficulty:</p>
@@ -35,5 +65,4 @@
       <button class="button" (click)="startGame()">Start</button>
     </div>
 </div>
-
 
