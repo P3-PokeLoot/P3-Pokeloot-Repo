@@ -103,7 +103,7 @@ namespace BusinessLayer
                     newRecord.UserId = userId;
                     newRecord.GamesWon = 1;
                     newRecord.TotalGamesPlayed = 1;
-                    _context.RpsgameStats.Add(record);
+                    _context.RpsgameStats.Add(newRecord);
                     _context.SaveChanges();
                     success = true;
                 }
@@ -133,7 +133,7 @@ namespace BusinessLayer
                     RpsgameStat newRecord = new RpsgameStat();
                     newRecord.UserId = userId;
                     newRecord.TotalGamesPlayed = 1;
-                    _context.RpsgameStats.Add(record);
+                    _context.RpsgameStats.Add(newRecord);
                     _context.SaveChanges();
                     success = true;
                 }
@@ -165,7 +165,7 @@ namespace BusinessLayer
                     newRecord.UserId = userId;
                     newRecord.GamesWon = 1;
                     newRecord.TotalGamesPlayed = 1;
-                    _context.WtpgameStats.Add(record);
+                    _context.WtpgameStats.Add(newRecord);
                     _context.SaveChanges();
                     success = true;
                 }
@@ -195,7 +195,7 @@ namespace BusinessLayer
                     WtpgameStat newRecord = new WtpgameStat();
                     newRecord.UserId = userId;
                     newRecord.TotalGamesPlayed = 1;
-                    _context.WtpgameStats.Add(record);
+                    _context.WtpgameStats.Add(newRecord);
                     _context.SaveChanges();
                     success = true;
                 }
@@ -227,7 +227,7 @@ namespace BusinessLayer
                     newRecord.UserId = userId;
                     newRecord.GamesWon = 1;
                     newRecord.TotalGamesPlayed = 1;
-                    _context.CapgameStats.Add(record);
+                    _context.CapgameStats.Add(newRecord);
                     _context.SaveChanges();
                     success = true;
                 }
@@ -257,7 +257,7 @@ namespace BusinessLayer
                     CapgameStat newRecord = new CapgameStat();
                     newRecord.UserId = userId;
                     newRecord.TotalGamesPlayed = 1;
-                    _context.CapgameStats.Add(record);
+                    _context.CapgameStats.Add(newRecord);
                     _context.SaveChanges();
                     success = true;
                 }
@@ -268,15 +268,15 @@ namespace BusinessLayer
                 return success;
             }
         }
-        public double RpsRecord(int userId)
+        public string RpsRecord(int userId)
         {
-            double winRecord = 0;
+            string winRecord = null;
             try
             {
                 var record = _context.RpsgameStats.Where(x => x.UserId == userId).FirstOrDefault();
                 if (record != null)
                 {
-                    winRecord = (double)(record.GamesWon / record.TotalGamesPlayed);
+                    winRecord = $"{record.GamesWon}/{record.TotalGamesPlayed}";
                 }
                 return winRecord;
             }
@@ -286,15 +286,15 @@ namespace BusinessLayer
             }
         }
 
-        public double WtpRecord(int userId)
+        public string WtpRecord(int userId)
         {
-            double winRecord = 0;
+            string winRecord = null;
             try
             {
                 var record = _context.WtpgameStats.Where(x => x.UserId == userId).FirstOrDefault();
                 if (record != null)
                 {
-                    winRecord = (double)(record.GamesWon / record.TotalGamesPlayed);
+                    winRecord = $"{record.GamesWon}/{record.TotalGamesPlayed}";
                 }
                 return winRecord;
             }
@@ -304,15 +304,15 @@ namespace BusinessLayer
             }
         }
 
-        public double CapRecord(int userId)
+        public string CapRecord(int userId)
         {
-            double winRecord = 0;
+            string winRecord = null;
             try
             {
                 var record = _context.CapgameStats.Where(x => x.UserId == userId).FirstOrDefault();
                 if (record != null)
                 {
-                    winRecord = (double)(record.GamesWon / record.TotalGamesPlayed);
+                    winRecord = $"{record.GamesWon}/{record.TotalGamesPlayed}";
                 }
                 return winRecord;
             }
