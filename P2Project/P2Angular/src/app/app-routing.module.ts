@@ -19,6 +19,7 @@ import { PokemonCardMatchComponent } from './pokemon-card-match/pokemon-card-mat
 import { EditPostComponent } from './edit-post/edit-post.component';
 import { FriendsComponent } from './friends/friends.component';
 import { WamGameComponent } from './wam-game/wam-game.component';
+import { GameFormComponent } from './game-form/game-form.component';
 
 
 
@@ -42,12 +43,13 @@ const routes: Routes = [
   { path: 'Game/WhosThatPokemon', component: WtpGameComponent, canActivate: [AuthGuard] },
   { path: 'Game/WhackADiglett', component: WamGameComponent, canActivate: [AuthGuard] },
   { path: 'Game/PokemonCardMatch', component: PokemonCardMatchComponent, canActivate: [AuthGuard] },
+  { path: 'Game/GameForm', component: GameFormComponent, canActivate: [AuthGuard] },
   { path: '**', component: HomePageComponent },
 ];
 
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {onSameUrlNavigation : 'reload'})],
+  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
