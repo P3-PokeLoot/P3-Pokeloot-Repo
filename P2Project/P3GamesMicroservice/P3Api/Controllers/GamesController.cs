@@ -112,5 +112,20 @@ namespace P3Api.Controllers
             var success = await _businessModel.CapRecordAsync(userId);
             return StatusCode(200, success);
         }
+
+        [HttpPut("WamPlayed/{userId}")]
+        public async Task<IActionResult> WamPlayed(int userId, int highScore)
+        {
+            var success = await _businessModel.WamPlayedAsync(userId, highScore);
+            return StatusCode(200, success);
+        }
+
+        [HttpGet("WamRecord/{userId}")]
+        public async Task<IActionResult> WamRecord(int userId)
+        {
+            var success = await _businessModel.WamHighScoreAsync(userId);
+            return StatusCode(200, success);
+        }
+
     }
 }

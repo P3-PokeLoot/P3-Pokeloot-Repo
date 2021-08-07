@@ -418,5 +418,70 @@ namespace BusinessLayer
                 return winRecord;
             }
         }
+
+        /// <summary>
+        /// Retrieves a user's record for the wam game
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns>A string of the highest score from the WAM game</returns>
+        public async Task<string> WamHighScoreAsync(int userId)
+        {
+            string winRecord = null;
+            try
+            {
+                var record = await _context.WamgameStats.Where(x => x.UserId == userId).FirstOrDefaultAsync();
+                if (record != null)
+                {
+                    winRecord = $"{record.HighScore}";
+                }
+                return winRecord;
+            }
+            catch(Exception e)
+            {
+                _logger.Log(LogLevel.Warning, e.Message);
+            }
+
+            return winRecord;
+        }
+
+        /// <summary>
+        /// Updates a user's wam game record with their score and will record it if it is their highest score
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns>Boolean indicating whether the update was successful (true) or not (false)</returns>
+        public async Task<bool> WamPlayedAsync(int userId, int highScore)
+        {
+            bool success = false;
+            try
+            {
+                var record = await _context.WamgameStats.Where(x => x.UserId == userId).FirstOrDefaultAsync();
+                if (record != null) // record exists for user
+                {
+                    if (record.HighScore < highScore)
+                        record.HighScore = highScore;
+                    record.TotalGamesPlayed += 1;
+                    _context.WamgameStats.Update(record);
+                    await _context.SaveChangesAsync();
+                    success = true;
+                }
+                else // no record for user
+                {
+                    WamgameStat newRecord = new WamgameStat();
+                    newRecord.UserId = userId;
+                    newRecord.HighScore = highScore;
+                    newRecord.TotalGamesPlayed = 1;
+                    _context.WamgameStats.Add(newRecord);
+                    await _context.SaveChangesAsync();
+                    success = true;
+                }
+                return success;
+            }
+            catch(Exception e)
+            {
+                _logger.Log(LogLevel.Error, e.Message);
+            }
+
+            return success;
+        }
     }
 }

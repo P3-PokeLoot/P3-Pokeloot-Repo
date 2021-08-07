@@ -19,5 +19,7 @@ namespace BusinessLayer
         Task<bool> WtpWinAsync(int userId);
         Task<List<GameInfo>> GameInfoListAsync();
         Task<bool> AddGameInfoAsync(GameInfo gameInfo);
+        Task<string> WamHighScoreAsync(int userId);
+        Task<bool> WamPlayedAsync(int userId, int highScore);
     }
 }
