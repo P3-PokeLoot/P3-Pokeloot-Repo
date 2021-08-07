@@ -4,9 +4,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 //import { JwPaginationComponent } from 'jw-angular-pagination';
-
-
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
@@ -33,6 +32,9 @@ import { RpsGamePokemonSelectionComponent } from './rps-game-pokemon-selection/r
 import { WtpGameComponent } from './wtp-game/wtp-game.component';
 import { WtpGameSelectionComponent } from './wtp-game-selection/wtp-game-selection.component';
 import { WtpGameOutcomeComponent } from './wtp-game-outcome/wtp-game-outcome.component';
+import { CapGameComponent } from './cap-game/cap-game.component';
+import { CapGameCatchComponent } from './cap-game-catch/cap-game-catch.component';
+import { CapGameResultComponent } from './cap-game-result/cap-game-result.component';
 import { PokemonCardMatchComponent } from './pokemon-card-match/pokemon-card-match.component';
 import { EditPostComponent } from './edit-post/edit-post.component';
 import { FriendsComponent } from './friends/friends.component';
@@ -62,6 +64,7 @@ import { GameFormComponent } from './game-form/game-form.component';
     //Games-Angular-Service,
     RpsGameComponent,
     FilterPipe, 
+    RpsGamePokemonSelectionComponent, WtpGameComponent, WtpGameSelectionComponent, WtpGameOutcomeComponent, CapGameComponent, CapGameCatchComponent, CapGameResultComponent,
     RpsGamePokemonSelectionComponent, 
     WtpGameComponent, 
     WtpGameSelectionComponent, 
@@ -79,7 +82,8 @@ import { GameFormComponent } from './game-form/game-form.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    CommonModule
+    CommonModule,
+    BrowserAnimationsModule
   ],
   providers: [CardServiceService,AccountService],
   bootstrap: [AppComponent]

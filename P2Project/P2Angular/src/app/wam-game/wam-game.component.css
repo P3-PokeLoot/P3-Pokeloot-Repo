@@ -5,6 +5,12 @@
     background-position-y: -85px;
     }
 
+.dugtriofront{
+    background:url("/assets/game-api/dugtrio-front.png");
+    background-size:150%;
+    background-position-x: -65px;
+    background-position-y: -85px;
+    }
 
 .button {
     background-color: #ffc107;

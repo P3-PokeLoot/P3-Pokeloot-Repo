@@ -11,7 +11,7 @@ namespace BusinessLayer
 
 
 
-        public P2DbClass context;
+        public P3DbClass context;
 
 
 
@@ -21,7 +21,7 @@ namespace BusinessLayer
         /// Constructor for business class that takes a Db context
         /// </summary>
         /// <param name="context">Db context</param>
-        public BusinessModel(P2DbClass context)
+        public BusinessModel(P3DbClass context)
         {
             this.context = context;
         }
@@ -31,7 +31,7 @@ namespace BusinessLayer
         /// </summary>
         public BusinessModel()
         {
-            this.context = new P2DbClass();
+            this.context = new P3DbClass();
         }
 
 

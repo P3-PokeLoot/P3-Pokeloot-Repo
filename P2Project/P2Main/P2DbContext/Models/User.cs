@@ -28,5 +28,20 @@ namespace P2DbContext.Models
 
         [Newtonsoft.Json.JsonIgnore]
         public virtual ICollection<DisplayBoard> DisplayBoards { get; set; }
+
+        [Newtonsoft.Json.JsonIgnore]
+        public virtual ICollection<FriendsList> FriendsListRecievedRequestNavigations { get; set; }
+
+        [Newtonsoft.Json.JsonIgnore]
+        public virtual ICollection<FriendsList> FriendsListSentRequestNavigations { get; set; }
+
+        [Newtonsoft.Json.JsonIgnore]
+        public virtual ICollection<Message> MessageReceivers { get; set; }
+
+        [Newtonsoft.Json.JsonIgnore]
+        public virtual ICollection<Message> MessageSenders { get; set; }
+
+        [Newtonsoft.Json.JsonIgnore]
+        public virtual ICollection<PostComment> PostComments { get; set; }
     }
 }

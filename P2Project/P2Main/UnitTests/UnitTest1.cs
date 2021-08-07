@@ -12,7 +12,7 @@ namespace UnitTests
     public class UnitTest1
     {
 
-        DbContextOptions<P2DbClass> options = new DbContextOptionsBuilder<P2DbClass>().UseInMemoryDatabase(databaseName: "TestingDb").Options;
+        DbContextOptions<P3DbClass> options = new DbContextOptionsBuilder<P3DbClass>().UseInMemoryDatabase(databaseName: "TestingDb").Options;
 
         [Fact]
         public void signUpTest()
@@ -31,7 +31,7 @@ namespace UnitTests
             User resultUser;
 
             // Act
-            using (var context = new P2DbClass(options))    // creates in memory database
+            using (var context = new P3DbClass(options))    // creates in memory database
             {
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
@@ -84,7 +84,7 @@ namespace UnitTests
             User unmatchedPassword;
 
             // Act
-            using (var context = new P2DbClass(options))    // creates in memory database
+            using (var context = new P3DbClass(options))    // creates in memory database
             {
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
@@ -133,7 +133,7 @@ namespace UnitTests
             User failUser;
 
             // Act
-            using (var context = new P2DbClass(options))    // creates in memory database
+            using (var context = new P3DbClass(options))    // creates in memory database
             {
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
@@ -170,7 +170,7 @@ namespace UnitTests
             PokemonCard resultPokemon;
             PokemonCard failPokemon;
             // Act
-            using (var context = new P2DbClass(options))    // creates in memory database
+            using (var context = new P3DbClass(options))    // creates in memory database
             {
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
@@ -217,7 +217,7 @@ namespace UnitTests
             bool failResultUserDec;
 
             // Act
-            using (var context = new P2DbClass(options))    // creates in memory database
+            using (var context = new P3DbClass(options))    // creates in memory database
             {
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
@@ -337,7 +337,7 @@ namespace UnitTests
 
 
             // Act
-            using (var context = new P2DbClass(options))    // creates in memory database
+            using (var context = new P3DbClass(options))    // creates in memory database
             {
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
@@ -420,7 +420,7 @@ namespace UnitTests
 
 
             // Act
-            using (var context = new P2DbClass(options))    // creates in memory database
+            using (var context = new P3DbClass(options))    // creates in memory database
             {
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
@@ -515,7 +515,7 @@ namespace UnitTests
 
 
             // Act
-            using (var context = new P2DbClass(options))    // creates in memory database
+            using (var context = new P3DbClass(options))    // creates in memory database
             {
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
@@ -630,7 +630,7 @@ namespace UnitTests
             User resultUser;
 
             // Act
-            using (var context = new P2DbClass(options))    // creates in memory database
+            using (var context = new P3DbClass(options))    // creates in memory database
             {
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
@@ -849,7 +849,7 @@ namespace UnitTests
             Post failPost;
 
             // Act
-            using (var context = new P2DbClass(options))    // creates in memory database
+            using (var context = new P3DbClass(options))    // creates in memory database
             {
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
@@ -938,7 +938,7 @@ namespace UnitTests
             bool resultFail;
 
             // Act
-            using (var context = new P2DbClass(options))    // creates in memory database
+            using (var context = new P3DbClass(options))    // creates in memory database
             {
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
@@ -979,7 +979,7 @@ namespace UnitTests
 
 
             // Act
-            using (var context = new P2DbClass(options))    // creates in memory database
+            using (var context = new P3DbClass(options))    // creates in memory database
             {
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
@@ -1020,7 +1020,7 @@ namespace UnitTests
 
 
             // Act
-            using (var context = new P2DbClass(options))    // creates in memory database
+            using (var context = new P3DbClass(options))    // creates in memory database
             {
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
@@ -1084,7 +1084,7 @@ namespace UnitTests
             };
 
             // Act
-            using (var context = new P2DbClass(options))    // creates in memory database
+            using (var context = new P3DbClass(options))    // creates in memory database
             {
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
@@ -1121,7 +1121,7 @@ namespace UnitTests
 
 
             // Act
-            using (var context = new P2DbClass(options))    // creates in memory database
+            using (var context = new P3DbClass(options))    // creates in memory database
             {
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
@@ -1173,7 +1173,7 @@ namespace UnitTests
 
 
             // Act
-            using (var context = new P2DbClass(options))    // creates in memory database
+            using (var context = new P3DbClass(options))    // creates in memory database
             {
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
