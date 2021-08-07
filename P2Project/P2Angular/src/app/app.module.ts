@@ -6,7 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 //import { JwPaginationComponent } from 'jw-angular-pagination';
-import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
+
 
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './home-page/home-page.component';
@@ -43,6 +43,7 @@ import { UnlockcardStatisticChildComponent } from './unlockcard-statistic-child/
 import { FriendsComponent } from './friends/friends.component';
 import { WamGameComponent } from './wam-game/wam-game.component';
 import { AchievementsStatisticComponent } from './achievements-statistic/achievements-statistic.component';
+import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
 
 
 @NgModule({

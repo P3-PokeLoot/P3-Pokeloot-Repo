@@ -12,8 +12,10 @@ export class CapGameResultComponent implements OnInit {
   @Input() pokemonImgSrc?: string;
   @Input() pokemonName?: string;
   @Output() playAgainEmitter = new EventEmitter();
+  winRecord?:string;
   result?: string;
   numCoinsToAdd: number = 100;
+  waitTime: any = 1;
 
   constructor(private _gameService: GameService) { }
 
@@ -28,11 +30,30 @@ export class CapGameResultComponent implements OnInit {
          (this.catchChanceResult === 1 && rand < 0.50) ||
          (this.catchChanceResult === 2 && rand < 0.25)){
         this.result = "Success";
+        this._gameService.CapWin().subscribe();
         this._gameService.AddCoins(this.numCoinsToAdd).subscribe();
       }
       else
+      {
+        this._gameService.CapLose().subscribe();
         this.result = "Failure";
+      }
     }
+    this.waitASec();
+  }
 
+  waitASec(){
+    let timer = setInterval(() => {
+      if(this.waitTime <= 1){
+        this._gameService.CapRecord().subscribe(
+          result =>{
+            this.winRecord = result;
+          });
+        clearInterval(timer);
+      } 
+      else{
+        this.waitTime -= 1;
+      }
+    },300);
   }
 }
