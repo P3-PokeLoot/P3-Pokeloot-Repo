@@ -589,8 +589,8 @@ namespace BusinessLayer
                 {
                     if(friend.IsPending == false)
                     {
-                        User friendInfo = context.Users.Where(x => x.UserId == UserId).FirstOrDefault();
-                        int totalCards = context.CardCollections.Where(x => x.UserId == UserId).ToList().Count();
+                        User friendInfo = context.Users.Where(x => x.UserId == friend.RecievedRequest).FirstOrDefault();
+                        int totalCards = context.CardCollections.Where(x => x.UserId == friend.RecievedRequest).ToList().Count();
                         FullFriend fullFriend = new FullFriend() {
                             FriendName = friendInfo.UserName,
                             FriendLevel = friendInfo.AccountLevel,
@@ -604,8 +604,8 @@ namespace BusinessLayer
                 }
                 if (friend.RecievedRequest == UserId)
                 {                  
-                        User friendInfo = context.Users.Where(x => x.UserId == UserId).FirstOrDefault();
-                        int totalCards = context.CardCollections.Where(x => x.UserId == UserId).ToList().Count();
+                        User friendInfo = context.Users.Where(x => x.UserId == friend.SentRequest).FirstOrDefault();
+                        int totalCards = context.CardCollections.Where(x => x.UserId == friend.SentRequest).ToList().Count();
                         FullFriend fullFriend = new FullFriend()
                         {
                             FriendName = friendInfo.UserName,
@@ -636,7 +636,7 @@ namespace BusinessLayer
                 {
                     SentRequest = userid,
                     RecievedRequest = friendId,
-                    IsPending = false,
+                    IsPending = true,
                     DateAdded = DateTime.Now
                 };
                 context.FriendsLists.Add(friends);
@@ -658,7 +658,7 @@ namespace BusinessLayer
             }
             if(friends.RecievedRequest == userid)
             {
-                friends.IsPending = true;
+                friends.IsPending = false;
                 context.FriendsLists.Attach(friends);
                 context.Entry(friends).Property(x => x.IsPending).IsModified = true;
                 try
@@ -677,7 +677,7 @@ namespace BusinessLayer
             }
 
 
-            return "";
+            return "Oops, we hit a weird edge case...";
         }
         
 

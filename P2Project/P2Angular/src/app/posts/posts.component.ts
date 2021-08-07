@@ -1,8 +1,10 @@
 import { stringify } from '@angular/compiler/src/util';
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { DisplayServiceService } from '../display-service.service';
+import { FriendServiceService } from '../friend-service.service';
 import { IBuy } from '../Models/IBuy';
 import { IPost } from '../Models/IPost';
 import { IType } from './IType';
@@ -30,8 +32,9 @@ export class PostsComponent implements OnInit {
   typeList : IType[] = [{TypeId : 1, TypeName: "Discussion"}, {TypeId : 2, TypeName: "Display"}, {TypeId : 3, TypeName: "Sale"}];
   bublapedia: string = 'https://bulbapedia.bulbagarden.net/wiki/';
   edit:boolean = false;
+  friendAction?: string;
 
-  constructor(private _displayService: DisplayServiceService, private cdr: ChangeDetectorRef) {
+  constructor(private route: Router, private _displayService: DisplayServiceService, private cdr: ChangeDetectorRef, private _friendService: FriendServiceService) {
     this.displayBoard = [];
     this.fullDisplayBoard = [];
   }
@@ -141,9 +144,7 @@ export class PostsComponent implements OnInit {
     )
   }
 
-  addFriend(post:IPost){
-    
-  }
+  
   clickt(post: IPost){
     this.edit = !this.edit;
     this.currentPost = post.PostId;
@@ -232,5 +233,25 @@ export class PostsComponent implements OnInit {
     console.log(this.currentIndex);
     this.pageOfItems = this.displayBoard.slice(this.currentIndex, this.currentIndex + 5);
     //this.pageOfItems = pageOfItems;
+  }
+
+  addFriend(friend: IPost){
+    if(this.userId){
+    this._friendService.FriendActionWithANumber(this.userId, friend.UserId).subscribe(
+      result => {
+        this.friendAction = result[0];
+        console.log(result);
+        }
+    );
+    }
+   //this.refresh();
+  }
+
+  refresh(){
+    this.route.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+      this.route.navigate(['/Home']);
+    });
+    this.route.navigate(['/Home']);
+    this.route.navigateByUrl('/Home');
   }
 }

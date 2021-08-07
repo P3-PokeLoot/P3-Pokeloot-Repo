@@ -1,3 +1,6 @@
+
+
+<div *ngIf="!friendAction">
 <div class="row justify-content-center my-5">
     <div class="col text-center">
  
@@ -172,7 +175,7 @@
                             <p class="h5">{{post.PostDescription}}</p>
                         </div>
                         <div *ngIf="userId != post.UserId">
-                            <button class="btn btn-success btn-sm" aria-disabled="true" id="addbutton" (click)="addFriend(post)">Edit</button>
+                            <button class="btn btn-success btn-sm" aria-disabled="true" id="addbutton" (click)="addFriend(post)">Add Friend</button>
                         </div>
                         <div *ngIf="post.PostType == 'Sale'">
 
@@ -302,3 +305,15 @@
             </div>
         </div>
     </div>
+
+</div>
+
+</div>
+</div>
+
+
+<div *ngIf="friendAction">
+    <h1 class="col text-center">{{friendAction}}</h1>
+    <br>
+    <button class="btn btn-success btn-sm" aria-disabled="true" id="editbutton" (click)="refresh()">Back to List</button>
+</div>

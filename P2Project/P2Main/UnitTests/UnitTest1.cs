@@ -1505,6 +1505,15 @@ namespace UnitTests
             string resultUser4;
             string resultUser5;
             string resultUser6;
+            FriendsList friendsList1;
+            FriendsList friendsList2;
+            FriendsList friendsList3;
+            FriendsList friendsList4;
+            FriendsList friendsList5;
+            FriendsList friendsList6;
+
+
+
 
             // Act
             using (var context = new P3DbClass(options))    // creates in memory database
@@ -1533,7 +1542,12 @@ namespace UnitTests
                 resultUser4 = testBusinessModel.friendAction(1, 4);
                 resultUser5 = testBusinessModel.friendAction(1, 5);
                 resultUser6 = testBusinessModel.friendAction(1, 6);
-
+                friendsList1 = context.FriendsLists.Where(x => (x.SentRequest == 1 && x.RecievedRequest == 1) || (x.RecievedRequest == 1 && x.SentRequest == 1)).FirstOrDefault();
+                friendsList2 = context.FriendsLists.Where(x => (x.SentRequest == 1 && x.RecievedRequest == 2)).FirstOrDefault();
+                friendsList3 = context.FriendsLists.Where(x => (x.SentRequest == 1 && x.RecievedRequest == 3)).FirstOrDefault();
+                friendsList4 = context.FriendsLists.Where(x => (x.RecievedRequest == 1 && x.SentRequest == 4)).FirstOrDefault();
+                friendsList5 = context.FriendsLists.Where(x => (x.RecievedRequest == 1 && x.SentRequest == 5)).FirstOrDefault();
+                friendsList6 = context.FriendsLists.Where(x => (x.SentRequest == 1 && x.RecievedRequest == 6)).FirstOrDefault();
 
                 // Assert
                 Assert.Equal("You can't be friends with yourself!", resultUser1);
@@ -1542,6 +1556,12 @@ namespace UnitTests
                 Assert.Equal("You are already friends with genericUser4!", resultUser4);
                 Assert.Equal("Your are now friends with genericUser5!", resultUser5);
                 Assert.Equal("You sent a request to genericUser6!", resultUser6);
+                Assert.True(friendsList1 == null);
+                Assert.True(friendsList2.IsPending);
+                Assert.True(!friendsList3.IsPending);
+                Assert.True(!friendsList4.IsPending);
+                Assert.True(!friendsList5.IsPending);
+                Assert.True(friendsList6.IsPending);
 
             }
         }

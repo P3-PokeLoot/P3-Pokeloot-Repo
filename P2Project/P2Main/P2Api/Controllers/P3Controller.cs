@@ -361,6 +361,20 @@ namespace P2Api.Controllers
             bool result = _businessModel.favoriteCard(UserId, Poke);
             return result;
         }
+
+        [HttpGet("Friends/{UserId}")]
+        public List<FullFriend> Friends(int UserId)
+        {
+            List<FullFriend> result = _businessModel.GetFriends(UserId);
+            return result;
+        }
+
+        [HttpGet("FriendAction/{UserId}/{FriendId}")]
+        public string FriendAction(int UserId, int FriendId)
+        {
+            string result = _businessModel.friendAction(UserId, FriendId);
+            return result;
+        }
     } // end class
 } // end namespace
 

@@ -262,13 +262,13 @@ export class CardCollectComponent implements OnInit {
     if(this.differentUser){
       return;
     }
-    if(card.IsFavorite){
-      //do something
+    if(this.userId){
+    this._cardcollectionService.Favorite(this.userId, card.PokemonId).subscribe(
+      result => console.log(result),
+      error => console.log(error)
+    );
     }
-    else{
-      //do something else
-    }
-    //do need to reload the page as we will only see favorites in profile
+    //do not need to reload the page as we will only see favorites in profile
     card.IsFavorite = !card.IsFavorite;
   }
 
