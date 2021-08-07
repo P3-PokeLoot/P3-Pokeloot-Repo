@@ -28,6 +28,11 @@ namespace BusinessLayer
             _context = new DataContext();
         }
 
+
+        /// <summary>
+        /// Returns game info list from db context
+        /// </summary>
+        /// <returns>List of GameInfo objects or null if error occured</returns>
         public async Task<List<GameInfo>> GameInfoListAsync()
         {
             List<GameInfo> gameInfos = null;
@@ -42,6 +47,11 @@ namespace BusinessLayer
             return gameInfos;
         }
 
+        /// <summary>
+        /// Adds a GameInfo object to the game info list
+        /// </summary>
+        /// <param name="gameInfo">Game info to add to db</param>
+        /// <returns>Boolean indicating whether the addition was successful (true) or not (false)</returns>
         public async Task<bool> AddGameInfoAsync(GameInfo gameInfo)
         {
             //Check if incoming gameInfo object is not null
@@ -50,7 +60,7 @@ namespace BusinessLayer
                 try 
                 {
                     //Add to dbcontext and save changes
-                    await _context.GameInfos.AddAsync(gameInfo);
+                    _context.GameInfos.Add(gameInfo);
                     await _context.SaveChangesAsync();
                     return true;
                 }
@@ -69,7 +79,7 @@ namespace BusinessLayer
         /// Creates a game object for Who's that Pokemon and returns data for a new game.
         /// </summary>
         /// <returns>Game object that holds data for Who's that Pokemon</returns>
-        public string WhosThatPokemonGame()
+        public async Task<string> WhosThatPokemonGameAsync()
         {
             string gameObject = "";
             int numOptions = 4;
@@ -77,7 +87,7 @@ namespace BusinessLayer
             string[] options = new string[numOptions];
 
             // get the pokemon to guess
-            dynamic temp = JsonConvert.DeserializeObject(RandomPokemon());
+            dynamic temp = JsonConvert.DeserializeObject(await RandomPokemonAsync());
             pictureUrl = temp.sprites.front_default;
             correctPokemon = temp.name;
             // first option is correct name to start
@@ -88,7 +98,7 @@ namespace BusinessLayer
             {
                 while(options[i] == null)
                 {
-                    temp = JsonConvert.DeserializeObject(RandomPokemon());
+                    temp = JsonConvert.DeserializeObject(await RandomPokemonAsync());
                     if(options.Where(x => x == temp.name.ToString()).FirstOrDefault() == null && temp.name.ToString() != "pikachu") // if name not already an option and not pikachu, because pikachu always option
                         options[i] = temp.name;
                 }
@@ -109,7 +119,7 @@ namespace BusinessLayer
         /// Calls Poke API and gets a random Pokemon details.
         /// </summary>
         /// <returns>Serialized Pokemon data for a random Pokemon.</returns>
-        public string RandomPokemon()
+        public async Task<string> RandomPokemonAsync()
         {
             // get random number for pokemon id
             var rand = new Random();
@@ -120,7 +130,7 @@ namespace BusinessLayer
             var request = new RestRequest(Method.GET);
             var body = @"";
             request.AddParameter("text/plain", body, ParameterType.RequestBody);
-            IRestResponse response = client.Execute(request);
+            IRestResponse response = await client.ExecuteAsync(request);
             return response.Content;
         }
 
@@ -129,18 +139,18 @@ namespace BusinessLayer
         /// </summary>
         /// <param name="userId"></param>
         /// <returns>Boolean indicating whether the update was successful (true) or not (false)</returns>
-        public bool RpsWin(int userId)
+        public async Task<bool> RpsWinAsync(int userId)
         {
             bool success = false;
             try
             {
-                var record = _context.RpsgameStats.Where(x => x.UserId == userId).FirstOrDefault();
+                var record = await _context.RpsgameStats.Where(x => x.UserId == userId).FirstOrDefaultAsync();
                 if (record != null) // record exists for user
                 {
                     record.GamesWon += 1;
                     record.TotalGamesPlayed += 1;
                     _context.RpsgameStats.Update(record);
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
                     success = true;
                 }
                 else // no record for user
@@ -150,7 +160,7 @@ namespace BusinessLayer
                     newRecord.GamesWon = 1;
                     newRecord.TotalGamesPlayed = 1;
                     _context.RpsgameStats.Add(newRecord);
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
                     success = true;
                 }
                 return success;
@@ -166,17 +176,17 @@ namespace BusinessLayer
         /// </summary>
         /// <param name="userId"></param>
         /// <returns>Boolean indicating whether the update was successful (true) or not (false)</returns>
-        public bool RpsLose(int userId)
+        public async Task<bool> RpsLoseAsync(int userId)
         {
             bool success = false;
             try
             {
-                var record = _context.RpsgameStats.Where(x => x.UserId == userId).FirstOrDefault();
+                var record = await _context.RpsgameStats.Where(x => x.UserId == userId).FirstOrDefaultAsync();
                 if (record != null) // record exists for user
                 {
                     record.TotalGamesPlayed += 1;
                     _context.RpsgameStats.Update(record);
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
                     success = true;
                 }
                 else // no record for user
@@ -185,7 +195,7 @@ namespace BusinessLayer
                     newRecord.UserId = userId;
                     newRecord.TotalGamesPlayed = 1;
                     _context.RpsgameStats.Add(newRecord);
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
                     success = true;
                 }
                 return success;
@@ -201,18 +211,18 @@ namespace BusinessLayer
         /// </summary>
         /// <param name="userId"></param>
         /// <returns> Boolean indicating whether the update was successful (true) or not (false)</returns>
-        public bool WtpWin(int userId)
+        public async Task<bool> WtpWinAsync(int userId)
         {
             bool success = false;
             try
             {
-                var record = _context.WtpgameStats.Where(x => x.UserId == userId).FirstOrDefault();
+                var record = await _context.WtpgameStats.Where(x => x.UserId == userId).FirstOrDefaultAsync();
                 if (record != null) // record exists for user
                 {
                     record.GamesWon += 1;
                     record.TotalGamesPlayed += 1;
                     _context.WtpgameStats.Update(record);
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
                     success = true;
                 }
                 else // no record for user
@@ -222,7 +232,7 @@ namespace BusinessLayer
                     newRecord.GamesWon = 1;
                     newRecord.TotalGamesPlayed = 1;
                     _context.WtpgameStats.Add(newRecord);
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
                     success = true;
                 }
                 return success;
@@ -238,17 +248,17 @@ namespace BusinessLayer
         /// </summary>
         /// <param name="userId"></param>
         /// <returns>Boolean indicating whether the update was successful (true) or not (false)</returns>
-        public bool WtpLose(int userId)
+        public async Task<bool> WtpLoseAsync(int userId)
         {
             bool success = false;
             try
             {
-                var record = _context.WtpgameStats.Where(x => x.UserId == userId).FirstOrDefault();
+                var record = await _context.WtpgameStats.Where(x => x.UserId == userId).FirstOrDefaultAsync();
                 if (record != null) // record exists for user
                 {
                     record.TotalGamesPlayed += 1;
                     _context.WtpgameStats.Update(record);
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
                     success = true;
                 }
                 else // no record for user
@@ -257,7 +267,7 @@ namespace BusinessLayer
                     newRecord.UserId = userId;
                     newRecord.TotalGamesPlayed = 1;
                     _context.WtpgameStats.Add(newRecord);
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
                     success = true;
                 }
                 return success;
@@ -273,18 +283,18 @@ namespace BusinessLayer
         /// </summary>
         /// <param name="userId"></param>
         /// <returns>Boolean indicating whether the update was successful (true) or not (false)</returns>
-        public bool CapWin(int userId)
+        public async Task<bool> CapWinAsync(int userId)
         {
             bool success = false;
             try
             {
-                var record = _context.CapgameStats.Where(x => x.UserId == userId).FirstOrDefault();
+                var record = await _context.CapgameStats.Where(x => x.UserId == userId).FirstOrDefaultAsync();
                 if (record != null) // record exists for user
                 {
                     record.GamesWon += 1;
                     record.TotalGamesPlayed += 1;
                     _context.CapgameStats.Update(record);
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
                     success = true;
                 }
                 else // no record for user
@@ -294,7 +304,7 @@ namespace BusinessLayer
                     newRecord.GamesWon = 1;
                     newRecord.TotalGamesPlayed = 1;
                     _context.CapgameStats.Add(newRecord);
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
                     success = true;
                 }
                 return success;
@@ -310,17 +320,17 @@ namespace BusinessLayer
         /// </summary>
         /// <param name="userId"></param>
         /// <returns>Boolean indicating whether the update was successful (true) or not (false)</returns>
-        public bool CapLose(int userId)
+        public async Task<bool> CapLoseAsync(int userId)
         {
             bool success = false;
             try
             {
-                var record = _context.CapgameStats.Where(x => x.UserId == userId).FirstOrDefault();
+                var record = await _context.CapgameStats.Where(x => x.UserId == userId).FirstOrDefaultAsync();
                 if (record != null) // record exists for user
                 {
                     record.TotalGamesPlayed += 1;
                     _context.CapgameStats.Update(record);
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
                     success = true;
                 }
                 else // no record for user
@@ -329,7 +339,7 @@ namespace BusinessLayer
                     newRecord.UserId = userId;
                     newRecord.TotalGamesPlayed = 1;
                     _context.CapgameStats.Add(newRecord);
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
                     success = true;
                 }
                 return success;
@@ -345,12 +355,12 @@ namespace BusinessLayer
         /// </summary>
         /// <param name="userId"></param>
         /// <returns>A string of the number of games a user has won out of the total number of games played (wins/total games)</returns>
-        public string RpsRecord(int userId)
+        public async Task<string> RpsRecordAsync(int userId)
         {
             string winRecord = null;
             try
             {
-                var record = _context.RpsgameStats.Where(x => x.UserId == userId).FirstOrDefault();
+                var record = await _context.RpsgameStats.Where(x => x.UserId == userId).FirstOrDefaultAsync();
                 if (record != null)
                 {
                     winRecord = $"{record.GamesWon}/{record.TotalGamesPlayed}";
@@ -368,12 +378,12 @@ namespace BusinessLayer
         /// </summary>
         /// <param name="userId"></param>
         /// <returns>A string of the number of games a user has won out of the total number of games played (wins/total games)</returns>
-        public string WtpRecord(int userId)
+        public async Task<string> WtpRecordAsync(int userId)
         {
             string winRecord = null;
             try
             {
-                var record = _context.WtpgameStats.Where(x => x.UserId == userId).FirstOrDefault();
+                var record = await _context.WtpgameStats.Where(x => x.UserId == userId).FirstOrDefaultAsync();
                 if (record != null)
                 {
                     winRecord = $"{record.GamesWon}/{record.TotalGamesPlayed}";
@@ -391,12 +401,12 @@ namespace BusinessLayer
         /// </summary>
         /// <param name="userId"></param>
         /// <returns>A string of the number of games a user has won out of the total number of games played (wins/total games)</returns>
-        public string CapRecord(int userId)
+        public async Task<string> CapRecordAsync(int userId)
         {
             string winRecord = null;
             try
             {
-                var record = _context.CapgameStats.Where(x => x.UserId == userId).FirstOrDefault();
+                var record = await _context.CapgameStats.Where(x => x.UserId == userId).FirstOrDefaultAsync();
                 if (record != null)
                 {
                     winRecord = $"{record.GamesWon}/{record.TotalGamesPlayed}";

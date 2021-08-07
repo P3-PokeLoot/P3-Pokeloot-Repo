@@ -35,9 +35,9 @@ namespace P3Api.Controllers
         }
 
         [HttpGet("Wtp")]
-        public IActionResult GetRandomPokemon()
+        public async Task<IActionResult> GetRandomPokemon()
         {
-            var pokemon = _businessModel.WhosThatPokemonGame();
+            var pokemon = await _businessModel.WhosThatPokemonGameAsync();
             return StatusCode(200, pokemon);
         }
 
@@ -51,65 +51,65 @@ namespace P3Api.Controllers
         }
 
         [HttpGet("RpsWin/{userId}")]
-        public IActionResult RpsWin(int userId)
+        public async Task<IActionResult> RpsWin(int userId)
         {
-            var success = _businessModel.RpsWin(userId);
+            var success = await _businessModel.RpsWinAsync(userId);
             return StatusCode(200, success);
         }
 
         [HttpGet("RpsLose/{userId}")]
-        public IActionResult RpsLose(int userId)
+        public async Task<IActionResult> RpsLose(int userId)
         {
-            var success = _businessModel.RpsLose(userId);
+            var success = await _businessModel.RpsLoseAsync(userId);
             return StatusCode(200, success);
         }
 
         [HttpGet("RpsRecord/{userId}")]
-        public IActionResult RpsRecord(int userId)
+        public async Task<IActionResult> RpsRecord(int userId)
         {
-            var success = _businessModel.RpsRecord(userId);
+            var success = await _businessModel.RpsRecordAsync(userId);
             return StatusCode(200, success);
         }
 
         [HttpGet("WtpWin/{userId}")]
-        public IActionResult WtpWin(int userId)
+        public async Task<IActionResult> WtpWin(int userId)
         {
-            var success = _businessModel.WtpWin(userId);
+            var success = await _businessModel.WtpWinAsync(userId);
             return StatusCode(200, success);
         }
 
         [HttpGet("WtpLose/{userId}")]
-        public IActionResult WtpLose(int userId)
+        public async Task<IActionResult> WtpLose(int userId)
         {
-            var success = _businessModel.WtpLose(userId);
+            var success = await _businessModel.WtpLoseAsync(userId);
             return StatusCode(200, success);
         }
 
         [HttpGet("WtpRecord/{userId}")]
-        public IActionResult WtpRecord(int userId)
+        public async Task<IActionResult> WtpRecord(int userId)
         {
-            var success = _businessModel.WtpRecord(userId);
+            var success = await _businessModel.WtpRecordAsync(userId);
             return StatusCode(200, success);
         }
 
         [HttpGet("CapWin/{userId}")]
-        public IActionResult CapWin(int userId)
+        public async Task<IActionResult> CapWin(int userId)
         {
-            var success = _businessModel.CapWin(userId);
+            var success = await _businessModel.CapWinAsync(userId);
             return StatusCode(200, success);
         }
 
         [HttpGet("CapLose/{userId}")]
-        public IActionResult CapLose(int userId)
+        public async Task<IActionResult> CapLose(int userId)
         {
-            var success = _businessModel.CapLose(userId);
+            var success = await _businessModel.CapLoseAsync(userId);
             return StatusCode(200, success);
         }
 
         [HttpGet("CapRecord/{userId}")]
-        public IActionResult CapRecord(int userId)
+        public async Task<IActionResult> CapRecord(int userId)
         {
-            var success = _businessModel.CapRecord(userId);
+            var success = await _businessModel.CapRecordAsync(userId);
             return StatusCode(200, success);
         }
     }
