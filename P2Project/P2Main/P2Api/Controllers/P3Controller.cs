@@ -355,6 +355,27 @@ namespace P2Api.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Adds a new PostComment object to the database
+        /// </summary>
+        /// <param name="userId">The user id of the user creating the comment</param>
+        /// <param name="postId">The id to the post the comment is created on</param>
+        /// <param name="content">The contents of the comment being created</param>
+        /// <returns>true or false based on creation status</returns>
+        [HttpPost("PostComment/{userId}/{postId}/{content}")]
+        public bool PostComment(int userId, int postId, string content)
+        {   
+            bool isCreated = _businessModel.newPostComment(userId, postId, content);
+            return isCreated;
+        }
+
+
+        [HttpGet("Comments/{postId}")]
+        public List<PostComment> Comments(int postId)
+        {
+            return _businessModel.getCommentList(postId);
+        }
+
 
     } // end class
 } // end namespace

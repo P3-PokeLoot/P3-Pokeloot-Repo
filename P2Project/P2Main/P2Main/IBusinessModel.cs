@@ -43,5 +43,10 @@ namespace BusinessLayer
         public bool hidePost(int PostID);
 
         public bool editPrice(int postID, int newPrice);
+
+        public bool newPostComment(int userId, int postId, string content);
+
+        public List<PostComment> getCommentList(int postId);
+        
     }
 }

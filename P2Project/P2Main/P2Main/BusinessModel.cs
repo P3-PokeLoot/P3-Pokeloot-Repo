@@ -540,7 +540,40 @@ namespace BusinessLayer
 
             return true;
         }
-        
+
+        public bool newPostComment(int userId, int postId, string content)
+        {      
+            PostComment newPostComment = new PostComment();
+
+            newPostComment.CommentUserId    = userId;
+            newPostComment.CommentPostId    = postId;
+            newPostComment.CommentContent   = content;
+            newPostComment.CommentTimestamp = DateTime.Now;
+
+            try
+            {
+                context.PostComments.Add(newPostComment);
+                context.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Gets a list of all comment objects related to the requested post id
+        /// </summary>
+        /// <param name="postId">The id of the post to retrieve the comments for</param>
+        /// <returns>List of comment objects for specified post</returns>
+        public List<PostComment> getCommentList(int postId)
+        {
+            List<PostComment> commentList = context.PostComments.Where(x => x.CommentPostId == postId).ToList();
+            return commentList;
+        }
+
 
 
     }//class BusinessModel

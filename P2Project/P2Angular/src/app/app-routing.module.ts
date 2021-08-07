@@ -20,6 +20,7 @@ import { PokemonCardMatchComponent } from './pokemon-card-match/pokemon-card-mat
 import { EditPostComponent } from './edit-post/edit-post.component';
 import { FriendsComponent } from './friends/friends.component';
 import { WamGameComponent } from './wam-game/wam-game.component';
+import { CommentsComponent } from './comments/comments.component';
 
 
 
@@ -44,6 +45,7 @@ const routes: Routes = [
   { path: 'Game/CAP', component: CapGameComponent, canActivate: [AuthGuard]},
   { path: 'Game/WhackADiglett', component: WamGameComponent, canActivate: [AuthGuard] },
   { path: 'Game/PokemonCardMatch', component: PokemonCardMatchComponent, canActivate: [AuthGuard] },
+  { path: 'Comments/:postId', component: CommentsComponent, canActivate: [AuthGuard] },
   { path: '**', component: HomePageComponent },
 ];
 

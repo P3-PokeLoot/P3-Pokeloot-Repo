@@ -172,8 +172,7 @@
                             <p class="h5">{{post.PostDescription}}</p>
                         </div>
                         <div style="margin-bottom: 3px;">
-                            <!-- <button (click)='Comments(post)' class="btn btn-success btn-sm" aria-disabled="true" id="commentButton">Comments</button>  -->
-                            <a routerLink="/PostForm"><button class="btn btn-success btn-sm">Comments</button></a>
+                            <a routerLink="/Comments/{{post.PostId}}"><button class="btn btn-success btn-sm">Comments</button></a>
                         </div>
                         <div *ngIf="post.PostType == 'Sale'">
 
