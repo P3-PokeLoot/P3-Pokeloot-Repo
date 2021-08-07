@@ -42,6 +42,7 @@ import { EditPostComponent } from './edit-post/edit-post.component';
 import { UnlockcardStatisticChildComponent } from './unlockcard-statistic-child/unlockcard-statistic-child.component';
 import { FriendsComponent } from './friends/friends.component';
 import { WamGameComponent } from './wam-game/wam-game.component';
+import { AchievementsStatisticComponent } from './achievements-statistic/achievements-statistic.component';
 
 
 @NgModule({
@@ -78,6 +79,7 @@ import { WamGameComponent } from './wam-game/wam-game.component';
     LeaderboardsComponent,
     WamGameComponent,
     UnlockcardStatisticChildComponent,
+    AchievementsStatisticComponent,
   ],
   imports: [
     BrowserModule,
