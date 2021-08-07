@@ -54,6 +54,6 @@ export class CapGameResultComponent implements OnInit {
       else{
         this.waitTime -= 1;
       }
-    },300);
+    },500);
   }
 }

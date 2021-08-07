@@ -53,7 +53,7 @@ export class WtpGameOutcomeComponent implements OnInit {
       else{
         this.waitTime -= 1;
       }
-    },300);
+    },500);
   }
 
   playAgain() {

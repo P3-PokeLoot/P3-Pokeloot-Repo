@@ -50,18 +50,26 @@ namespace P3Api.Controllers
             return StatusCode(500);
         }
 
-        [HttpGet("RpsWin/{userId}")]
+        [HttpPost("RpsWin")]
         public IActionResult RpsWin(int userId)
         {
             var success = _businessModel.RpsWin(userId);
-            return StatusCode(200, success);
+            if(success)
+            {
+                return StatusCode(200, success);
+            }
+            return BadRequest(new { message = "Error, Something went wrong.", status = -1 });
         }
 
-        [HttpGet("RpsLose/{userId}")]
+        [HttpPost("RpsLose")]
         public IActionResult RpsLose(int userId)
         {
             var success = _businessModel.RpsLose(userId);
-            return StatusCode(200, success);
+            if (success)
+            {
+                return StatusCode(200, success);
+            }
+            return BadRequest(new { message = "Error, Something went wrong.", status = -1 });
         }
 
         [HttpGet("RpsRecord/{userId}")]
@@ -71,18 +79,26 @@ namespace P3Api.Controllers
             return StatusCode(200, success);
         }
 
-        [HttpGet("WtpWin/{userId}")]
-        public IActionResult WtpWin(int userId)
+        [HttpPost("WtpWin")]
+        public ActionResult WtpWin(int userId)
         {
             var success = _businessModel.WtpWin(userId);
-            return StatusCode(200, success);
+            if (success)
+            {
+                return StatusCode(200, success);
+            }
+            return BadRequest(new { message = "Error, Something went wrong.", status = -1 });
         }
 
-        [HttpGet("WtpLose/{userId}")]
+        [HttpPost("WtpLose")]
         public IActionResult WtpLose(int userId)
         {
             var success = _businessModel.WtpLose(userId);
-            return StatusCode(200, success);
+            if (success)
+            {
+                return StatusCode(200, success);
+            }
+            return BadRequest(new { message = "Error, Something went wrong.", status = -1 });
         }
 
         [HttpGet("WtpRecord/{userId}")]
@@ -92,18 +108,26 @@ namespace P3Api.Controllers
             return StatusCode(200, success);
         }
 
-        [HttpGet("CapWin/{userId}")]
+        [HttpPost("CapWin")]
         public IActionResult CapWin(int userId)
         {
             var success = _businessModel.CapWin(userId);
-            return StatusCode(200, success);
+            if (success)
+            {
+                return StatusCode(200, success);
+            }
+            return BadRequest(new { message = "Error, Something went wrong.", status = -1 });
         }
 
-        [HttpGet("CapLose/{userId}")]
+        [HttpPost("CapLose")]
         public IActionResult CapLose(int userId)
         {
             var success = _businessModel.CapLose(userId);
-            return StatusCode(200, success);
+            if (success)
+            {
+                return StatusCode(200, success);
+            }
+            return BadRequest(new { message = "Error, Something went wrong.", status = -1 });
         }
 
         [HttpGet("CapRecord/{userId}")]

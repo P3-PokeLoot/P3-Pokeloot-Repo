@@ -112,7 +112,7 @@ export class RpsGameOutcomeComponent implements OnInit {
       else{
         this.waitTime -= 1;
       }
-    },300);
+    },500);
   }
 
   playAgain() {
