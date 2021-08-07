@@ -45,7 +45,13 @@ export class LeaderboardsComponent implements OnInit {
       'Coin Balance',
       'Total Earned Coins',
       'Total Coins Spent',
-      'Collection Completion'
+      'Collection Completion',
+      'Largest Rarity',
+      'Most of a Shiny Pokemon',
+      'Largest Shiny Collection',
+      'Collection Completion 2- Shiny',
+      'Largest Collection',
+      'Percent owning a card type',
     ];
     //array of all options that will reflect onto the "numerical dropdown list"
     allNumbersOptions:number[]=[
@@ -117,6 +123,7 @@ CreateArraysFromObservable(){
     console.log('this is the start selectChosenService');
     console.log(this.chosenService);
     switch(this.chosenService){
+      //Coins
     case 1:
       this._leaderboardservice.GetTopCurrentBalanceList(this.chosenNumber).subscribe(
         result => {
@@ -149,6 +156,8 @@ CreateArraysFromObservable(){
         this.CreateArraysFromObservable();
         console.log('this is case'+this.chosenService);
         break;
+    //Rarities
+    //Shinies
     }
   }
 
