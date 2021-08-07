@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { IPost } from 'src/app/Models/IPost';
 import { FullPost } from 'src/app/Models/Post';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import { FullPost } from 'src/app/Models/Post';
 export class CreatePostService {
 
 
-  private url: string = "https://pokeloot.azurewebsites.net/api/P2/Post"
+  private url = `${environment.urlmain}Post`
 
   constructor(private router: Router, private http: HttpClient) { }
 

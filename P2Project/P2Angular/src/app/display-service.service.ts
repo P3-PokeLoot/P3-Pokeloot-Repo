@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Observable, throwError } from 'rxjs';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +12,11 @@ export class DisplayServiceService {
   
   
 
-  private url: string = 'https://pokeloot.azurewebsites.net/api/P2/DisplayBoard';
+  private url = `${environment.urlmain}DisplayBoard`;
   //private url: string = '';
 
-  private localurl: string = 'https://localhost:44307/api/P2/EditPrice/';
-  private urltobuy: string = 'https://pokeloot.azurewebsites.net/api/P2/buyCard/';
+  private localurl = `${environment.urlmainlocalonly}EditPrice/`;
+  private urltobuy = `${environment.urlmain}buyCard/`;
 
 
   constructor( private router:Router, private http:HttpClient) { }

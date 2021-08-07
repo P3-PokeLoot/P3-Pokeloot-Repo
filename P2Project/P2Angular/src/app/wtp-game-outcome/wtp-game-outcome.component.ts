@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { delay } from 'rxjs/operators';
 import { GameService } from '../game-service';
 
 @Component({
@@ -7,38 +8,55 @@ import { GameService } from '../game-service';
   styleUrls: ['./wtp-game-outcome.component.css']
 })
 export class WtpGameOutcomeComponent implements OnInit {
-  @Input() result?: {result:string, picture?:string, win?:boolean};
+  @Input() result?: { result: string, picture?: string, win?: boolean };
   @Output() playAgainEmitter = new EventEmitter();
-  outcomeText?:string;
-  pictureUrl?:string;
-  win?:boolean;
+  outcomeText?: string;
+  pictureUrl?: string;
+  win?: boolean;
+  winRecord?: string;
   numCoinsToAdd: number = 50;
   currentUserCoinBalance = {} as any;
+  waitTime: any = 1;
 
-  constructor(private _gameService: GameService) {}
+  constructor(private _gameService: GameService) { }
 
   ngOnInit(): void {
-    console.log("Initialized");
-    this.determineResult();
+    console.log("initialized");
+    this.waitASec();
   }
 
-  determineResult():void{
-    console.log('result ' + this.result);
+  determineResult(): void {
     this.outcomeText = this.result?.result;
     this.pictureUrl = this.result?.picture;
     this.win = this.result?.win;
-    if(this.win == true)
-    {
+    if (this.win == true) {
       this._gameService.AddCoins(this.numCoinsToAdd).subscribe();
       this._gameService.GetBalance().subscribe(
         result => {
-          let coinBalance   = result;
+          let coinBalance = result;
           this.currentUserCoinBalance = coinBalance;
         });
     }
+    this._gameService.WtpRecord().subscribe(
+      result => {
+        this.winRecord = result;
+        console.log(this.winRecord);
+      });
   }
 
-  playAgain(){
+  waitASec(){
+    let timer = setInterval(() => {
+      if(this.waitTime <= 1){
+        this.determineResult();
+        clearInterval(timer);
+      } 
+      else{
+        this.waitTime -= 1;
+      }
+    },300);
+  }
+
+  playAgain() {
     this.playAgainEmitter.emit();
   }
 }
