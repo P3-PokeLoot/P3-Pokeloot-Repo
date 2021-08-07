@@ -1,4 +1,4 @@
-import { UserModel_Coins } from "src/app/Models/IUser_Coin";
+import { UserModel_Coins } from "src/app/Models/IUser_CoinLB";
 
 export class MockCoinBalanceObservable{
 

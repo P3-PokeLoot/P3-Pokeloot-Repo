@@ -1,5 +1,4 @@
-//this is an interface to map from the P3 Stats API 
-export interface MVPModel_Shiny{
+export interface MVPShinyModel_Shiny{
     UserId:number;
     FirstName:string;
     LastName:string;

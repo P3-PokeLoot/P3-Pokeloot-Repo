@@ -42,9 +42,10 @@ export class LeaderboardsComponent implements OnInit {
 
     //array of all options that will reflect onto the "categorical dropdown list"
     allStatsOptions:string[]=[
-      'topcoinbalance',
-      'topearnedcoins',
-      'topcoinsspent',
+      'Coin Balance',
+      'Total Earned Coins',
+      'Total Coins Spent',
+      'Collection Completion'
     ];
     //array of all options that will reflect onto the "numerical dropdown list"
     allNumbersOptions:number[]=[
@@ -138,6 +139,14 @@ CreateArraysFromObservable(){
             this.observableData = result; 
          });
          this.CreateArraysFromObservable();
+        console.log('this is case'+this.chosenService);
+        break;
+      case 4:
+        this._leaderboardservice.GetTopCompletedCollection(this.chosenNumber).subscribe(
+          result => {
+            this.observableData = result; 
+        });
+        this.CreateArraysFromObservable();
         console.log('this is case'+this.chosenService);
         break;
     }

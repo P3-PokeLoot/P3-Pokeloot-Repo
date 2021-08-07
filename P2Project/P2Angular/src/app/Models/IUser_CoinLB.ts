@@ -1,4 +1,4 @@
-export interface UserModel_Coins {
+export interface UserModel_Coin {
     UserName: string;
     Password: string;
     FirstName: string;

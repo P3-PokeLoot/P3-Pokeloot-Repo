@@ -1,8 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { UserModel_Coins } from '../../Models/IUser_Coin';
-import { MVPModel_Shiny } from '../../Models/IMVPShiny';
+import { UserModel_Coin } from 'src/app/Models/IUser_CoinLB'; 
+import { TopPercentModel_Coin } from 'src/app/Models/ITopPercentModel_CoinLB';
+import { UserModel_Rarity } from 'src/app/Models/IUser_RarityLB';
+import { CardCollectModel_Shiny } from 'src/app/Models/ICardCollect_ShinyLB';
+import { MVPShinyModel_Shiny } from 'src/app/Models/IMVPShiny_ShinyLB';
+import { UserCollectionModel_Shiny } from 'src/app/Models/IUserCollection_ShinyLB';
+import { PercentageOwnCardModel_Shiny } from 'src/app/Models/IPercentageOwnCard_ShinyLB';
 
 @Injectable({
   providedIn: 'root'
@@ -15,21 +20,47 @@ export class LeaderboardStatsService {
   baseURL:string='https://localhost:44303';
 
   //Coin Controller API service calls
-  GetTopCurrentBalanceList(input:number):Observable<UserModel_Coins[]>{//outputs a list of User type
-    return this.http.get<UserModel_Coins[]>(this.baseURL+'/TopCurrentBalanceList?maxnumber='+input);
+  GetTopCurrentBalanceList(input:number):Observable<UserModel_Coin[]>{//outputs a list of User type
+    return this.http.get<UserModel_Coin[]>(this.baseURL+'/TopCurrentBalanceList?maxnumber='+input);
   }
-  GetTopEarnedCoinsList(input:number):Observable<UserModel_Coins[]>{//outputs a list of User type
-    return this.http.get<UserModel_Coins[]>(this.baseURL+'/TopEarnedCoinsist?maxnumber='+input);
+  GetTopEarnedCoinsList(input:number):Observable<UserModel_Coin[]>{//outputs a list of User type
+    return this.http.get<UserModel_Coin[]>(this.baseURL+'/TopEarnedCoinsist?maxnumber='+input);
   }
-  GetTopSpentCoinsList(input:number):Observable<UserModel_Coins[]>{//outputs a list of User type
-    return this.http.get<UserModel_Coins[]>(this.baseURL+'/TopSpentCoinsist?maxnumber='+input);
-  }
-
-  //Shining Controller API service calls.
-  //outputs a list of MVPShiny type. Api route may need adjusting, since this method currently not in main - only exists in Guillermo's branch
-  GetMostShiningList():Observable<MVPModel_Shiny[]>{
-    return this.http.get<MVPModel_Shiny[]>(this.baseURL+'/"[action]/{userMost}"');
+  GetTopSpentCoinsList(input:number):Observable<UserModel_Coin[]>{//outputs a list of User type
+    return this.http.get<UserModel_Coin[]>(this.baseURL+'/TopSpentCoinsist?maxnumber='+input);
   }
 
+  GetTopCompletedCollection(input:number):Observable<TopPercentModel_Coin[]>{
+    return this.http.get<TopPercentModel_Coin[]>(this.baseURL+'/TopCompletedCollection?maxnumber='+input);
+  }
 
+  //Rarity Controller API service calls - change the model
+  GetUserListbyRarity(rarity:string,input:number):Observable<UserModel_Rarity[]>{
+    return this.http.get<UserModel_Rarity[]>(this.baseURL+'/UserListByMostRarityCategory?rarityCategory='+rarity+'+&maxnumber='+input);
+  }
+  // These are likely going to need their own request - w/ diff constructor
+  //GetPercentOfRarityCategory(user:number,input:number):number{
+  //   return this.http.get()
+  // }
+  // GetTotalRarityCategoryForUser(){}
+
+  
+  //ShiningPokemon Controller API service calls.
+  GetMostShinyList(userMost:number):Observable<CardCollectModel_Shiny[]>{//May need to be refactored based on the data retruned
+    return this.http.get<CardCollectModel_Shiny[]>(this.baseURL+'/api/ShiningPokemon/DisplayUserMostShinyPokemon/'+userMost);
+  }
+
+  GetMVPShinyUsersList(topUsers:number):Observable<MVPShinyModel_Shiny[]>{
+    return this.http.get<MVPShinyModel_Shiny[]>(this.baseURL+'/api/ShiningPokemon/MVPShinyUsers/'+topUsers);
+  }
+  
+  GetUsersTotalCollectionList(input:number):Observable<UserCollectionModel_Shiny[]>{
+    return this.http.get<UserCollectionModel_Shiny[]>(this.baseURL+'/api/ShiningPokemon/UsersTotalCollection/'+input);
+  }
+  GetUserTotalAmountList(topUser:number):Observable<UserCollectionModel_Shiny[]>{
+    return this.http.get<UserCollectionModel_Shiny[]>(this.baseURL+'/api/ShiningPokemon/GetTotalCardUserHave/'+topUser);
+  }
+  GetCardPercentage(pokename:string):Observable<PercentageOwnCardModel_Shiny[]>{
+    return this.http.get<PercentageOwnCardModel_Shiny[]>(this.baseURL+'api/ShiningPokemon/GetCardPorcentage/'+pokename);
+  }
 }
