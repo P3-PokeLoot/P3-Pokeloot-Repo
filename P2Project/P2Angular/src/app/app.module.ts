@@ -42,6 +42,8 @@ import { EditPostComponent } from './edit-post/edit-post.component';
 import { UnlockcardStatisticChildComponent } from './unlockcard-statistic-child/unlockcard-statistic-child.component';
 import { FriendsComponent } from './friends/friends.component';
 import { WamGameComponent } from './wam-game/wam-game.component';
+import{ MatTableModule} from '@angular/material/table';
+import { AchievementsVisualizationChildComponent } from './achievements-visualization-child/achievements-visualization-child.component';
 
 
 @NgModule({
@@ -78,6 +80,7 @@ import { WamGameComponent } from './wam-game/wam-game.component';
     LeaderboardsComponent,
     WamGameComponent,
     UnlockcardStatisticChildComponent,
+    AchievementsVisualizationChildComponent,
   ],
   imports: [
     BrowserModule,
@@ -86,7 +89,8 @@ import { WamGameComponent } from './wam-game/wam-game.component';
     ReactiveFormsModule,
     HttpClientModule,
     CommonModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatTableModule
   ],
   providers: [CardServiceService,AccountService],
   bootstrap: [AppComponent]
