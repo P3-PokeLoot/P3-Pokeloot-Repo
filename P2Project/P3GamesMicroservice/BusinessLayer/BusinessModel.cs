@@ -1,4 +1,6 @@
-﻿using Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Models;
 using Newtonsoft.Json;
 using P3Database;
 using RestSharp;
@@ -12,16 +14,55 @@ namespace BusinessLayer
 {
     public class BusinessModel : IBusinessModel
     {
-        private DataContext _context;
+        private readonly DataContext _context;
+        private readonly ILogger<BusinessModel> _logger;
 
-        public BusinessModel (DataContext context)
+        public BusinessModel (DataContext context, ILogger<BusinessModel> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         public BusinessModel()
         {
             _context = new DataContext();
+        }
+
+        public async Task<List<GameInfo>> GameInfoListAsync()
+        {
+            List<GameInfo> gameInfos = null;
+            try
+            {
+                gameInfos = await _context.GameInfos.ToListAsync();
+            }catch(Exception e)
+            {
+                _logger.Log(LogLevel.Error, e.Message);
+                gameInfos = null;
+            }
+            return gameInfos;
+        }
+
+        public async Task<bool> AddGameInfoAsync(GameInfo gameInfo)
+        {
+            //Check if incoming gameInfo object is not null
+            if (gameInfo != null)
+            {
+                try 
+                {
+                    //Add to dbcontext and save changes
+                    await _context.GameInfos.AddAsync(gameInfo);
+                    await _context.SaveChangesAsync();
+                    return true;
+                }
+                catch(Exception e)
+                {
+                    //Log error if one occurs
+                    _logger.Log(LogLevel.Error, e.Message);
+                }
+            }
+
+            //return false if unsuccessful
+            return false;
         }
 
         /// <summary>

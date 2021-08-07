@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using BusinessLayer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -13,21 +14,24 @@ namespace P3Api.Controllers
     public class GamesController : ControllerBase
     {
         private readonly ILogger<GamesController> _logger;
-        private readonly DataContext _dataContext;
+        //private readonly DataContext _dataContext;
         private readonly IBusinessModel _businessModel;
 
         public GamesController(IBusinessModel businessModel, ILogger<GamesController> logger, DataContext dataContext)
         {
             _businessModel = businessModel;
             _logger = logger;
-            _dataContext = dataContext;
+            //_dataContext = dataContext;
         }
 
         [HttpGet("List")]
-        public IActionResult GetGameInfoList()
+        public async Task<IActionResult> GetGameInfoListAsync()
         {
-            var games = _dataContext.GameInfos.ToList();
-            return StatusCode(200, games);
+            var games = await _businessModel.GameInfoListAsync();
+            if (games != null)
+                return StatusCode(200, games);
+            else
+                return StatusCode(500);
         }
 
         [HttpGet("Wtp")]
@@ -38,16 +42,12 @@ namespace P3Api.Controllers
         }
 
         [HttpPost("Add")]
-        public IActionResult AddGameInfo(GameInfo gameInfo)
+        public async Task<IActionResult> AddGameInfo(GameInfo gameInfo)
         {
-            if(gameInfo != null && gameInfo.Title.Length > 0)
-            {
-                _dataContext.GameInfos.Add(gameInfo);
-                _dataContext.SaveChanges();
+            if (await _businessModel.AddGameInfoAsync(gameInfo))
                 return StatusCode(201);
-            }
-
-            return StatusCode(500);
+            else
+                return StatusCode(500);
         }
 
         [HttpGet("RpsWin/{userId}")]
