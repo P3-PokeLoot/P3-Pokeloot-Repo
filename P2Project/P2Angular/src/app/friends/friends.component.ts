@@ -19,7 +19,7 @@ export class FriendsComponent implements OnInit {
   lastpage!: number;
   fullFriendsList: IFriend[] = [];
   friendList: IFriend[] = [];
-  isPending: boolean = false;
+  isPending: boolean = true;
   selectFriend?: string;
   friendAction?: string;
 
@@ -47,7 +47,8 @@ export class FriendsComponent implements OnInit {
     );
     }
     
-    this.filterForPending();
+    this.friendList = this.fullFriendsList.filter(x => x.IsPending == this.isPending);
+    this.load();
     
   }
 
@@ -58,6 +59,7 @@ export class FriendsComponent implements OnInit {
       if(element.IsPending == this.isPending){
         this.friendList.push(element);
       }
+      
     });
     this.isPending = !this.isPending;
     this.load();
@@ -100,7 +102,10 @@ export class FriendsComponent implements OnInit {
   clickt(friend: IFriend){
     if(this.userId){
     this._friendService.FriendAction(this.userId, friend.UserID).subscribe(
-      result => {this.friendAction = result[0];}
+      result => {this.friendAction = result[0];},
+      error => {
+        this.friendAction = error.text;
+      }
     );
     }
    //this.refresh();

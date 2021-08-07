@@ -241,7 +241,10 @@ export class PostsComponent implements OnInit {
       result => {
         this.friendAction = result[0];
         console.log(result);
-        }
+        },
+      error => {
+        this.friendAction = error.text;
+      }
     );
     }
    //this.refresh();
