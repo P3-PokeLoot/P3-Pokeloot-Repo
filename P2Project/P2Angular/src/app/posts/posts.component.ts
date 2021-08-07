@@ -140,6 +140,13 @@ export class PostsComponent implements OnInit {
       }
     )
   }
+
+  Comments(post: IPost): void {
+    console.log(this.userId);
+    console.log(post.PostId);
+  }
+
+
   clickt(post: IPost){
     this.edit = !this.edit;
     this.currentPost = post.PostId;

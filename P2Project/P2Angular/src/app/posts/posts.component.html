@@ -26,8 +26,8 @@
            <form class="d-inline-flex p-2" (ngSubmit)="onChangePageNext()">
                <button class="btn btn-outline-success" type="submit">Next Page</button>    
            </form>
-                  
        </div>
+
        <div>
         <div style="font-size: medium; margin-left: 2rem;">
         <label>Post Type: </label>
@@ -170,6 +170,10 @@
                     <div class="d-flex align-items-start flex-column bd-highlight" style="height: 280px;">
                         <div class="mb-auto mt-4 p-2 bd-highlight">
                             <p class="h5">{{post.PostDescription}}</p>
+                        </div>
+                        <div style="margin-bottom: 3px;">
+                            <!-- <button (click)='Comments(post)' class="btn btn-success btn-sm" aria-disabled="true" id="commentButton">Comments</button>  -->
+                            <a routerLink="/PostForm"><button class="btn btn-success btn-sm">Comments</button></a>
                         </div>
                         <div *ngIf="post.PostType == 'Sale'">
 
