@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { GameService } from '../game-service';
+import { GamesService } from '../games.service';
 
 @Component({
   selector: 'app-cap-game-result',
@@ -17,7 +17,7 @@ export class CapGameResultComponent implements OnInit {
   numCoinsToAdd: number = 100;
   waitTime: any = 1;
 
-  constructor(private _gameService: GameService) { }
+  constructor(private _gameService: GamesService) { }
 
   playAgain(){
     this.playAgainEmitter.emit();

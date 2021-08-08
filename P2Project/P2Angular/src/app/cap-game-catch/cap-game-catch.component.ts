@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { GameService } from '../game-service';
+import { GamesService } from '../games.service';
 
 
 const intervalTime = 2;
@@ -50,7 +50,7 @@ export class CapGameCatchComponent implements OnInit {
   interval?: NodeJS.Timeout;
   pictureUrl?: string;
 
-  constructor(private _gamesService: GameService) { }
+  constructor(private _gamesService: GamesService) { }
 
   toggle() {
     this.isOpen = !this.isOpen;

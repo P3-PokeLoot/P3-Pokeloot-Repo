@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { GameService } from '../game-service';
+import { GamesService } from '../games.service';
 
 @Component({
   selector: 'app-wtp-game-selection',
@@ -12,7 +12,7 @@ export class WtpGameSelectionComponent implements OnInit {
   correctPokemon?:string;
   options?:string[];
 
-  constructor(private _gameService:GameService) { }
+  constructor(private _gameService: GamesService) { }
 
   ngOnInit(): void {
     this._gameService.GetWtpGame().subscribe(

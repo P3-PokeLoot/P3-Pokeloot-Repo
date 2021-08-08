@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { GameService } from '../game-service';
+
+import { GamesService } from '../games.service';
 
 @Component({
   selector: 'app-wam-game',
@@ -27,7 +28,7 @@ export class WamGameComponent implements OnInit {
   numCoinsToAdd?: number;
   currentUserCoinBalance = {} as any;
 
-  constructor(private _gameService: GameService) { }
+  constructor(private _gameService: GamesService) { }
 
   ngOnInit(): void {
   }
