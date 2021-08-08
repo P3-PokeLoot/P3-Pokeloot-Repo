@@ -15,5 +15,6 @@ namespace Models
         public string Route { get; set; }
         public IFormFile ImageFile { get; set; }
         public string ImageSource { get; set; }
+        public string OldImageName { get; set; }
     }
 }

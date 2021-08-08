@@ -127,6 +127,7 @@ export class ModifyGameFormComponent implements OnInit, OnChanges {
     fd.append('Title', this.gameForm.value.title);
     fd.append('Description', this.gameForm.value.description);
     fd.append('Route', this.gameForm.value.route);
+    fd.append('OldImageName', this.gametemp.imageName)
 
     this._gameService.ModifyGame(fd).subscribe(
       result => {

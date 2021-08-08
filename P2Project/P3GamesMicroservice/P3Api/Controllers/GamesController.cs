@@ -102,6 +102,7 @@ namespace P3Api.Controllers
         {
             if (gameDetail.ImageFile != null)
             {
+                DeleteImage(gameDetail.OldImageName);
                 gameDetail.ImageName = await SaveImage(gameDetail.ImageFile);
 
             }
