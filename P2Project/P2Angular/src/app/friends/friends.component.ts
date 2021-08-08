@@ -19,7 +19,7 @@ export class FriendsComponent implements OnInit {
   lastpage!: number;
   fullFriendsList: IFriend[] = [];
   friendList: IFriend[] = [];
-  isPending: boolean = true;
+  isPending: boolean = false;
   selectFriend?: string;
   friendAction?: string;
 
@@ -42,27 +42,28 @@ export class FriendsComponent implements OnInit {
           //console.log(result[i]);
           this.fullFriendsList.push(friend);
           }
+          this.friendList = this.fullFriendsList.filter(x => x.IsPending == this.isPending);
+          this.isPending = !this.isPending; 
       },
-      error => console.log(error)
+      error => console.log(error),
+      () => this.load()
     );
     }
     
-    this.friendList = this.fullFriendsList.filter(x => x.IsPending == this.isPending);
-    this.load();
+    
     
   }
 
 
   filterForPending(){
-    this.friendList = [];
-    this.fullFriendsList.forEach( element =>{
-      if(element.IsPending == this.isPending){
-        this.friendList.push(element);
-      }
-      
-    });
-    this.isPending = !this.isPending;
+   
+    
+    this.friendList = this.fullFriendsList.filter(x => x.IsPending == this.isPending);
+    this.isPending = !this.isPending; 
     this.load();
+    
+    
+    
   }
 
   load(){
@@ -100,15 +101,20 @@ export class FriendsComponent implements OnInit {
   }
 
   clickt(friend: IFriend){
+   
     if(this.userId){
+      
     this._friendService.FriendAction(this.userId, friend.UserID).subscribe(
-      result => {this.friendAction = result[0];},
+      result => {
+        console.log(result);
+        this.friendAction = result[0];},
       error => {
-        this.friendAction = error.text;
+        console.log(error);
+        this.friendAction = error.error.text;
       }
     );
     }
-   //this.refresh();
+    
   }
 
   refresh(){

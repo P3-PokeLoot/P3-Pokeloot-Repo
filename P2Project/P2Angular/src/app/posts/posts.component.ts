@@ -243,7 +243,7 @@ export class PostsComponent implements OnInit {
         console.log(result);
         },
       error => {
-        this.friendAction = error.text;
+        this.friendAction = error.error.text;
       }
     );
     }

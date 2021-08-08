@@ -89,7 +89,7 @@ export class CreatePostComponent implements OnInit {
             let Link = result[i].Value.SpriteLink;
             let LinkShiny = result[i].Value.SpriteLinkShiny;
             let PokemonName = result[i].Value.PokemonName;
-            let Favorite = result[i].Value.IsFavorite;
+            let Favorite = result[i].Key.IsFavorite;
 
             if (Amount > 0) {
               let Quantity = Amount;
