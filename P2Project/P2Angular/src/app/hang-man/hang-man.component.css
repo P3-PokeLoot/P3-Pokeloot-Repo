@@ -11,7 +11,7 @@ p, h4 {
   width: 50%;
   height: 50%;
   margin-top: 20%;
-  margin-left: 10%;
+  margin-left: 1%;
 }
 #gallows{
   background: #ff5100;
@@ -29,4 +29,8 @@ p, h4 {
 
 .divStyle{
   margin-top: 25%;
+}
+#dashes{
+  margin-top: 5%;
+  display: center;
 }

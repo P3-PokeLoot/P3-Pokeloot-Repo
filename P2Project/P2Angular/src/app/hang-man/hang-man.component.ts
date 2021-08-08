@@ -6,39 +6,77 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./hang-man.component.css']
 })
 export class HangManComponent implements OnInit {
+  // note the switch toUpperCase(), we want to always work in upper case letters
+  // to avoid confusing 'a' and 'A' as unequal.
+  word : string = "revature".toUpperCase();
+  revealedLetters : string[] = [];
+  revealWord : string = "";
+  maxStrikes : number = 6;
+  strikes: number = 0; // the number of incorrect guesses made so far
+  userGuess : string = "";
+  strikeLetters : string[] = []; //new Array(maxStrikes);
+  strikeWord : string = "" ;
 
   constructor() { }
 
   ngOnInit(): void {
-    this.drawWordProgress(this.userGuess);
+    // run this now, to draw the empty word at the start of the game.
+    // this.revealedLetters.fill("_");
+    for(let i=0; i<this.word.length; i++){
+      this.revealedLetters.push("_");
+    }
+    this.revealWord = this.revealedLetters.join(" ");
+    this.strikeWord = this.strikeLetters.join(" ");
   }
 
-// note the switch toUpperCase(), we want to always work in upper case word
-// to avoid any confusion.
-word : string = "revature".toUpperCase();
-userGuess : string = "";
-counter : number = 0;
-@Output() playerGuess = new EventEmitter<string>();
-maxStrikes : number = 6;// the number of incorrect guesses made so far
-
-strikes : number = 0;
-
-    drawWordProgress(playerGuess : string) {
-      if(playerGuess == this.word){
+    drawWordProgress() : void {
+      this.userGuess = this.userGuess.trim();
+      this.userGuess = this.userGuess[0].toString();
+      if (!this.word.includes(this.userGuess.toUpperCase())){
+        this.strikeLetters.push(this.userGuess);
+        this.strikeWord = this.strikeLetters.join(" ");
+        this.strikes += 1;
       }
+      else{
+        for(let i=0; i<this.word.length; i++){
+            if (this.word[i]==this.userGuess.toUpperCase()){
+                this.revealedLetters[i] = this.userGuess;
+                this.revealWord = this.revealedLetters.join(" ");
+            }
+        }
+      }
+      this.userGuess = ""; // clean up the form place holder
+      this.checkGameWinner(); // check if there is a winer
     }
 
-    drawGallows() : void {
-      this.counter++;
-      if(this.userGuess.toUpperCase() == this.word){
-        alert("you win");
-        this.counter = 0;
-      }
-      else if(this.counter >= 6){
-        alert("you loose")
-        this.counter = 0;
-      }
+    checkGameWinner() : void {
+            if(this.strikes >= this.maxStrikes) {
+              alert("The game is over!");
+              alert("YOU LOOSE.");
+              this.strikes = 0; // restart the counter
+              this.strikeLetters = []; // restart with empty array
+              this.revealedLetters=[];
+              for(let i=0; i<this.word.length; i++){
+                this.revealedLetters.push("_");
+              }
+              this.revealWord = ""; // reset to empty
+              this.revealWord = this.revealedLetters.join(" ");
+              this.strikeWord = ""; // reset to empty
 
+            }
+            else if(!this.revealWord.includes("_"))
+            {
+              alert("YOU WIN.");
+              this.strikes = 0; // restart the counter
+              this.strikeLetters = []; // restart with empty array
+              this.revealedLetters=[];
+              for(let i=0; i<this.word.length; i++){
+                this.revealedLetters.push("_");
+              }
+              this.revealWord = ""; // reset to empty
+              this.revealWord = this.revealedLetters.join(" ");
+              this.strikeWord = ""; // reset to empty
+            }
     }
 
 }

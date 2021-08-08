@@ -1,29 +1,28 @@
 
-    <div class="divStyle">
+  <div class="divStyle">
         <section id="gallows" class="generalSection">
             <h4>gallows</h4>
-            <img id = "image" class="strike" src="./assets/hang-man/strike-{{counter}}.png" alt="strike">
-            <p id="dashes"> </p>
+            <img id = "image" class="strike" src="./assets/hang-man/strike-{{strikes}}.png" alt="strike">
+            <p id="dashes">{{revealWord}} </p>
         </section>
 
-        <section id="strikes" class="generalSection ">
-            <h4 class="divStyle">round :  {{ counter }}</h4>
-            <p id="strikesLetters">  </p>
+        <section id="strikes" class="generalSection">
+            <!-- <h4>strikes</h4> -->
+            <h4 class="divStyle strike">strikes :  {{ strikeWord }}</h4>
+            <p id="strikesLetters"></p>
         </section>
 
         <section id="guess" class="generalSection">
-            <h4>guess</h4>
-                <form id="guessForm" #GUESSEDWORD>
+            <!-- <h4>guess</h4> -->
+                <form id="guessForm">
                     <fieldset>
-                        <legend>Guess a word Please</legend>
+                        <legend>Guess a letter Please</legend>
                         <label>
-                            word: <input id="guessWord" type="text" name="word" [(ngModel)]="userGuess" placeholder="ENTER A WORD" />
+                            Letter: <input id="guessWord" type="text" name="letter" [(ngModel)]="userGuess" placeholder="Guess Letter" />
                         </label>
                     </fieldset>
-                    <button type="submit" (click)="drawGallows()" GUESSEDWORD.value="">Submit</button>
+                    <button type="submit" (click)="drawWordProgress()" >Submit</button>
                 </form>
         </section>
-
-    </div>
 
 
