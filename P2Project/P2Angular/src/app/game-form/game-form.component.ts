@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormGroup, NgForm, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { GameService } from '../game-service';
 
 @Component({
@@ -9,7 +10,13 @@ import { GameService } from '../game-service';
 })
 export class GameFormComponent implements OnInit {
 
-  // const[values: any, setValues: any] = useState()
+  gameForm: FormGroup = new FormGroup({
+    imageFile: new FormControl('', [Validators.required]),
+    imageName: new FormControl('', [Validators.required]),
+    title: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    description: new FormControl('', [Validators.required, Validators.minLength(10)]),
+    route: new FormControl('', [Validators.required, Validators.minLength(3)]),
+  });
 
   isFormValid: boolean = false;
   isCredentialsValid: boolean = false;
@@ -17,53 +24,65 @@ export class GameFormComponent implements OnInit {
   msg: string = ''
   imageSelected!: File;
   imageUrl: any = '';
-  isIamge = false;
+  isImage = false;
+  showImage = false;
 
-  constructor(private _gameService: GameService) { }
+  constructor(private router: Router, private _gameService: GameService) { }
 
   ngOnInit(): void {
   }
 
-  OnSubmit(newGame: NgForm) {
+  get f() {
+    return this.gameForm.controls;
+  }
 
+  OnSubmit() {
     const fd = new FormData();
-    fd.append('ImageFile', this.imageSelected);
-    fd.append('ImageName', this.imageSelected.name);
-    fd.append('Title', newGame.value.title);
-    fd.append('Description', newGame.value.textDescription);
-    fd.append('Route', newGame.value.route);
+    fd.append('ImageFile', this.gameForm.value.imageFile);
+    fd.append('ImageName', this.gameForm.value.imageName);
+    fd.append('Title', this.gameForm.value.title);
+    fd.append('Description', this.gameForm.value.description);
+    fd.append('Route', this.gameForm.value.route);
 
-    console.log(newGame.value)
     this._gameService.CreateGame(fd).subscribe(
-      result => { console.log(result) },
-      error => { console.log(error) }
+      result => {
+        if (result != null) {
+          alert(`Successfuly Created ${result.title} Game`)
+          this.router.navigate(["Game"])
+        }
+      },
+      error => {
+        alert("Error could not create game")
+      }
     );
-
   }
 
   onFileSelected(event: any) {
-    if (event.target.files && event.target.files[0]) {
-      this.imageSelected = event.target.files[0];
-
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
       var imageType = event.target.files[0].type;
 
       //Check if its any image file
       if (imageType.match(/image\/*/) == null) {
-        this.msg = 'Only images are supported'
-        this.isIamge = true;
+        this.isImage = true;
         this.imageUrl = ''
         return;
       }
 
+
       const reader = new FileReader();
-      reader.readAsDataURL(this.imageSelected)
+      reader.readAsDataURL(file)
       reader.onload = x => {
         this.imageUrl = x.target!.result;
         this.msg = '';
-        this.isIamge = false;
+        this.showImage = true;
       }
+
+      this.gameForm.patchValue({
+        imageFile: file,
+        imageName: file.name
+      })
     }
   }
-
 }
 

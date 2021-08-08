@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,7 +9,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using P3Api.Model;
 using Models;
 using P3Database;
 
@@ -39,8 +39,11 @@ namespace P3Api.Controllers
         [HttpGet("List")]
         public IActionResult GetGameInfoList()
         {
-            var games = _dataContext.GameInfos.ToList();
-            return StatusCode(200, games);
+            List<GameDetail> gameDetails;
+
+            gameDetails = _businessModel.GetGameInfoList();
+
+            return StatusCode(200, gameDetails);
         }
 
         [HttpGet("Wtp")]
@@ -49,46 +52,118 @@ namespace P3Api.Controllers
             var pokemon = _businessModel.WhosThatPokemonGame();
             return StatusCode(200, pokemon);
         }
-        
+
+        [HttpGet("SingleGame/{id}")]
+        public IActionResult GetSingleGame(int id)
+        {
+            GameDetail gameInfo = _businessModel.SingleGame(id);
+
+            if (gameInfo != null)
+            {
+                return StatusCode(200, gameInfo);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        /// <summary>
+        /// Creates a game with only descriptions
+        /// </summary>
+        /// <param name="gameDetail"></param>
+        /// <returns></returns>
         [HttpPost("CreateGame")]
-        public async Task<ActionResult<GameInfo>> CreateGame([FromForm]GameDetail gameDetail)
+        public async Task<ActionResult<GameInfo>> CreateGame([FromForm] GameDetail gameDetail)
         {
             gameDetail.ImageName = await SaveImage(gameDetail.ImageFile);
 
-            GameInfo gameInfo = new() {
-                Title = gameDetail.Title,
-                Description = gameDetail.Description,
-                ImagePath = gameDetail.ImageName,
-                Route = gameDetail.Route
-            };
+            GameInfo gameInfo = _businessModel.CreateGame(gameDetail);
 
-            try
+
+            if (gameInfo != null)
             {
-                await _dataContext.AddAsync(gameInfo);
-                await _dataContext.SaveChangesAsync();
-
+                return StatusCode(201, gameInfo);
             }
-            catch (DbUpdateConcurrencyException)
+            else
             {
-
                 return StatusCode(422, gameInfo);
             }
-
-            return StatusCode(201, gameInfo);
         }
 
+        /// <summary>
+        /// Modifies an existing game 
+        /// </summary>
+        /// <param name="gameDetail"></param>
+        /// <returns></returns>
+
+        [HttpPatch("ModifyGame")]
+        public async Task<ActionResult<GameInfo>> ModifyGame([FromForm] GameDetail gameDetail)
+        {
+            if (gameDetail.ImageFile != null)
+            {
+                gameDetail.ImageName = await SaveImage(gameDetail.ImageFile);
+
+            }
+
+            GameInfo gameInfo = _businessModel.ModifyGame(gameDetail);
+
+
+            if (gameInfo != null)
+            {
+                return StatusCode(200, gameInfo);
+            }
+            else
+            {
+                return StatusCode(422, gameInfo);
+            }
+        }
+
+        [HttpDelete("Delete/{id}")]
+        public ActionResult DeleteGame(int id)
+        {
+            GameInfo gameInfo = _businessModel.DeleteGame(id);
+
+
+            if (gameInfo.ImagePath != null || gameInfo.ImagePath != "")
+            {
+                DeleteImage(gameInfo.ImagePath);
+            }
+
+            if (gameInfo != null)
+            {
+                return StatusCode(200, gameInfo);
+            }
+            else
+            {
+                return NotFound();
+            }
+
+        }
+        // Stores the image statically in the Image folder and returns a modified version of the name. 
         [NonAction]
         public async Task<string> SaveImage(IFormFile imageFile)
         {
-            string imageName = new String(Path.GetFileNameWithoutExtension(imageFile.FileName).Take(10).ToArray()).Replace(' ','-');
+            string imageName = new String(Path.GetFileNameWithoutExtension(imageFile.FileName).Take(10).ToArray()).Replace(' ', '-');
             imageName = imageName + DateTime.Now.ToString("ttmmssffff") + Path.GetExtension(imageFile.FileName);
             var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, "Images", imageName);
 
-            using (var fileStream = new FileStream(imagePath, FileMode.Create)) 
+            using (var fileStream = new FileStream(imagePath, FileMode.Create))
             {
                 await imageFile.CopyToAsync(fileStream);
             }
             return imageName;
+        }
+
+        [NonAction]
+        public void DeleteImage(string imageName)
+        {
+            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, "Images", imageName);
+            if (System.IO.File.Exists(imagePath)) 
+            {
+                System.IO.File.Delete(imagePath);
+            }
+        }
 
         [HttpPost("Add")]
         public IActionResult AddGameInfo(GameInfo gameInfo)

@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace P3Api.Model
+namespace Models
 {
     public class GameDetail
     {
+        public int Id { get; set; }
         public string Description { get; set; }
         public string Title { get; set; }
         public string ImageName { get; set; }

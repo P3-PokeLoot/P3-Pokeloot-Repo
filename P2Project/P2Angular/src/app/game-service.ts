@@ -14,22 +14,17 @@ import { environment } from 'src/environments/environment';
 export class GameService {
 
 
-<<<<<<< HEAD
-  private gameUrlPath: string = 'https://pokeloot.azurewebsites.net/api/P2/EarnCoins/';
-  private userBalanceUrlPath: string = 'https://pokeloot.azurewebsites.net/api/P2/Balance/';
   private gameListUrl: string = 'https://localhost:44301/api/Games/List';
   private createGameUrl: string = 'https://localhost:44301/api/Games/CreateGame'
 
-=======
   private gameUrlPath = `${environment.urlmain}EarnCoins/`;
   private userBalanceUrlPath = `${environment.urlmain}Balance/`;
   private GamesUrl = `${environment.urlgame}`;
->>>>>>> main
 
 
   constructor(private router: Router, private http: HttpClient) { }
 
-  GetWtpGame(): Observable<WtpGame>{
+  GetWtpGame(): Observable<WtpGame> {
     return this.http.get<WtpGame>(this.GamesUrl + "Wtp")
   }
 
@@ -45,20 +40,20 @@ export class GameService {
   GetList(): Observable<any[]> {
     return this.http.get<any>(this.GamesUrl + "List");
   }
-    
+
   RpsWin(): Observable<any> {
     console.log("RPS win...");
     return this.http.get<any>(this.GamesUrl + "RpsWin/" + localStorage.getItem('userId'));
   }
 
-  RpsLose(): Observable<any>{
+  RpsLose(): Observable<any> {
     console.log("RPS lose...");
     return this.http.get(this.GamesUrl + "RpsLose/" + localStorage.getItem('userId'));
   }
 
   RpsRecord(): Observable<any> {
     console.log("RPS record...");
-    return this.http.get(this.GamesUrl + "RpsRecord/" + localStorage.getItem('userId'), {responseType: 'text'});
+    return this.http.get(this.GamesUrl + "RpsRecord/" + localStorage.getItem('userId'), { responseType: 'text' });
   }
 
   WtpWin(): Observable<any[]> {
@@ -66,19 +61,17 @@ export class GameService {
     return this.http.get<any>(this.GamesUrl + "WtpWin/" + localStorage.getItem('userId'));
   }
 
-<<<<<<< HEAD
   CreateGame(gameForm: any) {
     return this.http.post<any>(this.createGameUrl, gameForm);
   }
-=======
   WtpLose(): Observable<any[]> {
     console.log("WTP lose...");
     return this.http.get<any>(this.GamesUrl + "WtpLose/" + localStorage.getItem('userId'));
   }
-  
+
   WtpRecord(): Observable<any> {
     console.log("WTP record...");
-    return this.http.get(this.GamesUrl + "WtpRecord/" + localStorage.getItem('userId'), {responseType: 'text'});
+    return this.http.get(this.GamesUrl + "WtpRecord/" + localStorage.getItem('userId'), { responseType: 'text' });
   }
 
   CapWin(): Observable<any[]> {
@@ -88,16 +81,26 @@ export class GameService {
   CapLose(): Observable<any[]> {
     return this.http.get<any>(this.GamesUrl + "CapLose/" + localStorage.getItem('userId'));
   }
-  
+
   CapRecord(): Observable<any> {
-    return this.http.get(this.GamesUrl + "CapRecord/" + localStorage.getItem('userId'), {responseType: 'text'});
+    return this.http.get(this.GamesUrl + "CapRecord/" + localStorage.getItem('userId'), { responseType: 'text' });
+  }
+
+  DeleteGame(id: number): Observable<any> {
+    return this.http.delete<any>(this.GamesUrl + `Delete/${id}`)
+  }
+
+  ModifyGame(gameForm: any): Observable<any> {
+    return this.http.patch<any>(this.GamesUrl + `ModifyGame`, gameForm)
+  }
+
+  SingleGame(id: number): Observable<any> {
+    return this.http.get(this.GamesUrl + `SingleGame/${id}`);
   }
 }
 
-export interface WtpGame
-{
+export interface WtpGame {
   pictureUrl: string,
   correctPokemon: string,
   options: string[],
->>>>>>> main
 }
