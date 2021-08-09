@@ -9,17 +9,6 @@ import { LeaderboardStatsService } from '../service/leaderboards/leaderboard-sta
 })
 export class LeaderboardsComponent implements OnInit {
 
-  //Don't forget: change the connection string in the P3 Main API from p2 connection string to the correct p3 string. I was using P2 string since that database actually had data.
-  //Change back app module & app routing module. Change connection string. 
-
-  /*This had been the general design approach for this component:
-  1) Component loads with only dropdown lists and pages on screen
-  2) User selects a statistic they want to view from one dropdown, and they choose a number of results they want returned from another dropdown
-  3) When User hits "Confirm", a method in the component runs that will take in the chosenStat and chosenNumber as parameters 
-  and invoke service method based off those parameters, and then map the resulting data to arrays
-  4) A table will be created automatically, and then a user can reset data with a button to view new statistics
-  */
-
   //============================CLASS PROPERTIES SECTION=========================================
     //pagination properties
     pageOfItems:any[];

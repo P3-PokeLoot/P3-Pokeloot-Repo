@@ -1,8 +1,8 @@
-import { UserModel_Coins } from "src/app/Models/IUser_CoinLB";
+import { UserModel_Coin } from "src/app/Models/IUser_CoinLB";
 
 export class MockCoinBalanceObservable{
 
-    MockCoinDataArray:UserModel_Coins[]=[
+    MockCoinDataArray:UserModel_Coin[]=[
         { 
             UserName: 'bing',
             Password: 'bing',

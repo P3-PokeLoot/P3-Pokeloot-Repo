@@ -16,19 +16,13 @@ export class MockLeaderBoardService {
     return MockCoinBalanceObservable;
     }
 
-    //t2
-    // MockGetTopEarnedCoinsList():Observable<[]>{
-    // return MockServiceData.MockTopEarnedObservable;
-    // }
-    // //t3
-    // MockGetTopSpentCoinsList():Observable<[]>{
-    // return MockServiceData.MockSpentObservable;
-    // }
+    MockGeTopCompletedCollection(){
+    return TopPercentModel_Coin;
+    }
 
-    // //t4
-    // MockGetMostShiningList():Observable<[]>{
-    // return MockServiceData.MockShinyObservable;
-    // }
+    MockGetMVPShinyUsersList(){
+    return MVPShinyModel_Shiny;
+    }
 
 
 }

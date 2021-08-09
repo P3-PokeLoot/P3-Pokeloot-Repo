@@ -63,4 +63,13 @@ export class LeaderboardStatsService {
   GetCardPercentage(pokename:string):Observable<PercentageOwnCardModel_Shiny[]>{
     return this.http.get<PercentageOwnCardModel_Shiny[]>(this.baseURL+'api/ShiningPokemon/GetCardPorcentage/'+pokename);
   }
+
+
+  //achievement services are here, just in case they can also be used in the leaderboards component. 
+  GetListSingleUserAchievements(username:string,userId:number):Observable<any>{
+    return this.http.get<any>(this.baseURL+'/UserAchievements?username='+username+'+&userId='+userId);
+  }
+  GetListAllUserAchievements():Observable<any>{
+    return this.http.get<any>(this.baseURL+'/UserAchievements');
+  }
 }
