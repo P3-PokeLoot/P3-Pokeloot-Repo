@@ -1,0 +1,20 @@
+<div class="container">
+    <br>
+    <br>
+    <br>
+    <h1 class="text-center h3 mt-5 font-weight-normal">Modify A Game</h1>
+
+    <select name="postType" class="form-select form-select-lg mt-5" (change)="onOptionChange($event)"
+        aria-label=" .form-select">
+        <option value="">Select Game</option>
+        <option *ngFor="let game of gameList" [ngValue]="game">{{game.title}}
+        </option>
+    </select>
+    <div class="h5 alert alert-danger mt-5" role="alert" *ngIf="error">
+        There was an error. Try again or refresh the page!
+    </div>
+
+    <div *ngIf="isChoosen" class="container">
+        <app-modify-game-form [displayChild]="displayParentId"></app-modify-game-form>
+    </div>
+</div>

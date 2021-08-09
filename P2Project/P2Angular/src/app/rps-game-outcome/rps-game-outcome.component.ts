@@ -1,5 +1,5 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
-import { GamesService } from '../games.service';
+import { GameService } from '../service/game/game-service';
 
 
 @Component({
@@ -27,7 +27,7 @@ export class RpsGameOutcomeComponent implements OnInit {
   waitTime: any = 1;
   @Output() playAgainEmitter = new EventEmitter();
 
-  constructor(private _gameService: GamesService) { }
+  constructor(private _gameService: GameService) { }
 
   ngOnInit(): void {
     this.determineComputerChoice();

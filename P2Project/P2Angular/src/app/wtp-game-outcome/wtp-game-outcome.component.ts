@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { delay } from 'rxjs/operators';
-import { GamesService } from '../games.service';
+import { GameService } from '../service/game/game-service';
 
 @Component({
   selector: 'app-wtp-game-outcome',
@@ -18,7 +18,7 @@ export class WtpGameOutcomeComponent implements OnInit {
   currentUserCoinBalance = {} as any;
   waitTime: any = 1;
 
-  constructor(private _gameService: GamesService) { }
+  constructor(private _gameService: GameService) { }
 
   ngOnInit(): void {
     console.log("initialized");

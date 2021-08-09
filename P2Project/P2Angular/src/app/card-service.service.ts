@@ -27,6 +27,8 @@ export class CardServiceService {
 
   private raritiesUrlPath = `${environment.urlmain}RarityTypes`
 
+  private favoriteUrlPath = `${environment.urlmain}Favorite/`
+
   // Commented out by Greg because it looked like it wasn't being used and it will cause problems if it suddenly starts getting used.
   // Can be deleted if you know for sure what its purpose was supposed to be and that it isn't being used.
   //private rootUrl: string = 'https://pokeloot.azurewebsites.net'
@@ -43,6 +45,10 @@ export class CardServiceService {
 
   GetRarityList():Observable<any[]>{
     return this.http.get<any>(this.raritiesUrlPath)
+  }
+ 
+  Favorite(userId: string, pokemonid: number):Observable<any>{
+    return this.http.get<any>(this.favoriteUrlPath + userId + '/' + pokemonid)
   }
 
 }
