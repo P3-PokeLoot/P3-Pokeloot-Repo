@@ -38,31 +38,6 @@ stages:
 #         addBaseImageData: false
 
 #Main API        
-# - stage: Build
-#   displayName: Build image
-#   jobs:
-#   - job: Build
-#     displayName: Build
-#     pool:
-#       vmImage: windows-latest
-#     steps:
-#     - task: Docker@2
-#       inputs:
-#         containerRegistry: 'DockerHub'
-#         repository: 'gregious/p3angular'
-#         tags: '$(Build.BuildId)'
-#         command: 'build'
-#         Dockerfile: '$(Build.SourcesDirectory)/P2Project/P2Main/Dockerfile'
-#     - task: Docker@2
-#       inputs:
-#         containerRegistry: 'DockerHub'
-#         repository: 'gregious/p3mainapi'
-#         tags: '$(Build.BuildId)'
-#         command: 'push'
-#         addPipelineData: false
-#         addBaseImageData: false
-
-#Statistics API
 - stage: Build
   displayName: Build image
   jobs:
@@ -77,12 +52,37 @@ stages:
         repository: 'gregious/p3angular'
         tags: '$(Build.BuildId)'
         command: 'build'
-        Dockerfile: '$(Build.SourcesDirectory)/Statistics-and-Leaderboard/P3_Statistics_API/Dockerfile'
+        Dockerfile: '$(Build.SourcesDirectory)/P2Project/P2Main/Dockerfile'
     - task: Docker@2
       inputs:
         containerRegistry: 'DockerHub'
-        repository: 'gregious/p3statisticsapi'
+        repository: 'gregious/p3mainapi'
         tags: '$(Build.BuildId)'
         command: 'push'
         addPipelineData: false
-        addBaseImageData: false   
+        addBaseImageData: false
+
+#Statistics API
+# - stage: Build
+#   displayName: Build image
+#   jobs:
+#   - job: Build
+#     displayName: Build
+#     pool:
+#       vmImage: ubuntu-latest
+#     steps:
+#     - task: Docker@2
+#       inputs:
+#         containerRegistry: 'DockerHub'
+#         repository: 'gregious/p3angular'
+#         tags: '$(Build.BuildId)'
+#         command: 'build'
+#         Dockerfile: '$(Build.SourcesDirectory)/Statistics-and-Leaderboard/P3_Statistics_API/Dockerfile'
+#     - task: Docker@2
+#       inputs:
+#         containerRegistry: 'DockerHub'
+#         repository: 'gregious/p3statisticsapi'
+#         tags: '$(Build.BuildId)'
+#         command: 'push'
+#         addPipelineData: false
+#         addBaseImageData: false   
