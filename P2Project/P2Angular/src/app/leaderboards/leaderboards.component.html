@@ -38,8 +38,6 @@ as a parameter to the internal component method-->
     </div>
     
 
-
-
 </div>
 
 <!--TABLE SECTION-->
@@ -53,12 +51,12 @@ as a parameter to the internal component method-->
 <!--This is the data table that outputs to users. Need to implement logic so that it only displays one table at a time...-->
 <div>
     <table class="datatable" *ngIf="observableData"><!--This line says "if observabledata exists in component, make a table"-->
-        <thead >
+        <thead>
             <tr>
                 <!--This creates the table headers based each element in headersArray-->
-                <td  *ngFor="let h of headersArray"> 
+                <th  *ngFor="let h of headersArray"> 
                     {{h}}
-                </td>   
+                </th>   
             </tr>
         </thead>
         <tbody>

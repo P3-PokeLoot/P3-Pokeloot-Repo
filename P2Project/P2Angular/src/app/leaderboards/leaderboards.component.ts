@@ -82,9 +82,11 @@ export class LeaderboardsComponent implements OnInit {
 CreateArraysFromObservable(){
   this.observableData.forEach(element => {//these 2 lines of code allows us to create table columns
     this.headersArray=Object.keys(element);
+    console.log(this.headersArray);
   });
   this.observableData.forEach(element => {//these 2 lines of code allows us to create table cells and fill them
     this.columnsArray.push(Object.values(element));
+    console.log(this.columnsArray);
   });
 }
  //METHOD 4: Looks at the chosenStat variable and returns it's index value to be used as a 'case value'
@@ -113,15 +115,16 @@ CreateArraysFromObservable(){
     console.log(this.chosenService);
     switch(this.chosenService){
       //Coins
-    case 1:
+    case 0:
       this._leaderboardservice.GetTopCurrentBalanceList(this.chosenNumber).subscribe(
         result => {
           this.observableData = result; 
+          console.log(this.observableData);
        });
        this.CreateArraysFromObservable();
        console.log('this is case'+this.chosenService);
         break;
-    case 2:
+    case 1:
       this._leaderboardservice.GetTopEarnedCoinsList(this.chosenNumber).subscribe(
         result => {
           this.observableData = result; 
@@ -129,7 +132,7 @@ CreateArraysFromObservable(){
       this.CreateArraysFromObservable();
       console.log('this is case'+this.chosenService);
       break;
-      case 3:
+      case 2:
         this._leaderboardservice.GetTopSpentCoinsList(this.chosenNumber).subscribe(
           result => {
             this.observableData = result; 
