@@ -479,18 +479,19 @@ namespace BusinessLayer
                 }
                 return success;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 _logger.Log(LogLevel.Error, e.Message);
             }
 
             return success;
+        }
             
         /// Create a game description
         /// </summary>
         /// <param name="gameDetail"></param>
         /// <returns>GameInfo if successfully created otherwise null</returns>
-        public GameInfo CreateGame(GameDetail gameDetail)
+        public async Task<GameInfo> CreateGameAsync(GameDetail gameDetail)
         {
 
             GameInfo gameInfo = new()
@@ -504,7 +505,7 @@ namespace BusinessLayer
             try
             {
                 _context.GameInfos.Add(gameInfo);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
 
             }
             catch (DbUpdateConcurrencyException)
@@ -522,12 +523,12 @@ namespace BusinessLayer
 
         }
 
-        public List<GameDetail> GetGameInfoList()
+        public async Task<List<GameDetail>> GetGameInfoListAsync()
         {
             List<GameInfo> gameInfos;
             List<GameDetail> gameDetails = new();
 
-            gameInfos = _context.GameInfos.ToList();
+            gameInfos = await _context.GameInfos.ToListAsync();
 
             foreach (GameInfo game in gameInfos)
             {
@@ -547,14 +548,14 @@ namespace BusinessLayer
             return gameDetails;
         }
 
-        public GameInfo DeleteGame(int id)
+        public async Task<GameInfo> DeleteGameAsync(int id)
         {
             GameInfo gameInfo = _context.GameInfos.SingleOrDefault(game => game.Id == id);
 
             try
             {
                 _context.GameInfos.Remove(gameInfo);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -569,7 +570,7 @@ namespace BusinessLayer
             return gameInfo;
         }
 
-        public GameInfo ModifyGame(GameDetail gameDetail)
+        public async Task<GameInfo> ModifyGameAsync(GameDetail gameDetail)
         {
             GameInfo gameInfo;
 
@@ -582,7 +583,7 @@ namespace BusinessLayer
                 gameInfo.Route = gameDetail.Route;
                 gameInfo.Title = gameDetail.Title;
 
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
 
             }
             catch (InvalidOperationException)
@@ -600,12 +601,12 @@ namespace BusinessLayer
 
         }
 
-        public GameDetail SingleGame(int id)
+        public async Task<GameDetail> SingleGameAsync(int id)
         {
             GameDetail gamedetail;
             try
             {
-                GameInfo gameInfo = _context.GameInfos.SingleOrDefault(game => game.Id == id);
+                GameInfo gameInfo = await _context.GameInfos.Where(game => game.Id == id).FirstOrDefaultAsync();
 
                 if(gameInfo != null)
                 {
