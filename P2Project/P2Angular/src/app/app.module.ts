@@ -39,6 +39,10 @@ import { PokemonCardMatchComponent } from './pokemon-card-match/pokemon-card-mat
 import { EditPostComponent } from './edit-post/edit-post.component';
 import { FriendsComponent } from './friends/friends.component';
 import { WamGameComponent } from './wam-game/wam-game.component';
+import { GameFormComponent } from './game-form/game-form.component';
+import { DeleteGameComponent } from './delete-game/delete-game.component';
+import { ModifyGameComponent } from './modify-game/modify-game.component';
+import { ModifyGameFormComponent } from './modify-game-form/modify-game-form.component';
 
 
 @NgModule({
@@ -73,6 +77,10 @@ import { WamGameComponent } from './wam-game/wam-game.component';
     PokemonCardMatchComponent,
     //JwPaginationComponent,
     WamGameComponent,
+    GameFormComponent,
+    DeleteGameComponent,
+    ModifyGameComponent,
+    ModifyGameFormComponent,
   ],
   imports: [
     BrowserModule,

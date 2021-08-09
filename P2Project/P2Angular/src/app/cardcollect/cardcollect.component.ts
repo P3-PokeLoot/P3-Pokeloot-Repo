@@ -94,12 +94,14 @@ export class CardCollectComponent implements OnInit {
             let Link = result[i].Value.SpriteLink;
             let LinkShiny = result[i].Value.SpriteLinkShiny;
             let PokemonName = result[i].Value.PokemonName;
+            let Favorite = result[i].Key.IsFavorite;
+            //console.log(result[i].Key);
 
             if (Amount > 0) {
               let Quantity = Amount;
               let SpriteLink = Link;
               let IsShiny = false;
-              let IsFavorite = false;
+              let IsFavorite = Favorite;
               let card: ICard = { PokemonId, Quantity, RarityId, SpriteLink, PokemonName, IsShiny, IsFavorite };
               this.fullUserCollection.push(card);
             }
@@ -107,7 +109,7 @@ export class CardCollectComponent implements OnInit {
               let Quantity = AmountShiny;
               let SpriteLink = LinkShiny;
               let IsShiny = true;
-              let IsFavorite = false;
+              let IsFavorite = Favorite;
               let card: ICard = { PokemonId, Quantity, RarityId, SpriteLink, PokemonName, IsShiny, IsFavorite };
               this.fullUserCollection.push(card);
             }
@@ -258,13 +260,16 @@ export class CardCollectComponent implements OnInit {
   }
 
   favorite(card: ICard){
-    if(card.IsFavorite){
-      //do something
+    if(this.differentUser){
+      return;
     }
-    else{
-      //do something else
+    if(this.userId){
+    this._cardcollectionService.Favorite(this.userId, card.PokemonId).subscribe(
+      result => console.log(result),
+      error => console.log(error)
+    );
     }
-    //do need to reload the page as we will only see favorites in profile
+    //do not need to reload the page as we will only see favorites in profile
     card.IsFavorite = !card.IsFavorite;
   }
 

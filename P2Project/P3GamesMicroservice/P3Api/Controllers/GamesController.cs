@@ -1,7 +1,13 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using BusinessLayer;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Models;
 using P3Database;
@@ -15,19 +21,29 @@ namespace P3Api.Controllers
         private readonly ILogger<GamesController> _logger;
         private readonly DataContext _dataContext;
         private readonly IBusinessModel _businessModel;
+        private readonly IWebHostEnvironment _hostEnvironment;
 
-        public GamesController(IBusinessModel businessModel, ILogger<GamesController> logger, DataContext dataContext)
+        public GamesController(IBusinessModel businessModel, ILogger<GamesController> logger, DataContext dataContext, IWebHostEnvironment hostEnvironment)
         {
             _businessModel = businessModel;
             _logger = logger;
             _dataContext = dataContext;
+            _hostEnvironment = hostEnvironment;
         }
+
+        /// <summary>
+        /// Returns a list of all  games description
+        /// </summary>
+        /// <returns></returns>
 
         [HttpGet("List")]
         public IActionResult GetGameInfoList()
         {
-            var games = _dataContext.GameInfos.ToList();
-            return StatusCode(200, games);
+            List<GameDetail> gameDetails;
+
+            gameDetails = _businessModel.GetGameInfoList();
+
+            return StatusCode(200, gameDetails);
         }
 
         [HttpGet("Wtp")]
@@ -35,6 +51,119 @@ namespace P3Api.Controllers
         {
             var pokemon = _businessModel.WhosThatPokemonGame();
             return StatusCode(200, pokemon);
+        }
+
+        [HttpGet("SingleGame/{id}")]
+        public IActionResult GetSingleGame(int id)
+        {
+            GameDetail gameInfo = _businessModel.SingleGame(id);
+
+            if (gameInfo != null)
+            {
+                return StatusCode(200, gameInfo);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        /// <summary>
+        /// Creates a game with only descriptions
+        /// </summary>
+        /// <param name="gameDetail"></param>
+        /// <returns></returns>
+        [HttpPost("CreateGame")]
+        public async Task<ActionResult<GameInfo>> CreateGame([FromForm] GameDetail gameDetail)
+        {
+            gameDetail.ImageName = await SaveImage(gameDetail.ImageFile);
+
+            GameInfo gameInfo = _businessModel.CreateGame(gameDetail);
+
+
+            if (gameInfo != null)
+            {
+                return StatusCode(201, gameInfo);
+            }
+            else
+            {
+                return StatusCode(422, gameInfo);
+            }
+        }
+
+        /// <summary>
+        /// Modifies an existing game 
+        /// </summary>
+        /// <param name="gameDetail"></param>
+        /// <returns></returns>
+
+        [HttpPatch("ModifyGame")]
+        public async Task<ActionResult<GameInfo>> ModifyGame([FromForm] GameDetail gameDetail)
+        {
+            if (gameDetail.ImageFile != null)
+            {
+                DeleteImage(gameDetail.OldImageName);
+                gameDetail.ImageName = await SaveImage(gameDetail.ImageFile);
+
+            }
+
+            GameInfo gameInfo = _businessModel.ModifyGame(gameDetail);
+
+
+            if (gameInfo != null)
+            {
+                return StatusCode(200, gameInfo);
+            }
+            else
+            {
+                return StatusCode(422, gameInfo);
+            }
+        }
+
+        [HttpDelete("Delete/{id}")]
+        public ActionResult DeleteGame(int id)
+        {
+            GameInfo gameInfo = _businessModel.DeleteGame(id);
+
+
+            if (gameInfo.ImagePath != null || gameInfo.ImagePath != "")
+            {
+                DeleteImage(gameInfo.ImagePath);
+            }
+
+            if (gameInfo != null)
+            {
+                return StatusCode(200, gameInfo);
+            }
+            else
+            {
+                return NotFound();
+            }
+
+        }
+        // Stores the image statically in the Image folder and returns a modified version of the name. 
+        [NonAction]
+        public async Task<string> SaveImage(IFormFile imageFile)
+        {
+            string imageName = new String(Path.GetFileNameWithoutExtension(imageFile.FileName).Take(10).ToArray()).Replace(' ', '-');
+            imageName = imageName + DateTime.Now.ToString("ttmmssffff") + Path.GetExtension(imageFile.FileName);
+            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, "Images", imageName);
+
+            using (var fileStream = new FileStream(imagePath, FileMode.Create))
+            {
+                await imageFile.CopyToAsync(fileStream);
+            }
+            return imageName;
+        }
+
+        [NonAction]
+        public void DeleteImage(string imageName)
+        {
+            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, "Images", imageName);
+            if (System.IO.File.Exists(imagePath)) 
+            {
+                System.IO.File.Delete(imagePath);
+            }
         }
 
         [HttpPost("Add")]
