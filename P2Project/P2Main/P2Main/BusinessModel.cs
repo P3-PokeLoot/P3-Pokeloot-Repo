@@ -11,7 +11,7 @@ namespace BusinessLayer
 
 
 
-        public P2DbClass context;
+        public P3DbClass context;
 
 
 
@@ -21,7 +21,7 @@ namespace BusinessLayer
         /// Constructor for business class that takes a Db context
         /// </summary>
         /// <param name="context">Db context</param>
-        public BusinessModel(P2DbClass context)
+        public BusinessModel(P3DbClass context)
         {
             this.context = context;
         }
@@ -31,7 +31,7 @@ namespace BusinessLayer
         /// </summary>
         public BusinessModel()
         {
-            this.context = new P2DbClass();
+            this.context = new P3DbClass();
         }
 
 
@@ -111,6 +111,7 @@ namespace BusinessLayer
                 collection.PokemonId = card.PokemonId;
                 collection.QuantityNormal = 0;
                 collection.QuantityShiny = 0;
+                collection.IsFavorite = false;
                 context.CardCollections.Add(collection);
                 context.SaveChanges();
             }
@@ -229,6 +230,7 @@ namespace BusinessLayer
                     userCollection.PokemonId = (int)post.PokemonId;
                     userCollection.QuantityNormal = 0;
                     userCollection.QuantityShiny = 0;
+                    userCollection.IsFavorite = false;
                     context.CardCollections.Add(userCollection);
                     try
                     {
@@ -539,6 +541,143 @@ namespace BusinessLayer
 
 
             return true;
+        }
+
+        public bool favoriteCard(int UserId, int Poke)
+        {
+            CardCollection card = context.CardCollections.Where(x => x.UserId == UserId && x.PokemonId == Poke).FirstOrDefault();
+            if(card == null)
+            {
+                return false;
+            }
+            if(card.IsFavorite == null)
+            {
+                card.IsFavorite = false;
+            }
+            card.IsFavorite = !card.IsFavorite;
+            context.CardCollections.Attach(card);
+            context.Entry(card).Property(x => x.IsFavorite).IsModified = true;
+            try
+            {
+                context.SaveChanges();
+            }
+            catch
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+
+        public List<FullFriend> GetFriends(int UserId)
+        {
+            List<FullFriend> fullFriends = new List<FullFriend>();
+            var friends = context.FriendsLists.Where(x => x.SentRequest == UserId || x.RecievedRequest == UserId).ToList();
+            if(friends == null)
+            {
+                return fullFriends;
+            }
+            if (!friends.Any())
+            {
+                return fullFriends;
+            }
+            foreach(FriendsList friend in friends)
+            {
+                
+                if(friend.SentRequest == UserId)
+                {
+                    if(friend.IsPending == false)
+                    {
+                        User friendInfo = context.Users.Where(x => x.UserId == friend.RecievedRequest).FirstOrDefault();
+                        int totalCards = context.CardCollections.Where(x => x.UserId == friend.RecievedRequest).ToList().Count();
+                        FullFriend fullFriend = new FullFriend() {
+                            FriendName = friendInfo.UserName,
+                            FriendLevel = friendInfo.AccountLevel,
+                            TotalCards = totalCards,
+                            IsPending = false,
+                            DateAdded = friend.DateAdded,
+                            FriendId = friend.RecievedRequest
+                        };
+                        fullFriends.Add(fullFriend);
+                    }
+                }
+                if (friend.RecievedRequest == UserId)
+                {                  
+                        User friendInfo = context.Users.Where(x => x.UserId == friend.SentRequest).FirstOrDefault();
+                        int totalCards = context.CardCollections.Where(x => x.UserId == friend.SentRequest).ToList().Count();
+                        FullFriend fullFriend = new FullFriend()
+                        {
+                            FriendName = friendInfo.UserName,
+                            FriendLevel = friendInfo.AccountLevel,
+                            TotalCards = totalCards,
+                            IsPending = friend.IsPending,
+                            DateAdded = friend.DateAdded,
+                            FriendId = friend.SentRequest
+                        };
+                        fullFriends.Add(fullFriend);                    
+                }
+            }
+            return fullFriends;
+        }
+
+        public string friendAction(int userid, int friendId)
+        {
+            if(userid == friendId)
+            {
+                return "You can't be friends with yourself!";
+            }
+            FriendsList friends = context.FriendsLists.Where(x => (x.SentRequest == userid && x.RecievedRequest == friendId) || (x.RecievedRequest == userid && x.SentRequest == friendId)).FirstOrDefault();
+            string friendName = context.Users.Where(x => x.UserId == friendId).Select(x => x.UserName).FirstOrDefault();
+
+            if(friends == null)
+            {
+                friends = new FriendsList()
+                {
+                    SentRequest = userid,
+                    RecievedRequest = friendId,
+                    IsPending = true,
+                    DateAdded = DateTime.Now
+                };
+                context.FriendsLists.Add(friends);
+                try
+                {
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    return $"Expeption {e} occurred while sending this request.";
+                }
+                return $"You sent a request to {friendName}!";
+
+            }
+
+            if(friends.IsPending == false)
+            {
+                return $"You are already friends with {friendName}!";
+            }
+            if(friends.RecievedRequest == userid)
+            {
+                friends.IsPending = false;
+                context.FriendsLists.Attach(friends);
+                context.Entry(friends).Property(x => x.IsPending).IsModified = true;
+                try
+                {
+                    context.SaveChanges();
+                }
+                catch(Exception e)
+                {
+                    return $"Expeption {e} occurred while accepting this request.";
+                }
+                return $"Your are now friends with {friendName}!";
+            }
+            if(friends.SentRequest == userid)
+            {
+                return $"You already sent a request to {friendName}, wait for them to accept it.";
+            }
+
+
+            return "Oops, we hit a weird edge case...";
         }
         
 

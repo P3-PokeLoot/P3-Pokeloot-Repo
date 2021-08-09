@@ -1,0 +1,72 @@
+.diglettfront{
+    background:url("/assets/game-api/diglett-front.png");
+    background-size:150%;
+    background-position-x: -65px;
+    background-position-y: -85px;
+    }
+
+.dugtriofront{
+    background:url("/assets/game-api/dugtrio-front.png");
+    background-size:150%;
+    background-position-x: -65px;
+    background-position-y: -85px;
+    }
+
+.button {
+    background-color: #ffc107;
+    border: none;
+    border-radius: 8px;
+    color:black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display:inline-flexbox;
+    font-size: 14px;
+    margin-left: 50px;
+    }
+    
+.grid-container {
+    display: grid;
+    margin-left: 100px;
+    margin-right: 100px;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 300px 300px;
+    background-color:#72c7a0;
+    padding: 10px;
+    overflow:hidden;
+    }
+    
+.grid-item {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    }
+
+#score{
+    color: blue;
+}
+
+#time-left{
+    color: red;
+}
+
+.info{
+    font-size: 14px;
+    margin: 100px;
+}
+
+p{
+    font-size: 14px;
+    color:orange;
+}
+
+.dif{
+    display: inline-block;
+}
+
+#medium{
+    margin-left: 30px;
+}
+
+#hard{
+    margin-left: -10px;
+}

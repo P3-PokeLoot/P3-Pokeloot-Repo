@@ -1,0 +1,66 @@
+<div *ngIf="!friendAction">
+<div *ngIf="!selectFriend">
+<div class="col text-center">
+    <h6></h6>
+    <h2 class="row display: flex justify-content-center" style="padding-top: 10%;">Friends</h2>
+    <h6>Page {{currentPage}} of {{lastpage}}</h6>
+   <form class="d-inline-flex p-2" (ngSubmit)="onChangePagePrev()" #searchForm="ngForm">
+       <button class="btn btn-outline-success" type="submit">Prev Page</button>    
+   </form>  
+   <form class="d-inline-flex p-2" (ngSubmit)="onChangePageNext()" #searchForm="ngForm">
+       <button class="btn btn-outline-success" type="submit">Next Page</button>    
+   </form>
+   <br>    
+   <div class="border my-4 d-flex justify-content-center"></div>    
+   <br>
+   <div style="font-size: medium; margin-left: 2rem;">
+    <button *ngIf="isPending" (click) = 'filterForPending()' style="justify-self: center; font-size: large;">Show Pending Requests</button>
+    <button *ngIf="!isPending" (click) = 'filterForPending()' style="justify-self: center; font-size: large;">Show Friends</button>
+    </div>
+</div>
+
+<table class="container mt-4 mb-3 shadow-sm p-3 bg-body rounded">
+<tr *ngFor="let friend of pageOfItems"  class="d-flex justify-content-between" style="height: 145px; border-style: solid; border-color: gray;">
+        <td class="mb-auto mt-4 p-2 bd-highlight">
+            <p class="h6">@{{friend.UserName}}</p>
+        </td>
+        <td class="mb-auto mt-4 p-2 bd-highlight">
+            <p class="h6">Level: {{friend.UserLevel}}</p>
+        </td>
+        <td *ngIf="isPending" class="mb-auto mt-4 p-2 bd-highlight">
+            <p class="h6">Friends Since {{friend.FriendSince  | date: 'short'}}</p>
+        </td>
+        <td *ngIf="!isPending" class="mb-auto mt-4 p-2 bd-highlight">
+            <div style="float:left">
+            <p class="h6">Pending Since {{friend.FriendSince  | date: 'short'}}</p>
+            <button class="btn btn-success btn-sm" aria-disabled="true" id="editbutton" (click)="clickt(friend)">Accept?</button>
+            </div>
+        </td>
+        <td class="mb-auto mt-4 p-2 bd-highlight">
+            <p class="h6">Total Cards Owned: {{friend.TotalCards}}</p>
+            <button class="btn btn-success btn-sm" aria-disabled="true" id="editbutton" (click)="selectFriend = friend.UserID">View Collection</button>
+        </td>
+        <div class="border my-4 d-flex justify-content-center"></div>  
+      
+</tr>
+</table>
+</div>
+</div>
+
+<div *ngIf="selectFriend">
+    <button class="btn btn-success btn-sm" aria-disabled="true" id="editbutton" (click)="refresh()">Back to List</button>
+    <app-cardcollect [differentUser]="selectFriend"></app-cardcollect>
+</div>
+
+
+<div *ngIf="friendAction" class="row d-flex justify-content-center">
+    <br>
+    <br>
+    <div>
+    <h1 class="col text-center" style="margin-top: 10%;">{{friendAction}}</h1>
+    </div>
+    <br>
+    
+    <button class="btn btn-success btn-sm" aria-disabled="true" id="editbutton" style="width: 50%;"(click)="refresh()">Back to List</button>
+</div>
+

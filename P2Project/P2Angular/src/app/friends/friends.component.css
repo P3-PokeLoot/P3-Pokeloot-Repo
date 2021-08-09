@@ -1,0 +1,24 @@
+table{
+    border-collapse: collapse;
+}
+tr{
+
+    display: table;
+    border-bottom: 2px;
+    border-style: solid;
+    border-color: grey;
+    text-align: center;
+    vertical-align: middle;
+
+}
+td{
+    
+    vertical-align: middle;
+    display: table-cell;
+}
+.border-left{
+    border-right: 0px;
+    border-style: solid;
+    border-color: grey;
+}
+

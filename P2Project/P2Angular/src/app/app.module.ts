@@ -4,9 +4,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 //import { JwPaginationComponent } from 'jw-angular-pagination';
-
-
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
@@ -33,7 +32,17 @@ import { RpsGamePokemonSelectionComponent } from './rps-game-pokemon-selection/r
 import { WtpGameComponent } from './wtp-game/wtp-game.component';
 import { WtpGameSelectionComponent } from './wtp-game-selection/wtp-game-selection.component';
 import { WtpGameOutcomeComponent } from './wtp-game-outcome/wtp-game-outcome.component';
+import { CapGameComponent } from './cap-game/cap-game.component';
+import { CapGameCatchComponent } from './cap-game-catch/cap-game-catch.component';
+import { CapGameResultComponent } from './cap-game-result/cap-game-result.component';
+import { PokemonCardMatchComponent } from './pokemon-card-match/pokemon-card-match.component';
 import { EditPostComponent } from './edit-post/edit-post.component';
+import { FriendsComponent } from './friends/friends.component';
+import { WamGameComponent } from './wam-game/wam-game.component';
+import { GameFormComponent } from './game-form/game-form.component';
+import { DeleteGameComponent } from './delete-game/delete-game.component';
+import { ModifyGameComponent } from './modify-game/modify-game.component';
+import { ModifyGameFormComponent } from './modify-game-form/modify-game-form.component';
 
 
 @NgModule({
@@ -58,12 +67,20 @@ import { EditPostComponent } from './edit-post/edit-post.component';
     //Games-Angular-Service,
     RpsGameComponent,
     FilterPipe, 
+    RpsGamePokemonSelectionComponent, WtpGameComponent, WtpGameSelectionComponent, WtpGameOutcomeComponent, CapGameComponent, CapGameCatchComponent, CapGameResultComponent,
     RpsGamePokemonSelectionComponent, 
     WtpGameComponent, 
     WtpGameSelectionComponent, 
     WtpGameOutcomeComponent, 
+    FriendsComponent,
     EditPostComponent,
+    PokemonCardMatchComponent,
     //JwPaginationComponent,
+    WamGameComponent,
+    GameFormComponent,
+    DeleteGameComponent,
+    ModifyGameComponent,
+    ModifyGameFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,7 +88,8 @@ import { EditPostComponent } from './edit-post/edit-post.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    CommonModule
+    CommonModule,
+    BrowserAnimationsModule
   ],
   providers: [CardServiceService,AccountService],
   bootstrap: [AppComponent]

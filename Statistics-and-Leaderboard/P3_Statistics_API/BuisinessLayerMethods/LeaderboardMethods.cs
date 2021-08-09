@@ -49,7 +49,10 @@ namespace BuisinessLayerMethods
 
 
 
-
+        /// <summary>
+        /// TopCurrentBallance will return a list of top X users that they have the highest Ballance of coins 
+        /// by ordering the databse descending based on their balance then we take the first X number (maxnumber) 
+        /// </summary>
         public List<User> TopCurrentBallance(int maxnumber)
         {
             List<User> user = null;
@@ -64,6 +67,11 @@ namespace BuisinessLayerMethods
             return user;
         }
 
+
+        /// <summary>
+        /// TopEarnedCoins will return a list of top X users that they have the highest Earned Coins 
+        /// by ordering the databse descending based on their Total Coins Earned then we take the first X number (maxnumber) 
+        /// </summary>
         public List<User> TopEarnedCoins(int maxnumber)
         {
             List<User> user = null;
@@ -78,6 +86,10 @@ namespace BuisinessLayerMethods
             return user;
         }
 
+        /// <summary>
+        /// TopSpentCoins will return a list of top X users that they have the highest Spent Coins 
+        /// by ordering the databse descending based on their Total Coins Earned minus their Current Coins Balance then we take the first X number (maxnumber) 
+        /// </summary>
 
         public List<User> TopSpentCoins(int maxnumber)
         {
@@ -93,17 +105,46 @@ namespace BuisinessLayerMethods
             return user;
         }
 
-        public IEnumerable<TopPersentCompletedCollectionModel> TopPercentageCompletedCollection(int maxnumber)
+        /// <summary>
+        /// TopPercentageCompletedCollection will return a list of top X users that they have the highest Percentage collected cards from CARDCOLLECTIONS Table 
+        /// compared to the total number of cards in the PokemonCards table 
+        /// by ordering the databse descending based on their Total Coins Earned minus their Current Coins Balance then we take the first X number (maxnumber) 
+        /// </summary>
+        public List<TopPersentCompletedCollectionModel> TopPercentageCompletedCollection(int maxnumber)
+
         {
+
+          
+
+            //Convert the Top X Number to string for concatination purpose
             string mx = maxnumber.ToString();
-            IEnumerable<TopPersentCompletedCollectionModel> dataResult = null;
+            List<TopPersentCompletedCollectionModel> dataResult = null;
             try
             {
-                string sql = @"select top "+ mx +" (cast(count(distinct(C.PokemonId)) as float) / count(distinct(P.PokemonId))) * 100 as Card_collection , count(distinct(P.PokemonId)) as total , U.UserId , U.FirstName from CardCollection C , Users U , PokemonCards P where C.UserId = U.UserId group by u.UserId , u.FirstName order by Card_collection desc";
+                double totalPokemons = context.PokemonCards.Count();
+                var cardcol = context.CardCollections.ToList();
+                var userlist = context.Users.ToList();
 
-             //   DbConnection conn = context.Database.GetDbConnection();
 
-                dataResult = conn.Query<TopPersentCompletedCollectionModel>(sql);
+                dataResult = (from Tuser in userlist
+                              join Tcard in cardcol
+                              on Tuser.UserId equals Tcard.UserId
+                              group Tcard by Tuser.UserId into temptable
+                              select new TopPersentCompletedCollectionModel
+                              {
+                                  UserId = temptable.Key,
+                                  FirstName = temptable.First().User.FirstName,
+                                  LastName = temptable.First().User.LastName,
+                                  Card_collection = ((temptable.Distinct().Count(x => x.PokemonId >= 0) / totalPokemons) * 100)
+                              }).OrderByDescending(x => x.Card_collection).Take(maxnumber).ToList();
+
+
+
+//              string sql = @"select ";
+
+//                string sql = @"select top "+ mx + " (cast(count(distinct(C.PokemonId)) as float) / count(distinct(P.PokemonId))) * 100 as Card_collection , count(distinct(P.PokemonId)) as total , U.UserId , U.FirstName from CardCollection C , Users U , PokemonCards P where  C.UserId = U.UserId group by u.UserId , u.FirstName order by Card_collection desc";
+//                dataResult = conn.Query<TopPersentCompletedCollectionModel>(sql);
+
             }
             catch (Exception e)
             {

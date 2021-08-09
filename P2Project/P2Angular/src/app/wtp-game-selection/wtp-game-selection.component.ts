@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { GamesService, WtpGame } from '../games.service';
+import { GameService } from '../game-service';
 
 @Component({
   selector: 'app-wtp-game-selection',
@@ -12,7 +12,7 @@ export class WtpGameSelectionComponent implements OnInit {
   correctPokemon?:string;
   options?:string[];
 
-  constructor(private _gameService:GamesService) { }
+  constructor(private _gameService:GameService) { }
 
   ngOnInit(): void {
     this._gameService.GetWtpGame().subscribe(
@@ -27,10 +27,12 @@ export class WtpGameSelectionComponent implements OnInit {
     if(userSelection == this.correctPokemon)
     {
       console.log('win');
+      this._gameService.WtpWin().subscribe();
       this.resultEmitter.emit({result:"Correct! It's "+ this.correctPokemon+"!", picture:this.pictureUrl, win:true});
     }
     else{
       console.log('lose');
+      this._gameService.WtpLose().subscribe();
       this.resultEmitter.emit({result:"Sorry, It's " + this.correctPokemon + "! You lose.", picture:this.pictureUrl, win:false});
     }
   }

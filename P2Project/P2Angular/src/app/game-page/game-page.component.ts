@@ -8,7 +8,8 @@ import { GameService } from '../game-service';
 })
 export class GamePageComponent implements OnInit {
 
-  private userId = localStorage.getItem('userId');
+  private userId: string = localStorage.getItem('userId')!.toString();
+  public admin!: boolean;
   public currentUserCoinBalance = {} as any;
   public gameList!: Array<any>;
 
@@ -17,6 +18,9 @@ export class GamePageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Check is user is admin
+    this.admin = Number.parseInt(this.userId) == 3
+
     if (this.userId != null) {
       this._gameService.GetBalance().subscribe(
         result => {
@@ -26,8 +30,10 @@ export class GamePageComponent implements OnInit {
         });
     }
 
-    this._gameService.GetList().subscribe(result => { this.gameList = result; })
-
+    this._gameService.GetList().subscribe(
+      result => { this.gameList = result; },
+      error => { console.log(error) }
+    )
   }
 
   playGame(): void {

@@ -1,6 +1,7 @@
 import { stringify } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { DisplayServiceService } from '../display-service.service';
 import { IBuy } from '../Models/IBuy';
 import { IPost } from '../Models/IPost';
@@ -22,8 +23,10 @@ export class HomePageComponent implements OnInit {
   filterString: string = '';
   bublapedia: string = 'https://bulbapedia.bulbagarden.net/wiki/';
 
-  constructor(private _displayService: DisplayServiceService) {
-
+  constructor(private _displayService: DisplayServiceService, private router: Router) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => {
+      return false;
+    };
     this.displayBoard = [];
   }
 

@@ -17,6 +17,7 @@ namespace RepositoryModels
         {
         }
 
+        public virtual DbSet<Achievement> Achievements { get; set; }
         public virtual DbSet<CardCollection> CardCollections { get; set; }
         public virtual DbSet<DisplayBoard> DisplayBoards { get; set; }
         public virtual DbSet<PokemonCard> PokemonCards { get; set; }
@@ -24,17 +25,28 @@ namespace RepositoryModels
         public virtual DbSet<PostType> PostTypes { get; set; }
         public virtual DbSet<RarityType> RarityTypes { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<UserAchievement> UserAchievements { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Server=DESKTOP-30TM7O8\\SQLEXPRESS;Database=P3Database;Trusted_Connection=True;");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
+
+            modelBuilder.Entity<Achievement>(entity =>
+            {
+                entity.Property(e => e.AchievementName)
+                    .IsRequired()
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+            });
 
             modelBuilder.Entity<CardCollection>(entity =>
             {
@@ -201,6 +213,28 @@ namespace RepositoryModels
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<UserAchievement>(entity =>
+            {
+                entity.HasKey(e => new { e.UserId, e.AchievementId })
+                    .HasName("PK__UserAchi__05FEFF406A3AB3B2");
+
+                entity.Property(e => e.Completion)
+                    .HasMaxLength(10)
+                    .HasDefaultValueSql("('False')");
+
+                entity.HasOne(d => d.Achievement)
+                    .WithMany(p => p.UserAchievements)
+                    .HasForeignKey(d => d.AchievementId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__UserAchie__Achie__5FB337D6");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.UserAchievements)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__UserAchie__UserI__5EBF139D");
             });
 
             OnModelCreatingPartial(modelBuilder);

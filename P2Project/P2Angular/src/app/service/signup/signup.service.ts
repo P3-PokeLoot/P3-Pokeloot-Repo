@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/Models/User';
 import { map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -10,7 +11,7 @@ import { map } from 'rxjs/operators';
 })
 export class SignupService {
 
-  private baseUrlSignup: string = "https://pokeloot.azurewebsites.net/api/P2/Signup"
+  private baseUrlSignup = `${environment.urlmain}Signup`
 
 
   constructor(private route: Router, private http: HttpClient) { }

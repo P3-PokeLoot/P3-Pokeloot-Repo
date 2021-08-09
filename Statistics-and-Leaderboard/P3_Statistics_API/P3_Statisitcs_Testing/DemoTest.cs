@@ -6,13 +6,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using BuisinessLayerMethods;
 using System.Collections.Generic;
+using System.Data.Common;
+using System.Configuration;
 
 namespace P3_Statisitcs_Testing
 {
     public class DemoTest
     {
         DbContextOptions<P3Context> options = new DbContextOptionsBuilder<P3Context>().UseInMemoryDatabase(databaseName: "testingDb").Options;
-      
+
 
         //================================List Top Coins Balance============================
         
@@ -21,14 +23,14 @@ namespace P3_Statisitcs_Testing
         {
             //Arrange
 
-            
-            
+
+
             // Create a dummy user 
             User user1 = new User()
             {
-                UserId =1,
-                CoinBalance=5,
-                TotalCoinsEarned=10
+                UserId = 1,
+                CoinBalance = 5,
+                TotalCoinsEarned = 10
             };
 
             // Create a dummy user 
@@ -81,7 +83,7 @@ namespace P3_Statisitcs_Testing
         {
             //Arrange
 
-            
+
 
             // Create a dummy user 
             User user1 = new User()
@@ -142,7 +144,7 @@ namespace P3_Statisitcs_Testing
         {
             //Arrange
 
-            
+
 
             // Create a dummy user 
             User user1 = new User()
@@ -203,8 +205,18 @@ namespace P3_Statisitcs_Testing
         public void TopPercentageCompletedCollectionTest()
         {
             //Arrange
+            // ConnectionStringSettings dbconext= ConfigurationManager.ConnectionStrings["Server=localhost\\SQLEXPRESS;Database=p3;Trusted_Connection=True;"];
+            // DbConnection conn;
+            // DbConnection context = dbconext.ConnectionString;
+            // string conn = ;
 
-            
+
+            // P3Context context = new P3Context();
+            // DbConnection conn = context.Database.OpenConnection("Server=localhost\\SQLEXPRESS;Database=p3;Trusted_Connection=True;");
+
+
+
+
 
             // Create a dummy user 
             User user1 = new User()
@@ -233,10 +245,10 @@ namespace P3_Statisitcs_Testing
 
             CardCollection collection1 = new CardCollection()
             {
-                PokemonId=4,
-                UserId =2,
-                QuantityNormal= 14,
-                QuantityShiny = 13                                   
+                PokemonId = 4,
+                UserId = 2,
+                QuantityNormal = 14,
+                QuantityShiny = 13
             };
 
             CardCollection collection2 = new CardCollection()
@@ -264,11 +276,11 @@ namespace P3_Statisitcs_Testing
 
             PokemonCard pokemon1 = new PokemonCard()
             {
-                PokemonId=1, 
-                RarityId=10,
-                SpriteLink="",
-                SpriteLinkShiny="",
-                PokemonName=""
+                PokemonId = 1,
+                RarityId = 10,
+                SpriteLink = "",
+                SpriteLinkShiny = "",
+                PokemonName = ""
             };
 
             PokemonCard pokemon2 = new PokemonCard()
@@ -306,7 +318,7 @@ namespace P3_Statisitcs_Testing
 
                 context.Database.EnsureCreated();// create a new Db.. you will need to seed it again.
 
-                LeaderboardModel dbtest = new LeaderboardModel(context);
+                LeaderboardModel usertest = new LeaderboardModel(context);
 
                 context.Users.Add(user1);
                 context.Users.Add(user2);
@@ -319,10 +331,13 @@ namespace P3_Statisitcs_Testing
                 context.PokemonCards.Add(pokemon2);
                 context.PokemonCards.Add(pokemon3);
                 context.PokemonCards.Add(pokemon4);
+
+
                 context.SaveChanges();
                 //Assert
 
-                var list1 = dbtest.TopPercentageCompletedCollection(1);
+                List<TopPersentCompletedCollectionModel> list1 = usertest.TopPercentageCompletedCollection(2);
+
                 Assert.NotNull(list1);
                 Assert.Equal(2, list1.Count());
             }
@@ -1136,5 +1151,33 @@ namespace P3_Statisitcs_Testing
 
 
 
+        //##############################################
+        /*   public void GetUsersTest()
+           {
+               string connectionString = GetConnectionString();
+
+               using (TransactionScope ts = new TransactionScope())
+               {
+                   using (SqlConnection connection =
+                       new SqlConnection(connectionString))
+                   {
+                       connection.Open();
+                       DataLayer dataAccessLayer = new DataLayer();
+
+                       DataSet dataSet = dataAccessLayer.GetUsers();
+                       AddNewUser("Fred", connection);
+
+                       dataSet = dataAccessLayer.GetUsers();
+                       DataRow[] dr = dataSet.Tables[0].Select("[UserName] = 'Fred'");
+                       Assert.AreEqual(1, dr.Length);
+                   }
+               }
+           }*/
+
+        //##############################################
+
+
+
     }
+
 }

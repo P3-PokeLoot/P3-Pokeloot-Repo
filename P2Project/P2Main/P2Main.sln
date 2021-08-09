@@ -5,11 +5,11 @@ VisualStudioVersion = 16.0.31402.337
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLayer", "P2Main\BusinessLayer.csproj", "{68A2471C-CEF7-4BC2-8C68-78E089A3DFFE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P2DbContext", "P2DbContext\P2DbContext.csproj", "{DB94B83A-9420-4AD8-9472-77D74165525D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P3DbContext", "P2DbContext\P3DbContext.csproj", "{DB94B83A-9420-4AD8-9472-77D74165525D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "UnitTests\UnitTests.csproj", "{C503782B-3A41-4D8D-9386-5F9CFA3C92FC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P2Api", "P2Api\P2Api.csproj", "{CEA88C6E-F5A1-4041-B611-4AF4A7C941AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P3Api", "P2Api\P3Api.csproj", "{CEA88C6E-F5A1-4041-B611-4AF4A7C941AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

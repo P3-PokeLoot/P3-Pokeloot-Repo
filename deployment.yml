@@ -1,0 +1,277 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: p3angular
+  labels:
+    app: p3angular
+  annotations:
+spec:
+  selector:
+    matchLabels:
+      app: p3angular
+  replicas: 2
+  # strategy:
+  #   type: RollingUpdate
+  #     maxSurge: 1
+  #     maxUnavailible: 0
+  template:
+    metadata:
+      labels:
+        app: p3angular
+    spec:
+      containers:
+      - name: p3angular
+        image: gregious/p3angular:v7
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 8080
+        # livenessProbe:
+        #   httpGet:
+        #     path: /status
+        #     port: 5000
+        #   initialDelaySeconds: 3
+        #   periodSeconds: 3
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: p3mainapi
+  labels:
+    app: p3mainapi
+  annotations:
+spec:
+  selector:
+    matchLabels:
+      app: p3mainapi
+  replicas: 2
+  # strategy:
+  #   type: RollingUpdate
+  #     maxSurge: 1
+  #     maxUnavailible: 0
+  template:
+    metadata:
+      labels:
+        app: p3mainapi
+    spec:
+      containers:
+      - name: p3mainapi
+        image: gregious/p3mainapi:v2
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 8081
+        # livenessProbe:
+        #   httpGet:
+        #     path: /status
+        #     port: 5000
+        #   initialDelaySeconds: 3
+        #   periodSeconds: 3
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: main
+spec:
+  ports:
+  - port: 80
+  selector:
+    app: p3mainapi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: p3gamesapi
+  labels:
+    app: p3gamesapi
+  annotations:
+spec:
+  selector:
+    matchLabels:
+      app: p3gamesapi
+  replicas: 2
+  # strategy:
+  #   type: RollingUpdate
+  #     maxSurge: 1
+  #     maxUnavailible: 0
+  template:
+    metadata:
+      labels:
+        app: p3gamesapi
+    spec:
+      containers:
+      - name: p3gamesapi
+        image: gregious/p3gamesapi:v1
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 8082
+        # livenessProbe:
+        #   httpGet:
+        #     path: /status
+        #     port: 5000
+        #   initialDelaySeconds: 3
+        #   periodSeconds: 3
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: game
+spec:
+  ports:
+  - port: 80
+  selector:
+    app: p3gamesapi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: p3statisticsapi
+  labels:
+    app: p3statisticsapi
+  annotations:
+spec:
+  selector:
+    matchLabels:
+      app: p3statisticsapi
+  replicas: 2
+  # strategy:
+  #   type: RollingUpdate
+  #     maxSurge: 1
+  #     maxUnavailible: 0
+  template:
+    metadata:
+      labels:
+        app: p3statisticsapi
+    spec:
+      containers:
+      - name: p3statisticsapi
+        image: gregious/p3statisticsapi:v2
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 8083
+        # livenessProbe:
+        #   httpGet:
+        #     path: /status
+        #     port: 5000
+        #   initialDelaySeconds: 3
+        #   periodSeconds: 3
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: statistic
+spec:
+  ports:
+  - port: 80
+  selector:
+    app: p3statisticsapi
+# ---
+# apiVersion: apps/v1beta1
+# kind: Deployment
+# metadata: 
+#   name: hello-world-deployment
+# spec: 
+#   replicas: 1
+#   template: 
+#     metadata: 
+#       labels: 
+#         app: hello-world
+#     spec: 
+#       containers: 
+#         - image: "gokul93/hello-world:latest"
+#           imagePullPolicy: Always
+#           name: hello-world-container
+#           ports: 
+#             - containerPort: 8080
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata: 
+#   name: hello-world-svc
+# spec: 
+#   ports: 
+#      -  port: 8080
+#         protocol: TCP
+#         targetPort: 8080
+#   selector: 
+#     app: hello-world
+#   type: NodePort
+# ---
+# apiVersion: extensions/v1beta1
+# kind: Deployment
+# metadata:
+#   name: default-http-backend
+# spec:
+#   replicas: 1
+#   template:
+#     metadata:
+#       labels:
+#         app: default-http-backend
+#     spec:
+#       terminationGracePeriodSeconds: 60
+#       containers:
+#       - name: default-http-backend
+#         # Any image is permissable as long as:
+#         # 1. It serves a 404 page at /
+#         # 2. It serves 200 on a /healthz endpoint
+#         image: gcr.io/google_containers/defaultbackend:1.0
+#         livenessProbe:
+#           httpGet:
+#             path: /healthz
+#             port: 8080
+#             scheme: HTTP
+#           initialDelaySeconds: 30
+#           timeoutSeconds: 5
+#         ports:
+#         - containerPort: 8080
+#         resources:
+#           limits:
+#             cpu: 10m
+#             memory: 20Mi
+#           requests:
+#             cpu: 10m
+#             memory: 20Mi
+# ---
+# kind: Service
+# apiVersion: v1
+# metadata:
+#   name: default-http-backend
+# spec:
+#   selector:
+#     app: default-http-backend
+#   ports:
+#     - protocol: TCP
+#       port: 80
+#       targetPort: 8080
+#   type: NodePort

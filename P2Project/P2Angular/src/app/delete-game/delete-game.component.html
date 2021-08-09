@@ -1,0 +1,28 @@
+<div class="container">
+    <br>
+    <br>
+    <br>
+    <h1 class="text-center h3 mt-5 font-weight-normal">Delete A Game</h1>
+
+    <select name="postType" class="form-select form-select-lg mt-5" (change)="onOptionChange($event)"
+        aria-label=" .form-select">
+        <option value="">Select Game</option>
+        <option *ngFor="let game of gameList" [ngValue]="game">{{game.title}}
+        </option>
+    </select>
+    <div class="h5 alert alert-danger mt-5" role="alert" *ngIf="error">
+        There was an error. Try again or refresh the page!
+    </div>
+</div>
+
+<div *ngIf="isChoosen" class="container-fluid my-5">
+    <div class="card mx-auto" style="width: 18rem;">
+        <img style="background-color: chocolate;" class="card-img-top" src="{{display.imageSource}}" height="350"
+            alt="Card image cap">
+        <div class="text-center card-body">
+            <h5 class="card-title">{{display.title}}</h5>
+            <p class="card-text">{{display.description}}</p>
+            <button (click)="OnSubmit()" class="btn btn-lg btn-danger">Delete</button>
+        </div>
+    </div>
+</div>
