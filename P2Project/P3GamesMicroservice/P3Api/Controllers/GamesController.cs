@@ -43,11 +43,6 @@ namespace P3Api.Controllers
                 return StatusCode(200, games);
             else
                 return StatusCode(500);
-            List<GameDetail> gameDetails;
-
-            gameDetails = await _businessModel.GetGameInfoListAsync();
-
-            return StatusCode(200, gameDetails);
         }
 
         [HttpGet("Wtp")]
