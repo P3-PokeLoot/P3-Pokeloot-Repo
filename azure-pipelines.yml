@@ -5,8 +5,6 @@
 trigger:
 - main
 
-
-
 resources:
 - repo: self
 
@@ -19,8 +17,8 @@ stages:
   jobs:
   - job: Build
     displayName: Build
-    pool: gregspcs
-      #vmImage: ubuntu-latest
+    pool:
+      vmImage: ubuntu-latest
     steps:
     - task: Docker@2
       inputs:
