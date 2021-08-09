@@ -1205,6 +1205,368 @@ namespace UnitTests
         }
 
 
+        [Fact]
+        public void favoriteCardTest()
+        {
+            // Arange
+            CardCollection cardCollection1 = new CardCollection()
+            {
+                PokemonId = 150,
+                UserId = 2,
+                QuantityNormal = 2,
+                QuantityShiny = 2
+            };
+            CardCollection cardCollection2 = new CardCollection()
+            {
+                PokemonId = 151,
+                UserId = 2,
+                QuantityNormal = 2,
+                QuantityShiny = 2,
+                IsFavorite = false
+            };
+            CardCollection cardCollection3 = new CardCollection()
+            {
+                PokemonId = 150,
+                UserId = 1,
+                QuantityNormal = 2,
+                QuantityShiny = 2,
+                IsFavorite = true,
+            };
+
+            bool coll1;
+            bool coll2;
+            bool coll3;
+            bool failed1;
+            bool failed2;
+            CardCollection result1;
+            CardCollection result2;
+            CardCollection result3;
+
+
+
+
+
+
+
+            // Act
+            using (var context = new P3DbClass(options))    // creates in memory database
+            {
+                context.Database.EnsureDeleted();
+                context.Database.EnsureCreated();
+
+                BusinessModel testBusinessModel = new BusinessModel(context);
+
+
+                context.CardCollections.Add(cardCollection1);
+                context.CardCollections.Add(cardCollection2);
+                context.CardCollections.Add(cardCollection3);
+                context.SaveChanges();
+
+                failed1 = testBusinessModel.favoriteCard(3, 150);
+                failed2 = testBusinessModel.favoriteCard(1, 360);
+                coll1 = testBusinessModel.favoriteCard(2, 150);
+                coll2 = testBusinessModel.favoriteCard(2, 151);
+                coll3 = testBusinessModel.favoriteCard(1, 150);
+                result1 = context.CardCollections.Where(x => x.UserId == 2 && x.PokemonId == 150).FirstOrDefault();
+                result2 = context.CardCollections.Where(x => x.UserId == 2 && x.PokemonId == 151).FirstOrDefault();
+                result3 = context.CardCollections.Where(x => x.UserId == 1 && x.PokemonId == 150).FirstOrDefault();
+
+
+                // Assert
+                Assert.True(!failed1);
+                Assert.True(!failed2);
+                Assert.True(coll1);
+                Assert.True(coll2);
+                Assert.True(coll3);
+                Assert.True(result1.IsFavorite);
+                Assert.True(result2.IsFavorite);
+                Assert.True(!result3.IsFavorite);
+
+
+
+
+
+            }
+        }
+
+
+        [Fact]
+        public void getFriendsTest()
+        {
+            // Arange
+            User user1 = new User()
+            {
+                FirstName = "Test",
+                LastName = "User",
+                Email = "generic@email.com",
+                UserName = "genericUser",
+                Password = "Password"
+
+            };
+            User user2 = new User()
+            {
+                FirstName = "Test2",
+                LastName = "User2",
+                Email = "generic2@email.com",
+                UserName = "genericUser2",
+                Password = "Password"
+
+            };
+            User user3 = new User()
+            {
+                FirstName = "Test3",
+                LastName = "User3",
+                Email = "generic@email.com3",
+                UserName = "genericUser3",
+                Password = "Password"
+
+            };
+            User user4 = new User()
+            {
+                FirstName = "Test4",
+                LastName = "User4",
+                Email = "generic@email.com4",
+                UserName = "genericUser4",
+                Password = "Password"
+
+            };
+            User user5 = new User()
+            {
+                FirstName = "Test5",
+                LastName = "User5",
+                Email = "generic@email.com5",
+                UserName = "genericUser5",
+                Password = "Password"
+
+            };
+            FriendsList friend1 = new FriendsList()
+            {
+                SentRequest = 1,
+                RecievedRequest = 2,
+                IsPending = true,
+                DateAdded = DateTime.Now
+            };
+            FriendsList friend2 = new FriendsList()
+            {
+                SentRequest = 1,
+                RecievedRequest = 3,
+                IsPending = false,
+                DateAdded = DateTime.Now
+            };
+            FriendsList friend3 = new FriendsList()
+            {
+                SentRequest = 4,
+                RecievedRequest = 1,
+                IsPending = false,
+                DateAdded = DateTime.Now
+            };
+            FriendsList friend4 = new FriendsList()
+            {
+                SentRequest = 5,
+                RecievedRequest = 1,
+                IsPending = true,
+                DateAdded = DateTime.Now
+            };
+
+            List<FullFriend> resultUser1;
+            List<FullFriend> resultUser2;
+            List<FullFriend> resultUser3;
+            List<FullFriend> resultUser4;
+            List<FullFriend> resultUser5;
+
+            // Act
+            using (var context = new P3DbClass(options))    // creates in memory database
+            {
+                context.Database.EnsureDeleted();
+                context.Database.EnsureCreated();
+
+                context.Users.Add(user1);
+                context.Users.Add(user2);
+                context.Users.Add(user3);
+                context.Users.Add(user4);
+                context.Users.Add(user5);
+                context.FriendsLists.Add(friend1);
+                context.FriendsLists.Add(friend2);
+                context.FriendsLists.Add(friend3);
+                context.FriendsLists.Add(friend4);
+
+                context.SaveChanges();
+
+                BusinessModel testBusinessModel = new BusinessModel(context);
+
+                resultUser1 = testBusinessModel.GetFriends(1);
+                resultUser2 = testBusinessModel.GetFriends(2);
+                resultUser3 = testBusinessModel.GetFriends(3);
+                resultUser4 = testBusinessModel.GetFriends(4);
+                resultUser5 = testBusinessModel.GetFriends(5);
+
+
+                // Assert
+                Assert.Equal(3, resultUser1.Count);
+                Assert.Equal(1, resultUser2.Count);
+                Assert.Equal(1, resultUser3.Count);
+                Assert.Equal(1, resultUser4.Count);
+                Assert.Equal(0, resultUser5.Count);
+
+
+            }
+        }
+
+        [Fact]
+        public void FriendActionTest()
+        {
+            // Arange
+            User user1 = new User()
+            {
+                FirstName = "Test",
+                LastName = "User",
+                Email = "generic@email.com",
+                UserName = "genericUser",
+                Password = "Password"
+
+            };
+            User user2 = new User()
+            {
+                FirstName = "Test2",
+                LastName = "User2",
+                Email = "generic2@email.com",
+                UserName = "genericUser2",
+                Password = "Password"
+
+            };
+            User user3 = new User()
+            {
+                FirstName = "Test3",
+                LastName = "User3",
+                Email = "generic@email.com3",
+                UserName = "genericUser3",
+                Password = "Password"
+
+            };
+            User user4 = new User()
+            {
+                FirstName = "Test4",
+                LastName = "User4",
+                Email = "generic@email.com4",
+                UserName = "genericUser4",
+                Password = "Password"
+
+            };
+            User user5 = new User()
+            {
+                FirstName = "Test5",
+                LastName = "User5",
+                Email = "generic@email.com5",
+                UserName = "genericUser5",
+                Password = "Password"
+
+            };
+            User user6 = new User()
+            {
+                FirstName = "Test6",
+                LastName = "User6",
+                Email = "generic@email.com6",
+                UserName = "genericUser6",
+                Password = "Password"
+
+            };
+            FriendsList friend1 = new FriendsList()
+            {
+                SentRequest = 1,
+                RecievedRequest = 2,
+                IsPending = true,
+                DateAdded = DateTime.Now
+            };
+            FriendsList friend2 = new FriendsList()
+            {
+                SentRequest = 1,
+                RecievedRequest = 3,
+                IsPending = false,
+                DateAdded = DateTime.Now
+            };
+            FriendsList friend3 = new FriendsList()
+            {
+                SentRequest = 4,
+                RecievedRequest = 1,
+                IsPending = false,
+                DateAdded = DateTime.Now
+            };
+            FriendsList friend4 = new FriendsList()
+            {
+                SentRequest = 5,
+                RecievedRequest = 1,
+                IsPending = true,
+                DateAdded = DateTime.Now
+            };
+
+            string resultUser1;
+            string resultUser2;
+            string resultUser3;
+            string resultUser4;
+            string resultUser5;
+            string resultUser6;
+            FriendsList friendsList1;
+            FriendsList friendsList2;
+            FriendsList friendsList3;
+            FriendsList friendsList4;
+            FriendsList friendsList5;
+            FriendsList friendsList6;
+
+
+
+
+            // Act
+            using (var context = new P3DbClass(options))    // creates in memory database
+            {
+                context.Database.EnsureDeleted();
+                context.Database.EnsureCreated();
+
+                context.Users.Add(user1);
+                context.Users.Add(user2);
+                context.Users.Add(user3);
+                context.Users.Add(user4);
+                context.Users.Add(user5);
+                context.Users.Add(user6);
+                context.FriendsLists.Add(friend1);
+                context.FriendsLists.Add(friend2);
+                context.FriendsLists.Add(friend3);
+                context.FriendsLists.Add(friend4);
+
+                context.SaveChanges();
+
+                BusinessModel testBusinessModel = new BusinessModel(context);
+
+                resultUser1 = testBusinessModel.friendAction(1, 1);
+                resultUser2 = testBusinessModel.friendAction(1, 2);
+                resultUser3 = testBusinessModel.friendAction(1, 3);
+                resultUser4 = testBusinessModel.friendAction(1, 4);
+                resultUser5 = testBusinessModel.friendAction(1, 5);
+                resultUser6 = testBusinessModel.friendAction(1, 6);
+                friendsList1 = context.FriendsLists.Where(x => (x.SentRequest == 1 && x.RecievedRequest == 1) || (x.RecievedRequest == 1 && x.SentRequest == 1)).FirstOrDefault();
+                friendsList2 = context.FriendsLists.Where(x => (x.SentRequest == 1 && x.RecievedRequest == 2)).FirstOrDefault();
+                friendsList3 = context.FriendsLists.Where(x => (x.SentRequest == 1 && x.RecievedRequest == 3)).FirstOrDefault();
+                friendsList4 = context.FriendsLists.Where(x => (x.RecievedRequest == 1 && x.SentRequest == 4)).FirstOrDefault();
+                friendsList5 = context.FriendsLists.Where(x => (x.RecievedRequest == 1 && x.SentRequest == 5)).FirstOrDefault();
+                friendsList6 = context.FriendsLists.Where(x => (x.SentRequest == 1 && x.RecievedRequest == 6)).FirstOrDefault();
+
+                // Assert
+                Assert.Equal("You can't be friends with yourself!", resultUser1);
+                Assert.Equal("You already sent a request to genericUser2, wait for them to accept it.", resultUser2);
+                Assert.Equal("You are already friends with genericUser3!", resultUser3);
+                Assert.Equal("You are already friends with genericUser4!", resultUser4);
+                Assert.Equal("Your are now friends with genericUser5!", resultUser5);
+                Assert.Equal("You sent a request to genericUser6!", resultUser6);
+                Assert.True(friendsList1 == null);
+                Assert.True(friendsList2.IsPending);
+                Assert.True(!friendsList3.IsPending);
+                Assert.True(!friendsList4.IsPending);
+                Assert.True(!friendsList5.IsPending);
+                Assert.True(friendsList6.IsPending);
+
+            }
+        }
+
+
     }
 
 
