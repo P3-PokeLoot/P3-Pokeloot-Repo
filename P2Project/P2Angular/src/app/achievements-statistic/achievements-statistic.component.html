@@ -23,7 +23,7 @@ achievement but no user completed the last achievement.-->
 
 
 <div class="container-fluid"  style="font-size:medium;">
-    <button (click)='ViewJohto(this.currentProfile,this.JohtoBadges)'>View Account Achievements</button>
+    <button (click)='(this.currentProfile)'>View Account Achievements</button>
     <div class="row">
             <div class="col" *ngFor="let b of JohtoBadges; let i = index">
                 <div class="johtobadge">{{b.Title}}</div>
