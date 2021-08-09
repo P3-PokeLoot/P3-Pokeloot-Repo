@@ -48,7 +48,7 @@ stages:
 
 # Create Docker containers and push to repo
 # Angular Docker container
-- stage: Build
+- stage: BuildAngular
   displayName: Build image
   jobs:
   - job: Build
@@ -70,7 +70,7 @@ stages:
         addBaseImageData: false
 
 # Main API Docker container      
-- stage: Build
+- stage: BuildMain
   displayName: Build image
   jobs:
   - job: Build
@@ -93,7 +93,7 @@ stages:
         addBaseImageData: false
 
 # Statistics API Docker container
-- stage: Build
+- stage: BuildStatistics
   displayName: Build image
   jobs:
   - job: Build
@@ -116,7 +116,7 @@ stages:
         addBaseImageData: false   
 
 # Games API Docker container
-- stage: Build
+- stage: BuildGames
   displayName: Build image
   jobs:
   - job: Build
