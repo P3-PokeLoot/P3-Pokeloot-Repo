@@ -77,7 +77,7 @@ stages:
         repository: 'gregious/p3angular'
         tags: '$(Build.BuildId)'
         command: 'build'
-        Dockerfile: '$(Build.SourcesDirectory)\Statistics-and-Leaderboard\P3_Statistics_API\Dockerfile'
+        Dockerfile: '$(Build.SourcesDirectory)/Statistics-and-Leaderboard/P3_Statistics_API/Dockerfile'
     - task: Docker@2
       inputs:
         containerRegistry: 'DockerHub'
