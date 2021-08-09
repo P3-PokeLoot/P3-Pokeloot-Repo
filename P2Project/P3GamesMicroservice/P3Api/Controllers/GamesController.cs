@@ -43,11 +43,6 @@ namespace P3Api.Controllers
                 return StatusCode(200, games);
             else
                 return StatusCode(500);
-            List<GameDetail> gameDetails;
-
-            gameDetails = await _businessModel.GetGameInfoListAsync();
-
-            return StatusCode(200, gameDetails);
         }
 
         [HttpGet("Wtp")]
@@ -179,18 +174,26 @@ namespace P3Api.Controllers
                 return StatusCode(500);
         }
 
-        [HttpGet("RpsWin/{userId}")]
+        [HttpPost("RpsWin")]
         public async Task<IActionResult> RpsWin(int userId)
         {
             var success = await _businessModel.RpsWinAsync(userId);
-            return StatusCode(200, success);
+            if(success)
+            {
+                return StatusCode(200, success);
+            }
+            return BadRequest(new { message = "Error, Something went wrong.", status = -1 });
         }
 
-        [HttpGet("RpsLose/{userId}")]
+        [HttpPost("RpsLose")]
         public async Task<IActionResult> RpsLose(int userId)
         {
             var success = await _businessModel.RpsLoseAsync(userId);
-            return StatusCode(200, success);
+            if (success)
+            {
+                return StatusCode(200, success);
+            }
+            return BadRequest(new { message = "Error, Something went wrong.", status = -1 });
         }
 
         [HttpGet("RpsRecord/{userId}")]
@@ -200,18 +203,26 @@ namespace P3Api.Controllers
             return StatusCode(200, success);
         }
 
-        [HttpGet("WtpWin/{userId}")]
-        public async Task<IActionResult> WtpWin(int userId)
+        [HttpPost("WtpWin")]
+        public async Task<IActionResult> WtpWinAsync(int userId)
         {
-            var success = await _businessModel.WtpWinAsync(userId);
-            return StatusCode(200, success);
+            var success =await _businessModel.WtpWinAsync(userId);
+            if (success)
+            {
+                return StatusCode(200, success);
+            }
+            return BadRequest(new { message = "Error, Something went wrong.", status = -1 });
         }
 
-        [HttpGet("WtpLose/{userId}")]
+        [HttpPost("WtpLose")]
         public async Task<IActionResult> WtpLose(int userId)
         {
             var success = await _businessModel.WtpLoseAsync(userId);
-            return StatusCode(200, success);
+            if (success)
+            {
+                return StatusCode(200, success);
+            }
+            return BadRequest(new { message = "Error, Something went wrong.", status = -1 });
         }
 
         [HttpGet("WtpRecord/{userId}")]
@@ -221,18 +232,26 @@ namespace P3Api.Controllers
             return StatusCode(200, success);
         }
 
-        [HttpGet("CapWin/{userId}")]
+        [HttpPost("CapWin")]
         public async Task<IActionResult> CapWin(int userId)
         {
             var success = await _businessModel.CapWinAsync(userId);
-            return StatusCode(200, success);
+            if (success)
+            {
+                return StatusCode(200, success);
+            }
+            return BadRequest(new { message = "Error, Something went wrong.", status = -1 });
         }
 
-        [HttpGet("CapLose/{userId}")]
+        [HttpPost("CapLose")]
         public async Task<IActionResult> CapLose(int userId)
         {
             var success = await _businessModel.CapLoseAsync(userId);
-            return StatusCode(200, success);
+            if (success)
+            {
+                return StatusCode(200, success);
+            }
+            return BadRequest(new { message = "Error, Something went wrong.", status = -1 });
         }
 
         [HttpGet("CapRecord/{userId}")]

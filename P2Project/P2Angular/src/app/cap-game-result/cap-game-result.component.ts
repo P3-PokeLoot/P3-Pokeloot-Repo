@@ -40,10 +40,6 @@ export class CapGameResultComponent implements OnInit {
         this.result = "Failure";
       }
     }
-    this.waitASec();
-  }
-
-  waitASec(){
     let timer = setInterval(() => {
       if(this.waitTime <= 1){
         this._gameService.CapRecord().subscribe(
@@ -55,6 +51,6 @@ export class CapGameResultComponent implements OnInit {
       else{
         this.waitTime -= 1;
       }
-    },300);
+    },500);
   }
 }

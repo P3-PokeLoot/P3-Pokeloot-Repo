@@ -96,10 +96,6 @@ export class RpsGameOutcomeComponent implements OnInit {
       this.message = "Computer wins! \nWater is super effective against fire!"
       this._gameService.RpsLose().subscribe();
     }
-    this.waitASec();
-  }
-
-  waitASec(){
     let timer = setInterval(() => {
       if(this.waitTime <= 1){
         this._gameService.RpsRecord().subscribe(
@@ -112,7 +108,7 @@ export class RpsGameOutcomeComponent implements OnInit {
       else{
         this.waitTime -= 1;
       }
-    },300);
+    },500);
   }
 
   playAgain() {
