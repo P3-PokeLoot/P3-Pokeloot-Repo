@@ -1,0 +1,23 @@
+<p>achievements-statistic works!</p>
+
+<!--Display UI here-->
+<div>
+    <input type="button" value="Show Aggregate Achievement Data" (click)="GetAggregateAchievmentData()">
+</div>
+
+
+<!--Display aggregate achievements here-->
+<!--Create a histogram to show the frequency of completion for all achievements. For example, we have 20 achievements, so there
+will be 20 bars, the first achievement might have 100% and the last achievement might have 0%. So, every user completed the first 
+achievement but no user completed the last achievement.-->
+
+<!--Histogram from this link: https://www.syncfusion.com/angular-ui-components/angular-charts/chart-types/histogram-chart-->
+<ejs-chart style='display:block' id='chartcontainer'  [primaryXAxis]='primaryXAxis'>
+    <e-series-collection>
+         <e-series [dataSource]='chartData' type='Histogram' xName='x' yName='y'> </e-series>
+    </e-series-collection>
+</ejs-chart>
+<!--This may be better, but requires installing packages via their guide:
+     https://www.eduforbetterment.com/histogram-chart-in-angular-using-highchart/-->
+
+
