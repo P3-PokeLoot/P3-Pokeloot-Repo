@@ -48,26 +48,26 @@ stages:
 
 # Create Docker containers and push to repo
 # Angular Docker container
-- stage: BuildAngular
-  displayName: Build image
-  jobs:
-  - job: Build
-    displayName: Build
-    steps:
-    - task: Docker@2
-      inputs:
-        containerRegistry: 'DockerHub'
-        repository: 'gregious/p3angular'
-        command: 'build'
-        Dockerfile: '$(Build.SourcesDirectory)/P2Project/P2Angular/Dockerfile'
-    - task: Docker@2
-      inputs:
-        containerRegistry: 'DockerHub'
-        repository: 'gregious/p3angular'
-        command: 'push'
-        tags: 'gregious/$(Build.BuildId)'
-        addPipelineData: false
-        addBaseImageData: false
+# - stage: BuildAngular
+#   displayName: Build image
+#   jobs:
+#   - job: Build
+#     displayName: Build
+#     steps:
+#     - task: Docker@2
+#       inputs:
+#         containerRegistry: 'DockerHub'
+#         repository: 'gregious/p3angular'
+#         command: 'build'
+#         Dockerfile: '$(Build.SourcesDirectory)/P2Project/P2Angular/Dockerfile'
+#     - task: Docker@2
+#       inputs:
+#         containerRegistry: 'DockerHub'
+#         repository: 'gregious/p3angular'
+#         command: 'push'
+#         tags: 'gregious/$(Build.BuildId)'
+#         addPipelineData: false
+#         addBaseImageData: false
 
 # Main API Docker container      
 - stage: BuildMain
