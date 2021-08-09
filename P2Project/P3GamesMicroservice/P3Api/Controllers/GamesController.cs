@@ -43,11 +43,6 @@ namespace P3Api.Controllers
                 return StatusCode(200, games);
             else
                 return StatusCode(500);
-            List<GameDetail> gameDetails;
-
-            gameDetails = await _businessModel.GetGameInfoListAsync();
-
-            return StatusCode(200, gameDetails);
         }
 
         [HttpGet("Wtp")]
@@ -180,9 +175,9 @@ namespace P3Api.Controllers
         }
 
         [HttpPost("RpsWin")]
-        public IActionResult RpsWin(int userId)
+        public async Task<IActionResult> RpsWin(int userId)
         {
-            var success = _businessModel.RpsWin(userId);
+            var success = await _businessModel.RpsWinAsync(userId);
             if(success)
             {
                 return StatusCode(200, success);
@@ -191,9 +186,9 @@ namespace P3Api.Controllers
         }
 
         [HttpPost("RpsLose")]
-        public IActionResult RpsLose(int userId)
+        public async Task<IActionResult> RpsLose(int userId)
         {
-            var success = _businessModel.RpsLose(userId);
+            var success = await _businessModel.RpsLoseAsync(userId);
             if (success)
             {
                 return StatusCode(200, success);
@@ -209,9 +204,9 @@ namespace P3Api.Controllers
         }
 
         [HttpPost("WtpWin")]
-        public ActionResult WtpWin(int userId)
+        public async Task<IActionResult> WtpWinAsync(int userId)
         {
-            var success = _businessModel.WtpWin(userId);
+            var success =await _businessModel.WtpWinAsync(userId);
             if (success)
             {
                 return StatusCode(200, success);
@@ -220,9 +215,9 @@ namespace P3Api.Controllers
         }
 
         [HttpPost("WtpLose")]
-        public IActionResult WtpLose(int userId)
+        public async Task<IActionResult> WtpLose(int userId)
         {
-            var success = _businessModel.WtpLose(userId);
+            var success = await _businessModel.WtpLoseAsync(userId);
             if (success)
             {
                 return StatusCode(200, success);
@@ -238,9 +233,9 @@ namespace P3Api.Controllers
         }
 
         [HttpPost("CapWin")]
-        public IActionResult CapWin(int userId)
+        public async Task<IActionResult> CapWin(int userId)
         {
-            var success = _businessModel.CapWin(userId);
+            var success = await _businessModel.CapWinAsync(userId);
             if (success)
             {
                 return StatusCode(200, success);
@@ -249,9 +244,9 @@ namespace P3Api.Controllers
         }
 
         [HttpPost("CapLose")]
-        public IActionResult CapLose(int userId)
+        public async Task<IActionResult> CapLose(int userId)
         {
-            var success = _businessModel.CapLose(userId);
+            var success = await _businessModel.CapLoseAsync(userId);
             if (success)
             {
                 return StatusCode(200, success);
