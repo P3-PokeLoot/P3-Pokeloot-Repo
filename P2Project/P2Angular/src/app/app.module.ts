@@ -44,6 +44,10 @@ import { FriendsComponent } from './friends/friends.component';
 import { WamGameComponent } from './wam-game/wam-game.component';
 import { AchievementsStatisticComponent } from './achievements-statistic/achievements-statistic.component';
 import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
+import { GameFormComponent } from './game-form/game-form.component';
+import { DeleteGameComponent } from './delete-game/delete-game.component';
+import { ModifyGameComponent } from './modify-game/modify-game.component';
+import { ModifyGameFormComponent } from './modify-game-form/modify-game-form.component';
 
 
 @NgModule({
@@ -81,6 +85,10 @@ import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
     WamGameComponent,
     UnlockcardStatisticChildComponent,
     AchievementsStatisticComponent,
+    GameFormComponent,
+    DeleteGameComponent,
+    ModifyGameComponent,
+    ModifyGameFormComponent,
   ],
   imports: [
     BrowserModule,

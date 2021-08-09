@@ -22,6 +22,10 @@ import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
 
 import { FriendsComponent } from './friends/friends.component';
 import { WamGameComponent } from './wam-game/wam-game.component';
+import { GameFormComponent } from './game-form/game-form.component';
+import { DeleteGameComponent } from './delete-game/delete-game.component';
+import { ModifyGameComponent } from './modify-game/modify-game.component';
+
 
 
 
@@ -47,13 +51,16 @@ const routes: Routes = [
   { path: 'Game/CAP', component: CapGameComponent, canActivate: [AuthGuard]},
   { path: 'Game/WhackADiglett', component: WamGameComponent, canActivate: [AuthGuard] },
   { path: 'Game/PokemonCardMatch', component: PokemonCardMatchComponent, canActivate: [AuthGuard] },
+  { path: 'Game/GameForm', component: GameFormComponent, canActivate: [AuthGuard] },
+  { path: 'Game/DeleteGame', component: DeleteGameComponent, canActivate: [AuthGuard] },
+  { path: 'Game/ModifyGame', component: ModifyGameComponent, canActivate: [AuthGuard] },
   { path: '**', component: HomePageComponent },
   
 ];
 
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {onSameUrlNavigation : 'reload'})],
+  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
