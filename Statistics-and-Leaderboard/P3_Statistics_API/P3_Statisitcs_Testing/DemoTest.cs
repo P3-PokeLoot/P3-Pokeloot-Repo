@@ -725,7 +725,7 @@ namespace P3_Statisitcs_Testing
 
         }
 
-        /*========================= TEST 3 GUILLERMO ======================================*/
+        /*========================= TEST 4 GUILLERMO ======================================*/
         [Fact]
         public async Task GetTotalPokemonsInTheDB() {
             // Arrange
@@ -798,7 +798,7 @@ namespace P3_Statisitcs_Testing
         }
 
 
-        /*========================= TEST 4 GUILLERMO ======================================*/
+        /*========================= TEST 5 GUILLERMO ======================================*/
 
         [Fact]
         public async Task GetTotalCardAmountUserHave()
@@ -968,7 +968,7 @@ namespace P3_Statisitcs_Testing
 
         }
 
-        /*========================= TEST 5 GUILLERMO ======================================*/
+        /*========================= TEST 6 GUILLERMO ======================================*/
 
         [Fact]
         public async Task PercentageOfAllUsersThatCurrentlyOwnThisCard()
@@ -1148,36 +1148,375 @@ namespace P3_Statisitcs_Testing
            
         }
 
+        /*========================= TEST 7 GUILLERMO ======================================*/
+
+        [Fact]
+        public async Task CheckIfUserArchieve100Coins()
+        {
+            // Arrange
+            User user_1 = new()
+            {
+                UserId = 1,
+                FirstName = "user1",
+                LastName = "user1",
+                UserName = "user1",
+                Password = "user1",
+                Email = "user1",
+                CoinBalance = 0,
+                AccountLevel = 10,
+                TotalCoinsEarned = 100
+
+            };
+
+            User user_2 = new()
+            {
+                UserId = 2,
+                FirstName = "user1",
+                LastName = "user1",
+                UserName = "user1",
+                Password = "user1",
+                Email = "user1",
+                CoinBalance = 0,
+                AccountLevel = 10,
+                TotalCoinsEarned = 10
+
+            };
+
+            Achievement achievement = new()
+            {
+                AchievementId = 0,
+                AchievementName = "100 coins achievement completed"
+            };
 
 
 
-        //##############################################
-        /*   public void GetUsersTest()
-           {
-               string connectionString = GetConnectionString();
+            using (var context = new P3Context(options))
+            {
 
-               using (TransactionScope ts = new TransactionScope())
+                // Act
+                context.Database.EnsureDeleted();
+                context.Database.EnsureCreated();
+                Archievement_Coins archievement_Coins = new Archievement_Coins(context);
+
+                context.Users.Add(user_1);
+                context.Users.Add(user_2);
+                context.SaveChanges();
+
+                context.Achievements.Add(achievement);
+                context.SaveChanges();
+
+                bool test_1 = archievement_Coins.UserEarn100Coins(1);
+                bool test_2 = archievement_Coins.UserEarn100Coins(2);
+
+                // Assert
+                Assert.True(test_1);
+                Assert.False(test_2);
+
+            }
+
+        }
+
+
+
+
+        /*========================= TEST 8 GUILLERMO ======================================*/
+
+        [Fact]
+        public async Task CheckIfUserArchieve1000Coins()
+        {
+            // Arrange
+            User user_1 = new()
+            {
+                UserId = 1,
+                FirstName = "user1",
+                LastName = "user1",
+                UserName = "user1",
+                Password = "user1",
+                Email = "user1",
+                CoinBalance = 0,
+                AccountLevel = 10,
+                TotalCoinsEarned = 1000
+
+            };
+
+            User user_2 = new()
+            {
+                UserId = 2,
+                FirstName = "user1",
+                LastName = "user1",
+                UserName = "user1",
+                Password = "user1",
+                Email = "user1",
+                CoinBalance = 0,
+                AccountLevel = 10,
+                TotalCoinsEarned = 10
+
+            };
+
+            Achievement achievement = new()
+            {
+                AchievementId = 1,
+                AchievementName = "1000 coins achievement completed"
+            };
+
+
+
+            using (var context = new P3Context(options))
+            {
+
+                // Act
+                context.Database.EnsureDeleted();
+                context.Database.EnsureCreated();
+                Archievement_Coins archievement_Coins = new Archievement_Coins(context);
+
+                context.Users.Add(user_1);
+                context.Users.Add(user_2);
+                context.SaveChanges();
+
+                context.Achievements.Add(achievement);
+                context.SaveChanges();
+
+                bool test_1 = archievement_Coins.UserEarn1000Coins(1);
+                bool test_2 = archievement_Coins.UserEarn1000Coins(2);
+
+                // Assert
+                Assert.True(test_1);
+                Assert.False(test_2);
+
+            }
+
+        }
+
+
+        /*========================= TEST 9 GUILLERMO ======================================*/
+
+        [Fact]
+        public async Task CheckIfUserArchieve10000Coins()
+        {
+            // Arrange
+            User user_1 = new()
+            {
+                UserId = 1,
+                FirstName = "user1",
+                LastName = "user1",
+                UserName = "user1",
+                Password = "user1",
+                Email = "user1",
+                CoinBalance = 0,
+                AccountLevel = 10,
+                TotalCoinsEarned = 10000
+
+            };
+
+            User user_2 = new()
+            {
+                UserId = 2,
+                FirstName = "user1",
+                LastName = "user1",
+                UserName = "user1",
+                Password = "user1",
+                Email = "user1",
+                CoinBalance = 0,
+                AccountLevel = 10,
+                TotalCoinsEarned = 10
+
+            };
+
+            Achievement achievement = new()
+            {
+                AchievementId = 2,
+                AchievementName = "10000 coins achievement completed"
+            };
+
+
+
+            using (var context = new P3Context(options))
+            {
+
+                // Act
+                context.Database.EnsureDeleted();
+                context.Database.EnsureCreated();
+                Archievement_Coins archievement_Coins = new Archievement_Coins(context);
+
+                context.Users.Add(user_1);
+                context.Users.Add(user_2);
+                context.SaveChanges();
+
+                context.Achievements.Add(achievement);
+                context.SaveChanges();
+
+                bool test_1 = archievement_Coins.UserEarn10000Coins(1);
+                bool test_2 = archievement_Coins.UserEarn10000Coins(2);
+
+                // Assert
+                Assert.True(test_1);
+                Assert.False(test_2);
+
+            }
+
+        }
+
+
+        /*========================= TEST 10 GUILLERMO ======================================*/
+
+        [Fact]
+        public async Task GetAllArchievenmtOfOneUser()
+        {
+
+            // Arrange
+            Achievement ar_1 = new()
+            {
+                AchievementId = 1,
+                AchievementName = "one"
+            };
+
+            Achievement ar_2 = new()
+            {
+                AchievementId = 2,
+                AchievementName = "two"
+            };
+
+            Achievement ar_3 = new()
+            {
+                AchievementId = 3,
+                AchievementName = "three"
+            };
+
+            Achievement ar_4 = new()
+            {
+                AchievementId = 4,
+                AchievementName = "four"
+            };
+
+            Achievement ar_5 = new()
+            {
+                AchievementId = 5,
+                AchievementName = "five"
+            };
+
+            // Set user archievement
+            UserAchievement user_Arch_1 = new()
+            {
+                UserId = 1,
+                AchievementId = 1,
+                Completion = "true"
+
+            };
+
+            UserAchievement user_Arch_2 = new()
+            {
+                UserId = 1,
+                AchievementId = 2,
+                Completion = "true"
+
+            };
+
+            UserAchievement user_Arch_3 = new()
+            {
+                UserId = 2,
+                AchievementId = 3,
+                Completion = "true"
+
+            };
+
+            UserAchievement user_Arch_4 = new()
+            {
+                UserId = 1,
+                AchievementId = 4,
+                Completion = "true"
+
+            };
+
+            UserAchievement user_Arch_5 = new()
+            {
+                UserId = 2,
+                AchievementId = 5,
+                Completion = "true"
+
+            };
+
+            // Act
+            using (var context = new P3Context(options))
+            {
+                context.Database.EnsureDeleted();
+                context.Database.EnsureCreated();
+
+                Archievement_Coins test = new Archievement_Coins(context);
+
+                context.Achievements.Add(ar_1);
+                context.Achievements.Add(ar_2);
+                context.Achievements.Add(ar_3);
+                context.Achievements.Add(ar_4);
+                context.Achievements.Add(ar_5);
+                context.SaveChanges();
+
+                context.UserAchievements.Add(user_Arch_1);
+                context.UserAchievements.Add(user_Arch_2);
+                context.UserAchievements.Add(user_Arch_3);
+                context.UserAchievements.Add(user_Arch_4);
+                context.UserAchievements.Add(user_Arch_5);
+                context.SaveChanges();
+
+                // Assert
+                List<Achievement> user_list1 = test.UserAchievements(1);
+                List<Achievement> user_list2 = test.UserAchievements(2);
+
+                Assert.NotNull(user_list1);
+                Assert.Collection(user_list1,
+               info => Assert.Equal(4, info.AchievementId),
+               info => Assert.Equal(2, info.AchievementId),
+               info => Assert.Equal(1, info.AchievementId)
+               );
+
+                Assert.NotNull(user_list2);
+                Assert.Collection(user_list2,
+               info => Assert.Equal(5, info.AchievementId),
+               info => Assert.Equal(3, info.AchievementId) 
+               );
+
+                Assert.Equal(3, user_list1.Count());
+                Assert.Equal(2, user_list2.Count());
+
+
+            }
+
+
+        }
+
+
+
+
+
+
+
+
+            //##############################################
+            /*   public void GetUsersTest()
                {
-                   using (SqlConnection connection =
-                       new SqlConnection(connectionString))
+                   string connectionString = GetConnectionString();
+
+                   using (TransactionScope ts = new TransactionScope())
                    {
-                       connection.Open();
-                       DataLayer dataAccessLayer = new DataLayer();
+                       using (SqlConnection connection =
+                           new SqlConnection(connectionString))
+                       {
+                           connection.Open();
+                           DataLayer dataAccessLayer = new DataLayer();
 
-                       DataSet dataSet = dataAccessLayer.GetUsers();
-                       AddNewUser("Fred", connection);
+                           DataSet dataSet = dataAccessLayer.GetUsers();
+                           AddNewUser("Fred", connection);
 
-                       dataSet = dataAccessLayer.GetUsers();
-                       DataRow[] dr = dataSet.Tables[0].Select("[UserName] = 'Fred'");
-                       Assert.AreEqual(1, dr.Length);
+                           dataSet = dataAccessLayer.GetUsers();
+                           DataRow[] dr = dataSet.Tables[0].Select("[UserName] = 'Fred'");
+                           Assert.AreEqual(1, dr.Length);
+                       }
                    }
-               }
-           }*/
+               }*/
 
-        //##############################################
-
+            //##############################################
 
 
-    }
+
+        }
 
 }
