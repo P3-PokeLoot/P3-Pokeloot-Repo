@@ -4,17 +4,47 @@
 
 trigger:
 - main
-
+pool:
+  vmimage: ubuntu-latest
 resources:
 - repo: self
 
-variables:
-  tag: '$(Build.BuildId)'
-
 stages:
+# Build, test, and publish test results to sonar cloud
+- stage: P2MainSonarCloud
+  displayName: P2 Main Sonar Cloud
+  jobs:
+  # Main API Build, Test, Publish to Sonar Cloud
+  - job: P2Main
+    steps:
 
-#
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'restore'
+        projects: '$(Build.SourcesDirectory)/P2Project/P2Main/P2Main.sln'
+      
+    - task: SonarCloudPrepare@1
+      inputs:
+        SonarCloud: 'MainAPI_SonarCloud'
+        organization: 'p3pokeloot'
+        scannerMode: 'MSBuild'
+        projectKey: 'p3pokeloot_Pokeloot_MainAPI'
+        projectName: 'p3pokeloot_Pokeloot_MainAPI'
 
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'build'
+        projects: '$(Build.SourcesDirectory)/P2Project/P2Main/P2Main.sln'
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'test'
+        projects: '$(Build.SourcesDirectory)/P2Project/P2Main/P2Main.sln'
+
+    - task: SonarCloudAnalyze@1
+
+    - task: SonarCloudPublish@1
+      inputs:
+        pollingTimeoutSec: '300'
 
 # Create Docker containers and push to repo
 # Angular Docker container
@@ -23,8 +53,6 @@ stages:
   jobs:
   - job: Build
     displayName: Build
-    pool:
-      vmImage: ubuntu-latest
     steps:
     - task: Docker@2
       inputs:
@@ -47,8 +75,6 @@ stages:
   jobs:
   - job: Build
     displayName: Build
-    pool:
-      vmImage: ubuntu-latest
     steps:
     - task: Docker@2
       inputs:
@@ -72,8 +98,6 @@ stages:
   jobs:
   - job: Build
     displayName: Build
-    pool:
-      vmImage: ubuntu-latest
     steps:
     - task: Docker@2
       inputs:
@@ -97,8 +121,6 @@ stages:
   jobs:
   - job: Build
     displayName: Build
-    pool:
-      vmImage: ubuntu-latest
     steps:
     - task: Docker@2
       inputs:
@@ -115,3 +137,17 @@ stages:
         command: 'push'
         addPipelineData: false
         addBaseImageData: false   
+
+    # Deploy images to kubernetes
+    - task: KubernetesManifest@0
+      inputs:
+        action: 'deploy'
+        kubernetesServiceConnection: 'kubernetes cluster'
+        namespace: 'pokeloot'
+        manifests: '$(Build.SourcesDirectory)/deployment.yml'
+        containers: |
+          'gregious/p3mainapi:$(Build.BuildId)'
+          'gregious/p3gamesapi:$(Build.BuildId)'
+          'gregious/p3statisticsapi:$(Build.BuildId)'
+          'gregious/p3angular:$(Build.BuildId)'
+    
