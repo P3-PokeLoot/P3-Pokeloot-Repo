@@ -38,7 +38,7 @@ namespace P3Api.Controllers
         [HttpGet("List")]
         public async Task<IActionResult> GetGameInfoListAsync()
         {
-            var games = await _businessModel.GameInfoListAsync();
+            var games = await _businessModel.GetGameInfoListAsync();
             if (games != null)
                 return StatusCode(200, games);
             else
