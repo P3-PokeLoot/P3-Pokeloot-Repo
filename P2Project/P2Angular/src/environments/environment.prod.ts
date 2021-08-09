@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
-  urlstat: "http://statistic/api/",
-  urlmain: "http://main/api/",
-  urlmainlocalonly: "http://main/api/",
-  urlgame: "http://game/api/"
+  urlstat: "https://20.106.65.153/api/",
+  urlmain: "https://20.106.65.153/api/P3/",
+  urlmainlocalonly: "https://20.106.65.153/api/P3/",
+  urlgame: "https://20.106.65.153/api/Games/"
 };                                                                                                    
