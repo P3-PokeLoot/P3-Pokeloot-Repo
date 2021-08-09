@@ -28,7 +28,6 @@ namespace P3Api.Controllers
             _businessModel = businessModel;
             _logger = logger;
             //_dataContext = dataContext;
-            _dataContext = dataContext;
             _hostEnvironment = hostEnvironment;
         }
 
@@ -46,7 +45,7 @@ namespace P3Api.Controllers
                 return StatusCode(500);
             List<GameDetail> gameDetails;
 
-            gameDetails = _businessModel.GetGameInfoList();
+            gameDetails = await _businessModel.GetGameInfoListAsync();
 
             return StatusCode(200, gameDetails);
         }
@@ -59,9 +58,9 @@ namespace P3Api.Controllers
         }
 
         [HttpGet("SingleGame/{id}")]
-        public IActionResult GetSingleGame(int id)
+        public async Task<IActionResult> GetSingleGame(int id)
         {
-            GameDetail gameInfo = _businessModel.SingleGame(id);
+            GameDetail gameInfo = await _businessModel.SingleGameAsync(id);
 
             if (gameInfo != null)
             {
@@ -83,7 +82,7 @@ namespace P3Api.Controllers
         {
             gameDetail.ImageName = await SaveImage(gameDetail.ImageFile);
 
-            GameInfo gameInfo = _businessModel.CreateGame(gameDetail);
+            GameInfo gameInfo = await _businessModel.CreateGameAsync(gameDetail);
 
 
             if (gameInfo != null)
@@ -112,7 +111,7 @@ namespace P3Api.Controllers
 
             }
 
-            GameInfo gameInfo = _businessModel.ModifyGame(gameDetail);
+            GameInfo gameInfo = await _businessModel.ModifyGameAsync(gameDetail);
 
 
             if (gameInfo != null)
@@ -126,9 +125,9 @@ namespace P3Api.Controllers
         }
 
         [HttpDelete("Delete/{id}")]
-        public ActionResult DeleteGame(int id)
+        public async Task<ActionResult> DeleteGame(int id)
         {
-            GameInfo gameInfo = _businessModel.DeleteGame(id);
+            GameInfo gameInfo = await _businessModel.DeleteGameAsync(id);
 
 
             if (gameInfo.ImagePath != null || gameInfo.ImagePath != "")
