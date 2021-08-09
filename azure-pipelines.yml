@@ -139,6 +139,12 @@ stages:
         addBaseImageData: false   
 
     # Deploy images to kubernetes
+- stage: DeployKube
+  displayName: Deploy to Kubernetes
+  jobs:
+  - job: Deploy
+    displayName: Deploy
+    steps:
     - task: KubernetesManifest@0
       inputs:
         action: 'deploy'
