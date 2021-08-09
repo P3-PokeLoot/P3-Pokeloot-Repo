@@ -1,0 +1,51 @@
+.generalSection{
+  width: 50%;
+  border: 1px solid black;
+  height: 300px;
+  float: left;
+}
+
+
+
+p, h4 {
+  margin-left: 40%;
+}
+.strike {
+  width: 50%;
+  height: 50%;
+  margin-top: 20%;
+  margin-left: 1%;
+}
+#gallows{
+  background: #ff5100;
+  height: 603px;
+}
+
+#strikes{
+  background: greenyellow;
+}
+
+#guess{
+  background: orange;
+}
+
+
+.divStyle{
+  margin-top: 25%;
+
+}
+.mainDivStyle{
+  margin-top: 6%;
+  left: 0;
+  right: 0;
+  min-height: 100vh;
+  min-height: 100%;
+  width: 100%;
+  width: 100vw;
+  margin: 0 auto;
+  position: fixed;
+}
+#dashes{
+  margin-top: 5%;
+  display: center;
+}
