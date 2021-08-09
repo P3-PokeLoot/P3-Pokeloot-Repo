@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GameService } from '../game-service';
+import { GameService } from '../service/game/game-service';
 
 @Component({
   selector: 'app-wam-game',
@@ -15,6 +15,8 @@ export class WamGameComponent implements OnInit {
   time: any = 30;
   //location of diglett
   random?:number;
+  //location of dugtrio
+  randomBonus?:number;
   //is the game over true/false
   gameOver: boolean = false;
   //has the game started true/false
@@ -38,6 +40,7 @@ export class WamGameComponent implements OnInit {
     this.gameStart = true;
     this.countdown();
     this.moveDigglet();
+    this.moveDugtrio();
   }
 
   //countdown timer till game ends
@@ -56,15 +59,18 @@ export class WamGameComponent implements OnInit {
     },1000);
   }
 
-  //removes diglett if user click hits
+  //removes diglett/dugtrio if user click hits
   remove_img(x:string){
     document.getElementById(x)!.remove();
   }
  
-  //tests if user click loaction is the same as a diglett
+  //tests if user click loaction is the same as a diglett (1 point) or dugtrio (3 points)
   testhit(x:number){
     if(x == this.random){
       this.score++;
+    }
+    if (x == this.randomBonus){
+      this.score += 3;
     }
   }
 
@@ -78,8 +84,8 @@ export class WamGameComponent implements OnInit {
       }
       else{
         var x = Math.floor(Math.random() * 10) + 1;
-        //makes sure diglett does not appear in same square
-        if(x == this.random)
+        //makes sure diglett does not appear in same square two times in a row or in the same square as dugtrio
+        if(x == this.random || x == this.randomBonus)
         {
           if(x == 10)
           {
@@ -96,6 +102,36 @@ export class WamGameComponent implements OnInit {
         }
       }
     }, 1500/this.difficulty)
+  }
+
+  //generate a random number to assign the location where a dugtrio will appear for a time 
+  moveDugtrio(){
+    let peek = setInterval(() =>{ 
+      if(this.gameOver == true)
+      {
+        this.randomBonus = 0;
+        clearInterval(peek);
+      }
+      else{
+        var x = Math.floor(Math.random() * 10) + 1;
+        //makes sure dugtrio does not appear in same square two times in a row or in the same square as diglett
+        if(x == this.random || x == this.randomBonus)
+        {
+          if(x == 10)
+          {
+            this.randomBonus = Math.floor(Math.random() * 9) + 1;
+          }
+          else
+          {
+            this.randomBonus = x + 1;
+          }
+        }
+        else
+        {
+          this.randomBonus = x;
+        }
+      }
+    }, 15000/this.difficulty)
   }
 
   // gives coins to user based on score and difficulty
