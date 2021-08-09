@@ -11,6 +11,7 @@ namespace P2DbContext.Models
         public int UserId { get; set; }
         public int QuantityNormal { get; set; }
         public int QuantityShiny { get; set; }
+        public bool? IsFavorite { get; set; }
 
         [Newtonsoft.Json.JsonIgnore]
         public virtual PokemonCard Pokemon { get; set; }

@@ -39,9 +39,16 @@ import { CapGameCatchComponent } from './cap-game-catch/cap-game-catch.component
 import { CapGameResultComponent } from './cap-game-result/cap-game-result.component';
 import { PokemonCardMatchComponent } from './pokemon-card-match/pokemon-card-match.component';
 import { EditPostComponent } from './edit-post/edit-post.component';
+import { UnlockcardStatisticChildComponent } from './unlockcard-statistic-child/unlockcard-statistic-child.component';
 import { FriendsComponent } from './friends/friends.component';
 import { WamGameComponent } from './wam-game/wam-game.component';
 import { HangManComponent } from './hang-man/hang-man.component';
+import { AchievementsStatisticComponent } from './achievements-statistic/achievements-statistic.component';
+import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
+import { GameFormComponent } from './game-form/game-form.component';
+import { DeleteGameComponent } from './delete-game/delete-game.component';
+import { ModifyGameComponent } from './modify-game/modify-game.component';
+import { ModifyGameFormComponent } from './modify-game-form/modify-game-form.component';
 
 
 @NgModule({
@@ -75,8 +82,15 @@ import { HangManComponent } from './hang-man/hang-man.component';
     EditPostComponent,
     PokemonCardMatchComponent,
     //JwPaginationComponent,
+    LeaderboardsComponent,
     WamGameComponent,
     HangManComponent,
+    UnlockcardStatisticChildComponent,
+    AchievementsStatisticComponent,
+    GameFormComponent,
+    DeleteGameComponent,
+    ModifyGameComponent,
+    ModifyGameFormComponent,
   ],
   imports: [
     BrowserModule,

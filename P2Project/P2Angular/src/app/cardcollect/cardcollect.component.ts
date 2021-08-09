@@ -27,6 +27,7 @@ export class CardCollectComponent implements OnInit {
   private userId = localStorage.getItem('userId');
   pageOfItems!: ICard[];
   @Input() differentUser?: string;
+  checkFavorites: boolean;
   currentIndex : number = 0;
   currentPage: number = 1;
   lastpage!: number;
@@ -41,6 +42,7 @@ export class CardCollectComponent implements OnInit {
     this.userCollection = [];
     this.fullUserCollection = [];
     this.filterValue = 0;
+    this.checkFavorites = false;
     this.filterValueShiny = false;
     this.raritiesList = [];
     this.genList = [];
@@ -92,19 +94,23 @@ export class CardCollectComponent implements OnInit {
             let Link = result[i].Value.SpriteLink;
             let LinkShiny = result[i].Value.SpriteLinkShiny;
             let PokemonName = result[i].Value.PokemonName;
+            let Favorite = result[i].Key.IsFavorite;
+            //console.log(result[i].Key);
 
             if (Amount > 0) {
               let Quantity = Amount;
               let SpriteLink = Link;
               let IsShiny = false;
-              let card: ICard = { PokemonId, Quantity, RarityId, SpriteLink, PokemonName, IsShiny };
+              let IsFavorite = Favorite;
+              let card: ICard = { PokemonId, Quantity, RarityId, SpriteLink, PokemonName, IsShiny, IsFavorite };
               this.fullUserCollection.push(card);
             }
             if (AmountShiny > 0) {
               let Quantity = AmountShiny;
               let SpriteLink = LinkShiny;
               let IsShiny = true;
-              let card: ICard = { PokemonId, Quantity, RarityId, SpriteLink, PokemonName, IsShiny };
+              let IsFavorite = Favorite;
+              let card: ICard = { PokemonId, Quantity, RarityId, SpriteLink, PokemonName, IsShiny, IsFavorite };
               this.fullUserCollection.push(card);
             }
           }
@@ -131,6 +137,8 @@ export class CardCollectComponent implements OnInit {
 
   filterCollection(): void {
     this.userCollection = [];
+    
+    
 
     if (this.filterValue == 0) {
       if (this.filterValueShiny == false) {
@@ -193,6 +201,11 @@ export class CardCollectComponent implements OnInit {
         }
       });
     }
+
+    if(this.checkFavorites){
+      this.userCollection = this.userCollection.filter(x => x.IsFavorite == true);
+    }
+    
     if(this.userCollection != null){
       this.load();
     }
@@ -244,6 +257,20 @@ export class CardCollectComponent implements OnInit {
     });
     this.route.navigate(['/Friends']);
     this.route.navigateByUrl('/Friends');
+  }
+
+  favorite(card: ICard){
+    if(this.differentUser){
+      return;
+    }
+    if(this.userId){
+    this._cardcollectionService.Favorite(this.userId, card.PokemonId).subscribe(
+      result => console.log(result),
+      error => console.log(error)
+    );
+    }
+    //do not need to reload the page as we will only see favorites in profile
+    card.IsFavorite = !card.IsFavorite;
   }
 
 

@@ -4,19 +4,20 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace P2DbContext.Models
+namespace RepositoryModels
 {
-    public partial class P2DbClass : DbContext
+    public partial class P3DatabaseContext : DbContext
     {
-        public P2DbClass()
+        public P3DatabaseContext()
         {
         }
 
-        public P2DbClass(DbContextOptions<P2DbClass> options)
+        public P3DatabaseContext(DbContextOptions<P3DatabaseContext> options)
             : base(options)
         {
         }
 
+        public virtual DbSet<Achievement> Achievements { get; set; }
         public virtual DbSet<CardCollection> CardCollections { get; set; }
         public virtual DbSet<DisplayBoard> DisplayBoards { get; set; }
         public virtual DbSet<PokemonCard> PokemonCards { get; set; }
@@ -24,18 +25,28 @@ namespace P2DbContext.Models
         public virtual DbSet<PostType> PostTypes { get; set; }
         public virtual DbSet<RarityType> RarityTypes { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<UserAchievement> UserAchievements { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=tcp:databasetempp3.database.windows.net,1433;Initial Catalog=P3Database;Persist Security Info=False;User ID=P3Group;Password=Cheeseburger!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Server=DESKTOP-30TM7O8\\SQLEXPRESS;Database=P3Database;Trusted_Connection=True;");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
+
+            modelBuilder.Entity<Achievement>(entity =>
+            {
+                entity.Property(e => e.AchievementName)
+                    .IsRequired()
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+            });
 
             modelBuilder.Entity<CardCollection>(entity =>
             {
@@ -111,12 +122,12 @@ namespace P2DbContext.Models
 
                 entity.Property(e => e.SpriteLink)
                     .IsRequired()
-                    .HasMaxLength(50)
+                    .HasMaxLength(125)
                     .IsUnicode(false);
 
                 entity.Property(e => e.SpriteLinkShiny)
                     .IsRequired()
-                    .HasMaxLength(50)
+                    .HasMaxLength(125)
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.Rarity)
@@ -202,6 +213,28 @@ namespace P2DbContext.Models
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<UserAchievement>(entity =>
+            {
+                entity.HasKey(e => new { e.UserId, e.AchievementId })
+                    .HasName("PK__UserAchi__05FEFF406A3AB3B2");
+
+                entity.Property(e => e.Completion)
+                    .HasMaxLength(10)
+                    .HasDefaultValueSql("('False')");
+
+                entity.HasOne(d => d.Achievement)
+                    .WithMany(p => p.UserAchievements)
+                    .HasForeignKey(d => d.AchievementId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__UserAchie__Achie__5FB337D6");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.UserAchievements)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__UserAchie__UserI__5EBF139D");
             });
 
             OnModelCreatingPartial(modelBuilder);

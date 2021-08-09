@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using BusinessLayer;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using P3Database;
 
@@ -31,7 +33,7 @@ namespace P3Api
             services.AddSwaggerGen();
             services.AddDbContext<DataContext>(opt =>
             {
-                opt.UseInMemoryDatabase(databaseName: "Testing");
+                opt.UseSqlServer("Server=tcp:databasetempp3.database.windows.net,1433;Initial Catalog=GamesMicroserviceDB;Persist Security Info=False;User ID=P3Group;Password=Cheeseburger!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             }); //Add in sqlserver connection string once set up
             
             services.AddScoped<IBusinessModel, BusinessModel>();
@@ -63,6 +65,12 @@ namespace P3Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseStaticFiles(new StaticFileOptions { 
+                FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "Images")),
+                RequestPath = "/Images"
+            
+            });
 
             app.UseHttpsRedirection();
 

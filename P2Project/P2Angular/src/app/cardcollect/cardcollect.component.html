@@ -21,8 +21,8 @@
    <br>
    <div>
     <div style="font-size: medium; margin-left: 2rem;">
-    <label>Rarities</label>
     
+        <label>Rarities</label>
         <select [(ngModel)]="filterValue">
             <option [value]="0" [selected]="filterValue == 0">Any</option>
             <!-- <option *ngFor="let x of raritiesList" [value]="x" [selected]="filterValue == x">{{x}}</option> -->
@@ -32,9 +32,11 @@
         <input type="checkbox" [(ngModel)]="filterValueShiny" name="shinycheckbox" value="1" style="margin-left: 2rem;">
         <label for="shinycheckbox">Is Shiny</label><br>
 
+        <input type="checkbox" [(ngModel)]="checkFavorites" name="favoritecheckbox" value="1" style="margin-left: 2rem;">
+        <label for="favoritecheckbox">Favorites</label><br>
+
         <label>Generations</label>
-        <select [(ngModel)]="genValue">
-            
+        <select [(ngModel)]="genValue">            
             <!-- <option *ngFor="let x of raritiesList" [value]="x" [selected]="filterValue == x">{{x}}</option> -->
             <option *ngFor="let x of genOptions" [value]="x" [selected]="genValue == x">{{x}}</option>
         </select><br>
@@ -47,9 +49,13 @@
 </div>
 
 
+
+
 <div class="row display: flex justify-content-center" >
     <div *ngFor="let card of pageOfItems" style="width: 18rem; margin: 1rem;" >
         <div *ngIf="card.RarityId == 1" class="card1 text-center border-dark mb-3" >
+            <button *ngIf="!card.IsFavorite" (click)="favorite(card)" style="float: right; border:none; background: none;"><span id="star" style="font-size:300%;color:yellow; text-align: right;">&#10026;</span></button>
+            <button *ngIf="card.IsFavorite" (click)="favorite(card)"  style="float: right; border:none; background: none;"><span id="star" style="font-size:300%;color:red; text-align: right;">&#10026;<br><p style="font-size: xx-small;">Favorited</p></span></button>
         <h5 class="card-title text-left" style="font-size: 1.45em; text-align: left;">x{{card.Quantity}}</h5>
         <img class="card-img-top" src="{{card.SpriteLink}}" alt="{{card.PokemonName}} Image">
         <div class="card-body">
@@ -61,6 +67,8 @@
         </div>
 
         <div *ngIf="card.RarityId == 2" class="card2 text-center border-dark mb-3" >
+            <button *ngIf="!card.IsFavorite" (click)="favorite(card)" style="float: right; border:none; background: none;"><span id="star" style="font-size:300%;color:yellow; text-align: right;">&#10026;</span></button>
+            <button *ngIf="card.IsFavorite" (click)="favorite(card)"  style="float: right; border:none; background: none;"><span id="star" style="font-size:300%;color:red; text-align: right;">&#10026;<br><p style="font-size: xx-small;">Favorited</p></span></button>
         <h5 class="card-title text-left" style="font-size: 1.45em; text-align: left;">x{{card.Quantity}}</h5>
         <img class="card-img-top" src="{{card.SpriteLink}}" alt="{{card.PokemonName}} Image">
         <div class="card-body">
@@ -72,6 +80,8 @@
         </div>
 
         <div *ngIf="card.RarityId == 3" class="card3 text-center border-dark mb-3" >
+            <button *ngIf="!card.IsFavorite" (click)="favorite(card)" style="float: right; border:none; background: none;"><span id="star" style="font-size:300%;color:yellow; text-align: right;">&#10026;</span></button>
+            <button *ngIf="card.IsFavorite" (click)="favorite(card)"  style="float: right; border:none; background: none;"><span id="star" style="font-size:300%;color:red; text-align: right;">&#10026;<br><p style="font-size: xx-small;">Favorited</p></span></button>
         <h5 class="card-title text-left" style="font-size: 1.45em; text-align: left;">x{{card.Quantity}}</h5>
         <img class="card-img-top" src="{{card.SpriteLink}}" alt="{{card.PokemonName}} Image">
         <div class="card-body">
@@ -83,6 +93,8 @@
         </div>
 
         <div *ngIf="card.RarityId == 4" class="card4 text-center border-dark mb-3" >
+            <button *ngIf="!card.IsFavorite" (click)="favorite(card)" style="float: right; border:none; background: none;"><span id="star" style="font-size:300%;color:yellow; text-align: right;">&#10026;</span></button>
+            <button *ngIf="card.IsFavorite" (click)="favorite(card)"  style="float: right; border:none; background: none;"><span id="star" style="font-size:300%;color:red; text-align: right;">&#10026;<br><p style="font-size: xx-small;">Favorited</p></span></button>
         <h5 class="card-title text-left" style="font-size: 1.45em; text-align: left;">x{{card.Quantity}}</h5>
         <img class="card-img-top" src="{{card.SpriteLink}}" alt="{{card.PokemonName}} Image">
         <div class="card-body">
@@ -94,6 +106,8 @@
         </div>
 
         <div *ngIf="card.RarityId == 5" class="card5 text-center border-dark mb-3" >
+            <button *ngIf="!card.IsFavorite" (click)="favorite(card)" style="float: right; border:none; background: none;"><span id="star" style="font-size:300%;color:yellow; text-align: right;">&#10026;</span></button>
+            <button *ngIf="card.IsFavorite" (click)="favorite(card)"  style="float: right; border:none; background: none;"><span id="star" style="font-size:300%;color:red; text-align: right;">&#10026;<br><p style="font-size: xx-small;">Favorited</p></span></button>
         <h5 class="card-title text-left" style="font-size: 1.45em; text-align: left;">x{{card.Quantity}}</h5>
         <img class="card-img-top" src="{{card.SpriteLink}}" alt="{{card.PokemonName}} Image">
         <div class="card-body">

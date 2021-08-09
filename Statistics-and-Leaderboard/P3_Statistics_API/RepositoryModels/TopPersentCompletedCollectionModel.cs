@@ -11,8 +11,8 @@ namespace RepositoryModels
         public int UserId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public float Card_collection { get; set; }
-        public int Total { get; set; }
+        public double Card_collection { get; set; }
+        //public int Total { get; set; }
 
 
 

@@ -14,9 +14,9 @@ namespace P2Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class P2Controller : Controller
+    public class P3Controller : Controller
     {
-        private readonly ILogger<P2Controller> _logger;
+        private readonly ILogger<P3Controller> _logger;
 
         private readonly IBusinessModel _businessModel;
 
@@ -26,7 +26,7 @@ namespace P2Api.Controllers
         /// </summary>
         /// <param name="businessModel">Business model object</param>
         /// <param name="logger">Logger object</param>
-        public P2Controller(IBusinessModel businessModel, ILogger<P2Controller> logger)
+        public P3Controller(IBusinessModel businessModel, ILogger<P3Controller> logger)
         {
             this._businessModel = businessModel;
             this._logger = logger;
@@ -132,7 +132,7 @@ namespace P2Api.Controllers
             return currentUser;
         }
 
-        
+
 
         /// <summary>
         /// https://localhost:44307/api/P2/Lootbox/2/1
@@ -355,7 +355,26 @@ namespace P2Api.Controllers
             return result;
         }
 
+        [HttpGet("Favorite/{UserId}/{Poke}")]
+        public bool Favorite(int UserId, int Poke)
+        {
+            bool result = _businessModel.favoriteCard(UserId, Poke);
+            return result;
+        }
 
+        [HttpGet("Friends/{UserId}")]
+        public List<FullFriend> Friends(int UserId)
+        {
+            List<FullFriend> result = _businessModel.GetFriends(UserId);
+            return result;
+        }
+
+        [HttpGet("FriendAction/{UserId}/{FriendId}")]
+        public string FriendAction(int UserId, int FriendId)
+        {
+            string result = _businessModel.friendAction(UserId, FriendId);
+            return result;
+        }
     } // end class
 } // end namespace
 

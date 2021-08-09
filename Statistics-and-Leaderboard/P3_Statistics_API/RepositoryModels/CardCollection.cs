@@ -14,10 +14,5 @@ namespace RepositoryModels
 
         public virtual PokemonCard Pokemon { get; set; }
         public virtual User User { get; set; }
-
-        public int Sum(Func<object, object> p)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

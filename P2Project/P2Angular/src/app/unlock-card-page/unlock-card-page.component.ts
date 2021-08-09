@@ -52,7 +52,7 @@ export class UnlockCardPageComponent implements OnInit {
       else{
         amount = 1000;
       }
-      if(this.currentUserCoinBalance >= 100)
+      if(this.currentUserCoinBalance >= amount)
       {
         this.tooPoor = false;
         this._cardcollectionService.RollLootbox(boxType).subscribe(

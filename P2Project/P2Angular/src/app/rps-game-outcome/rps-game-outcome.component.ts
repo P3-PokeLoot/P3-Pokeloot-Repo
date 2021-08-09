@@ -17,13 +17,14 @@ export class RpsGameOutcomeComponent implements OnInit {
   //Computer rps choice value
   public computerChoice: number = 0;
   //game outcome string
-  public outcome?: string;
+  public outcome!: string;
   //specific message string
   public message?: string;
   //Display how much coins user won!
   public totalEarned: string = `You won ${this.numCoinsToAdd} Congratulations!`
   //Boolean if user won
   public userWon: boolean = false;
+  waitTime: any = 1;
   @Output() playAgainEmitter = new EventEmitter();
 
   constructor(private _gameService: GameService) { }
@@ -45,47 +46,73 @@ export class RpsGameOutcomeComponent implements OnInit {
   // 3 = fire
   evaluateGameOutcome(computerChoice: number, userChoice: number): void {
     if (userChoice == 1 && computerChoice == 1) {
-      this.outcome = "Looks like a tie"
+      this.outcome = "Looks like a tie! "
       this.message = "Tie! \nGrass is not very effective against grass!"
+      this._gameService.RpsLose().subscribe();
     }
     else if (userChoice == 2 && computerChoice == 2) {
-      this.outcome = "Looks like a tie"
+      this.outcome = "Looks like a tie! "
       this.message = "Tie! \nWater is not very effective against water!"
+      this._gameService.RpsLose().subscribe();
     }
     else if (userChoice == 3 && computerChoice == 3) {
-      this.outcome = "Looks like a tie"
+      this.outcome = "Looks like a tie! "
       this.message = "Tie! \nFire is not very effective against fire!"
+      this._gameService.RpsLose().subscribe();
     }
     else if (userChoice == 1 && computerChoice == 2) {
-      this.outcome = "Yay you won"
+      this.outcome = "Yay you won! "
       this.message = "You win! \nGrass is super effective against water!"
       this.userWon = true;
       this._gameService.AddCoins(this.numCoinsToAdd).subscribe();
+      this._gameService.RpsWin().subscribe();
     }
     else if (userChoice == 2 && computerChoice == 3) {
-      this.outcome = "Yay you won"
+      this.outcome = "Yay you won! "
       this.message = "You win! \nWater is super effective against fire!"
       this.userWon = true;
       this._gameService.AddCoins(this.numCoinsToAdd).subscribe();
+      this._gameService.RpsWin().subscribe();
     }
     else if (userChoice == 3 && computerChoice == 1) {
-      this.outcome = "Yay you won"
+      this.outcome = "Yay you won! "
       this.message = "You win! \nFire is super effective against grass!"
       this.userWon = true;
       this._gameService.AddCoins(this.numCoinsToAdd).subscribe();
+      this._gameService.RpsWin().subscribe();
     }
     else if (userChoice == 1 && computerChoice == 3) {
-      this.outcome = "Aww you lost"
+      this.outcome = "Aww you lost! "
       this.message = "Computer wins! \nFire is super effective against grass!"
+      this._gameService.RpsLose().subscribe();
     }
     else if (userChoice == 2 && computerChoice == 1) {
-      this.outcome = "Aww you lost"
+      this.outcome = "Aww you lost! "
       this.message = "Computer wins! \nGrass is super effective against water!"
+      this._gameService.RpsLose().subscribe();
     }
     else if (userChoice == 3 && computerChoice == 2) {
-      this.outcome = "Aww you lost"
+      this.outcome = "Aww you lost! "
       this.message = "Computer wins! \nWater is super effective against fire!"
+      this._gameService.RpsLose().subscribe();
     }
+    this.waitASec();
+  }
+
+  waitASec(){
+    let timer = setInterval(() => {
+      if(this.waitTime <= 1){
+        this._gameService.RpsRecord().subscribe(
+          result => {
+            console.log(result);
+            this.outcome += "Win record: " + result;
+          });
+        clearInterval(timer);
+      } 
+      else{
+        this.waitTime -= 1;
+      }
+    },300);
   }
 
   playAgain() {

@@ -39,6 +39,13 @@
 #editbutton:hover{
   background-color: rgb(57, 57, 204);
 }
+#addbutton{
+  background-color: rgb(193, 66, 243);
+  margin-left: 5px;
+}
+#addbutton:hover{
+  background-color: rgb(193, 57, 204);
+}
 
 .dot {
   margin-bottom: 2px;

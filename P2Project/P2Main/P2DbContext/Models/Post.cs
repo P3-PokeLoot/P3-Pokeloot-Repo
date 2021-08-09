@@ -17,5 +17,8 @@ namespace P2DbContext.Models
 
         public virtual PokemonCard Pokemon { get; set; }
         public virtual DisplayBoard DisplayBoard { get; set; }
+
+        [Newtonsoft.Json.JsonIgnore]
+        public virtual ICollection<PostComment> PostComments { get; set; }
     }
 }

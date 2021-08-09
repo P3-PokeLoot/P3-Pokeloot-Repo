@@ -1,0 +1,72 @@
+<div class="login-wrapper">
+    <div class="card mt-5">
+        <div class="card-body">
+            <div class="text-center">
+                <!-- Form starts -->
+                <form class="form" [formGroup]="gameForm" style="max-width: 580px; margin:auto" (ngSubmit)="OnSubmit()">
+
+                    <h1 class="h3 mt-4 font-weight-normal">Modify Game</h1>
+
+                    <img class="mt-5 my-5 pb-5" [src]="imageUrl" width="150" height="200" class="img-fluid"
+                        *ngIf='showImage' style="max-width: 300; max-height: 100;">
+
+                    <label for="image" class=" mb-3 mt-3 sr-only"></label>
+                    <input formControlName="imageName" type="file" class="form-control form-control-lg"
+                        (change)="onFileSelected($event)">
+
+                    <div *ngIf="f.imageName.touched && f.imageName.invalid" class="alert alert-danger">
+
+                        <h6 *ngIf="f.imageName.errors?.required">File is required.</h6>
+
+                    </div>
+
+                    <div *ngIf="isImage" class="alert alert-danger">
+                        <h6>PNG files are only accepted</h6>
+                    </div>
+
+                    <label for="Title" class="mb-3 my-2 sr-only"></label>
+                    <input formControlName="title" type="text" class="form-control form-control-lg mt-3"
+                        placeholder="Title" autofocus>
+
+                    <div *ngIf="f.title.touched && f.title.invalid" class="alert alert-danger">
+
+                        <h6 *ngIf="f.title.errors?.required">Title is required</h6>
+
+                        <h6 *ngIf="f.title.errors?.minlength">Title should be 3 character.</h6>
+
+                    </div>
+
+                    <label for="Route" class="mb-3 my-2 sr-only"></label>
+                    <input formControlName="route" type="text" class="form-control form-control-lg mt-3"
+                        placeholder="Route" autofocus>
+                    <div *ngIf="f.route.touched && f.route.invalid" class="alert alert-danger">
+
+                        <h6 *ngIf="f.route.errors?.required">Route is required</h6>
+
+                        <h6 *ngIf="f.route.errors?.minlength">Route should be 3 character.</h6>
+
+                    </div>
+
+                    <div class="mt-3 w-100">
+                        <label for="exampleFormControlTextarea1" class="form-label"></label>
+                        <textarea formControlName="description" class="form-control" name="textDescription"
+                            id="exampleFormControlTextarea1" placeholder="Description..." row="3" ngModel></textarea>
+                    </div>
+                    <div *ngIf="f.description.touched && f.description.invalid" class="alert alert-danger">
+
+                        <h6 *ngIf="f.description.errors?.required">Description is required</h6>
+
+                        <h6 *ngIf="f.description.errors?.minlength">Description should be 10 character or more.
+                        </h6>
+
+                    </div>
+
+                    <div class="d-grid col-8 mx-auto">
+                        <button class="btn btn-danger btn-lg my-5" [disabled]="!gameForm.valid" type="submit">Make
+                            Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
