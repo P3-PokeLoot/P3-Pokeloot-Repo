@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace RepositoryModels
 {
-    public partial class P3Context : DbContext
+    public partial class P3DatabaseContext : DbContext
     {
-        public P3Context()
+        public P3DatabaseContext()
         {
         }
 
-        public P3Context(DbContextOptions<P3Context> options)
+        public P3DatabaseContext(DbContextOptions<P3DatabaseContext> options)
             : base(options)
         {
         }
