@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 using Models;
 using Newtonsoft.Json;
 using P3Database;
@@ -19,7 +19,7 @@ namespace BusinessLayer
         private readonly DataContext _context;
         private readonly ILogger<BusinessModel> _logger;
 
-        public BusinessModel (DataContext context, ILogger<BusinessModel> logger)
+        public BusinessModel(DataContext context, ILogger<BusinessModel> logger)
         {
             _context = context;
             _logger = logger;
@@ -41,7 +41,8 @@ namespace BusinessLayer
             try
             {
                 gameInfos = await _context.GameInfos.ToListAsync();
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 _logger.Log(LogLevel.Error, e.Message);
                 gameInfos = null;
@@ -59,14 +60,14 @@ namespace BusinessLayer
             //Check if incoming gameInfo object is not null
             if (gameInfo != null)
             {
-                try 
+                try
                 {
                     //Add to dbcontext and save changes
                     _context.GameInfos.Add(gameInfo);
                     await _context.SaveChangesAsync();
                     return true;
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     //Log error if one occurs
                     _logger.Log(LogLevel.Error, e.Message);
@@ -93,15 +94,15 @@ namespace BusinessLayer
             pictureUrl = temp.sprites.front_default;
             correctPokemon = temp.name;
             // first option is correct name to start
-            options[0] = correctPokemon; 
+            options[0] = correctPokemon;
 
             // get random options
             for (int i = 1; i < numOptions - 1; i++) // numOptions - 1 for last item to be pikachu
             {
-                while(options[i] == null)
+                while (options[i] == null)
                 {
                     temp = JsonConvert.DeserializeObject(await RandomPokemonAsync());
-                    if(options.Where(x => x == temp.name.ToString()).FirstOrDefault() == null && temp.name.ToString() != "pikachu") // if name not already an option and not pikachu, because pikachu always option
+                    if (options.Where(x => x == temp.name.ToString()).FirstOrDefault() == null && temp.name.ToString() != "pikachu") // if name not already an option and not pikachu, because pikachu always option
                         options[i] = temp.name;
                 }
             }
@@ -127,7 +128,7 @@ namespace BusinessLayer
             var rand = new Random();
             int id = rand.Next(1, 899); // 898 total pokemon?
             // make http request
-            var client = new RestClient("https://pokeapi.co/api/v2/pokemon/"+id);
+            var client = new RestClient("https://pokeapi.co/api/v2/pokemon/" + id);
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
             var body = @"";
@@ -438,7 +439,7 @@ namespace BusinessLayer
                 }
                 return winRecord;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 _logger.Log(LogLevel.Warning, e.Message);
             }
@@ -485,7 +486,82 @@ namespace BusinessLayer
 
             return success;
         }
-            
+
+        public async Task<bool> PhmWinAsync(int userId)
+        {
+            bool success = false;
+            try
+            {
+                var record = await _context.PhmgameStats.Where(x => x.UserId == userId).FirstOrDefaultAsync();
+                if (record != null) // record exists for user
+                {
+                    record.GamesWon += 1;
+                    await _context.SaveChangesAsync();
+                    success = true;
+                }
+                else // no record for user
+                {
+                    PhmgameStat newRecord = new PhmgameStat();
+                    newRecord.UserId = userId;
+                    newRecord.GamesWon = 1;
+                    _context.PhmgameStats.Add(newRecord);
+                    await _context.SaveChangesAsync();
+                    success = true;
+                }
+                return success;
+            }
+            catch
+            {
+                return success;
+            }
+        }
+        public async Task<bool> PhmPlayedAsync(int userId)
+        {
+            bool success = false;
+            try
+            {
+                var record = await _context.PhmgameStats.Where(x => x.UserId == userId).FirstOrDefaultAsync();
+                if (record != null) // record exists for user
+                {
+                    record.TotalGamesPlayed += 1;
+                    await _context.SaveChangesAsync();
+                    success = true;
+                }
+                else // no record for user
+                {
+                    PhmgameStat newRecord = new PhmgameStat();
+                    newRecord.UserId = userId;
+                    newRecord.TotalGamesPlayed = 1;
+                    _context.PhmgameStats.Add(newRecord);
+                    await _context.SaveChangesAsync();
+                    success = true;
+                }
+                return success;
+            }
+            catch
+            {
+                return success;
+            }
+        }
+
+        public async Task<string> PhmRecordAsync(int userId)
+        {
+            string winRecord = null;
+            try
+            {
+                var record = await _context.PhmgameStats.Where(x => x.UserId == userId).FirstOrDefaultAsync();
+                if (record != null)
+                {
+                    winRecord = $"{record.GamesWon}/{record.TotalGamesPlayed}";
+                }
+                return winRecord;
+            }
+            catch
+            {
+                return winRecord;
+            }
+        }
+
         /// Create a game description
         /// </summary>
         /// <param name="gameDetail"></param>
@@ -607,7 +683,7 @@ namespace BusinessLayer
             {
                 GameInfo gameInfo = await _context.GameInfos.Where(game => game.Id == id).FirstOrDefaultAsync();
 
-                if(gameInfo != null)
+                if (gameInfo != null)
                 {
                     gamedetail = new()
                     {
