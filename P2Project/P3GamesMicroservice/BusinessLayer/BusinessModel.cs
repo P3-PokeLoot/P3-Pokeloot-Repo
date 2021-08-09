@@ -1,11 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Models;
 using Newtonsoft.Json;
 using P3Database;
 using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -482,6 +485,157 @@ namespace BusinessLayer
             }
 
             return success;
+            
+        /// Create a game description
+        /// </summary>
+        /// <param name="gameDetail"></param>
+        /// <returns>GameInfo if successfully created otherwise null</returns>
+        public GameInfo CreateGame(GameDetail gameDetail)
+        {
+
+            GameInfo gameInfo = new()
+            {
+                Title = gameDetail.Title,
+                Description = gameDetail.Description,
+                ImagePath = gameDetail.ImageName,
+                Route = gameDetail.Route
+            };
+
+            try
+            {
+                _context.GameInfos.Add(gameInfo);
+                _context.SaveChanges();
+
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+
+                return null;
+            }
+            catch (DbUpdateException)
+            {
+
+                return null;
+            }
+
+            return gameInfo;
+
+        }
+
+        public List<GameDetail> GetGameInfoList()
+        {
+            List<GameInfo> gameInfos;
+            List<GameDetail> gameDetails = new();
+
+            gameInfos = _context.GameInfos.ToList();
+
+            foreach (GameInfo game in gameInfos)
+            {
+                GameDetail gamedetail = new()
+                {
+                    Id = game.Id,
+                    Title = game.Title,
+                    Description = game.Description,
+                    ImageName = game.ImagePath,
+                    Route = game.Route,
+                    ImageSource = String.Format("https://localhost:44301/images/{0}", game.ImagePath)
+                };
+
+                gameDetails.Add(gamedetail);
+            }
+
+            return gameDetails;
+        }
+
+        public GameInfo DeleteGame(int id)
+        {
+            GameInfo gameInfo = _context.GameInfos.SingleOrDefault(game => game.Id == id);
+
+            try
+            {
+                _context.GameInfos.Remove(gameInfo);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+
+                return null;
+            }
+            catch (DbUpdateException)
+            {
+
+                return null;
+            }
+            return gameInfo;
+        }
+
+        public GameInfo ModifyGame(GameDetail gameDetail)
+        {
+            GameInfo gameInfo;
+
+            try
+            {
+                gameInfo = _context.GameInfos.Single(game => game.Id == gameDetail.Id);
+
+                gameInfo.Description = gameDetail.Description;
+                gameInfo.ImagePath = gameDetail.ImageName;
+                gameInfo.Route = gameDetail.Route;
+                gameInfo.Title = gameDetail.Title;
+
+                _context.SaveChanges();
+
+            }
+            catch (InvalidOperationException)
+            {
+
+                return null;
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+
+                return null;
+            }
+
+            return gameInfo;
+
+        }
+
+        public GameDetail SingleGame(int id)
+        {
+            GameDetail gamedetail;
+            try
+            {
+                GameInfo gameInfo = _context.GameInfos.SingleOrDefault(game => game.Id == id);
+
+                if(gameInfo != null)
+                {
+                    gamedetail = new()
+                    {
+                        Id = gameInfo.Id,
+                        Title = gameInfo.Title,
+                        Description = gameInfo.Description,
+                        ImageName = gameInfo.ImagePath,
+                        Route = gameInfo.Route,
+                        ImageSource = String.Format("https://localhost:44301/images/{0}", gameInfo.ImagePath)
+                    };
+                    return gamedetail;
+                }
+                else
+                {
+                    return null;
+                }
+
+            }
+            catch (InvalidOperationException)
+            {
+
+                return null;
+            }
+            catch (ArgumentNullException)
+            {
+
+                return null;
+            }
         }
     }
 }

@@ -132,7 +132,7 @@ namespace P2Api.Controllers
             return currentUser;
         }
 
-        
+
 
         /// <summary>
         /// https://localhost:44307/api/P2/Lootbox/2/1
@@ -355,7 +355,26 @@ namespace P2Api.Controllers
             return result;
         }
 
+        [HttpGet("Favorite/{UserId}/{Poke}")]
+        public bool Favorite(int UserId, int Poke)
+        {
+            bool result = _businessModel.favoriteCard(UserId, Poke);
+            return result;
+        }
 
+        [HttpGet("Friends/{UserId}")]
+        public List<FullFriend> Friends(int UserId)
+        {
+            List<FullFriend> result = _businessModel.GetFriends(UserId);
+            return result;
+        }
+
+        [HttpGet("FriendAction/{UserId}/{FriendId}")]
+        public string FriendAction(int UserId, int FriendId)
+        {
+            string result = _businessModel.friendAction(UserId, FriendId);
+            return result;
+        }
     } // end class
 } // end namespace
 

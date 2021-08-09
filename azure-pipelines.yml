@@ -5,8 +5,6 @@
 trigger:
 - main
 
-
-
 resources:
 - repo: self
 
@@ -14,13 +12,19 @@ variables:
   tag: '$(Build.BuildId)'
 
 stages:
+
+#
+
+
+# Create Docker containers and push to repo
+# Angular Docker container
 - stage: Build
   displayName: Build image
   jobs:
   - job: Build
     displayName: Build
-    pool: gregspcs
-      #vmImage: ubuntu-latest
+    pool:
+      vmImage: ubuntu-latest
     steps:
     - task: Docker@2
       inputs:
@@ -36,3 +40,78 @@ stages:
         tags: 'gregious/$(Build.BuildId)'
         addPipelineData: false
         addBaseImageData: false
+
+# Main API Docker container      
+- stage: Build
+  displayName: Build image
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'DockerHub'
+        repository: 'gregious/p3mainapi'
+        tags: '$(Build.BuildId)'
+        command: 'build'
+        Dockerfile: '$(Build.SourcesDirectory)/P2Project/P2Main/Dockerfile'
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'DockerHub'
+        repository: 'gregious/p3mainapi'
+        tags: '$(Build.BuildId)'
+        command: 'push'
+        addPipelineData: false
+        addBaseImageData: false
+
+# Statistics API Docker container
+- stage: Build
+  displayName: Build image
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'DockerHub'
+        repository: 'gregious/p3statisticsapi'
+        tags: '$(Build.BuildId)'
+        command: 'build'
+        Dockerfile: '$(Build.SourcesDirectory)/Statistics-and-Leaderboard/P3_Statistics_API/Dockerfile'
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'DockerHub'
+        repository: 'gregious/p3statisticsapi'
+        tags: '$(Build.BuildId)'
+        command: 'push'
+        addPipelineData: false
+        addBaseImageData: false   
+
+# Games API Docker container
+- stage: Build
+  displayName: Build image
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'DockerHub'
+        repository: 'gregious/p3gamesapi'
+        tags: '$(Build.BuildId)'
+        command: 'build'
+        Dockerfile: '$(Build.SourcesDirectory)/P2Project/P3GamesMicroservice/Dockerfile'
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'DockerHub'
+        repository: 'gregious/p3gamesapi'
+        tags: '$(Build.BuildId)'
+        command: 'push'
+        addPipelineData: false
+        addBaseImageData: false   
