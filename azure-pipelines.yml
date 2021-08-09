@@ -12,6 +12,32 @@ variables:
   tag: '$(Build.BuildId)'
 
 stages:
+
+#Angular
+# - stage: Build
+#   displayName: Build image
+#   jobs:
+#   - job: Build
+#     displayName: Build
+#     pool:
+#       vmImage: ubuntu-latest
+#     steps:
+#     - task: Docker@2
+#       inputs:
+#         containerRegistry: 'DockerHub'
+#         repository: 'gregious/p3angular'
+#         command: 'build'
+#         Dockerfile: '$(Build.SourcesDirectory)/P2Project/P2Angular/Dockerfile'
+#     - task: Docker@2
+#       inputs:
+#         containerRegistry: 'DockerHub'
+#         repository: 'gregious/p3angular'
+#         command: 'push'
+#         tags: 'gregious/$(Build.BuildId)'
+#         addPipelineData: false
+#         addBaseImageData: false
+
+#MainAPI        
 - stage: Build
   displayName: Build image
   jobs:
@@ -25,11 +51,11 @@ stages:
         containerRegistry: 'DockerHub'
         repository: 'gregious/p3angular'
         command: 'build'
-        Dockerfile: '$(Build.SourcesDirectory)/P2Project/P2Angular/Dockerfile'
+        Dockerfile: '$(Build.SourcesDirectory)/P2Project/P2Main/Dockerfile'
     - task: Docker@2
       inputs:
         containerRegistry: 'DockerHub'
-        repository: 'gregious/p3angular'
+        repository: 'gregious/p3mainapi'
         command: 'push'
         tags: 'gregious/$(Build.BuildId)'
         addPipelineData: false
