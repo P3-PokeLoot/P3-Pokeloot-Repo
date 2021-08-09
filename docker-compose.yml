@@ -1,7 +1,7 @@
 version: '3.3'
 services:
     p3pokelootangular:
-        image: gregious/p3angular:v14
+        image: gregious/p3angular:v15
         ports:
         - "8080:80"    
     p3pokelootstatisticapi:
@@ -13,7 +13,7 @@ services:
     p3pokelootmainapi:
         image: gregious/p3mainapi:v11
         ports:
-        - "8082:443"
+        - "8082:80"
         environment:
         - ConnectionStrings__P3Database=Server=tcp:databasetempp3.database.windows.net,1433;Initial Catalog=P3Database;Persist Security Info=False;User ID=P3Group;Password=Cheeseburger!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
     p3pokelootgamesapi:
