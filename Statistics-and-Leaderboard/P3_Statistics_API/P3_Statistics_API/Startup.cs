@@ -56,6 +56,7 @@ namespace P3_Statistics
             services.AddMvc().AddSessionStateTempDataProvider();
             services.AddSession();
             services.AddScoped<ILeaderboardMethods, LeaderboardModel>();
+            services.AddScoped<IArchievement_Coins,Archievement_Coins>();
 
         }
 
