@@ -2,7 +2,7 @@ import { ThrowStmt } from '@angular/compiler';
 import { Component, Input, OnChanges, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { GameService } from '../game-service';
+import { GameService } from '../service/game/game-service';
 import { IGame } from '../Models/IGame';
 
 @Component({

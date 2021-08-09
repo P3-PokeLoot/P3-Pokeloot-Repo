@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { GameService } from '../game-service';
+import { GameService } from '../service/game/game-service';
 
 @Component({
   selector: 'app-modify-game',

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { GameService } from '../game-service';
+import { GameService } from '../service/game/game-service';
 
 @Component({
   selector: 'app-cap-game-result',
@@ -16,6 +16,7 @@ export class CapGameResultComponent implements OnInit {
   result?: string;
   numCoinsToAdd: number = 100;
   waitTime: any = 1;
+  @Input() pokeballImg = new Image();
 
   constructor(private _gameService: GameService) { }
 

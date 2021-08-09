@@ -19,7 +19,7 @@ namespace P3Api.Controllers
     public class GamesController : ControllerBase
     {
         private readonly ILogger<GamesController> _logger;
-        private readonly DataContext _dataContext;
+        //private readonly DataContext _dataContext;
         private readonly IBusinessModel _businessModel;
         private readonly IWebHostEnvironment _hostEnvironment;
 
@@ -27,7 +27,7 @@ namespace P3Api.Controllers
         {
             _businessModel = businessModel;
             _logger = logger;
-            _dataContext = dataContext;
+            //_dataContext = dataContext;
             _hostEnvironment = hostEnvironment;
         }
 
@@ -35,28 +35,32 @@ namespace P3Api.Controllers
         /// Returns a list of all  games description
         /// </summary>
         /// <returns></returns>
-
         [HttpGet("List")]
-        public IActionResult GetGameInfoList()
+        public async Task<IActionResult> GetGameInfoListAsync()
         {
+            var games = await _businessModel.GameInfoListAsync();
+            if (games != null)
+                return StatusCode(200, games);
+            else
+                return StatusCode(500);
             List<GameDetail> gameDetails;
 
-            gameDetails = _businessModel.GetGameInfoList();
+            gameDetails = await _businessModel.GetGameInfoListAsync();
 
             return StatusCode(200, gameDetails);
         }
 
         [HttpGet("Wtp")]
-        public IActionResult GetRandomPokemon()
+        public async Task<IActionResult> GetRandomPokemon()
         {
-            var pokemon = _businessModel.WhosThatPokemonGame();
+            var pokemon = await _businessModel.WhosThatPokemonGameAsync();
             return StatusCode(200, pokemon);
         }
 
         [HttpGet("SingleGame/{id}")]
-        public IActionResult GetSingleGame(int id)
+        public async Task<IActionResult> GetSingleGame(int id)
         {
-            GameDetail gameInfo = _businessModel.SingleGame(id);
+            GameDetail gameInfo = await _businessModel.SingleGameAsync(id);
 
             if (gameInfo != null)
             {
@@ -78,7 +82,7 @@ namespace P3Api.Controllers
         {
             gameDetail.ImageName = await SaveImage(gameDetail.ImageFile);
 
-            GameInfo gameInfo = _businessModel.CreateGame(gameDetail);
+            GameInfo gameInfo = await _businessModel.CreateGameAsync(gameDetail);
 
 
             if (gameInfo != null)
@@ -107,7 +111,7 @@ namespace P3Api.Controllers
 
             }
 
-            GameInfo gameInfo = _businessModel.ModifyGame(gameDetail);
+            GameInfo gameInfo = await _businessModel.ModifyGameAsync(gameDetail);
 
 
             if (gameInfo != null)
@@ -121,9 +125,9 @@ namespace P3Api.Controllers
         }
 
         [HttpDelete("Delete/{id}")]
-        public ActionResult DeleteGame(int id)
+        public async Task<ActionResult> DeleteGame(int id)
         {
-            GameInfo gameInfo = _businessModel.DeleteGame(id);
+            GameInfo gameInfo = await _businessModel.DeleteGameAsync(id);
 
 
             if (gameInfo.ImagePath != null || gameInfo.ImagePath != "")
@@ -167,16 +171,12 @@ namespace P3Api.Controllers
         }
 
         [HttpPost("Add")]
-        public IActionResult AddGameInfo(GameInfo gameInfo)
+        public async Task<IActionResult> AddGameInfo(GameInfo gameInfo)
         {
-            if(gameInfo != null && gameInfo.Title.Length > 0)
-            {
-                _dataContext.GameInfos.Add(gameInfo);
-                _dataContext.SaveChanges();
+            if (await _businessModel.AddGameInfoAsync(gameInfo))
                 return StatusCode(201);
-            }
-
-            return StatusCode(500);
+            else
+                return StatusCode(500);
         }
 
         [HttpPost("RpsWin")]
@@ -202,9 +202,9 @@ namespace P3Api.Controllers
         }
 
         [HttpGet("RpsRecord/{userId}")]
-        public IActionResult RpsRecord(int userId)
+        public async Task<IActionResult> RpsRecord(int userId)
         {
-            var success = _businessModel.RpsRecord(userId);
+            var success = await _businessModel.RpsRecordAsync(userId);
             return StatusCode(200, success);
         }
 
@@ -231,9 +231,9 @@ namespace P3Api.Controllers
         }
 
         [HttpGet("WtpRecord/{userId}")]
-        public IActionResult WtpRecord(int userId)
+        public async Task<IActionResult> WtpRecord(int userId)
         {
-            var success = _businessModel.WtpRecord(userId);
+            var success = await _businessModel.WtpRecordAsync(userId);
             return StatusCode(200, success);
         }
 
@@ -260,10 +260,25 @@ namespace P3Api.Controllers
         }
 
         [HttpGet("CapRecord/{userId}")]
-        public IActionResult CapRecord(int userId)
+        public async Task<IActionResult> CapRecord(int userId)
         {
-            var success = _businessModel.CapRecord(userId);
+            var success = await _businessModel.CapRecordAsync(userId);
             return StatusCode(200, success);
         }
+
+        [HttpPut("WamPlayed/{userId}")]
+        public async Task<IActionResult> WamPlayed(int userId, int highScore)
+        {
+            var success = await _businessModel.WamPlayedAsync(userId, highScore);
+            return StatusCode(200, success);
+        }
+
+        [HttpGet("WamRecord/{userId}")]
+        public async Task<IActionResult> WamRecord(int userId)
+        {
+            var success = await _businessModel.WamHighScoreAsync(userId);
+            return StatusCode(200, success);
+        }
+
     }
 }

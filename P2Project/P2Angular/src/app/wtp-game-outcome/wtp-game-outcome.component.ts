@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { delay } from 'rxjs/operators';
-import { GameService } from '../game-service';
+import { GameService } from '../service/game/game-service';
 
 @Component({
   selector: 'app-wtp-game-outcome',
