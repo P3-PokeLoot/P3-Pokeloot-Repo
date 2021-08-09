@@ -86,6 +86,14 @@ export class GameService {
     return this.http.get(this.GamesUrl + "CapRecord/" + localStorage.getItem('userId'), { responseType: 'text' });
   }
 
+  WamPlayed(score:number): Observable<any> {
+    return this.http.put(this.GamesUrl + "WamPlayed/" + localStorage.getItem('userId')+"?highScore="+score, {});
+  }
+
+  WamRecord(): Observable<any> {
+    return this.http.get(this.GamesUrl + "WamRecord/" + localStorage.getItem('userId'), { responseType: 'text' });
+  }
+
   DeleteGame(id: number): Observable<any> {
     return this.http.delete<any>(this.GamesUrl + `Delete/${id}`)
   }
