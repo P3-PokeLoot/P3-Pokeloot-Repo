@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { GameService } from '../game-service';
+import { GameService } from '../service/game/game-service';
 
 
 const intervalTime = 2;

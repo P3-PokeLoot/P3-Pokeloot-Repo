@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHandler } from "@angular/common/http";
-import { Observable, of, throwError } from 'rxjs';
-import { Router } from '@angular/router';
-import { catchError, retry } from 'rxjs/operators';
+import { HttpClient } from "@angular/common/http";
+import { Observable} from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 
@@ -13,16 +11,17 @@ import { environment } from 'src/environments/environment';
 
 export class GameService {
 
-
-  private gameListUrl: string = 'https://localhost:44301/api/Games/List';
-  private createGameUrl: string = 'https://localhost:44301/api/Games/CreateGame'
-
   private gameUrlPath = `${environment.urlmain}EarnCoins/`;
   private userBalanceUrlPath = `${environment.urlmain}Balance/`;
   private GamesUrl = `${environment.urlgame}`;
+  private createGameUrl: string = `${environment.urlgame}/CreateGame`;
 
 
-  constructor(private router: Router, private http: HttpClient) { }
+  constructor( private http: HttpClient) { }
+
+  GetGamesList(): Observable<GameInfo[]>{
+    return this.http.get<GameInfo[]>(this.GamesUrl + "list");
+  }
 
   GetWtpGame(): Observable<WtpGame> {
     return this.http.get<WtpGame>(this.GamesUrl + "Wtp")
@@ -103,4 +102,11 @@ export interface WtpGame {
   pictureUrl: string,
   correctPokemon: string,
   options: string[],
-}
+};
+
+export interface GameInfo
+{
+  description: string,
+  imgUrl: string,
+  route: string
+};
