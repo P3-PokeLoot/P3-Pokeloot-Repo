@@ -48,29 +48,29 @@ stages:
 
 # Create Docker containers and push to repo
 # Angular Docker container
-- stage: Build
-  displayName: Build image
-  jobs:
-  - job: Build
-    displayName: Build
-    steps:
-    - task: Docker@2
-      inputs:
-        containerRegistry: 'DockerHub'
-        repository: 'gregious/p3angular'
-        command: 'build'
-        Dockerfile: '$(Build.SourcesDirectory)/P2Project/P2Angular/Dockerfile'
-    - task: Docker@2
-      inputs:
-        containerRegistry: 'DockerHub'
-        repository: 'gregious/p3angular'
-        command: 'push'
-        tags: 'gregious/$(Build.BuildId)'
-        addPipelineData: false
-        addBaseImageData: false
+# - stage: BuildAngular
+#   displayName: Build image
+#   jobs:
+#   - job: Build
+#     displayName: Build
+#     steps:
+#     - task: Docker@2
+#       inputs:
+#         containerRegistry: 'DockerHub'
+#         repository: 'gregious/p3angular'
+#         command: 'build'
+#         Dockerfile: '$(Build.SourcesDirectory)/P2Project/P2Angular/Dockerfile'
+#     - task: Docker@2
+#       inputs:
+#         containerRegistry: 'DockerHub'
+#         repository: 'gregious/p3angular'
+#         command: 'push'
+#         tags: 'gregious/$(Build.BuildId)'
+#         addPipelineData: false
+#         addBaseImageData: false
 
 # Main API Docker container      
-- stage: Build
+- stage: BuildMain
   displayName: Build image
   jobs:
   - job: Build
@@ -93,7 +93,7 @@ stages:
         addBaseImageData: false
 
 # Statistics API Docker container
-- stage: Build
+- stage: BuildStatistics
   displayName: Build image
   jobs:
   - job: Build
@@ -116,7 +116,7 @@ stages:
         addBaseImageData: false   
 
 # Games API Docker container
-- stage: Build
+- stage: BuildGames
   displayName: Build image
   jobs:
   - job: Build
@@ -139,6 +139,12 @@ stages:
         addBaseImageData: false   
 
     # Deploy images to kubernetes
+- stage: DeployKube
+  displayName: Deploy to Kubernetes
+  jobs:
+  - job: Deploy
+    displayName: Deploy
+    steps:
     - task: KubernetesManifest@0
       inputs:
         action: 'deploy'
