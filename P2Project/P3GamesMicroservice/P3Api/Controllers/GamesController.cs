@@ -275,5 +275,25 @@ namespace P3Api.Controllers
             return StatusCode(200, success);
         }
 
+        [HttpPut("PhmPlayed/{userId}")]
+        public async Task<IActionResult> PhmPlayed(int userId)
+        {
+            var success = await _businessModel.PhmPlayedAsync(userId);
+            return StatusCode(200, success);
+        }
+
+        [HttpPut("PhmWin/{userId}")]
+        public async Task<IActionResult> PhmWin(int userId)
+        {
+            var success = await _businessModel.PhmPlayedAsync(userId);
+            return StatusCode(200, success);
+        }
+
+        [HttpGet("PhmRecord/{userId}")]
+        public async Task<IActionResult> PhmRecord(int userId)
+        {
+            var success = await _businessModel.PhmRecordAsync(userId);
+            return StatusCode(200, success);
+        }
     }
 }
