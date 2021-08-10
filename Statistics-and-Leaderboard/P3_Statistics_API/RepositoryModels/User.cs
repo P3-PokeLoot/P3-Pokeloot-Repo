@@ -11,6 +11,7 @@ namespace RepositoryModels
         {
             CardCollections = new HashSet<CardCollection>();
             DisplayBoards = new HashSet<DisplayBoard>();
+            UserAchievements = new HashSet<UserAchievement>();
         }
 
         public int UserId { get; set; }
@@ -25,5 +26,6 @@ namespace RepositoryModels
 
         public virtual ICollection<CardCollection> CardCollections { get; set; }
         public virtual ICollection<DisplayBoard> DisplayBoards { get; set; }
+        public virtual ICollection<UserAchievement> UserAchievements { get; set; }
     }
 }

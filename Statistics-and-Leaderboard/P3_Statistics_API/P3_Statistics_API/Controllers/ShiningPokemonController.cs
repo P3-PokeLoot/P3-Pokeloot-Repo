@@ -152,7 +152,7 @@ namespace P3_Statistics_API.Controllers
             }
             else
             {
-                return StatusCode(200, pokemonName);
+                return StatusCode(200, cardporcentage);
             }
         }
 

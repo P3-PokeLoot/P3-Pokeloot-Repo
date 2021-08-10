@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { GameService } from '../game-service';
+import { GameService } from '../service/game/game-service';
 
 
 const intervalTime = 2;
@@ -47,7 +47,7 @@ export class CapGameCatchComponent implements OnInit {
   pokemonName?: string;
   isOpen = true;
   timeLeft: number = intervalTime;
-  interval?: NodeJS.Timeout;
+  interval?: any;
   pictureUrl?: string;
 
   constructor(private _gamesService: GameService) { }

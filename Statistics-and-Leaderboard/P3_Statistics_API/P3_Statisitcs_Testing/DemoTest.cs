@@ -69,7 +69,7 @@ namespace P3_Statisitcs_Testing
                 context.SaveChanges();
                 //Assert
 
-                List<User> list1 = usertest.TopCurrentBallance(2);
+                List<UserCoinBalance> list1 = usertest.TopCurrentBallance(2);
 
                 Assert.NotNull(list1);
                 Assert.Equal(2, list1.Count());
@@ -129,7 +129,7 @@ namespace P3_Statisitcs_Testing
                 context.SaveChanges();
                 //Assert
 
-                List<User> list1 = usertest.TopEarnedCoins(2);
+                List<UserCoinEarned> list1 = usertest.TopEarnedCoins(2);
 
                 Assert.NotNull(list1);
                 Assert.Equal(2, list1.Count());
@@ -190,7 +190,7 @@ namespace P3_Statisitcs_Testing
                 context.SaveChanges();
                 //Assert
 
-                List<User> list1 = usertest.TopSpentCoins(2);
+                List<UserCoinSpent> list1 = usertest.TopSpentCoins(2);
 
                 Assert.NotNull(list1);
                 Assert.Equal(2, list1.Count());

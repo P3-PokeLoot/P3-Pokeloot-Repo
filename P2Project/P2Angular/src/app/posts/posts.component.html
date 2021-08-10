@@ -1,3 +1,6 @@
+
+
+<div *ngIf="!friendAction">
 <div class="row justify-content-center my-5">
     <div class="col text-center">
  
@@ -173,12 +176,15 @@
                         </div>
                         <div style="margin-bottom: 3px;">
                             <a routerLink="/Comments/{{post.PostId}}"><button class="btn btn-success btn-sm">Comments</button></a>
+                        <div *ngIf="userId != post.UserId">
+                            <button class="btn btn-success btn-sm" aria-disabled="true" id="addbutton" (click)="addFriend(post)">Add Friend</button>
                         </div>
                         <div *ngIf="post.PostType == 'Sale'">
 
                             <button (click)='buy(post)' class="btn btn-success btn-sm" aria-disabled="true" id="buybutton">Price:
                                 {{post.Price}} coins</button>  
                                 <button *ngIf="userId == post.UserId" class="btn btn-success btn-sm" aria-disabled="true" id="editbutton" (click)="clickt(post)">Edit</button>
+                                
                                 <div>
                                 <app-edit-post *ngIf="edit && userId == post.UserId && currentPost == post.PostId" [currentPost]="post"></app-edit-post>
                                 </div>
@@ -301,3 +307,17 @@
             </div>
         </div>
     </div>
+
+</div>
+
+</div>
+</div>
+
+
+<div *ngIf="friendAction" class="row d-flex justify-content-center">
+    <br>
+    <br>
+    <h1 class="col text-center" style="margin-top: 5%;">{{friendAction}}</h1>
+    <br>
+    <button class="btn btn-success btn-sm" aria-disabled="true" id="editbutton" (click)="refresh()">Back to Home</button>
+</div>

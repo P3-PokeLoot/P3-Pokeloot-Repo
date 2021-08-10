@@ -33,7 +33,7 @@ export class LoginPageComponent implements OnInit {
       return;
     }
 
-
+    //release guard
     this.authenticateService.AuthenticateWithApi(loginInForm.value.username, loginInForm.value.password).subscribe(
       result => {
 

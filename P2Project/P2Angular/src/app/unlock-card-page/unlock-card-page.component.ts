@@ -39,10 +39,10 @@ export class UnlockCardPageComponent implements OnInit {
      }
   }
 
-  openLootbox(boxType: number): void {
+  openLootbox(boxType: number): void { //rolls a lootbox
     if(this.userId != null)
     {
-      let amount: number = 0;
+      let amount: number = 0; //check what type of lootbox is rolled
       if(boxType == 1){
         amount = 100;
       }
@@ -52,7 +52,7 @@ export class UnlockCardPageComponent implements OnInit {
       else{
         amount = 1000;
       }
-      if(this.currentUserCoinBalance >= 100)
+      if(this.currentUserCoinBalance >= amount) //checks if user can afford lootbox
       {
         this.tooPoor = false;
         this._cardcollectionService.RollLootbox(boxType).subscribe(
@@ -75,7 +75,7 @@ export class UnlockCardPageComponent implements OnInit {
             console.log(this.newCard);
           }
         );
-        this._cardcollectionService.Balance().subscribe(
+        this._cardcollectionService.Balance().subscribe( //retrieves updates balance
           result => {
             let coinBalance   = result;
   
@@ -85,7 +85,7 @@ export class UnlockCardPageComponent implements OnInit {
       }
       else
       {
-        this.tooPoor = true;
+        this.tooPoor = true; //displays message saying your too poor
     }
   }
 
