@@ -5,7 +5,7 @@
 trigger:
 - main
 pool:
-  vmimage: Ubuntu-latest
+  vmimage: Windows-latest
 resources:
 - repo: self
 variables:
@@ -36,8 +36,8 @@ stages:
     - task: DotNetCoreCLI@2
       inputs:
         command: 'test'
-        arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura'
-        publishTestResults: true
+        arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
+        publishTestResults: false
         projects: '$(Build.SourcesDirectory)/P2Project/P2Main/P2Main.sln'
 
     - task: PublishCodeCoverageResults@1
