@@ -34,7 +34,14 @@ namespace P2Api
             {
                 options.AddPolicy(name: "dev", builder =>
                 {
-                    builder.WithOrigins("http://127.0.0.1:5500", "http://localhost:4200", "https://localhost:44307", "https://pokelootapi.azurewebsites.net", "https://pokeloot.azurewebsites.net/", "https://pokeloot.z19.web.core.windows.net/", "http://20.106.64.124/")   // update thisssssssssss to proper ip / pathing
+                    builder.WithOrigins("http://127.0.0.1:5500", 
+                        "http://localhost:4200", 
+                        "https://localhost:44307", 
+                        "https://pokelootapi.azurewebsites.net", 
+                        "https://pokeloot.azurewebsites.net/", 
+                        "https://pokeloot.z19.web.core.windows.net/", 
+                        "http://20.106.64.124/")  
+                    // update thisssssssssss to proper ip / pathing
                     .AllowAnyHeader()
                     .AllowAnyMethod();
                 });
