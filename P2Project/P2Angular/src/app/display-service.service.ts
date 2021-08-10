@@ -17,6 +17,9 @@ export class DisplayServiceService {
 
   private localurl = `${environment.urlmainlocalonly}EditPrice/`;
   private urltobuy = `${environment.urlmain}buyCard/`;
+  private fullPosturl = `${environment.urlmain}FullPostById/`;
+  private postCommentsurl = `${environment.urlmain}Comments/`;
+
 
 
   constructor( private router:Router, private http:HttpClient) { }
@@ -34,5 +37,16 @@ export class DisplayServiceService {
     let newUrl = this.localurl + postId + '/' + newPrice + '/';
     return this.http.get<any>(newUrl);
   }
+
+  FullPost(postId : number):Observable<any>{
+    console.log("PostId Path:" +  this.fullPosturl + postId);
+    return this.http.get<any>(this.fullPosturl + postId);
+  }
+
+  PostComments(postId : number):Observable<any[]>{
+    return this.http.get<any>(this.postCommentsurl + postId);
+  }
+
+
 
 }
