@@ -5,9 +5,11 @@
 trigger:
 - main
 pool:
-  vmimage: ubuntu-latest
+  vmimage: Ubuntu-latest
 resources:
 - repo: self
+variables:
+  buildConfiguration: 'Release'
 
 stages:
 # Build, test, and publish test results to sonar cloud
@@ -17,11 +19,6 @@ stages:
   # Main API Build, Test, Publish to Sonar Cloud
   - job: P2Main
     steps:
-
-    - task: DotNetCoreCLI@2
-      inputs:
-        command: 'restore'
-        projects: '$(Build.SourcesDirectory)/P2Project/P2Main/P2Main.sln'
       
     - task: SonarCloudPrepare@1
       inputs:
@@ -30,15 +27,26 @@ stages:
         scannerMode: 'MSBuild'
         projectKey: 'p3pokeloot_Pokeloot_MainAPI'
         projectName: 'p3pokeloot_Pokeloot_MainAPI'
+        extraProperties: |
+          sonar.cs.vstest.reportsPaths='$(Agent.TempDirectory)\**\*.trx
+          sonar.cs.vscoveragexml.reportsPaths='$(Agent.TempDirectory)/**/coverage.cobertura.xml
 
     - task: DotNetCoreCLI@2
       inputs:
         command: 'build'
         projects: '$(Build.SourcesDirectory)/P2Project/P2Main/P2Main.sln'
+        arguments: '--configuration $(buildConfiguration)'
     - task: DotNetCoreCLI@2
       inputs:
         command: 'test'
+        arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura'
+        publishTestResults: true
         projects: '$(Build.SourcesDirectory)/P2Project/P2Main/P2Main.sln'
+
+    - task: PublishCodeCoverageResults@1
+      inputs:
+        codeCoverageTool: 'Cobertura'
+        summaryFileLocation: '$(Agent.TempDirectory)/**/coverage.cobertura.xml'
 
     - task: SonarCloudAnalyze@1
 
