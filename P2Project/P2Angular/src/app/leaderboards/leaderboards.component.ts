@@ -34,15 +34,13 @@ export class LeaderboardsComponent implements OnInit {
     tableExists:string;
     allStatsOptions:string[]=[
       'Coin Balance',
-      'Total Earned Coins',
-      'Total Coins Spent',
-      'Collection Completion',
-      'Largest Rarity',
-      'Most of a Shiny Pokemon',
+      'Coins Earned',
+      'Coins Spent',
+      'Collection Completion (Percent)',
+      'Rarities',
       'Largest Shiny Collection',
-      'Collection Completion 2- Shiny',
+      'Card Collection (Unique)',
       'Largest Collection',
-      'Percent owning a card type',
     ];
     //array of all options that will reflect onto the "numerical dropdown list"
     allNumbersOptions:number[]=[
@@ -66,9 +64,9 @@ export class LeaderboardsComponent implements OnInit {
     this.observableData=[];
     this.pageOfItems=[];
     this.chosenNumber=10;
-    this.chosenStat='Collection Completion',
+    this.chosenStat='Largest Collection',
     this.chosenService=1;
-    this.chosenRarity = 'Mythic';
+    this.chosenRarity = 'Common';
     this.chosenPokename='pikachu';
     this.tableExists='false';
    }
@@ -168,15 +166,15 @@ CreateArraysFromObservable(){
         });
         console.log('this is case'+this.chosenService);
         break;
+    // case :
+    //   this._leaderboardservice.GetMostShinyList(this.chosenNumber).subscribe(
+    //     result => {
+    //       this.observableData = result; 
+    //       this.CreateArraysFromObservable();
+    //     });
+    //     console.log('this is case'+this.chosenService);
+    //     break;
     case 5:
-      this._leaderboardservice.GetMostShinyList(this.chosenNumber).subscribe(
-        result => {
-          this.observableData = result; 
-          this.CreateArraysFromObservable();
-        });
-        console.log('this is case'+this.chosenService);
-        break;
-    case 6:
       this._leaderboardservice.GetMVPShinyUsersList(this.chosenNumber).subscribe(
         result => {
           this.observableData = result; 
@@ -184,7 +182,7 @@ CreateArraysFromObservable(){
         });
         console.log('this is case'+this.chosenService);
         break;
-    case 7:
+    case 6:
       this._leaderboardservice.GetUsersTotalCollectionList(this.chosenNumber).subscribe(
         result => {
           this.observableData = result; 
@@ -192,7 +190,7 @@ CreateArraysFromObservable(){
         });
         console.log('this is case'+this.chosenService);
         break;
-    case 8:
+    case 7:
       this._leaderboardservice.GetUserTotalAmountList(this.chosenNumber).subscribe(
         result => {
           this.observableData = result; 
@@ -220,6 +218,9 @@ CreateArraysFromObservable(){
     this.tableExists='false';
   }
 
+  ResetRarity(){
+    this.chosenRarity = 'Common';
+  }
   //============================================PAGINATION SECTION======================================
   page = 1;
   pageSize = 5;

@@ -15,7 +15,7 @@
     -ms-appearance: none;
     appearance: none;
     outline: 0;
-    background: green;
+    background: rgba(54,69,79, .75);
     background-image: none;
     border:1px solid black;
 }
@@ -67,7 +67,24 @@ table {
     background-color: #e5e5e5;
     text-align: center;
 }
-/* <div class="flex-child">
+/* color to first row */
+tbody>:nth-child(1){ 
+    background-color:rgba(223,221,119,.75);
+    animation: linear-gradient 10s linear infinite;
+}
+tbody>:nth-child(2){ 
+    background-color: rgba(132,134,124);
+}
+tbody>:nth-child(3){ 
+    background-color: rgba(139,93,32,.75);
+}
 
+@keyframes linear-gradient {
+	0% {
+		background-position: 0% 50%
+	}
 
-</div> */
+	100% {
+		background-position: 400% 400%
+	}
+}

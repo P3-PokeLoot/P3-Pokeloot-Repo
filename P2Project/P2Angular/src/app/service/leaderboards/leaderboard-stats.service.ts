@@ -47,9 +47,9 @@ export class LeaderboardStatsService {
 
   
   //ShiningPokemon Controller API service calls.
-  GetMostShinyList(userMost:number):Observable<CardCollectModel_Shiny[]>{//May need to be refactored based on the data retruned
-    return this.http.get<CardCollectModel_Shiny[]>(this.baseURL+'/api/ShiningPokemon/DisplayUserMostShinyPokemon/'+userMost);
-  }
+  // GetMostShinyList(userMost:number):Observable<CardCollectModel_Shiny[]>{//May need to be refactored based on the data retruned
+  //   return this.http.get<CardCollectModel_Shiny[]>(this.baseURL+'/api/ShiningPokemon/DisplayUserMostShinyPokemon/'+userMost);
+  // }
 
   GetMVPShinyUsersList(topUsers:number):Observable<MVPShinyModel_Shiny[]>{
     return this.http.get<MVPShinyModel_Shiny[]>(this.baseURL+'/api/ShiningPokemon/MVPShinyUsers/'+topUsers);
