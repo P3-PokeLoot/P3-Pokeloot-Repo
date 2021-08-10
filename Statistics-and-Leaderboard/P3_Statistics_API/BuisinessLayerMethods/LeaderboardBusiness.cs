@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BuisinessLayerMethods
 {
-    public class LeaderboardBuissnes : ILeaderboardBuissnes
+    public class LeaderboardBusiness : ILeaderboardBusiness
     {
         private readonly P3Context context;
 
@@ -17,7 +17,7 @@ namespace BuisinessLayerMethods
         /// </summary>
         /// <param name="context">Db context</param>
         /// 
-        public LeaderboardBuissnes(P3Context context)
+        public LeaderboardBusiness(P3Context context)
         {
             this.context = context;
         }
@@ -25,7 +25,7 @@ namespace BuisinessLayerMethods
         /// <summary>
         /// Constructor for leaderboard class that takes no constructor
         /// </summary>
-        public LeaderboardBuissnes()
+        public LeaderboardBusiness()
         {
             this.context = new P3Context();
         }

@@ -52,8 +52,10 @@ namespace P3_Statistics
                 }
             });
             services.AddDistributedMemoryCache();
-            services.AddScoped<ILeaderboardBuissnes, LeaderboardBuissnes>();
+            services.AddScoped<ILeaderboardBusiness, LeaderboardBusiness>();
             services.AddScoped<IRarityMethods, RarityMethods>();
+            services.AddScoped<IAchievementMethods, AchievementMethods>();
+            services.AddScoped<IAchievementAccountLevelMethods, AchievementAccountLevelMethods>();
             services.AddControllersWithViews();
             services.AddMvc().AddSessionStateTempDataProvider();
             services.AddSession();

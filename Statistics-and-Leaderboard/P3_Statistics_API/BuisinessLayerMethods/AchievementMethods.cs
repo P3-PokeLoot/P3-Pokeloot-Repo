@@ -36,7 +36,7 @@ namespace BuisinessLayerMethods
         }
 
         /// <summary>
-        /// Returns List of UsersRarityMapperMethods by who has the most Cards of a Rarity Category
+        /// Returns List of UserAchievementMapperMethods by who has their total achievements
         /// </summary>
         public List<UserAchievementMapperModel> UserListByMostAchievements(int maxnumber)
         {
@@ -65,7 +65,7 @@ namespace BuisinessLayerMethods
             return result;
         }
         /// <summary>
-        /// Returns Percent of User's Total Cards of a Rarity Category
+        /// Returns Percent of Users who have a selected achievement
         /// </summary>
         public int PercentOfAchievementType(string achievementName)
         {

@@ -33,7 +33,6 @@ namespace P3_Statistics_API.Controllers
                 return StatusCode(404);
             else
                 return StatusCode(201, result);
-            //return result;
         }
         [HttpGet("[action]")]
         public IActionResult PercentOfRarityCategory(int userId, string rarityCategory)

@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BuisinessLayerMethods\BuisinessLayerMethods.csproj" />
+    <ProjectReference Include="..\BuisinessLayerMethods\BusinessLayerMethods.csproj" />
     <ProjectReference Include="..\RepositoryModels\RepositoryModels.csproj" />
   </ItemGroup>
 

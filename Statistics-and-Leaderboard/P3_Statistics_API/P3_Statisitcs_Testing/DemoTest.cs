@@ -377,7 +377,7 @@ namespace P3_Statisitcs_Testing
             using (var context = new P3Context(options))
             {
                 
-                LeaderboardBuissnes leaderTest = new LeaderboardBuissnes(context);
+                LeaderboardBusiness leaderTest = new LeaderboardBusiness(context);
 
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
@@ -520,7 +520,7 @@ namespace P3_Statisitcs_Testing
             using (var context = new P3Context(options))
             {
 
-                LeaderboardBuissnes leaderTest = new LeaderboardBuissnes(context);
+                LeaderboardBusiness leaderTest = new LeaderboardBusiness(context);
 
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
@@ -691,7 +691,7 @@ namespace P3_Statisitcs_Testing
                 context.Database.EnsureCreated();
 
                 // some method perhaps
-                LeaderboardBuissnes leaderTest = new LeaderboardBuissnes(context);
+                LeaderboardBusiness leaderTest = new LeaderboardBusiness(context);
 
                 context.Users.Add(user_1);
                 context.Users.Add(user_2);
@@ -776,7 +776,7 @@ namespace P3_Statisitcs_Testing
                 context.Database.EnsureCreated();
 
                 // some method perhaps
-                LeaderboardBuissnes leaderTest = new LeaderboardBuissnes(context);
+                LeaderboardBusiness leaderTest = new LeaderboardBusiness(context);
 
                 context.PokemonCards.Add(card_1);
                 context.PokemonCards.Add(card_2);
@@ -934,7 +934,7 @@ namespace P3_Statisitcs_Testing
                 context.Database.EnsureCreated();
 
                 // Some method perhaps
-                LeaderboardBuissnes leaderTest = new LeaderboardBuissnes(context);
+                LeaderboardBusiness leaderTest = new LeaderboardBusiness(context);
 
                 context.Users.Add(user_1);
                 context.Users.Add(user_2);
@@ -1113,7 +1113,7 @@ namespace P3_Statisitcs_Testing
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
 
-                LeaderboardBuissnes test = new LeaderboardBuissnes(context);
+                LeaderboardBusiness test = new LeaderboardBusiness(context);
 
                 context.PokemonCards.Add(card_1);
                 context.SaveChanges();

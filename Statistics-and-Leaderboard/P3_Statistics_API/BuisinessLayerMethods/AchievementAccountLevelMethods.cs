@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BuisinessLayerMethods
 {
-    public class AchievementAccountLevelMethods
+    public class AchievementAccountLevelMethods : IAchievementAccountLevelMethods
     {
         public readonly P3Context context;
         private readonly ILogger<LeaderboardModel> logger;

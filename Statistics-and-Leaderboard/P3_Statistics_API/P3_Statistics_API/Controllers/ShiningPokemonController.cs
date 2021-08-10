@@ -15,9 +15,9 @@ namespace P3_Statistics_API.Controllers
     public class ShiningPokemonController : ControllerBase
     {
 
-        private readonly ILeaderboardBuissnes _leaderboard;
+        private readonly ILeaderboardBusiness _leaderboard;
 
-        public ShiningPokemonController(ILeaderboardBuissnes leaderboard)
+        public ShiningPokemonController(ILeaderboardBusiness leaderboard)
         {
             _leaderboard = leaderboard;
         }
@@ -139,7 +139,7 @@ namespace P3_Statistics_API.Controllers
         /// <param name="pokemonName"></param>
         /// <returns></returns>
         [HttpGet("[action]/{pokemonName}")]
-        public IActionResult GetCardPorcentage(string pokemonName)
+        public IActionResult GetCardPercentage(string pokemonName)
         {
             //pokemonName = pokemonName.ToLower();
 

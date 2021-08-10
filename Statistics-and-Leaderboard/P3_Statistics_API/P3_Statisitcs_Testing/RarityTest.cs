@@ -126,6 +126,8 @@ namespace P3_Statisitcs_Testing
                 context.SaveChanges();
                 RarityMethods r = new RarityMethods(context);
                 result = r.UserListByMostRarityCategory("Legendary", 100);
+                Assert.NotNull(result);
+                Assert.Empty(result);
             }
         }
 

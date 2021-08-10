@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P3_Statistics_API", "P3_Sta
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepositoryModels", "..\RepositoryModels\RepositoryModels.csproj", "{76F8AC39-564F-4F83-ACE9-198FE1F8902F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuisinessLayerMethods", "..\BuisinessLayerMethods\BuisinessLayerMethods.csproj", "{F0A5D34C-2C17-4648-B700-935853106AD2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLayerMethods", "..\BuisinessLayerMethods\BusinessLayerMethods.csproj", "{F0A5D34C-2C17-4648-B700-935853106AD2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P3_Statisitcs_Testing", "..\P3_Statisitcs_Testing\P3_Statisitcs_Testing.csproj", "{C910EF9A-5017-4F68-AB90-9C5826FB9499}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P3_Statisitcs_Testing", "..\P3_Statisitcs_Testing\P3_Statisitcs_Testing.csproj", "{C910EF9A-5017-4F68-AB90-9C5826FB9499}"
 	ProjectSection(ProjectDependencies) = postProject
 		{F0A5D34C-2C17-4648-B700-935853106AD2} = {F0A5D34C-2C17-4648-B700-935853106AD2}
 	EndProjectSection
