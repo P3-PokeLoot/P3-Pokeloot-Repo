@@ -27,8 +27,8 @@ stages:
         projectKey: 'p3pokeloot_Pokeloot_MainAPI'
         projectName: 'p3pokeloot_Pokeloot_MainAPI'
         extraProperties: |
-          sonar.cs.vstest.reportsPaths='$(Agent.TempDirectory)/**/*.trx
-          sonar.cs.vscoveragexml.reportsPaths='$(Agent.TempDirectory)/**/*.xml
+          sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/**/*.trx
+          sonar.cs.vscoveragexml.reportsPaths=$(Agent.TempDirectory)/**/*.xml
 
     - task: DotNetCoreCLI@2
       inputs:
@@ -68,8 +68,8 @@ stages:
         projectKey: 'p3pokeloot_Pokeloot_GamesAPI'
         projectName: 'p3pokeloot_Pokeloot_GamesAPI'
         extraProperties: |
-          sonar.cs.vstest.reportsPaths='$(Agent.TempDirectory)/**/*.trx
-          sonar.cs.vscoveragexml.reportsPaths='$(Agent.TempDirectory)/**/*.xml
+          sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/**/*.trx
+          sonar.cs.vscoveragexml.reportsPaths=$(Agent.TempDirectory)/**/*.xml
 
     - task: DotNetCoreCLI@2
       inputs:
@@ -108,19 +108,19 @@ stages:
         projectKey: 'p3pokeloot_Pokeloot_StatisticsAPI'
         projectName: 'p3pokeloot_Pokeloot_StatisticsAPI'
         extraProperties: |
-          sonar.cs.vstest.reportsPaths='$(Agent.TempDirectory)/**/*.trx
-          sonar.cs.vscoveragexml.reportsPaths='$(Agent.TempDirectory)/**/*.xml
+          sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/**/*.trx
+          sonar.cs.vscoveragexml.reportsPaths=$(Agent.TempDirectory)/**/*.xml
 
     - task: DotNetCoreCLI@2
       inputs:
         command: 'build'
-        projects: '$(Build.SourcesDirectory)/Statistics-and-Leaderboard/P3_Statistics_API/P3_Statistics_API.sln'
+        projects: '$(Build.SourcesDirectory)/Statistics-and-Leaderboard/P3_Statistics_API/P3_Statistics_API/P3_Statistics_API.sln'
         arguments: '--configuration $(buildConfiguration)'
     - task: DotNetCoreCLI@2
       inputs:
         command: 'test'
         arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura'
-        projects: '$(Build.SourcesDirectory)/Statistics-and-Leaderboard/P3_Statistics_API/P3_Statistics_API.sln'
+        projects: '$(Build.SourcesDirectory)/Statistics-and-Leaderboard/P3_Statistics_API/P3_Statistics_API/P3_Statistics_API.sln'
 
     - task: PublishCodeCoverageResults@1
       inputs:
