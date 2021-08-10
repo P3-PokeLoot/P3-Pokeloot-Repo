@@ -53,18 +53,32 @@ namespace BuisinessLayerMethods
         /// TopCurrentBallance will return a list of top X users that they have the highest Ballance of coins 
         /// by ordering the databse descending based on their balance then we take the first X number (maxnumber) 
         /// </summary>
-        public List<User> TopCurrentBallance(int maxnumber)
+        public List<UserCoinBalance> TopCurrentBallance(int maxnumber)
         {
-            List<User> user = null;
+            List<UserCoinBalance> result = new List<UserCoinBalance>();
             try
             {
-               user = context.Users.OrderByDescending(p => p.CoinBalance).Take(maxnumber).ToList(); 
+               var user = context.Users.OrderByDescending(p => p.CoinBalance).Take(maxnumber).ToList();
+                if (user!=null) {
+                    foreach (var item in user)
+                    {
+                        UserCoinBalance model = new UserCoinBalance()
+                        {
+                            UserId = item.UserId,
+                            FirstName = item.FirstName,
+                            LastName = item.LastName,
+                            CoinBalance = item.CoinBalance
+                        };
+                        result.Add(model);
+                    }
+                }
             }
             catch (Exception e)
             {
                 logger.Log(LogLevel.Error, e.Message);
             }
-            return user;
+
+            return result;
         }
 
 
@@ -72,18 +86,30 @@ namespace BuisinessLayerMethods
         /// TopEarnedCoins will return a list of top X users that they have the highest Earned Coins 
         /// by ordering the databse descending based on their Total Coins Earned then we take the first X number (maxnumber) 
         /// </summary>
-        public List<User> TopEarnedCoins(int maxnumber)
+        public List<UserCoinEarned> TopEarnedCoins(int maxnumber)
         {
-            List<User> user = null;
+            List<UserCoinEarned> result = new List<UserCoinEarned>();
             try
             {
-                user = context.Users.OrderByDescending(p => p.TotalCoinsEarned).Take(maxnumber).ToList();
+                var user = context.Users.OrderByDescending(p => p.TotalCoinsEarned).Take(maxnumber).ToList();
+                foreach (var item in user)
+                {
+                    UserCoinEarned model = new UserCoinEarned()
+                    {
+                        UserId = item.UserId,
+                        FirstName = item.FirstName,
+                        LastName = item.LastName,
+                        TotalCoinsEarned = item.TotalCoinsEarned
+                    };
+                    result.Add(model);
+                }
+
             }
             catch (Exception e)
             {
                 logger.Log(LogLevel.Error, e.Message);
             }
-            return user;
+            return result;
         }
 
         /// <summary>
@@ -91,18 +117,31 @@ namespace BuisinessLayerMethods
         /// by ordering the databse descending based on their Total Coins Earned minus their Current Coins Balance then we take the first X number (maxnumber) 
         /// </summary>
 
-        public List<User> TopSpentCoins(int maxnumber)
+        public List<UserCoinSpent> TopSpentCoins(int maxnumber)
         {
-            List<User> user = null;
+            List<UserCoinSpent> result = new List<UserCoinSpent>();
             try
             {
-                user = context.Users.OrderByDescending(p => p.TotalCoinsEarned - p.CoinBalance).Take(maxnumber).ToList();
+                var user = context.Users.OrderByDescending(p => p.TotalCoinsEarned - p.CoinBalance).Take(maxnumber).ToList();
+                foreach (var item in user)
+                {
+                    UserCoinSpent model = new UserCoinSpent()
+                    {
+                        UserId = item.UserId,
+                        FirstName = item.FirstName,
+                        LastName = item.LastName,
+                        TotalCoinsSpent=item.TotalCoinsEarned-item.CoinBalance
+                         
+                    };
+                    result.Add(model);
+                }
+
             }
             catch (Exception e)
             {
                 logger.Log(LogLevel.Error, e.Message);
             }
-            return user;
+            return result;
         }
 
         /// <summary>

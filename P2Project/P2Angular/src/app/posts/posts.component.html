@@ -29,8 +29,8 @@
            <form class="d-inline-flex p-2" (ngSubmit)="onChangePageNext()">
                <button class="btn btn-outline-success" type="submit">Next Page</button>    
            </form>
-                  
        </div>
+
        <div>
         <div style="font-size: medium; margin-left: 2rem;">
         <label>Post Type: </label>
@@ -174,6 +174,8 @@
                         <div class="mb-auto mt-4 p-2 bd-highlight">
                             <p class="h5">{{post.PostDescription}}</p>
                         </div>
+                        <div style="margin-bottom: 3px;">
+                            <a routerLink="/Comments/{{post.PostId}}"><button class="btn btn-success btn-sm">Comments</button></a>
                         <div *ngIf="userId != post.UserId">
                             <button class="btn btn-success btn-sm" aria-disabled="true" id="addbutton" (click)="addFriend(post)">Add Friend</button>
                         </div>

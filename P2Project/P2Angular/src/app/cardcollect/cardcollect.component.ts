@@ -51,10 +51,10 @@ export class CardCollectComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if(this.differentUser){
+    if(this.differentUser){ //If there is a different user, perform all services using the different user
       this.userId = this.differentUser;
     }
-    for(let i: number = 0; i <= 809; i++){
+    for(let i: number = 0; i <= 809; i++){ //create list if the generation
       if(i <= 151){
         this.genList.push({PokemonId: i, GenName: "Kanto"});
       }
@@ -97,6 +97,8 @@ export class CardCollectComponent implements OnInit {
             let Favorite = result[i].Key.IsFavorite;
             //console.log(result[i].Key);
 
+            //creates seperate cards shiny variants
+            //only makes pushes to full user collection
             if (Amount > 0) {
               let Quantity = Amount;
               let SpriteLink = Link;
@@ -114,11 +116,11 @@ export class CardCollectComponent implements OnInit {
               this.fullUserCollection.push(card);
             }
           }
-          this.filterCollection();
+          this.filterCollection(); //filter collection after intializing
           
         }
       );
-      this._cardcollectionService.GetRarityList().subscribe(
+      this._cardcollectionService.GetRarityList().subscribe( //grabs rarity list for filtering
         result => {
 
           result.forEach(element => {
@@ -136,10 +138,10 @@ export class CardCollectComponent implements OnInit {
   }
 
   filterCollection(): void {
-    this.userCollection = [];
+    this.userCollection = [];//reset user collection 
     
     
-
+    //checks edge cases for different filter combination
     if (this.filterValue == 0) {
       if (this.filterValueShiny == false) {
         if(this.genValue == "Any"){
@@ -202,12 +204,12 @@ export class CardCollectComponent implements OnInit {
       });
     }
 
-    if(this.checkFavorites){
+    if(this.checkFavorites){ //check for favorites
       this.userCollection = this.userCollection.filter(x => x.IsFavorite == true);
     }
     
     if(this.userCollection != null){
-      this.load();
+      this.load(); //loads pages after filter
     }
   
         
@@ -217,7 +219,7 @@ export class CardCollectComponent implements OnInit {
 
   }
 
-  load(){
+  load(){ //handles pagination
     console.log("collenction length = " + this.userCollection.length);
     this.currentIndex = 0;
     this.currentPage = 1;
@@ -251,7 +253,7 @@ export class CardCollectComponent implements OnInit {
     //this.pageOfItems = pageOfItems;
   }
 
-  friends(){
+  friends(){ //only used when a different user is active, navigates you back to friend list
     this.route.navigateByUrl('/', {skipLocationChange: true}).then(() => {
       this.route.navigate(['/Friends']);
     });
@@ -260,7 +262,7 @@ export class CardCollectComponent implements OnInit {
   }
 
   favorite(card: ICard){
-    if(this.differentUser){
+    if(this.differentUser){ //if different user exist, disable the ability to update favorite status
       return;
     }
     if(this.userId){
@@ -269,7 +271,7 @@ export class CardCollectComponent implements OnInit {
       error => console.log(error)
     );
     }
-    //do not need to reload the page as we will only see favorites in profile
+    //automatically updates front end without reloading page, api call is done in the background and outputs to console
     card.IsFavorite = !card.IsFavorite;
   }
 

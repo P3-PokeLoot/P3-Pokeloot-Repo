@@ -8,7 +8,9 @@ import { MockCoinBalanceObservable } from "./MockCoinBalanceData";
 //Each Method is broken into pairs of Mock method + Mock return type
    
 export class MockLeaderBoardService {
-//constructor for mock class
+    TopPercentModel_Coin:any;
+    MVPShinyModel_Shiny:any;
+    //constructor for mock class
     constructor(private _http:HttpClientTestingModule){}
 
     //t1
@@ -17,11 +19,11 @@ export class MockLeaderBoardService {
     }
 
     MockGeTopCompletedCollection(){
-    return TopPercentModel_Coin;
+    return this.TopPercentModel_Coin;
     }
 
     MockGetMVPShinyUsersList(){
-    return MVPShinyModel_Shiny;
+    return this.MVPShinyModel_Shiny;
     }
 
 

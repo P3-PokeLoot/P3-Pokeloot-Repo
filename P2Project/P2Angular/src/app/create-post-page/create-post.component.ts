@@ -47,7 +47,7 @@ export class CreatePostComponent implements OnInit {
 
   ngOnInit(): void {
 
-    for(let i: number = 0; i <= 809; i++){
+    for(let i: number = 0; i <= 809; i++){//create list if the generation
       if(i <= 151){
         this.genList.push({PokemonId: i, GenName: "Kanto"});
       }
@@ -91,6 +91,9 @@ export class CreatePostComponent implements OnInit {
             let PokemonName = result[i].Value.PokemonName;
             let Favorite = result[i].Key.IsFavorite;
 
+
+            //creates seperate cards shiny variants
+            //only makes pushes to full user collection
             if (Amount > 0) {
               let Quantity = Amount;
               let SpriteLink = Link;
@@ -109,11 +112,11 @@ export class CreatePostComponent implements OnInit {
             }
 
           }
-          this.filterCollection();
+          this.filterCollection();//filter collection after intializing
         }
 
       );
-      this._cardcollectionService.GetRarityList().subscribe(
+      this._cardcollectionService.GetRarityList().subscribe(//grabs rarity list for filtering
         result => {
 
           result.forEach(element => {
@@ -129,8 +132,9 @@ export class CreatePostComponent implements OnInit {
 
   }
   filterCollection(): void {
-    this.userCollection = [];
+    this.userCollection = [];//reset user collection 
 
+    //checks edge cases for different filter combination
     if (this.filterValue == 0) {
       if (this.filterValueShiny == false) {
         if(this.genValue == "Any"){
@@ -193,7 +197,7 @@ export class CreatePostComponent implements OnInit {
       });
     }
     
-    if(this.checkFavorites){
+    if(this.checkFavorites){//check for favorites
       this.userCollection = this.userCollection.filter(x => x.IsFavorite == true);
     }
 
@@ -210,7 +214,7 @@ export class CreatePostComponent implements OnInit {
 
 
 
-    if (postForm.value.postType === 'Sale') {
+    if (postForm.value.postType === 'Sale') { //price only appears in sale posts
       this.isPriceValid
       if (!postForm.controls.Price.valid) {
         this.isPriceValid = true;
@@ -228,7 +232,7 @@ export class CreatePostComponent implements OnInit {
       return;
     }
 
-    if(postForm.value.postType != 'Discussion'){
+    if(postForm.value.postType != 'Discussion'){ //pokemon cards dont appear in discussion posts
       if (postForm.value.PokemonId == null || postForm.value.PokemonId.length == 0) {
         this.isPokemonId = true;
         return;

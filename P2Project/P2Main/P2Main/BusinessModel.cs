@@ -8,14 +8,7 @@ namespace BusinessLayer
 {
     public class BusinessModel : IBusinessModel
     {
-
-
-
         public P3DbClass context;
-
-
-
-
 
         /// <summary>
         /// Constructor for business class that takes a Db context
@@ -27,15 +20,12 @@ namespace BusinessLayer
         }
 
         /// <summary>
-        /// Constructor for business class that takes no constructor
+        /// Constructor for business class that takes no parameter
         /// </summary>
         public BusinessModel()
         {
             this.context = new P3DbClass();
         }
-
-
-
 
         /// <summary>
         /// Generate a lootbox for the player will add a randomly generated card into the users collection and will update the datebase based on if the card generated is shiny or not.
@@ -52,7 +42,7 @@ namespace BusinessLayer
             P2DbContext.Models.PokemonCard card;
             int rareId; //generate random rarity based on preset distribution
             int rand = random.Next(101);
-            if (boxType != 2)
+            if (boxType != 2) //if boxtype is not 2, we use normal odds for generating pokemon
             {
                 if (rand <= 40)
                 {
@@ -75,7 +65,7 @@ namespace BusinessLayer
                     rareId = 5;
                 }
             }
-            else
+            else //when boxtype is 2, we only generate higher teir pokemon
             {
                 if (rand < 40)
                 {
@@ -91,14 +81,14 @@ namespace BusinessLayer
                 }
             }
         
-
-            var pokeList = context.PokemonCards.Where(x => x.RarityId == rareId).ToList();  //generates the random card
+            //generate the random card using the rarity
+            var pokeList = context.PokemonCards.Where(x => x.RarityId == rareId).ToList();  
             rand = random.Next(pokeList.Count);
             card = pokeList[rand];
 
             random = new Random();
-            int shiny = random.Next(201);
-            if (boxType == 3)
+            int shiny = random.Next(201);  //generate shiny odds
+            if (boxType == 3) //if boxtype is 3, we guanntee a shiny
             {
                 shiny = 200;
             }
@@ -129,7 +119,7 @@ namespace BusinessLayer
                 context.Entry(collection).Property(x => x.QuantityShiny).IsModified = true;
                 isShiny = true;
             }
-            currentUser.AccountLevel++;//increments account level with each lootbox opened(we dont have an xp system implemented yet.)
+            currentUser.AccountLevel++;//increments account level with each lootbox opened
             context.Users.Attach(currentUser);
             context.Entry(currentUser).Property(x => x.AccountLevel).IsModified = true;
             context.SaveChanges();
@@ -371,6 +361,7 @@ namespace BusinessLayer
         /// <returns>true if user was successfully added to database, false otherwise</returns>
         public bool signUp(User newUser)
         {
+            //set default balance and levels
             newUser.AccountLevel = 0;
             newUser.CoinBalance = 10;
             newUser.TotalCoinsEarned = 10;
@@ -394,7 +385,7 @@ namespace BusinessLayer
         /// <param name="coinsToAdd">Amount of coins to add to balance, value would be negetive if we are removing coins.</param>
         /// <returns>True if account succefully updated</returns>
         public bool incrementUserBalance(User currentUser, int coinsToAdd)
-        { //not sure how to implement quizzes, but call this method when ever user completes a quiz or buy a lootbox
+        {
             if (coinsToAdd >= 0)
             { //use when completing challenges(increments balance)
                 currentUser.AccountLevel++; //gain levels buy completing challanges
@@ -488,11 +479,20 @@ namespace BusinessLayer
             return context.Posts.Where(x => x.PostId == id).FirstOrDefault();
         }
 
+        /// <summary>
+        /// Gets avaialble rarities
+        /// </summary>
+        /// <returns>List of rarity types</returns>
         public List<RarityType> GetRarityTypes()
         {
             return context.RarityTypes.ToList();
         }
 
+        /// <summary>
+        /// Hides post from display boarrd
+        /// </summary>
+        /// <param name="PostID">Post Id of post you want to remive</param>
+        /// <returns>True if succefully removed, false</returns>
         public bool hidePost(int PostID)
         {
             Post post = context.Posts.Where(x => x.PostId == PostID).FirstOrDefault();
@@ -500,7 +500,9 @@ namespace BusinessLayer
             {
                 return false;
             }
-            post.StillAvailable = false;
+            //by setting is available to false, we can remove a post from display board without removing any data from our database, keeping statistics and depenies intact
+            //great for testing
+            post.StillAvailable = false; 
             context.Posts.Attach(post);
             context.Entry(post).Property(x => x.StillAvailable).IsModified = true;
             try
@@ -514,7 +516,12 @@ namespace BusinessLayer
             return true;
         }
 
-
+        /// <summary>
+        /// Edits current price of a sales post
+        /// </summary>
+        /// <param name="postID">Post Id of the post to edit</param>
+        /// <param name="newPrice">Price you want to change to</param>
+        /// <returns>True if succesfully edited, false otherwise</returns>
         public bool editPrice(int postID, int newPrice)
         {
             Post post = context.Posts.Where(x => x.PostId == postID).FirstOrDefault();
@@ -522,7 +529,7 @@ namespace BusinessLayer
             {
                 return false;
             }
-            if(post.Price == null)
+            if(post.Price == null) //check if post is a sale
             {
                 return false;
             }
@@ -543,6 +550,46 @@ namespace BusinessLayer
             return true;
         }
 
+        public bool newPostComment(int userId, int postId, string content)
+        {      
+            PostComment newPostComment = new PostComment();
+
+            newPostComment.CommentUserId    = userId;
+            newPostComment.CommentPostId    = postId;
+            newPostComment.CommentContent   = content;
+            newPostComment.CommentTimestamp = DateTime.Now;
+
+            try
+            {
+                context.PostComments.Add(newPostComment);
+                context.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Gets a list of all comment objects related to the requested post id
+        /// </summary>
+        /// <param name="postId">The id of the post to retrieve the comments for</param>
+        /// <returns>List of comment objects for specified post</returns>
+        public List<PostComment> getCommentList(int postId)
+        {
+            List<PostComment> commentList = context.PostComments.Where(x => x.CommentPostId == postId).ToList();
+            return commentList;
+        }
+
+
+        /// <summary>
+        /// Switches the favorite status of a specific card, effects both shiny and non shiny cards
+        /// </summary>
+        /// <param name="UserId">Current User ID</param>
+        /// <param name="Poke">Pokemon Id of card you want to switch</param>
+        /// <returns>True if favorite status if succesfully flipped, false otherwise</returns>
         public bool favoriteCard(int UserId, int Poke)
         {
             CardCollection card = context.CardCollections.Where(x => x.UserId == UserId && x.PokemonId == Poke).FirstOrDefault();
@@ -550,7 +597,7 @@ namespace BusinessLayer
             {
                 return false;
             }
-            if(card.IsFavorite == null)
+            if(card.IsFavorite == null) //changes all null instances to false which will be switched after
             {
                 card.IsFavorite = false;
             }
@@ -570,10 +617,16 @@ namespace BusinessLayer
         }
 
 
+        /// <summary>
+        /// Gets all current friends and unaccepted frint requests
+        /// </summary>
+        /// <param name="UserId">Current User ID</param>
+        /// <returns>List of fullfriend objects</returns>
         public List<FullFriend> GetFriends(int UserId)
         {
             List<FullFriend> fullFriends = new List<FullFriend>();
-            var friends = context.FriendsLists.Where(x => x.SentRequest == UserId || x.RecievedRequest == UserId).ToList();
+            var friends = context.FriendsLists.Where(x => x.SentRequest == UserId || x.RecievedRequest == UserId).ToList(); //recieves all cases where user id appears in friend list
+            //return an empty list if result is null or empty
             if(friends == null)
             {
                 return fullFriends;
@@ -587,7 +640,7 @@ namespace BusinessLayer
                 
                 if(friend.SentRequest == UserId)
                 {
-                    if(friend.IsPending == false)
+                    if(friend.IsPending == false) //where user sent a request and is no longer pending, this is considered a friend and will appear in the list
                     {
                         User friendInfo = context.Users.Where(x => x.UserId == friend.RecievedRequest).FirstOrDefault();
                         int totalCards = context.CardCollections.Where(x => x.UserId == friend.RecievedRequest).ToList().Count();
@@ -602,7 +655,7 @@ namespace BusinessLayer
                         fullFriends.Add(fullFriend);
                     }
                 }
-                if (friend.RecievedRequest == UserId)
+                if (friend.RecievedRequest == UserId) // if user recieved a request, the instance will appear in the list in all cases
                 {                  
                         User friendInfo = context.Users.Where(x => x.UserId == friend.SentRequest).FirstOrDefault();
                         int totalCards = context.CardCollections.Where(x => x.UserId == friend.SentRequest).ToList().Count();
@@ -611,7 +664,7 @@ namespace BusinessLayer
                             FriendName = friendInfo.UserName,
                             FriendLevel = friendInfo.AccountLevel,
                             TotalCards = totalCards,
-                            IsPending = friend.IsPending,
+                            IsPending = friend.IsPending, //if is pending is still true, user will have option to filter out pending request and/or accept them
                             DateAdded = friend.DateAdded,
                             FriendId = friend.SentRequest
                         };
@@ -621,16 +674,25 @@ namespace BusinessLayer
             return fullFriends;
         }
 
+
+        /// <summary>
+        /// Does various actions based on friendship status between two users
+        /// </summary>
+        /// <param name="userid">Current User Id</param>
+        /// <param name="friendId">Intended friend id</param>
+        /// <returns>Outputs a string with information on friendship status and if anything has changed</returns>
         public string friendAction(int userid, int friendId)
         {
-            if(userid == friendId)
+            if(userid == friendId) //Stops user from befriending themselves
             {
                 return "You can't be friends with yourself!";
             }
+            //Grabs case where friend id or user id may appear in friend list
+            //due to checks later on, we prevent any cases where the duo can appear twice in the db
             FriendsList friends = context.FriendsLists.Where(x => (x.SentRequest == userid && x.RecievedRequest == friendId) || (x.RecievedRequest == userid && x.SentRequest == friendId)).FirstOrDefault();
             string friendName = context.Users.Where(x => x.UserId == friendId).Select(x => x.UserName).FirstOrDefault();
 
-            if(friends == null)
+            if(friends == null)//friend object doesnt exist, therefore we create a new instance where current user sends the request and awaits acceptance
             {
                 friends = new FriendsList()
                 {
@@ -652,11 +714,14 @@ namespace BusinessLayer
 
             }
 
-            if(friends.IsPending == false)
+            if(friends.IsPending == false) //if pending is false, then they are already friends
             {
                 return $"You are already friends with {friendName}!";
             }
-            if(friends.RecievedRequest == userid)
+
+            //anything after this point, is pending is true, so one party is awaiting a request.
+
+            if(friends.RecievedRequest == userid)//if user recieved the request, we accept the pending request and updates the instance 
             {
                 friends.IsPending = false;
                 context.FriendsLists.Attach(friends);
@@ -671,7 +736,7 @@ namespace BusinessLayer
                 }
                 return $"Your are now friends with {friendName}!";
             }
-            if(friends.SentRequest == userid)
+            if(friends.SentRequest == userid)//if user sent the request, we do nothing and notify the user the request is still pending.
             {
                 return $"You already sent a request to {friendName}, wait for them to accept it.";
             }
