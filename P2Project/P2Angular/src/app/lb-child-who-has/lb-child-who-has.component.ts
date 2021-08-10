@@ -15,6 +15,7 @@ export class LbChildWhoHasComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  //This method takes the observable data and puts it into a class property
   GetPercentOwnCard(pokemonName:string){
     this._leaderboardService.GetCardPercentage(pokemonName).subscribe(
       result => {
