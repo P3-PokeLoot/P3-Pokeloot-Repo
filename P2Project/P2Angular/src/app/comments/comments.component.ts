@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { DisplayServiceService } from '../display-service.service';
 import { IPost } from '../Models/IPost';
+import { IComment } from '../Models/IComment';
 
 
 @Component({
@@ -10,13 +11,14 @@ import { IPost } from '../Models/IPost';
   templateUrl: './comments.component.html',
   styleUrls: ['./comments.component.css']
 })
+
 export class CommentsComponent implements OnInit {
   // @Input() postId?: number;
   private userId = localStorage.getItem('userId') as string;
   private postId : number;
   public fullPost : IPost;
-  filterString: string = '';
-  commentInput: string;
+  public commentInput: string;
+  public commentList: IComment[];
 
 
   constructor(private _displayService: DisplayServiceService, private route: ActivatedRoute) { 
@@ -24,6 +26,8 @@ export class CommentsComponent implements OnInit {
     this.route.params.subscribe( params => this.postId = params.postId );
     this.commentInput = "";
     this.fullPost = {} as IPost;
+    this.commentList = [];
+
   }
 
   ngOnInit(): void {
@@ -59,12 +63,31 @@ export class CommentsComponent implements OnInit {
         this.fullPost = { PostId, PokemonId, PostTime, PostDescription, Price, StillAvailable, IsShiny, UserId, UserName, SpriteLink, PostType, PokemonName, RarityId }
       }
     )
-    
+
+    this._displayService.PostComments(this.postId).subscribe(
+      result => {
+        result.forEach(element => {
+
+          let CommentId = element.Key.CommentId
+          let CommentPostId = element.Key.CommentPostId
+          let CommentUserId = element.Key.CommentUserId
+          
+          let Timestamp = element.Key.CommentTimestamp
+          let Content = element.Key.CommentContent
+
+          let UserName = element.Value
+          
+          let comment = {CommentId, CommentPostId, CommentUserId, Timestamp, Content, UserName}
+          this.commentList.push(comment);
+        });
+      }
+    )
   }
 
   Submit() {
     if(this.commentInput != "")
     {
+      this._displayService.NewComment(this.userId, this.postId, this.commentInput);
       console.log(this.commentInput);
       this.commentInput = "";
     }

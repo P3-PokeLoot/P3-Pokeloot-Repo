@@ -19,6 +19,8 @@ export class DisplayServiceService {
   private urltobuy = `${environment.urlmain}buyCard/`;
   private fullPosturl = `${environment.urlmain}FullPostById/`;
   private postCommentsurl = `${environment.urlmain}Comments/`;
+  private newCommenturl = `${environment.urlmain}PostComment/`;
+
 
 
 
@@ -45,6 +47,12 @@ export class DisplayServiceService {
 
   PostComments(postId : number):Observable<any[]>{
     return this.http.get<any>(this.postCommentsurl + postId);
+  }
+
+  NewComment(userId : string, postId : number, content : string):void{
+    console.log(this.newCommenturl + userId + '/' + postId + '/' + content);
+
+    this.http.get<any>(this.newCommenturl + userId + '/' + postId + '/' + content);
   }
 
 

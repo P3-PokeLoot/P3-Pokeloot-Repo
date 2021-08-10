@@ -40,23 +40,27 @@
                 </ng-template>
                 <a href="https://bulbapedia.bulbagarden.net/wiki/{{fullPost.PokemonName}}" target="_blank"
                     rel="noopener noreferrer" class="btn btn-danger">View Details</a>
-
     </div>
-
-
-
-
-
-
-    </div>
+</div>
 
 </div>
 <div class="container mt-4 mb-3 shadow-sm p-3 bg-body rounded">
     <h3>Comments</h3>
 
-    <div class="container mt-4 mb-3 shadow-sm p-3 bg-body rounded">test</div>
-    <div class="container mt-4 mb-3 shadow-sm p-3 bg-body rounded">test test</div>
-    <div class="container mt-4 mb-3 shadow-sm p-3 bg-body rounded">test test test test</div>
+    <div *ngFor="let comment of commentList" style="width: 95%; margin: 1rem;" >
+        <div class="container mt-4 mb-3 shadow-sm p-3 bg-body rounded">
+            <span>
+                <h6>
+                    {{comment.UserName}} <span style="font-size: x-small; color: gray;">{{fullPost.PostTime | date: 'short'}}</span>
+                </h6> 
+            </span>
+            {{comment.Content}}
+        
+        </div>
+    
+    
+    </div>
+
 
     <form ng-submit="submit()">
         <input type="text" [(ngModel)]="commentInput" name="commentInputField" value="1" style="margin-left: 2rem;">
