@@ -5,7 +5,7 @@
 trigger:
 - main
 pool:
-  vmimage: Windows-latest
+  vmimage: Ubuntu-latest
 resources:
 - repo: self
 variables:
@@ -27,6 +27,10 @@ stages:
         scannerMode: 'MSBuild'
         projectKey: 'p3pokeloot_Pokeloot_MainAPI'
         projectName: 'p3pokeloot_Pokeloot_MainAPI'
+        extraProperties: |
+          sonar.cs.vstest.reportsPaths='$(Agent.TempDirectory)\**\*.trx'
+          sonar.cs.vscoveragexml.reportsPaths='$(Agent.TempDirectory)/**/coverage.cobertura.xml'
+          sonar.verbose=true
 
     - task: DotNetCoreCLI@2
       inputs:
@@ -36,7 +40,7 @@ stages:
     - task: DotNetCoreCLI@2
       inputs:
         command: 'test'
-        arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
+        arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura'
         publishTestResults: false
         projects: '$(Build.SourcesDirectory)/P2Project/P2Main/P2Main.sln'
 
