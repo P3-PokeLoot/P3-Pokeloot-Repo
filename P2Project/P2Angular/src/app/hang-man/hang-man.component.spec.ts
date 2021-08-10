@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HangManComponent } from './hang-man.component';
@@ -8,6 +9,7 @@ describe('HangManComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [HttpClientModule],
       declarations: [ HangManComponent ]
     })
     .compileComponents();

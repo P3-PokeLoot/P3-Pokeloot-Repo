@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RpsGameComponent } from './rps-game.component';
@@ -8,6 +9,7 @@ describe('RpsGameComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [HttpClientModule],
       declarations: [ RpsGameComponent ]
     })
     .compileComponents();
