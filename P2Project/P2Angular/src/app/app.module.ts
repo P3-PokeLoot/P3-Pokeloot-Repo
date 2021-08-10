@@ -43,6 +43,9 @@ import { GameFormComponent } from './game-form/game-form.component';
 import { DeleteGameComponent } from './delete-game/delete-game.component';
 import { ModifyGameComponent } from './modify-game/modify-game.component';
 import { ModifyGameFormComponent } from './modify-game-form/modify-game-form.component';
+import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
+import { NbgdTablePaginationComponent } from './nbgd-table-pagination/nbgd-table-pagination.component';
+import { LbChildWhoHasComponent } from './lb-child-who-has/lb-child-who-has.component';
 
 
 @NgModule({
@@ -81,6 +84,9 @@ import { ModifyGameFormComponent } from './modify-game-form/modify-game-form.com
     DeleteGameComponent,
     ModifyGameComponent,
     ModifyGameFormComponent,
+    LeaderboardsComponent,
+    NbgdTablePaginationComponent,
+    LbChildWhoHasComponent
   ],
   imports: [
     BrowserModule,

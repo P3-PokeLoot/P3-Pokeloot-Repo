@@ -16,7 +16,7 @@ as a parameter to the internal component method-->
     <div class="flex-child">
         <label for="categoricaldropdownlist">
             Leaderboard Stats:
-            <select class="categoricaldropdownlist" [(ngModel)]="chosenStat" (change)="AssignChosenStatFromDropdown(chosenStat); ResetDataArrays()">
+            <select class="categoricaldropdownlist" [(ngModel)]="chosenStat" (change)="AssignChosenStatFromDropdown(chosenStat);">
                 <option  *ngFor= "let item of allStatsOptions" [ngValue]="item" >
                    {{item}}
                 </option>
@@ -43,31 +43,32 @@ as a parameter to the internal component method-->
 <!--TABLE SECTION-->
 
 
-
+<input (click)="method69()" type="button" />
 <br>
 <br>
 <br>
 
 <!--This is the data table that outputs to users. Need to implement logic so that it only displays one table at a time...-->
 <div>
-    <table class="datatable" *ngIf="observableData"><!--This line says "if observabledata exists in component, make a table"-->
-        <thead>
+    <table class="table table-striped" *ngIf ="observableData != null">
+        <thead class="datahead">
             <tr>
                 <!--This creates the table headers based each element in headersArray-->
-                <th  *ngFor="let h of headersArray"> 
+                <th class="dataheadcell" *ngFor="let h of headersArray"> 
                     {{h}}
                 </th>   
             </tr>
         </thead>
         <tbody>
             <!--This creates rows for each object "c" in columnsArray, then a table cell for each property "o" of each object "c" in columnsArray-->
-            <tr  *ngFor="let c of columnsArray"> 
+            <tr class="datarow" *ngFor="let c of columnsArray"> 
                 <td class="datarowcell" *ngFor="let o of c"> 
                     {{o}}
                 </td>
             </tr>
         </tbody>
     </table>
+
 </div>
 
 <!--PAGES SECTION-->

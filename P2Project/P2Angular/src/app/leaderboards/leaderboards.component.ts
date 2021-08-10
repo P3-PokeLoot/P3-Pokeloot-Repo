@@ -16,12 +16,12 @@ export class LeaderboardsComponent implements OnInit {
     currentPage: number = 1;
     lastpage: number=1;
 
-
     //component property that will be updated everytime user selects a dropdown option and click button
     chosenNumber:number;
     chosenStat:string='';
     chosenService:number;
-    
+    chosenRarity:string;
+    chosenPokename:string;
     //store observable streams into here so that it can be iterated on & displayed in html
     observableData:any[]=[];
     headersArray:any[]=[];
@@ -60,6 +60,8 @@ export class LeaderboardsComponent implements OnInit {
     this.pageOfItems=[];
     this.chosenNumber=1;
     this.chosenService=1;
+    this.chosenRarity = 'Mythic';
+    this.chosenPokename='pikachu';
    }
 
   ngOnInit(): void {
@@ -82,20 +84,17 @@ export class LeaderboardsComponent implements OnInit {
 CreateArraysFromObservable(){
   this.observableData.forEach(element => {//these 2 lines of code allows us to create table columns
     this.headersArray=Object.keys(element);
-    console.log(this.headersArray);
   });
   this.observableData.forEach(element => {//these 2 lines of code allows us to create table cells and fill them
     this.columnsArray.push(Object.values(element));
-    console.log(this.columnsArray);
   });
 }
  //METHOD 4: Looks at the chosenStat variable and returns it's index value to be used as a 'case value'
   AssignChosenService() {
     console.log('this is the start AssignChosenService');
     console.log(this.chosenService);
-
       for(let i = 0; i < this.allStatsOptions.length; i++){
-        //when we "match", stop the loop
+
         if(this.chosenStat == this.allStatsOptions[i]){
           this.chosenService=i;
           console.log('the new chosenservice value is'+this.chosenService);
@@ -114,25 +113,24 @@ CreateArraysFromObservable(){
     console.log('this is the start selectChosenService');
     console.log(this.chosenService);
     switch(this.chosenService){
-      //Coins
     case 0:
       this._leaderboardservice.GetTopCurrentBalanceList(this.chosenNumber).subscribe(
         result => {
           this.observableData = result; 
-          console.log(this.observableData);
+          this.CreateArraysFromObservable();
        });
-       this.CreateArraysFromObservable();
+       //this.CreateArraysFromObservable();
        console.log('this is case'+this.chosenService);
         break;
     case 1:
       this._leaderboardservice.GetTopEarnedCoinsList(this.chosenNumber).subscribe(
         result => {
           this.observableData = result; 
+          this.CreateArraysFromObservable();
       });
-      this.CreateArraysFromObservable();
       console.log('this is case'+this.chosenService);
       break;
-      case 2:
+    case 2:
         this._leaderboardservice.GetTopSpentCoinsList(this.chosenNumber).subscribe(
           result => {
             this.observableData = result; 
@@ -140,19 +138,80 @@ CreateArraysFromObservable(){
          this.CreateArraysFromObservable();
         console.log('this is case'+this.chosenService);
         break;
-      case 4:
+    case 3:
         this._leaderboardservice.GetTopCompletedCollection(this.chosenNumber).subscribe(
           result => {
             this.observableData = result; 
+            this.CreateArraysFromObservable();
         });
-        this.CreateArraysFromObservable();
         console.log('this is case'+this.chosenService);
         break;
     //Rarities
+    case 4:
+      this._leaderboardservice.GetUserListbyRarity(this.chosenRarity,this.chosenNumber).subscribe(
+        result => {
+          this.observableData = result; 
+          this.CreateArraysFromObservable();
+        });
+        console.log('this is case'+this.chosenService);
+        break;
+    case 5:
+      this._leaderboardservice.GetMostShinyList(this.chosenNumber).subscribe(
+        result => {
+          this.observableData = result; 
+          this.CreateArraysFromObservable();
+        });
+        console.log('this is case'+this.chosenService);
+        break;
+    case 6:
+      this._leaderboardservice.GetMVPShinyUsersList(this.chosenNumber).subscribe(
+        result => {
+          this.observableData = result; 
+          this.CreateArraysFromObservable();
+        });
+        console.log('this is case'+this.chosenService);
+        break;
+    case 7:
+      this._leaderboardservice.GetUsersTotalCollectionList(this.chosenNumber).subscribe(
+        result => {
+          this.observableData = result; 
+          this.CreateArraysFromObservable();
+        });
+        console.log('this is case'+this.chosenService);
+        break;
+    case 8:
+      this._leaderboardservice.GetUserTotalAmountList(this.chosenNumber).subscribe(
+        result => {
+          this.observableData = result; 
+          this.CreateArraysFromObservable();
+        });
+        console.log('this is case'+this.chosenService);
+        break;
+    // case  9:
+    //uncomment when the method no longer returns a pokemon string, but rather a percent
+    //   this._leaderboardservice.GetCardPercentage(this.chosenPokename).subscribe(
+    //     result => {
+    //       this.observableData = result; 
+    //       this.CreateArraysFromObservable();
+    //     });
+    //     console.log('this is case'+this.chosenService);
+    //     break;
     //Shinies
     }
   }
-
+   method69(){
+     this._leaderboardservice.GetTopCurrentBalanceList(15).subscribe(
+       result => 
+       this.observableData = result);
+       this.observableData.forEach(element => {//these 2 lines of code allows us to create table columns
+         this.headersArray=Object.keys(element);
+         console.log(this.headersArray);
+       });
+       this.observableData.forEach(element => {//these 2 lines of code allows us to create table cells and fill them
+         this.columnsArray.push(Object.values(element));
+         console.log(this.columnsArray);
+       });
+   }
   //Method 6: Clean up table by "resetting" the observable stream arrays 
   ResetDataArrays(){
     this.observableData=[];
@@ -186,4 +245,10 @@ CreateArraysFromObservable(){
     this.pageOfItems = this.observableData.slice(this.currentIndex, this.currentIndex + 10);
     //this.pageOfItems = pageOfItems;
   }
+
 }
+
+
+
+
+

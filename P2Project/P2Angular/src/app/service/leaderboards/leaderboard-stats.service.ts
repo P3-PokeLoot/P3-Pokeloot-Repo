@@ -66,8 +66,8 @@ export class LeaderboardStatsService {
 
 
   //achievement services are here, just in case they can also be used in the leaderboards component. 
-  GetListSingleUserAchievements(username:string,userId:number):Observable<any>{
-    return this.http.get<any>(this.baseURL+'/UserAchievements?username='+username+'+&userId='+userId);
+  GetListSingleUserAchievements(userId:number):Observable<any>{
+    return this.http.get<any>(this.baseURL+'/UserArchievementsList?userId='+userId);
   }
   GetListAllUserAchievements():Observable<any>{
     return this.http.get<any>(this.baseURL+'/UserAchievements');

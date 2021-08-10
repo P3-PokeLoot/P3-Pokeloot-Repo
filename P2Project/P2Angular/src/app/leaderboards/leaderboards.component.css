@@ -31,7 +31,7 @@ select {
 
 /* leaderboard table*/
 .datarow{
-    background-color: rgb(54,45,92, .5);
+    background-color: rgba(134, 220, 235, 0.5);
 }
 
 .datacell{
@@ -60,6 +60,13 @@ table th , table td{
     align-self: right;
 }
 
+table {
+    padding: 10px;
+    border: 2px solid #1c87c9;
+    border-radius: 5px;
+    background-color: #e5e5e5;
+    text-align: center;
+}
 /* <div class="flex-child">
 
 
