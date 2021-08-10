@@ -470,6 +470,26 @@ namespace GamesApiTests
         }
 
         [Fact]
+
+        public void PhmWinPass()
+        {
+            using (var context = new DataContext(options))
+            {
+                // Arrange
+                bool result;
+                int userId = 1;
+                BusinessModel businessModel = new BusinessModel(context, nullLogger);
+
+                // Act
+                context.Database.EnsureCreated();
+                context.Database.EnsureDeleted();
+                result = businessModel.PhmWinAsync(userId).Result;
+
+                // Assert
+                Assert.True(result); // result is true if record is added
+            }
+        }
+
         public void WamPlayedNotNullPass()
         {
             using (var context = new DataContext(options))
@@ -493,11 +513,31 @@ namespace GamesApiTests
                 result = businessModel.WamPlayedAsync(wamgameStat.UserId, score).Result;
 
                 // Assert
-                Assert.True(result); // result is true if record updated
+                Assert.True(result);
             }
         }
 
         [Fact]
+        public void PhmWinUpdatePass()
+        {
+            using (var context = new DataContext(options))
+            {
+                // Arrange
+                bool result;
+                int userId = 1;
+                BusinessModel businessModel = new BusinessModel(context, nullLogger);
+
+                // Act
+                context.Database.EnsureCreated();
+                context.Database.EnsureDeleted();
+                result = businessModel.PhmWinAsync(userId).Result;
+                result = businessModel.PhmWinAsync(userId).Result; // play game twice
+
+                // Assert
+                Assert.True(result); // result is true if record is updated
+            }
+        }
+      
         public void WamPlayedNullPass()
         {
             using (var context = new DataContext(options))
@@ -518,6 +558,25 @@ namespace GamesApiTests
             }
         }
 
+        [Fact]
+        public void PhmPlayedPass()
+        {
+            using (var context = new DataContext(options))
+            {
+                // Arrange
+                bool result;
+                int userId = 1;
+                BusinessModel businessModel = new BusinessModel(context, nullLogger);
+
+                // Act
+                context.Database.EnsureCreated();
+                context.Database.EnsureDeleted();
+                result = businessModel.PhmPlayedAsync(userId).Result;
+
+                // Assert
+                Assert.True(result); // result is true if record is added
+            }
+        }
         [Fact]
         public void WamHighScoreNotNullPass()
         {
@@ -562,6 +621,28 @@ namespace GamesApiTests
 
                 // Assert
                 Assert.Null(result); // result is null if no record is returned
+            }
+        }
+
+        [Fact]
+
+        public void PhmPlayedUpdatePass()
+        {
+            using (var context = new DataContext(options))
+            {
+                // Arrange
+                bool result;
+                int userId = 1;
+                BusinessModel businessModel = new BusinessModel(context, nullLogger);
+
+                // Act
+                context.Database.EnsureCreated();
+                context.Database.EnsureDeleted();
+                result = businessModel.PhmPlayedAsync(userId).Result;
+                result = businessModel.PhmPlayedAsync(userId).Result; // play game 2nd time
+
+                // Assert
+                Assert.True(result); // result is true if record is updated
             }
         }
 
@@ -624,6 +705,28 @@ namespace GamesApiTests
 
                 // Assert
                 Assert.True(result); // result is true if game added
+            }
+        }
+
+        [Fact]
+        public void PhmRecordNotNull()
+        {
+            using (var context = new DataContext(options))
+            {
+                // Arrange
+                string result = null;
+                int userId = 1;
+                BusinessModel businessModel = new BusinessModel(context, nullLogger);
+
+                // Act
+                context.Database.EnsureCreated();
+                context.Database.EnsureDeleted();
+                _ = businessModel.PhmPlayedAsync(userId);
+                _ = businessModel.PhmWinAsync(userId);
+                result = businessModel.PhmRecordAsync(userId).Result;
+
+                // Assert
+                Assert.NotNull(result); // result is not null if record exists
             }
         }
 

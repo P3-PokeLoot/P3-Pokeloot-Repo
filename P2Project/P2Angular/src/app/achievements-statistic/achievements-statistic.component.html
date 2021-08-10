@@ -1,0 +1,17 @@
+<!--Display UI here-->
+<div>
+    <input type="button" value="Show Aggregate Achievement Data" (click)="GetAggregateAchievmentData()">
+</div>
+
+
+
+
+
+<div class="flex-container"  style="font-size:medium;">
+    <div class="card" style="width: 18rem;" *ngFor="user-achievement-data; let i = index">
+    <img src="/assets/img/johto-{{1+i}}.jpg" class="card-img-top" alt="Achievement Badge {{i}}">
+        <div class="card-body">
+            <h5 class="card-title">Achievement Name</h5>
+        </div>
+    </div>
+</div>
