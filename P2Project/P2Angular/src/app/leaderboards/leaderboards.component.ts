@@ -65,7 +65,8 @@ export class LeaderboardsComponent implements OnInit {
   constructor(private _leaderboardservice:LeaderboardStatsService) {
     this.observableData=[];
     this.pageOfItems=[];
-    this.chosenNumber=1;
+    this.chosenNumber=10;
+    this.chosenStat='Collection Completion',
     this.chosenService=1;
     this.chosenRarity = 'Mythic';
     this.chosenPokename='pikachu';
