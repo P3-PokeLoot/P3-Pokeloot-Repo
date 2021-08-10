@@ -46,7 +46,7 @@ export class FriendsComponent implements OnInit {
           this.isPending = !this.isPending; 
       },
       error => console.log(error),
-      () => this.load()
+      () => this.load() //only loads pagination after filtering and populating is done
     );
     }
     
@@ -55,18 +55,18 @@ export class FriendsComponent implements OnInit {
   }
 
 
-  filterForPending(){
+  filterForPending(){ //filters for pending request
    
     
     this.friendList = this.fullFriendsList.filter(x => x.IsPending == this.isPending);
-    this.isPending = !this.isPending; 
+    this.isPending = !this.isPending; //switches case after each click
     this.load();
     
     
     
   }
 
-  load(){
+  load(){  //handles pagination
     console.log("collenction length = " + this.friendList.length);
     this.currentIndex = 0;
     this.currentPage = 1;
@@ -100,7 +100,7 @@ export class FriendsComponent implements OnInit {
     //this.pageOfItems = pageOfItems;
   }
 
-  clickt(friend: IFriend){
+  clickt(friend: IFriend){ //accepts friend request
    
     if(this.userId){
       
@@ -110,6 +110,8 @@ export class FriendsComponent implements OnInit {
         this.friendAction = result[0];},
       error => {
         console.log(error);
+         //From Alain: for some reason the call is returning an error due to parsing issues, the status code is 200 and the database is succefully updated on each call.
+        //Since the issue is unresolved, i instead grabbed the error text which actually holds the output intended from the api
         this.friendAction = error.error.text;
       }
     );
@@ -117,7 +119,7 @@ export class FriendsComponent implements OnInit {
     
   }
 
-  refresh(){
+  refresh(){ //refreshes friends page
     this.route.navigateByUrl('/', {skipLocationChange: true}).then(() => {
       this.route.navigate(['/Friends']);
     });

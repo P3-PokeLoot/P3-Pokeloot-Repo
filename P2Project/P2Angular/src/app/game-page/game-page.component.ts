@@ -31,7 +31,10 @@ export class GamePageComponent implements OnInit {
     }
 
     this._gameService.GetList().subscribe(
-      result => { this.gameList = result; },
+      result => {
+        this.gameList = result;
+        console.log(result)
+      },
       error => { console.log(error) }
     )
   }

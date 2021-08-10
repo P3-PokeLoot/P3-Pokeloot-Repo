@@ -60,7 +60,7 @@ export class SignupPageComponent implements OnInit {
 
         this.isCreatedAccount = false;
         this.isFormValid = false;
-        this.router.navigate(['Login'])
+        this.router.navigate(['Login']) //routes to login after success
 
       },
       error => {
