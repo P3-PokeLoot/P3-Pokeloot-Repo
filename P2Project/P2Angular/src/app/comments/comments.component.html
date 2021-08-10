@@ -30,7 +30,7 @@
     </div>
 
 
-    <div class="col-md-3">
+    <div *ngIf="fullPost.RarityId != 0;" class="col-md-3">
             <img class="card-img-top" height="200" src={{fullPost.SpriteLink}} alt="{{fullPost.PokemonName}} Image">
             <div class="card-body">
                 <h5 *ngIf="fullPost.IsShiny as true; else elseBlock" class="card-title">★

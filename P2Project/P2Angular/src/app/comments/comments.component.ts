@@ -63,7 +63,27 @@ export class CommentsComponent implements OnInit {
         this.fullPost = { PostId, PokemonId, PostTime, PostDescription, Price, StillAvailable, IsShiny, UserId, UserName, SpriteLink, PostType, PokemonName, RarityId }
       }
     )
+    this.BuildComments();
+    
+  }
 
+  Submit() {
+    this.commentList = [];
+    if(this.commentInput != "")
+    {
+      this._displayService.NewComment(this.userId, this.postId, this.commentInput).subscribe()
+
+      console.log(this.commentInput);
+      this.commentInput = "";
+    }
+    let timer = setInterval(() => {
+      this.BuildComments();
+      clearInterval(timer);
+    },500);
+    
+  }
+
+  BuildComments() {
     this._displayService.PostComments(this.postId).subscribe(
       result => {
         result.forEach(element => {
@@ -82,15 +102,6 @@ export class CommentsComponent implements OnInit {
         });
       }
     )
-  }
-
-  Submit() {
-    if(this.commentInput != "")
-    {
-      this._displayService.NewComment(this.userId, this.postId, this.commentInput);
-      console.log(this.commentInput);
-      this.commentInput = "";
-    }
   }
 
 }

@@ -3,6 +3,8 @@ import { HttpClient } from "@angular/common/http";
 import { Observable, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { IComment } from './Models/IComment';
+import { serialize } from 'v8';
 
 @Injectable({
   providedIn: 'root'
@@ -49,10 +51,9 @@ export class DisplayServiceService {
     return this.http.get<any>(this.postCommentsurl + postId);
   }
 
-  NewComment(userId : string, postId : number, content : string):void{
-    console.log(this.newCommenturl + userId + '/' + postId + '/' + content);
-
-    this.http.get<any>(this.newCommenturl + userId + '/' + postId + '/' + content);
+  NewComment(userId : string, postId : number, content : string):Observable<any>{
+    let status = this.http.get<any>(this.newCommenturl + userId + '/' + postId + '/' + encodeURI(content));
+    return status;
   }
 
 

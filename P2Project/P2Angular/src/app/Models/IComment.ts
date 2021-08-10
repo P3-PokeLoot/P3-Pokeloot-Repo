@@ -1,7 +1,7 @@
 export interface IComment{
     CommentId: string,
-    CommentPostId: boolean,
-    CommentUserId: number,
+    CommentPostId: number,
+    CommentUserId: string,
     UserName: string,
     Timestamp: Date,
     Content: string,
