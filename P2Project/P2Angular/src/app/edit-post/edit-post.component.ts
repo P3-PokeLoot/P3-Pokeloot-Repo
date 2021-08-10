@@ -27,9 +27,9 @@ export class EditPostComponent implements OnInit {
   }
 
   OnSubmit(postForm: NgForm) {
-    this.isPriceValid = false;
+    this.isPriceValid = false; 
 
-    if (!postForm.controls.Price.valid) {
+    if (!postForm.controls.Price.valid) {//checks if price is valid
       this.isPriceValid = true;
       return;
     }
@@ -48,7 +48,7 @@ export class EditPostComponent implements OnInit {
     );
   }
 
-  refresh(){
+  refresh(){//refreshes home page to reflect change
     this.route.navigateByUrl('/', {skipLocationChange: true}).then(() => {
       this.route.navigate(['/Home']);
     });
