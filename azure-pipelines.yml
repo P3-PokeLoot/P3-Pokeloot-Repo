@@ -12,11 +12,10 @@ variables:
   buildConfiguration: 'Release'
 
 stages:
-# Build, test, and publish test results to sonar cloud
+# Main API Build, Test, Publish to Sonar Cloud
 - stage: P2MainSonarCloud
   displayName: P2 Main Sonar Cloud
   jobs:
-  # Main API Build, Test, Publish to Sonar Cloud
   - job: P2Main
     steps:
       
@@ -28,8 +27,8 @@ stages:
         projectKey: 'p3pokeloot_Pokeloot_MainAPI'
         projectName: 'p3pokeloot_Pokeloot_MainAPI'
         extraProperties: |
-          sonar.cs.vstest.reportsPaths='$(Agent.TempDirectory)\**\*.trx
-          sonar.cs.vscoveragexml.reportsPaths='$(Agent.TempDirectory)/**/coverage.cobertura.xml
+          sonar.cs.vstest.reportsPaths='$(Agent.TempDirectory)/**/*.trx
+          sonar.cs.vscoveragexml.reportsPaths='$(Agent.TempDirectory)/**/*.xml
 
     - task: DotNetCoreCLI@2
       inputs:
@@ -46,13 +45,136 @@ stages:
     - task: PublishCodeCoverageResults@1
       inputs:
         codeCoverageTool: 'Cobertura'
-        summaryFileLocation: '$(Agent.TempDirectory)/**/coverage.cobertura.xml'
+        summaryFileLocation: '$(Agent.TempDirectory)/**/*.xml'
 
     - task: SonarCloudAnalyze@1
 
     - task: SonarCloudPublish@1
       inputs:
         pollingTimeoutSec: '300'
+
+
+# Games API Build, Test, Publish to Sonar Cloud
+- stage: P2GamesSonarCloud
+  displayName: P2 Games Sonar Cloud
+  jobs:
+  - job: P2Games
+    steps:
+    - task: SonarCloudPrepare@1
+      inputs:
+        SonarCloud: 'GamesAPI_SonarCloud'
+        organization: 'p3pokeloot'
+        scannerMode: 'MSBuild'
+        projectKey: 'p3pokeloot_Pokeloot_GamesAPI'
+        projectName: 'p3pokeloot_Pokeloot_GamesAPI'
+        extraProperties: |
+          sonar.cs.vstest.reportsPaths='$(Agent.TempDirectory)/**/*.trx
+          sonar.cs.vscoveragexml.reportsPaths='$(Agent.TempDirectory)/**/*.xml
+
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'build'
+        projects: '$(Build.SourcesDirectory)/P2Project/P3GamesMicroservice/P3GamesMicroservice.sln'
+        arguments: '--configuration $(buildConfiguration)'
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'test'
+        arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura'
+        projects: '$(Build.SourcesDirectory)/P2Project/P3GamesMicroservice/P3GamesMicroservice.sln'
+
+    - task: PublishCodeCoverageResults@1
+      inputs:
+        codeCoverageTool: 'Cobertura'
+        summaryFileLocation: '$(Agent.TempDirectory)/**/*.xml'
+
+    - task: SonarCloudAnalyze@1
+
+    - task: SonarCloudPublish@1
+      inputs:
+        pollingTimeoutSec: '300'    
+
+# Statistics API Build, Test, Publish to Sonar Cloud
+- stage: P2StatisticsSonarCloud
+  displayName: P2 Statistics Sonar Cloud
+  jobs:
+  - job: P2Statistics
+    steps:
+
+    - task: SonarCloudPrepare@1
+      inputs:
+        SonarCloud: 'StatisticsAPI_SonarCloud'
+        organization: 'p3pokeloot'
+        scannerMode: 'MSBuild'
+        projectKey: 'p3pokeloot_Pokeloot_StatisticsAPI'
+        projectName: 'p3pokeloot_Pokeloot_StatisticsAPI'
+        extraProperties: |
+          sonar.cs.vstest.reportsPaths='$(Agent.TempDirectory)/**/*.trx
+          sonar.cs.vscoveragexml.reportsPaths='$(Agent.TempDirectory)/**/*.xml
+
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'build'
+        projects: '$(Build.SourcesDirectory)/Statistics-and-Leaderboard/P3_Statistics_API/P3_Statistics_API.sln'
+        arguments: '--configuration $(buildConfiguration)'
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'test'
+        arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura'
+        projects: '$(Build.SourcesDirectory)/Statistics-and-Leaderboard/P3_Statistics_API/P3_Statistics_API.sln'
+
+    - task: PublishCodeCoverageResults@1
+      inputs:
+        codeCoverageTool: 'Cobertura'
+        summaryFileLocation: '$(Agent.TempDirectory)/**/*.xml'
+
+    - task: SonarCloudAnalyze@1
+
+    - task: SonarCloudPublish@1
+      inputs:
+        pollingTimeoutSec: '300'   
+
+# Build Angular for Sonar Cloud
+# - stage: Angular
+#   jobs:
+#   - job: angularjob
+#     steps:
+#     - task: NodeTool@0
+#       inputs:
+#         versionSpec: '14.x'
+#       displayName: 'Install Node.js'
+
+#     - task: Npm@1
+#       inputs:
+#         command: 'custom'
+#         workingDir: '$(Build.Repository.LocalPath)\P2Project\P2Angular'
+#         customCommand: 'install -g @angular/cli'
+
+#     - task: Npm@1
+#       inputs:
+#         command: 'install'
+#         workingDir: '$(Build.Repository.LocalPath)\P2Project\P2Angular'
+
+#     - task: SonarCloudPrepare@1
+#       inputs:
+#         SonarCloud: 'Angular_SonarCloud'
+#         organization: 'p3pokeloot'
+#         scannerMode: 'CLI'
+#         configMode: 'manual'
+#         cliProjectKey: 'p3pokeloot_Pokeloot_Angular'
+#         cliProjectName: 'p3pokeloot_Pokeloot_Angular'
+#         cliSources: '.'
+
+#     - task: CmdLine@2
+#       inputs:
+#         script: 'ng build'
+#         workingDirectory: '$(Build.Repository.LocalPath)\P2Project\P2Angular'        
+
+#     - task: SonarCloudAnalyze@1
+    
+#     - task: SonarCloudPublish@1
+#       inputs:
+#         pollingTimeoutSec: '300'
+
 
 # Create Docker containers and push to repo
 # Angular Docker container
