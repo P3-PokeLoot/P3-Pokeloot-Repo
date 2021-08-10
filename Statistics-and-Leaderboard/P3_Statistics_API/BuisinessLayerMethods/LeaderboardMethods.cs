@@ -38,17 +38,7 @@ namespace BuisinessLayerMethods
             this.context = context;
         }
 
-        /// <summary>
-        /// Constructor for leaderboard class that takes no constructor
-        /// </summary>
-        /* public LeaderboardModel()
-        {
-            this.context = new P3Context();
-        }*/
-
-
-
-
+    
         /// <summary>
         /// TopCurrentBallance will return a list of top X users that they have the highest Ballance of coins 
         /// by ordering the databse descending based on their balance then we take the first X number (maxnumber) 
@@ -156,7 +146,7 @@ namespace BuisinessLayerMethods
           
 
             //Convert the Top X Number to string for concatination purpose
-            string mx = maxnumber.ToString();
+            
             List<TopPersentCompletedCollectionModel> dataResult = null;
             try
             {
@@ -176,13 +166,6 @@ namespace BuisinessLayerMethods
                                   LastName = temptable.First().User.LastName,
                                   Card_collection = ((temptable.Distinct().Count(x => x.PokemonId >= 0) / totalPokemons) * 100)
                               }).OrderByDescending(x => x.Card_collection).Take(maxnumber).ToList();
-
-
-
-//              string sql = @"select ";
-
-//                string sql = @"select top "+ mx + " (cast(count(distinct(C.PokemonId)) as float) / count(distinct(P.PokemonId))) * 100 as Card_collection , count(distinct(P.PokemonId)) as total , U.UserId , U.FirstName from CardCollection C , Users U , PokemonCards P where  C.UserId = U.UserId group by u.UserId , u.FirstName order by Card_collection desc";
-//                dataResult = conn.Query<TopPersentCompletedCollectionModel>(sql);
 
             }
             catch (Exception e)

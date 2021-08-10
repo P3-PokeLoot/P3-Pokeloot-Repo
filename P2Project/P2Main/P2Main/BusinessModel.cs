@@ -179,7 +179,7 @@ namespace BusinessLayer
             CardCollection userCollection = context.CardCollections.Where(x => x.UserId == currentUser.UserId && x.PokemonId == post.PokemonId).FirstOrDefault();
             CardCollection sellerCollection = context.CardCollections.Where(x => x.UserId == seller.UserId && x.PokemonId == post.PokemonId).FirstOrDefault();
 
-            if (post.IsShiny != null && (bool)post.IsShiny == true)
+            if (post.IsShiny != null && (bool)post.IsShiny)
             { //updates user and seller collection if shiny
                 sellerCollection.QuantityShiny--;
                 context.CardCollections.Attach(sellerCollection);
@@ -577,10 +577,16 @@ namespace BusinessLayer
         /// </summary>
         /// <param name="postId">The id of the post to retrieve the comments for</param>
         /// <returns>List of comment objects for specified post</returns>
-        public List<PostComment> getCommentList(int postId)
+        public Dictionary<PostComment, string> getCommentList(int postId)
         {
+            Dictionary<PostComment, string> result = new Dictionary<PostComment, string>();
             List<PostComment> commentList = context.PostComments.Where(x => x.CommentPostId == postId).ToList();
-            return commentList;
+            foreach (var comment in commentList)
+            {
+                var commentUsername = GetUserById(comment.CommentUserId).UserName;
+                result.Add(comment, commentUsername);
+            }
+            return result;
         }
 
 
@@ -640,10 +646,10 @@ namespace BusinessLayer
                 
                 if(friend.SentRequest == UserId)
                 {
-                    if(friend.IsPending == false) //where user sent a request and is no longer pending, this is considered a friend and will appear in the list
+                    if(!friend.IsPending) //where user sent a request and is no longer pending, this is considered a friend and will appear in the list
                     {
                         User friendInfo = context.Users.Where(x => x.UserId == friend.RecievedRequest).FirstOrDefault();
-                        int totalCards = context.CardCollections.Where(x => x.UserId == friend.RecievedRequest).ToList().Count();
+                        int totalCards = context.CardCollections.Where(x => x.UserId == friend.RecievedRequest).Count;
                         FullFriend fullFriend = new FullFriend() {
                             FriendName = friendInfo.UserName,
                             FriendLevel = friendInfo.AccountLevel,
@@ -658,7 +664,7 @@ namespace BusinessLayer
                 if (friend.RecievedRequest == UserId) // if user recieved a request, the instance will appear in the list in all cases
                 {                  
                         User friendInfo = context.Users.Where(x => x.UserId == friend.SentRequest).FirstOrDefault();
-                        int totalCards = context.CardCollections.Where(x => x.UserId == friend.SentRequest).ToList().Count();
+                        int totalCards = context.CardCollections.Where(x => x.UserId == friend.SentRequest).Count;
                         FullFriend fullFriend = new FullFriend()
                         {
                             FriendName = friendInfo.UserName,
@@ -714,7 +720,7 @@ namespace BusinessLayer
 
             }
 
-            if(friends.IsPending == false) //if pending is false, then they are already friends
+            if(!friends.IsPending) //if pending is false, then they are already friends
             {
                 return $"You are already friends with {friendName}!";
             }
