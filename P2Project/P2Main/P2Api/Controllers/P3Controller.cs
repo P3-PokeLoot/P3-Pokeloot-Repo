@@ -95,10 +95,10 @@ namespace P2Api.Controllers
         [HttpGet("buyCard/{postId}/{userId}")]
         public string buyCard(int postId, int userId)
         {
-            Dictionary<string, bool> result = new Dictionary<string, bool>();
+            
             Post post = _businessModel.getPostById(postId);
             User currentUser = _businessModel.GetUserById(userId);
-            result = _businessModel.buyFromPost(post, currentUser);
+            Dictionary<string, bool> result = _businessModel.buyFromPost(post, currentUser);
             string json = JsonConvert.SerializeObject(result.ToList());
             return json;
         }
@@ -167,10 +167,7 @@ namespace P2Api.Controllers
                 _businessModel.incrementUserBalance(currentUser, -lootBoxCost);
                 newCard = _businessModel.rollLootbox(currentUser, 3);
             }
-
-
-
-            //Dictionary<PokemonCard, bool> newCard = _businessModel.rollLootbox(currentUser, 1);
+            
             string json = JsonConvert.SerializeObject(newCard.ToList());
             return json;
         }
