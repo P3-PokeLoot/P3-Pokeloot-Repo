@@ -4,51 +4,207 @@
 
 trigger:
 - main
-
+pool:
+  vmimage: Ubuntu-latest
 resources:
 - repo: self
-
 variables:
-  tag: '$(Build.BuildId)'
+  buildConfiguration: 'Release'
 
 stages:
+# Main API Build, Test, Publish to Sonar Cloud
+- stage: P2MainSonarCloud
+  displayName: P2 Main Sonar Cloud
+  jobs:
+  - job: P2Main
+    steps:
+      
+    - task: SonarCloudPrepare@1
+      inputs:
+        SonarCloud: 'MainAPI_SonarCloud'
+        organization: 'p3pokeloot'
+        scannerMode: 'MSBuild'
+        projectKey: 'p3pokeloot_Pokeloot_MainAPI'
+        projectName: 'p3pokeloot_Pokeloot_MainAPI'
+        extraProperties: |
+          sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/**/*.trx
+          sonar.cs.vscoveragexml.reportsPaths=$(Agent.TempDirectory)/**/*.xml
 
-#
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'build'
+        projects: '$(Build.SourcesDirectory)/P2Project/P2Main/P2Main.sln'
+        arguments: '--configuration $(buildConfiguration)'
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'test'
+        arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura'
+        publishTestResults: true
+        projects: '$(Build.SourcesDirectory)/P2Project/P2Main/P2Main.sln'
+
+    - task: PublishCodeCoverageResults@1
+      inputs:
+        codeCoverageTool: 'Cobertura'
+        summaryFileLocation: '$(Agent.TempDirectory)/**/*.xml'
+
+    - task: SonarCloudAnalyze@1
+
+    - task: SonarCloudPublish@1
+      inputs:
+        pollingTimeoutSec: '300'
+
+
+# Games API Build, Test, Publish to Sonar Cloud
+- stage: P2GamesSonarCloud
+  displayName: P2 Games Sonar Cloud
+  jobs:
+  - job: P2Games
+    steps:
+    - task: SonarCloudPrepare@1
+      inputs:
+        SonarCloud: 'GamesAPI_SonarCloud'
+        organization: 'p3pokeloot'
+        scannerMode: 'MSBuild'
+        projectKey: 'p3pokeloot_Pokeloot_GamesAPI'
+        projectName: 'p3pokeloot_Pokeloot_GamesAPI'
+        extraProperties: |
+          sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/**/*.trx
+          sonar.cs.vscoveragexml.reportsPaths=$(Agent.TempDirectory)/**/*.xml
+
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'build'
+        projects: '$(Build.SourcesDirectory)/P2Project/P3GamesMicroservice/P3GamesMicroservice.sln'
+        arguments: '--configuration $(buildConfiguration)'
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'test'
+        arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura'
+        projects: '$(Build.SourcesDirectory)/P2Project/P3GamesMicroservice/P3GamesMicroservice.sln'
+
+    - task: PublishCodeCoverageResults@1
+      inputs:
+        codeCoverageTool: 'Cobertura'
+        summaryFileLocation: '$(Agent.TempDirectory)/**/*.xml'
+
+    - task: SonarCloudAnalyze@1
+
+    - task: SonarCloudPublish@1
+      inputs:
+        pollingTimeoutSec: '300'    
+
+# Statistics API Build, Test, Publish to Sonar Cloud
+- stage: P2StatisticsSonarCloud
+  displayName: P2 Statistics Sonar Cloud
+  jobs:
+  - job: P2Statistics
+    steps:
+
+    - task: SonarCloudPrepare@1
+      inputs:
+        SonarCloud: 'StatisticsAPI_SonarCloud'
+        organization: 'p3pokeloot'
+        scannerMode: 'MSBuild'
+        projectKey: 'p3pokeloot_Pokeloot_StatisticsAPI'
+        projectName: 'p3pokeloot_Pokeloot_StatisticsAPI'
+        extraProperties: |
+          sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/**/*.trx
+          sonar.cs.vscoveragexml.reportsPaths=$(Agent.TempDirectory)/**/*.xml
+
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'build'
+        projects: '$(Build.SourcesDirectory)/Statistics-and-Leaderboard/P3_Statistics_API/P3_Statistics_API/P3_Statistics_API.sln'
+        arguments: '--configuration $(buildConfiguration)'
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'test'
+        arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura'
+        projects: '$(Build.SourcesDirectory)/Statistics-and-Leaderboard/P3_Statistics_API/P3_Statistics_API/P3_Statistics_API.sln'
+
+    - task: PublishCodeCoverageResults@1
+      inputs:
+        codeCoverageTool: 'Cobertura'
+        summaryFileLocation: '$(Agent.TempDirectory)/**/*.xml'
+
+    - task: SonarCloudAnalyze@1
+
+    - task: SonarCloudPublish@1
+      inputs:
+        pollingTimeoutSec: '300'   
+
+# Build Angular for Sonar Cloud
+# - stage: Angular
+#   jobs:
+#   - job: angularjob
+#     steps:
+#     - task: NodeTool@0
+#       inputs:
+#         versionSpec: '14.x'
+#       displayName: 'Install Node.js'
+
+#     - task: Npm@1
+#       inputs:
+#         command: 'custom'
+#         workingDir: '$(Build.Repository.LocalPath)\P2Project\P2Angular'
+#         customCommand: 'install -g @angular/cli'
+
+#     - task: Npm@1
+#       inputs:
+#         command: 'install'
+#         workingDir: '$(Build.Repository.LocalPath)\P2Project\P2Angular'
+
+#     - task: SonarCloudPrepare@1
+#       inputs:
+#         SonarCloud: 'Angular_SonarCloud'
+#         organization: 'p3pokeloot'
+#         scannerMode: 'CLI'
+#         configMode: 'manual'
+#         cliProjectKey: 'p3pokeloot_Pokeloot_Angular'
+#         cliProjectName: 'p3pokeloot_Pokeloot_Angular'
+#         cliSources: '.'
+
+#     - task: CmdLine@2
+#       inputs:
+#         script: 'ng build'
+#         workingDirectory: '$(Build.Repository.LocalPath)\P2Project\P2Angular'        
+
+#     - task: SonarCloudAnalyze@1
+    
+#     - task: SonarCloudPublish@1
+#       inputs:
+#         pollingTimeoutSec: '300'
 
 
 # Create Docker containers and push to repo
 # Angular Docker container
-- stage: Build
-  displayName: Build image
-  jobs:
-  - job: Build
-    displayName: Build
-    pool:
-      vmImage: ubuntu-latest
-    steps:
-    - task: Docker@2
-      inputs:
-        containerRegistry: 'DockerHub'
-        repository: 'gregious/p3angular'
-        command: 'build'
-        Dockerfile: '$(Build.SourcesDirectory)/P2Project/P2Angular/Dockerfile'
-    - task: Docker@2
-      inputs:
-        containerRegistry: 'DockerHub'
-        repository: 'gregious/p3angular'
-        command: 'push'
-        tags: 'gregious/$(Build.BuildId)'
-        addPipelineData: false
-        addBaseImageData: false
+# - stage: BuildAngular
+#   displayName: Build image
+#   jobs:
+#   - job: Build
+#     displayName: Build
+#     steps:
+#     - task: Docker@2
+#       inputs:
+#         containerRegistry: 'DockerHub'
+#         repository: 'gregious/p3angular'
+#         command: 'build'
+#         Dockerfile: '$(Build.SourcesDirectory)/P2Project/P2Angular/Dockerfile'
+#     - task: Docker@2
+#       inputs:
+#         containerRegistry: 'DockerHub'
+#         repository: 'gregious/p3angular'
+#         command: 'push'
+#         tags: 'gregious/$(Build.BuildId)'
+#         addPipelineData: false
+#         addBaseImageData: false
 
 # Main API Docker container      
-- stage: Build
+- stage: BuildMain
   displayName: Build image
   jobs:
   - job: Build
     displayName: Build
-    pool:
-      vmImage: ubuntu-latest
     steps:
     - task: Docker@2
       inputs:
@@ -67,13 +223,11 @@ stages:
         addBaseImageData: false
 
 # Statistics API Docker container
-- stage: Build
+- stage: BuildStatistics
   displayName: Build image
   jobs:
   - job: Build
     displayName: Build
-    pool:
-      vmImage: ubuntu-latest
     steps:
     - task: Docker@2
       inputs:
@@ -92,13 +246,11 @@ stages:
         addBaseImageData: false   
 
 # Games API Docker container
-- stage: Build
+- stage: BuildGames
   displayName: Build image
   jobs:
   - job: Build
     displayName: Build
-    pool:
-      vmImage: ubuntu-latest
     steps:
     - task: Docker@2
       inputs:
@@ -115,3 +267,23 @@ stages:
         command: 'push'
         addPipelineData: false
         addBaseImageData: false   
+
+    # Deploy images to kubernetes
+- stage: DeployKube
+  displayName: Deploy to Kubernetes
+  jobs:
+  - job: Deploy
+    displayName: Deploy
+    steps:
+    - task: KubernetesManifest@0
+      inputs:
+        action: 'deploy'
+        kubernetesServiceConnection: 'kubernetes cluster'
+        namespace: 'pokeloot'
+        manifests: '$(Build.SourcesDirectory)/deployment.yml'
+        containers: |
+          'gregious/p3mainapi:$(Build.BuildId)'
+          'gregious/p3gamesapi:$(Build.BuildId)'
+          'gregious/p3statisticsapi:$(Build.BuildId)'
+          'gregious/p3angular:$(Build.BuildId)'
+    
