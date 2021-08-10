@@ -8,6 +8,7 @@ import { CardCollectModel_Shiny } from 'src/app/Models/ICardCollect_ShinyLB';
 import { MVPShinyModel_Shiny } from 'src/app/Models/IMVPShiny_ShinyLB';
 import { UserCollectionModel_Shiny } from 'src/app/Models/IUserCollection_ShinyLB';
 import { PercentageOwnCardModel_Shiny } from 'src/app/Models/IPercentageOwnCard_ShinyLB';
+import { UserCollectionModel_Shiny2 } from 'src/app/Models/IUserCollection_ShinyLB2';
 
 @Injectable({
   providedIn: 'root'
@@ -57,8 +58,8 @@ export class LeaderboardStatsService {
   GetUsersTotalCollectionList(input:number):Observable<UserCollectionModel_Shiny[]>{
     return this.http.get<UserCollectionModel_Shiny[]>(this.baseURL+'/api/ShiningPokemon/UsersTotalCollection/'+input);
   }
-  GetUserTotalAmountList(topUser:number):Observable<UserCollectionModel_Shiny[]>{
-    return this.http.get<UserCollectionModel_Shiny[]>(this.baseURL+'/api/ShiningPokemon/GetTotalCardUserHave/'+topUser);
+  GetUserTotalAmountList(topUser:number):Observable<UserCollectionModel_Shiny2[]>{
+    return this.http.get<UserCollectionModel_Shiny2[]>(this.baseURL+'/api/ShiningPokemon/GetTotalCardUserHave/'+topUser);
   }
   GetCardPercentage(pokename:string):Observable<PercentageOwnCardModel_Shiny[]>{
     return this.http.get<PercentageOwnCardModel_Shiny[]>(this.baseURL+'api/ShiningPokemon/GetCardPorcentage/'+pokename);

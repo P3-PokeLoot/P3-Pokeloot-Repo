@@ -14,7 +14,7 @@ export class LeaderboardsComponent implements OnInit {
     pageOfItems:any[];
     currentIndex : number = 0;
     currentPage: number = 1;
-    lastpage: number=1;
+    lastpage: number = 1;
 
     //component property that will be updated everytime user selects a dropdown option and click button
     chosenNumber:number;
@@ -49,8 +49,9 @@ export class LeaderboardsComponent implements OnInit {
       50,
       100,
     ];
-
-
+    allRarityOptions:string[]=[
+      ''
+    ];
     
 
   //===============================CLASS CONSTRUCTOR SECTION===============================
@@ -187,16 +188,15 @@ CreateArraysFromObservable(){
         });
         console.log('this is case'+this.chosenService);
         break;
-    // case  9:
-    //uncomment when the method no longer returns a pokemon string, but rather a percent
-    //   this._leaderboardservice.GetCardPercentage(this.chosenPokename).subscribe(
-    //     result => {
-    //       this.observableData = result; 
-    //       this.CreateArraysFromObservable();
-    //     });
-    //     console.log('this is case'+this.chosenService);
-    //     break;
-    //Shinies
+     case  9:
+       this._leaderboardservice.GetCardPercentage(this.chosenPokename).subscribe(
+         result => {
+           this.observableData = result; 
+           this.CreateArraysFromObservable();
+         });
+         console.log('this is case'+this.chosenService);
+         break;
+  
     }
   }
    method69(){
@@ -220,31 +220,6 @@ CreateArraysFromObservable(){
   }
 
   //============================================PAGINATION SECTION======================================
-  onChangePageNext() {
-    // update current page of items
-    this.currentIndex += 10;
-    if(this.currentIndex >= this.observableData.length - 10){
-      this.currentIndex = this.observableData.length - 10;
-      this.currentPage = this.lastpage - 1;
-    }
-    this.currentPage++;
-    console.log(this.currentIndex);
-    console.log("collection length = " + this.observableData.length);
-    this.pageOfItems = this.observableData.slice(this.currentIndex, this.currentIndex + 10);
-    //this.pageOfItems = pageOfItems;
-}
-  onChangePagePrev() {
-    // update current page of items
-    this.currentIndex -= 10;
-    this.currentPage--;
-    if(this.currentIndex <= 0){
-      this.currentIndex = 0;
-      this.currentPage = 1;
-    }
-    console.log(this.currentIndex);
-    this.pageOfItems = this.observableData.slice(this.currentIndex, this.currentIndex + 10);
-    //this.pageOfItems = pageOfItems;
-  }
 
 }
 
