@@ -24,4 +24,5 @@ export class LbChildWhoHasComponent implements OnInit {
     );
   }
 
+  
 }
