@@ -80,13 +80,8 @@ export class PostsComponent implements OnInit {
       }
     )
   }
-  //ngAfterContentInit() {
-    //this.currentPage = 1;
-    //this.lastpage = 1 + Math.floor(this.displayBoard.length / 5);
-    //this.cdr.detectChanges();
-  //}
 
-  filterPost(board : IPost[]):IPost[]{
+  filterPost(board : IPost[]):IPost[]{ //applys filter to post
     let oldLength = this.lastpage;
     //if(this.oldSearch != this.search){
     if(this.filterValue == 0){  
@@ -112,7 +107,7 @@ export class PostsComponent implements OnInit {
     return this.displayBoard;
   }
 
-  load(){
+  load(){ //handles pagination
     console.log("collenction length = " + this.displayBoard.length);
     this.currentIndex = 0;
     this.currentPage = 1;
@@ -120,8 +115,8 @@ export class PostsComponent implements OnInit {
     this.pageOfItems = this.displayBoard.slice(this.currentIndex, this.currentIndex + 5);
   }
 
-  buy(post: IPost): void {
-    this.attemptToBuy = true;
+  buy(post: IPost): void { //buys a card from a post
+    this.attemptToBuy = true; //used to display output from attempted purchase
     //Ouput: string,
     //Result: boolean,
     let Price = post.Price;
@@ -145,9 +140,9 @@ export class PostsComponent implements OnInit {
   }
 
   
-  clickt(post: IPost){
-    this.edit = !this.edit;
-    this.currentPost = post.PostId;
+  clickt(post: IPost){ //opens edit post options
+    this.edit = !this.edit; //can close after opened
+    this.currentPost = post.PostId; //only one post can be edited at a time
   }
 
   GetCardColor(rarityId: any): string {
@@ -205,7 +200,7 @@ export class PostsComponent implements OnInit {
     }
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit() {//detects changes to posts
     
     this.cdr.detectChanges();
   }
@@ -235,7 +230,7 @@ export class PostsComponent implements OnInit {
     //this.pageOfItems = pageOfItems;
   }
 
-  addFriend(friend: IPost){
+  addFriend(friend: IPost){ //performs a friend action on author on post
     if(this.userId){
     this._friendService.FriendActionWithANumber(this.userId, friend.UserId).subscribe(
       result => {
@@ -250,7 +245,7 @@ export class PostsComponent implements OnInit {
    //this.refresh();
   }
 
-  refresh(){
+  refresh(){ //reloads home page
     this.route.navigateByUrl('/', {skipLocationChange: true}).then(() => {
       this.route.navigate(['/Home']);
     });
