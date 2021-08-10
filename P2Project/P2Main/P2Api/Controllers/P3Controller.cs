@@ -375,6 +375,45 @@ namespace P2Api.Controllers
             string result = _businessModel.friendAction(UserId, FriendId);
             return result;
         }
+
+        [HttpGet("[action]/{userId}")]
+        public MessageUser GetMessageUser(int userId)
+        {
+            return _businessModel.GetMessageUserById(userId);
+        }
+
+        [HttpGet("[action]/{username}")]
+        public MessageUser GetMessageUserByUsername(string username)
+        {
+            return _businessModel.GetMessageUserByUsername(username);
+        }
+
+        [HttpGet("[action]/{senderId}/{receiverId}")]
+        public IEnumerable<Message> GetMessages(int senderId, int receiverId)
+        {
+            return _businessModel.GetMessagesBetween(senderId, receiverId);
+        }
+
+        [HttpDelete("[action]/{user1Id}/{user2Id}")]
+        public bool DeleteMessagesBetween(int user1Id, int user2Id)
+        {
+            return _businessModel.DeleteMessagesBetween(user1Id, user2Id);
+        }
+
+        [HttpPost("[action]")]
+        public void PostMessage([FromBody] Message newMessage)
+        {
+            if (ModelState.IsValid)
+            {
+                _businessModel.PostMessage(newMessage);
+            }
+        }
+
+        [HttpGet("[action]/{userId}")]
+        public IEnumerable<User> GetOngoingMessages(int userId)
+        {
+            return _businessModel.GetOngoingConversationUsers(userId);
+        }
     } // end class
 } // end namespace
 

@@ -23,6 +23,7 @@ import { WamGameComponent } from './wam-game/wam-game.component';
 import { GameFormComponent } from './game-form/game-form.component';
 import { DeleteGameComponent } from './delete-game/delete-game.component';
 import { ModifyGameComponent } from './modify-game/modify-game.component';
+import { MessagesComponent } from './messages/messages.component';
 
 
 
@@ -51,6 +52,8 @@ const routes: Routes = [
   { path: 'Game/GameForm', component: GameFormComponent, canActivate: [AuthGuard] },
   { path: 'Game/DeleteGame', component: DeleteGameComponent, canActivate: [AuthGuard] },
   { path: 'Game/ModifyGame', component: ModifyGameComponent, canActivate: [AuthGuard] },
+  { path: 'Messages', component: MessagesComponent, canActivate: [AuthGuard] },
+  { path: 'Messages/:receiverId', component: MessagesComponent, canActivate: [AuthGuard] },
   { path: '**', component: HomePageComponent },
 ];
 

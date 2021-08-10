@@ -450,6 +450,45 @@ namespace BusinessLayer
         }
 
         /// <summary>
+        /// Gets a specialized user object for messaging functionality by id
+        /// </summary>
+        /// <param name="id">the ID of the user</param>
+        /// <returns>A specialized user object or null</returns>
+        public MessageUser GetMessageUserById(int id)
+        {
+            User userResult = GetUserById(id);
+            MessageUser returnUser = null;
+            if (userResult != null)
+            {
+                returnUser = new MessageUser
+                {
+                    UserId = userResult.UserId,
+                    UserName = userResult.UserName,
+                    FirstName = userResult.FirstName,
+                    LastName = userResult.LastName
+                };
+            }
+            return returnUser;
+        }
+
+        public MessageUser GetMessageUserByUsername(string username)
+        {
+            var dbResult = context.Users.Where(x => x.UserName == username).FirstOrDefault();
+            MessageUser returnUser = null;
+            if (dbResult != null)
+            {
+                returnUser = new()
+                {
+                    UserId = dbResult.UserId,
+                    UserName = dbResult.UserName,
+                    FirstName = dbResult.FirstName,
+                    LastName = dbResult.LastName
+                };
+            }
+            return returnUser;
+        }
+
+        /// <summary>
         /// Removes user object by its Id
         /// </summary>
         /// <param name="id">User Id</param>
@@ -679,7 +718,88 @@ namespace BusinessLayer
 
             return "Oops, we hit a weird edge case...";
         }
-        
+
+        public List<Message> GetMessagesBetween(int senderId, int receiverId)
+        {
+            var dbResult = context.Messages.Where(x => (x.SenderId == senderId && x.ReceiverId == receiverId) ||
+                                                    (x.ReceiverId == senderId && x.SenderId == receiverId))
+                                        .OrderByDescending(x => x.Timestamp).ToList();
+            List<Message> messages = new();
+            foreach (var res in dbResult)
+            {
+                Message message = new Message()
+                {
+                    MessageId = res.MessageId,
+                    SenderId = res.SenderId,
+                    ReceiverId = res.ReceiverId,
+                    Content = res.Content,
+                    Timestamp = res.Timestamp
+                };
+                messages.Add(message);
+            }
+            return messages;
+        }
+
+        public bool DeleteMessagesBetween(int user1Id, int user2Id)
+        {
+            var dbResult = context.Messages.Where(x => (x.SenderId == user1Id && x.ReceiverId == user2Id) ||
+                                                    (x.ReceiverId == user1Id && x.SenderId == user2Id))
+                                           .ToList();
+            foreach (var res in dbResult)
+            {
+                context.Remove(res);
+            }
+            try { context.SaveChanges(); }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+            return true;
+        }
+
+        public bool PostMessage(Message newMessage)
+        {
+            context.Messages.Add(newMessage);
+            try { context.SaveChanges(); }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+            return true;
+        }
+
+        public List<User> GetOngoingConversationUsers(int userId)
+        {
+            var MsgTable = context.Messages;
+            var UsersTable = context.Users;
+            var dbResult = (from m in MsgTable
+                            join u1 in UsersTable on m.SenderId equals u1.UserId
+                            join u2 in UsersTable on m.ReceiverId equals u2.UserId
+                            where m.SenderId == userId || m.ReceiverId == userId
+                            select new
+                            {
+                                awayId = userId == m.SenderId ? m.ReceiverId : m.SenderId,
+                                awayUsername = userId == m.SenderId ? m.Receiver.UserName : m.Sender.UserName,
+                                awayFName = userId == m.SenderId ? m.Receiver.FirstName : m.Sender.FirstName,
+                                awayLName = userId == m.SenderId ? m.Receiver.LastName : m.Sender.LastName
+                            }).Distinct().ToList();
+            List<User> users = new List<User>();
+            foreach (var res in dbResult)
+            {
+                users.Add(new User()
+                {
+                    UserId = res.awayId,
+                    UserName = res.awayUsername,
+                    FirstName = res.awayFName,
+                    LastName = res.awayLName
+                });
+            }
+            Console.WriteLine(users);
+            return users;
+        }
+
 
 
     }//class BusinessModel

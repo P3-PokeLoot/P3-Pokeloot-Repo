@@ -19,8 +19,22 @@
     </div>
 </div>
 
-<table class="container mt-4 mb-3 shadow-sm p-3 bg-body rounded">
-<tr *ngFor="let friend of pageOfItems"  class="d-flex justify-content-between" style="height: 145px; border-style: solid; border-color: gray;">
+<div class="container mt-4 mb-3 shadow-sm p-3 bg-body rounded" id="friend-list-container">
+    <div *ngFor="let friend of pageOfItems" class="user-card">
+        <span>@{{friend.UserName}}</span>
+        <button class="btn btn-success btn-sm " id="message-friend" routerLink="../Messages/{{friend.UserID}}">Message</button>
+        <span>Level: {{friend.UserLevel}}</span>
+        <span>Total cards: {{friend.TotalCards}}</span>
+        <span *ngIf="isPending">Friends Since: <br /> {{friend.FriendSince | date: 'short'}}</span>
+        <div *ngIf="!isPending">
+          <span>Pending Since: <br /> {{friend.FriendSince | date: 'short'}}</span><br />
+          <button class="btn btn-success btn-sm" id="accept-button" (click)="clickt(friend)">Accept?</button>
+        </div>
+    </div>
+</div>
+
+<!--<table class="container mt-4 mb-3 shadow-sm p-3 bg-body rounded">
+<tr *ngFor="let friend of pageOfItems"  class="user-card d-flex justify-content-between" style="height: 145px; border-style: solid; border-color: gray;">
         <td class="mb-auto mt-4 p-2 bd-highlight">
             <p class="h6">@{{friend.UserName}}</p>
         </td>
@@ -43,7 +57,7 @@
         <div class="border my-4 d-flex justify-content-center"></div>  
       
 </tr>
-</table>
+</table>-->
 </div>
 </div>
 

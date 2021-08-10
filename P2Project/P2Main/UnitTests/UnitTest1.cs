@@ -1566,7 +1566,232 @@ namespace UnitTests
             }
         }
 
+        [Fact]
+        public void PostingMessageWorksCorrectly()
+        {
+            // arrange
+            User user1 = new()
+            {
+                FirstName = "Test",
+                LastName = "User",
+                Email = "generic@email.com",
+                UserName = "genericUser",
+                Password = "Password"
+            };
+            User user2 = new()
+            {
+                FirstName = "Test1",
+                LastName = "User1",
+                Email = "generic1@email.com",
+                UserName = "aUser",
+                Password = "Password1"
+            };
+            Message newTestMessage = new()
+            {
+                SenderId = user1.UserId,
+                ReceiverId = user2.UserId,
+                Content = "Hello there"
+            };
 
+            // act
+            using (var context = new P3DbClass(options))
+            {
+                context.Database.EnsureDeleted();
+                context.Database.EnsureCreated();
+                BusinessModel testBusinessModel = new BusinessModel(context);
+
+                testBusinessModel.signUp(user1);
+                testBusinessModel.signUp(user2);
+                bool succesful = testBusinessModel.PostMessage(newTestMessage);
+                context.SaveChanges();
+
+                var aMessage = context.Messages.FirstOrDefault();
+
+                // assert
+                Assert.True(succesful);
+                Assert.True(aMessage != null);
+                Assert.True(context.Messages.ToList().Any());
+                Assert.True(newTestMessage.Content == aMessage.Content);
+            }
+            
+        }
+
+        [Fact]
+        public void GettingMessagesBetweenUsersWorks()
+        {
+            //arrange
+            User user1 = new()
+            {
+                UserId = 1,
+                FirstName = "Test",
+                LastName = "User",
+                Email = "generic@email.com",
+                UserName = "genericUser",
+                Password = "Password"
+            };
+            User user2 = new()
+            {
+                UserId = 2,
+                FirstName = "Test1",
+                LastName = "User1",
+                Email = "generic1@email.com",
+                UserName = "aUser",
+                Password = "Password1"
+            };
+            Message newTestMessage1 = new()
+            {
+                SenderId = user1.UserId,
+                ReceiverId = user2.UserId,
+                Content = "Hello there"
+            };
+            Message newTestMessage2 = new()
+            {
+                SenderId = user2.UserId,
+                ReceiverId = user1.UserId,
+                Content = "Why hello"
+            };
+
+            //act
+            using (var context = new P3DbClass(options))
+            {
+                context.Database.EnsureDeleted();
+                context.Database.EnsureCreated();
+                BusinessModel testBusinessModel = new BusinessModel(context);
+
+                testBusinessModel.signUp(user1);
+                testBusinessModel.signUp(user2);
+                testBusinessModel.PostMessage(newTestMessage1);
+                testBusinessModel.PostMessage(newTestMessage2);
+                context.SaveChanges();
+
+                var result1 = testBusinessModel.GetMessagesBetween(user1.UserId, user2.UserId);
+                var result2 = testBusinessModel.GetMessagesBetween(user2.UserId, user1.UserId);
+
+                // assert
+                Assert.True(result1.Any() && result2.Any());
+                Assert.True(result1.Count() == 2 && result2.Count() == 2);
+                Assert.True(result1[0].SenderId == user1.UserId && result2[0].SenderId == user1.UserId);
+                Assert.True(result1[1].SenderId == user2.UserId && result2[1].SenderId == user2.UserId);
+            }
+        }
+
+        [Fact]
+        public void DeletingMessagesBetweenWorks()
+        {
+            //arrange
+            User user1 = new()
+            {
+                UserId = 1,
+                FirstName = "Test",
+                LastName = "User",
+                Email = "generic@email.com",
+                UserName = "genericUser",
+                Password = "Password"
+            };
+            User user2 = new()
+            {
+                UserId = 2,
+                FirstName = "Test1",
+                LastName = "User1",
+                Email = "generic1@email.com",
+                UserName = "aUser",
+                Password = "Password1"
+            };
+            Message newTestMessage1 = new()
+            {
+                SenderId = user1.UserId,
+                ReceiverId = user2.UserId,
+                Content = "Hello there"
+            };
+            Message newTestMessage2 = new()
+            {
+                SenderId = user2.UserId,
+                ReceiverId = user1.UserId,
+                Content = "Why hello"
+            };
+
+            //act
+            using (var context = new P3DbClass(options))
+            {
+                context.Database.EnsureDeleted();
+                context.Database.EnsureCreated();
+                BusinessModel testBusinessModel = new BusinessModel(context);
+
+                testBusinessModel.signUp(user1);
+                testBusinessModel.signUp(user2);
+                testBusinessModel.PostMessage(newTestMessage1);
+                testBusinessModel.PostMessage(newTestMessage2);
+                context.SaveChanges();
+
+                bool successful = testBusinessModel.DeleteMessagesBetween(user1.UserId, user2.UserId);
+
+                // assert
+                Assert.True(successful);
+                Assert.False(context.Messages.ToList().Any());
+            }
+        }
+
+        [Fact]
+        public void OngoingMessagesReturnsCorrectly()
+        {
+            //arrange
+            User user1 = new()
+            {
+                UserId = 1,
+                FirstName = "Test",
+                LastName = "User",
+                Email = "generic@email.com",
+                UserName = "genericUser",
+                Password = "Password"
+            };
+            User user2 = new()
+            {
+                UserId = 2,
+                FirstName = "Test1",
+                LastName = "User1",
+                Email = "generic1@email.com",
+                UserName = "genericUser1",
+                Password = "Password1"
+            };
+            User user3 = new()
+            {
+                UserId = 3,
+                FirstName = "Test2",
+                LastName = "User2",
+                Email = "generic2@email.com",
+                UserName = "genericUser2",
+                Password = "Password2"
+            };
+            Message newTestMessage1 = new()
+            {
+                SenderId = user1.UserId,
+                ReceiverId = user2.UserId,
+                Content = "Hello there"
+            };
+
+            //act
+            //act
+            using (var context = new P3DbClass(options))
+            {
+                context.Database.EnsureDeleted();
+                context.Database.EnsureCreated();
+                BusinessModel testBusinessModel = new BusinessModel(context);
+
+                testBusinessModel.signUp(user1);
+                testBusinessModel.signUp(user2);
+                testBusinessModel.signUp(user3);
+                testBusinessModel.PostMessage(newTestMessage1);
+                context.SaveChanges();
+
+                var result1 = testBusinessModel.GetOngoingConversationUsers(user1.UserId);
+                var result2 = testBusinessModel.GetOngoingConversationUsers(user2.UserId);
+
+                // assert
+                Assert.True(result1.Any() && result2.Any());
+                Assert.True(result1.Count() == 1 && result2.Count() == 1);
+                Assert.True(result1[0].UserId == user2.UserId && result2[0].UserId == user1.UserId);
+            }
+        }
     }
 
 
