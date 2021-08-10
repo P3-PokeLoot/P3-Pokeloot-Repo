@@ -30,7 +30,6 @@ stages:
         extraProperties: |
           sonar.cs.vstest.reportsPaths='$(Agent.TempDirectory)\**\*.trx'
           sonar.cs.vscoveragexml.reportsPaths='$(Agent.TempDirectory)/**/coverage.cobertura.xml'
-          sonar.verbose=true
 
     - task: DotNetCoreCLI@2
       inputs:
