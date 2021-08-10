@@ -14,35 +14,15 @@
 </div>
 
 
-<!-- <div>
-     <button (click)='ViewKanto(_p2,KantoBadges)'>View Collection Achievements</button>
-     <div>
-          <ng-container *ngFor="let b of KantoBadges; let i = index">
-               <img *ngIf= " b == true " src='/assets/img/johto-{{1+i}}.jpg'/> 
-               <p></p>
-          </ng-container>
-     </div>
-</div> -->
 
 <div class="container-fluid"  style="font-size:medium;">
      <button (click)='ViewJohto(this.currentProfile,this.JohtoBadges)'>View Account Achievements</button>
      <div class="row">
           <div class="col" *ngFor="let b of JohtoBadges; let i = index">
                <div class="johtobadge">{{b.Title}}</div>
-               <img class ="badgepic" *ngIf= " b.Completed == true"  src='/assets/img/johto-{{1+i}}.jpg'/> 
+               <img class ="badgepic" *ngIf= " b.Completed == true"  src='/assets/img/ach{{1+i}}.jpg'/> 
           </div>   
      </div>
-</div>
+</div> 
 
-
-
-
-<!-- <div>
-     <button (click)='ViewHoenn(currentProfile,HoennBadges)'>View Post Achievements</button>
-     <div>
-          <ng-container *ngFor="let b of HoennBadges; let i = index">
-               <img *ngIf= " b == true " src='/assets/img/johto-{{1+i}}.jpg'/> 
-               <p></p>
-          </ng-container>
-     </div>
-</div> -->
+<!-- <app-achievements-statistic></app-achievements-statistic> -->

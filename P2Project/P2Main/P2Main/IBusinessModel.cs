@@ -11,9 +11,6 @@ namespace BusinessLayer
     {
         public Dictionary<PokemonCard, bool> rollLootbox(User currentUser, int boxType); //tested
 
-//public Dictionary<PokemonCard, bool> rollLootbox(User currentUser); //tested
-
-
         public Dictionary<string, bool> buyFromPost(Post post, User currentUser); //tested
 
         public List<Post> getDisplayBoard(); //test
@@ -38,22 +35,27 @@ namespace BusinessLayer
 
         public DisplayBoard getPostInfo(int id);
 
-        public Post getPostById(int id);//tested
+        public Post getPostById(int id); //tested
 
-        public List<RarityType> GetRarityTypes();
+        public List<RarityType> GetRarityTypes(); //tested
 
-        public bool hidePost(int PostID);
+        public bool hidePost(int PostID); //tested
 
-        public bool editPrice(int postID, int newPrice);
+        public bool editPrice(int postID, int newPrice); //tested
 
-        public bool favoriteCard(int UserId, int Poke);
+        public bool favoriteCard(int UserId, int Poke); //tested
 
-        public List<FullFriend> GetFriends(int UserId);
-        public string friendAction(int userid, int friendId);
+        public List<FullFriend> GetFriends(int UserId); //tested
+
+        public bool newPostComment(int userId, int postId, string content);
 
         public List<Message> GetMessagesBetween(int senderId, int receiverId);
         public bool PostMessage(Message newMessage);
         public bool DeleteMessagesBetween(int user1Id, int user2Id);
         public List<User> GetOngoingConversationUsers(int userId);
+
+        public Dictionary<PostComment, string> getCommentList(int postId);
+        
+        public string friendAction(int userid, int friendId); //tested
     }
 }

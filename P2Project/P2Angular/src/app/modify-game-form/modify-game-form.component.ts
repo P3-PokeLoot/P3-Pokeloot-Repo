@@ -42,8 +42,9 @@ export class ModifyGameFormComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes)
     if (changes["displayChild"].previousValue) {
-      this._gameService.SingleGame(changes["displayChild"].previousValue).subscribe(
+      this._gameService.SingleGame(changes["displayChild"].currentValue).subscribe(
         result => {
           this.editGame(result)
         },
@@ -100,7 +101,6 @@ export class ModifyGameFormComponent implements OnInit, OnChanges {
         return;
       }
 
-
       const reader = new FileReader();
       reader.readAsDataURL(file)
       reader.onload = x => {
@@ -108,17 +108,18 @@ export class ModifyGameFormComponent implements OnInit, OnChanges {
         this.showImage = true;
       }
 
+      console.log(`File: ${file}`)
       this.gameForm.patchValue({
         imageFile: file,
-        imageName: file.name
       })
     }
   }
 
   OnSubmit() {
-    let imageName = this.gameForm.value.imageName === null ? this.gametemp.imageName : this.gameForm.value.imageName
-    const fd = new FormData();
+    //Checks if new file image has beem submitted
+    let imageName = this.gameForm.value.imageFile === null ? this.gametemp.imageName : this.gameForm.value.imageFile.name
 
+    const fd = new FormData();
 
     let id = String(this.displayChild)
     fd.append('Id', id)
@@ -137,7 +138,7 @@ export class ModifyGameFormComponent implements OnInit, OnChanges {
         }
       },
       error => {
-        alert("Error could not Modify game")
+        alert("Error - Could Not Modify Game")
       }
     );
   }

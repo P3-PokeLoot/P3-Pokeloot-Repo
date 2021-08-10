@@ -1,4 +1,4 @@
-// 
+//
 
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -35,16 +35,22 @@ import { WtpGameOutcomeComponent } from './wtp-game-outcome/wtp-game-outcome.com
 import { CapGameComponent } from './cap-game/cap-game.component';
 import { CapGameCatchComponent } from './cap-game-catch/cap-game-catch.component';
 import { CapGameResultComponent } from './cap-game-result/cap-game-result.component';
-import { PokemonCardMatchComponent } from './pokemon-card-match/pokemon-card-match.component';
 import { EditPostComponent } from './edit-post/edit-post.component';
 import { FriendsComponent } from './friends/friends.component';
 import { WamGameComponent } from './wam-game/wam-game.component';
+import { CommentsComponent } from './comments/comments.component';
 import { GameFormComponent } from './game-form/game-form.component';
 import { DeleteGameComponent } from './delete-game/delete-game.component';
 import { ModifyGameComponent } from './modify-game/modify-game.component';
 import { ModifyGameFormComponent } from './modify-game-form/modify-game-form.component';
 import { MessagesComponent } from './messages/messages.component';
 
+import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
+import { NbgdTablePaginationComponent } from './nbgd-table-pagination/nbgd-table-pagination.component';
+import { LbChildWhoHasComponent } from './lb-child-who-has/lb-child-who-has.component';
+import { HangManComponent } from './hang-man/hang-man.component';
+import { AchievementsStatisticComponent } from './achievements-statistic/achievements-statistic.component';
+//import {NgbPaginationModule}
 
 @NgModule({
   declarations: [
@@ -61,28 +67,33 @@ import { MessagesComponent } from './messages/messages.component';
     ViewBalancePageComponent,
     TopNavBarComponent,
     PostsComponent,
-    CardCollectComponent, 
-    AddCardComponent, 
+    CardCollectComponent,
+    AddCardComponent,
     FilterPipe, RpsGameOutcomeComponent,
     FilterPipe, RpsGamePokemonSelectionComponent,
     //Games-Angular-Service,
     RpsGameComponent,
-    FilterPipe, 
+    FilterPipe,
     RpsGamePokemonSelectionComponent, WtpGameComponent, WtpGameSelectionComponent, WtpGameOutcomeComponent, CapGameComponent, CapGameCatchComponent, CapGameResultComponent,
-    RpsGamePokemonSelectionComponent, 
-    WtpGameComponent, 
-    WtpGameSelectionComponent, 
-    WtpGameOutcomeComponent, 
+    RpsGamePokemonSelectionComponent,
+    WtpGameComponent,
+    WtpGameSelectionComponent,
+    WtpGameOutcomeComponent,
     FriendsComponent,
     EditPostComponent,
-    PokemonCardMatchComponent,
     //JwPaginationComponent,
     WamGameComponent,
+    CommentsComponent,
     GameFormComponent,
     DeleteGameComponent,
     ModifyGameComponent,
     ModifyGameFormComponent,
     MessagesComponent,
+    LeaderboardsComponent,
+    NbgdTablePaginationComponent,
+    LbChildWhoHasComponent,
+    HangManComponent,
+    AchievementsStatisticComponent
   ],
   imports: [
     BrowserModule,
