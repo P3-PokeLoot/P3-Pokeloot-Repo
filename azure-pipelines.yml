@@ -8,6 +8,8 @@ pool:
   vmimage: ubuntu-latest
 resources:
 - repo: self
+variables:
+  buildConfiguration: 'Release'
 
 stages:
 # Build, test, and publish test results to sonar cloud
