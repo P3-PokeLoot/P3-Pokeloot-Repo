@@ -550,6 +550,46 @@ namespace BusinessLayer
             return true;
         }
 
+        public bool newPostComment(int userId, int postId, string content)
+        {      
+            PostComment newPostComment = new PostComment();
+
+            newPostComment.CommentUserId    = userId;
+            newPostComment.CommentPostId    = postId;
+            newPostComment.CommentContent   = content;
+            newPostComment.CommentTimestamp = DateTime.Now;
+
+            try
+            {
+                context.PostComments.Add(newPostComment);
+                context.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Gets a list of all comment objects related to the requested post id
+        /// </summary>
+        /// <param name="postId">The id of the post to retrieve the comments for</param>
+        /// <returns>List of comment objects for specified post</returns>
+        public Dictionary<PostComment, string> getCommentList(int postId)
+        {
+            Dictionary<PostComment, string> result = new Dictionary<PostComment, string>();
+            List<PostComment> commentList = context.PostComments.Where(x => x.CommentPostId == postId).ToList();
+            foreach (var comment in commentList)
+            {
+                var commentUsername = GetUserById(comment.CommentUserId).UserName;
+                result.Add(comment, commentUsername);
+            }
+            return result;
+        }
+
+
         /// <summary>
         /// Switches the favorite status of a specific card, effects both shiny and non shiny cards
         /// </summary>

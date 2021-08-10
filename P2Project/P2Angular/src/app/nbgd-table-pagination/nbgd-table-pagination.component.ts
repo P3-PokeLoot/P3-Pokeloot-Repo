@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+//import {NgbPaginationModule}
 
 @Component({
   selector: 'app-nbgd-table-pagination',
@@ -7,18 +8,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NbgdTablePaginationComponent implements OnInit {
 
-  constructor() { }
+  @Input() observableData:any[] =[];
+  
+  tempdata:any[]=[];
+  page = 1;
+  PageSize=10;
+  collectionSize = this.observableData.length;
+
+  constructor() {
+    this.PageSize=5;
+   }
 
   ngOnInit(): void {
   }
 
-//   page = 1;
-//   pageSize = 5;
-//   collectionSize = observableData.length;
 
-// refreshEntries() {
-//     this.pageOfItems = observableData
-//     .map((entry, i) => ({id: i + 1, ...entry}))
-//     .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
-// }
+  //  refreshEntries() {
+  //     this.pageOfItems = observableData
+  //     .map((entry, i) => ({id: i + 1, ...entry}))
+  //     .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
+  // }
 }
