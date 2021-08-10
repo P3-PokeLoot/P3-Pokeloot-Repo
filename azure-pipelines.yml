@@ -5,7 +5,7 @@
 trigger:
 - main
 pool:
-  vmimage: ubuntu-latest
+  vmimage: windows-latest
 resources:
 - repo: self
 variables:
