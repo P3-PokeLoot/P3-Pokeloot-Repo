@@ -577,10 +577,16 @@ namespace BusinessLayer
         /// </summary>
         /// <param name="postId">The id of the post to retrieve the comments for</param>
         /// <returns>List of comment objects for specified post</returns>
-        public List<PostComment> getCommentList(int postId)
+        public Dictionary<PostComment, string> getCommentList(int postId)
         {
+            Dictionary<PostComment, string> result = new Dictionary<PostComment, string>();
             List<PostComment> commentList = context.PostComments.Where(x => x.CommentPostId == postId).ToList();
-            return commentList;
+            foreach (var comment in commentList)
+            {
+                var commentUsername = GetUserById(comment.CommentUserId).UserName;
+                result.Add(comment, commentUsername);
+            }
+            return result;
         }
 
 
