@@ -19,11 +19,6 @@ stages:
   # Main API Build, Test, Publish to Sonar Cloud
   - job: P2Main
     steps:
-
-    # - task: DotNetCoreCLI@2
-    #   inputs:
-    #     command: 'restore'
-    #     projects: '$(Build.SourcesDirectory)/P2Project/P2Main/P2Main.sln'
       
     - task: SonarCloudPrepare@1
       inputs:
@@ -42,17 +37,14 @@ stages:
       inputs:
         command: 'test'
         projects: '$(Build.SourcesDirectory)/P2Project/P2Main/P2Main.sln'
-        arguments: '--configuration $(buildConfiguration) --collect "Code Coverage"'
+        arguments: '/p:CollectCoverage=true /p:CoverletOutputFormat=cobertura --no-restore'
+        workingDirectory: '$(Build.SourcesDirectory)\src'
+        configuration: "$(buildConfiguration)"
 
     - task: PublishCodeCoverageResults@1
       inputs:
         codeCoverageTool: 'Cobertura'
-        summaryFileLocation: '**/coburtura/coverage.xml'
-
-    # - task: DotNetCoreCLI@2
-    #   inputs:
-    #     command: 'publish'
-    #     projects: '$(Build.SourcesDirectory)/P2Project/P2Main/P2Main.sln'
+        summaryFileLocation: '$(Build.SourcesDirectory)\src\*.UnitTests\coverage.cobertura.xml'
 
     - task: SonarCloudAnalyze@1
 
