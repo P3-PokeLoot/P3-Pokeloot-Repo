@@ -649,7 +649,7 @@ namespace BusinessLayer
                     if(!friend.IsPending) //where user sent a request and is no longer pending, this is considered a friend and will appear in the list
                     {
                         User friendInfo = context.Users.Where(x => x.UserId == friend.RecievedRequest).FirstOrDefault();
-                        int totalCards = context.CardCollections.Where(x => x.UserId == friend.RecievedRequest).Count;
+                        int totalCards = context.CardCollections.Where(x => x.UserId == friend.RecievedRequest).Count();
                         FullFriend fullFriend = new FullFriend() {
                             FriendName = friendInfo.UserName,
                             FriendLevel = friendInfo.AccountLevel,
@@ -664,7 +664,7 @@ namespace BusinessLayer
                 if (friend.RecievedRequest == UserId) // if user recieved a request, the instance will appear in the list in all cases
                 {                  
                         User friendInfo = context.Users.Where(x => x.UserId == friend.SentRequest).FirstOrDefault();
-                        int totalCards = context.CardCollections.Where(x => x.UserId == friend.SentRequest).Count;
+                        int totalCards = context.CardCollections.Where(x => x.UserId == friend.SentRequest).Count();
                         FullFriend fullFriend = new FullFriend()
                         {
                             FriendName = friendInfo.UserName,
