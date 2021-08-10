@@ -52,7 +52,11 @@ export class LeaderboardsComponent implements OnInit {
       100,
     ];
     allRarityOptions:string[]=[
-      ''
+      'Common',
+      'Uncommon',
+      'Rare',
+      'Mythic',
+      'Legendary'
     ];
     
 
@@ -61,7 +65,8 @@ export class LeaderboardsComponent implements OnInit {
   constructor(private _leaderboardservice:LeaderboardStatsService) {
     this.observableData=[];
     this.pageOfItems=[];
-    this.chosenNumber=1;
+    this.chosenNumber=10;
+    this.chosenStat='Collection Completion',
     this.chosenService=1;
     this.chosenRarity = 'Mythic';
     this.chosenPokename='pikachu';
@@ -83,7 +88,10 @@ export class LeaderboardsComponent implements OnInit {
     this.chosenNumber = int;
     console.log('the number of items to return is:' + this.chosenNumber);
   }
-
+  AssignChosenRarityFromDropdown(rarity:string){
+    this.chosenRarity = rarity;
+    console.log('the number of items to return is:' + this.chosenRarity);
+  }
 //Method 3: This is a generic method that makes arrays to loop over for html display
 CreateArraysFromObservable(){
   this.observableData.forEach(element => {//these 2 lines of code allows us to create table columns
@@ -139,8 +147,8 @@ CreateArraysFromObservable(){
         this._leaderboardservice.GetTopSpentCoinsList(this.chosenNumber).subscribe(
           result => {
             this.observableData = result; 
+            this.CreateArraysFromObservable();
          });
-         this.CreateArraysFromObservable();
         console.log('this is case'+this.chosenService);
         break;
     case 3:
@@ -192,20 +200,12 @@ CreateArraysFromObservable(){
         });
         console.log('this is case'+this.chosenService);
         break;
-    //  case  9:
-    //    this._leaderboardservice.GetCardPercentage(this.chosenPokename).subscribe(
-    //      result => {
-    //        this.observableData = result; 
-    //        this.CreateArraysFromObservable();
-    //      });
-    //      console.log('this is case'+this.chosenService);
-    //      break;
-  
     }
   }
   CheckTableExists(){
     if(this.tableExists == 'false'){
       this.SelectChosenService();
+      return;
     }
     if(this.tableExists=='true'){
       console.log('Leaderboard table already exists');
@@ -221,10 +221,12 @@ CreateArraysFromObservable(){
   }
 
   //============================================PAGINATION SECTION======================================
-
+  page = 1;
+  pageSize = 5;
+  collectionSize = this.observableData.length;
+  refreshEntries() {
+    this.pageOfItems = this.observableData
+    .map((entry, i) => ({id: i + 1, ...entry}))
+    .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
 }
-
-
-
-
-
+}

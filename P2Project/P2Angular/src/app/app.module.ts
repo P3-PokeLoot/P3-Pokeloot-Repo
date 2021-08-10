@@ -38,6 +38,7 @@ import { CapGameResultComponent } from './cap-game-result/cap-game-result.compon
 import { EditPostComponent } from './edit-post/edit-post.component';
 import { FriendsComponent } from './friends/friends.component';
 import { WamGameComponent } from './wam-game/wam-game.component';
+import { CommentsComponent } from './comments/comments.component';
 import { GameFormComponent } from './game-form/game-form.component';
 import { DeleteGameComponent } from './delete-game/delete-game.component';
 import { ModifyGameComponent } from './modify-game/modify-game.component';
@@ -47,6 +48,7 @@ import { NbgdTablePaginationComponent } from './nbgd-table-pagination/nbgd-table
 import { LbChildWhoHasComponent } from './lb-child-who-has/lb-child-who-has.component';
 import { HangManComponent } from './hang-man/hang-man.component';
 import { AchievementsStatisticComponent } from './achievements-statistic/achievements-statistic.component';
+//import {NgbPaginationModule}
 
 @NgModule({
   declarations: [
@@ -79,6 +81,7 @@ import { AchievementsStatisticComponent } from './achievements-statistic/achieve
     EditPostComponent,
     //JwPaginationComponent,
     WamGameComponent,
+    CommentsComponent,
     GameFormComponent,
     DeleteGameComponent,
     ModifyGameComponent,

@@ -1,14 +1,15 @@
 <p>This is the start of the LB-child component. It will display percent of users that have a pokemon card</p>
 
 <!--This input textbox is going to take the value of the text and then make new service call-->
-<input type="text" [value]="userStringInput"/>
-<input type="button" value="Submit" (click)="GetPercentOwnCard(userStringInput)"/>
+<input type="text" [(ngModel)]="userStringInput"/>
+<input type="button" value="Submit" (click)="ChangeInput(userStringInput);GetPercentOwnCard(userStringInput)"/>
 
 <div class="card">
     <div class="card-header">
     </div>
     <div class="card-body">
-      <h5 class="card-title">Number of users: {{chosenPokemon.Total_Users}}</h5>
-      <p class="card-text">Percent of users: {{chosenPokemon.Percentage_OwnCard}}</p>
+      <p class="card-title">Number of users: {{chosenPokemon.total_Users}}</p>
+      <p>Number of {{chosenPokemon.pokemonName}}: {{chosenPokemon.totalQy}}</p>
+      <p class="card-text">Percent of users: {{chosenPokemon.percentage_OwnCard}}</p>
     </div>
-  </div>
+</div>

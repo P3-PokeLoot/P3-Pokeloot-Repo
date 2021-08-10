@@ -55,7 +55,7 @@ export class ProfilePageComponent implements OnInit {
     this.ViewJohto(this.currentProfile,this.JohtoBadges);
   }
 
-  ViewJohto(currentprof:User, johtobadges:Badge[]){
+  ViewJohto(currentprof:User, johtobadges:Badge[]){ //open badges
     this.currentProfile = currentprof;
     this.JohtoBadges=johtobadges;
     if(this.currentProfile.TotalCoinsEarned>=10000){

@@ -32,6 +32,16 @@ as a parameter to the internal component method-->
             </select>
         </label>
     <!--3: Rarity dropdown that shows up only if categorical dropdown chosen is -->
+        <div *ngIf="chosenStat == 'Largest Rarity' ">
+            <label for="raritydropdownlist">
+                Rarity:
+                <select class="raritydropdownlist" [(ngModel)]="chosenRarity" (change)="AssignChosenRarityFromDropdown(chosenRarity)">
+                    <option  *ngFor= "let rarity of allRarityOptions" [ngValue]="rarity" >
+                    {{rarity}}
+                    </option>
+                </select>
+            </label>
+        </div>
     <!--buttons & logo-->
         <input type="button" (click)="CheckTableExists()" value="Show Leaderboard"/>
         <img class="bigbrain" src='/assets/img/leaderboards_component_adobespark.png' alt-text="mega-alakazam"/>
@@ -68,4 +78,17 @@ as a parameter to the internal component method-->
 
 </div>
 
+
+<!-- Uncomment this once bootstrap added to project
+    <app-nbgd-table-pagination  [(page)]="page"  [pageSize]="pageSize" [collectionSize]="observableData.length">
+
+</app-nbgd-table-pagination> -->
+<!-- <div class="d-flex justify-content-between p-2">
+  
+    <select class="custom-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshEntries()">
+      <option [ngValue]="5">5 items per page</option>
+      <option [ngValue]="10">10 items per page</option>
+      <option [ngValue]="20">20 items per page</option>
+    </select>
+  </div> -->
 <app-lb-child-who-has></app-lb-child-who-has>
