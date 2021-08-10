@@ -21,48 +21,52 @@ export class FriendsComponent implements OnInit {
   friendList: IFriend[] = [];
   isPending: boolean = false;
   selectFriend?: string;
+  friendAction?: string;
 
   constructor(private route: Router, private _friendService : FriendServiceService) { }
 
   ngOnInit(): void {
 
-    let friend1: IFriend = {UserName:"Alain", UserID:"1", UserLevel:50, FriendSince: new Date(), IsPending: false, TotalCards:100}
-    let friend2: IFriend = {UserName:"Brian", UserID:"2", UserLevel:150, FriendSince: new Date(), IsPending: false, TotalCards:200}
-    let friend3: IFriend = {UserName:"Mason", UserID:"3", UserLevel:250, FriendSince: new Date(), IsPending: true, TotalCards:300}
-    let friend4: IFriend = {UserName:"John", UserID:"4", UserLevel:350, FriendSince: new Date(), IsPending: false, TotalCards:400}
-    let friend5: IFriend = {UserName:"Mark", UserID:"5", UserLevel:450, FriendSince: new Date(), IsPending: false, TotalCards:500}
-    let friend6: IFriend = {UserName:"Malia", UserID:"6", UserLevel:650, FriendSince: new Date(), IsPending: true, TotalCards:600}
-    let friend7: IFriend = {UserName:"Greg", UserID:"7", UserLevel:750, FriendSince: new Date(), IsPending: false, TotalCards:800}
-    let friend8: IFriend = {UserName:"Adrian", UserID:"8", UserLevel:850, FriendSince: new Date(), IsPending: false, TotalCards:800}
-    let friend9: IFriend = {UserName:"Christian", UserID:"9", UserLevel:950, FriendSince: new Date(), IsPending: false, TotalCards:100}
+    if(this.userId){
+    this._friendService.GetFriendsList(this.userId).subscribe(
+      result => {
+        for (let i = 0; i < result.length; i++) {
+          let UserName = result[i].friendName;
+          let UserID = result[i].friendId;
+          let UserLevel = result[i].friendLevel;
+          let FriendSince = result[i].fateAdded;
+          let IsPending= result[i].isPending;
+          let TotalCards= result[i].totalCards;
 
-    this.fullFriendsList.push(friend1);
-    this.fullFriendsList.push(friend2);  
-    this.fullFriendsList.push(friend3);  
-    this.fullFriendsList.push(friend4);  
-    this.fullFriendsList.push(friend5);  
-    this.fullFriendsList.push(friend6);  
-    this.fullFriendsList.push(friend7);  
-    this.fullFriendsList.push(friend8);  
-    this.fullFriendsList.push(friend9);
+          let friend:IFriend = {UserName, UserID, UserLevel, FriendSince, IsPending, TotalCards};
+          //console.log(result[i]);
+          this.fullFriendsList.push(friend);
+          }
+          this.friendList = this.fullFriendsList.filter(x => x.IsPending == this.isPending);
+          this.isPending = !this.isPending; 
+      },
+      error => console.log(error),
+      () => this.load() //only loads pagination after filtering and populating is done
+    );
+    }
     
-    this.filterForPending();
+    
     
   }
 
 
-  filterForPending(){
-    this.friendList = [];
-    this.fullFriendsList.forEach( element =>{
-      if(element.IsPending == this.isPending){
-        this.friendList.push(element);
-      }
-    });
-    this.isPending = !this.isPending;
+  filterForPending(){ //filters for pending request
+   
+    
+    this.friendList = this.fullFriendsList.filter(x => x.IsPending == this.isPending);
+    this.isPending = !this.isPending; //switches case after each click
     this.load();
+    
+    
+    
   }
 
-  load(){
+  load(){  //handles pagination
     console.log("collenction length = " + this.friendList.length);
     this.currentIndex = 0;
     this.currentPage = 1;
@@ -96,11 +100,24 @@ export class FriendsComponent implements OnInit {
     //this.pageOfItems = pageOfItems;
   }
 
-  clickt(friend: IFriend){
-   this.refresh();
+  clickt(friend: IFriend){ //accepts friend request
+   
+    if(this.userId){
+      
+    this._friendService.FriendAction(this.userId, friend.UserID).subscribe(
+      result => {
+        console.log(result);
+        this.friendAction = result[0];},
+      error => {
+        console.log(error);
+        this.friendAction = error.error.text;
+      }
+    );
+    }
+    
   }
 
-  refresh(){
+  refresh(){ //refreshes friends page
     this.route.navigateByUrl('/', {skipLocationChange: true}).then(() => {
       this.route.navigate(['/Friends']);
     });

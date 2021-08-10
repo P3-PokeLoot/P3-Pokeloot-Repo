@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { delay } from 'rxjs/operators';
-import { GameService } from '../game-service';
+import { GameService } from '../service/game/game-service';
 
 @Component({
   selector: 'app-wtp-game-outcome',
@@ -21,30 +21,6 @@ export class WtpGameOutcomeComponent implements OnInit {
   constructor(private _gameService: GameService) { }
 
   ngOnInit(): void {
-    console.log("initialized");
-    this.waitASec();
-  }
-
-  determineResult(): void {
-    this.outcomeText = this.result?.result;
-    this.pictureUrl = this.result?.picture;
-    this.win = this.result?.win;
-    if (this.win == true) {
-      this._gameService.AddCoins(this.numCoinsToAdd).subscribe();
-      this._gameService.GetBalance().subscribe(
-        result => {
-          let coinBalance = result;
-          this.currentUserCoinBalance = coinBalance;
-        });
-    }
-    this._gameService.WtpRecord().subscribe(
-      result => {
-        this.winRecord = result;
-        console.log(this.winRecord);
-      });
-  }
-
-  waitASec(){
     let timer = setInterval(() => {
       if(this.waitTime <= 1){
         this.determineResult();
@@ -53,7 +29,34 @@ export class WtpGameOutcomeComponent implements OnInit {
       else{
         this.waitTime -= 1;
       }
-    },300);
+    },500);
+  }
+
+  determineResult(): void {
+    this.outcomeText = this.result?.result;
+    this.pictureUrl = this.result?.picture;
+    this.win = this.result?.win;
+    if (this.win == true) {
+      this._gameService.AddCoins(this.numCoinsToAdd).subscribe();
+      let timer = setInterval(() => {
+        if(this.waitTime <= 1){
+          this._gameService.GetBalance().subscribe(
+            result => {
+              let coinBalance = result;
+              this.currentUserCoinBalance = coinBalance;
+            });
+          clearInterval(timer);
+        } 
+        else{
+          this.waitTime -= 1;
+        }
+      },300);
+    }
+    this._gameService.WtpRecord().subscribe(
+      result => {
+        this.winRecord = result;
+        console.log(this.winRecord);
+      });
   }
 
   playAgain() {

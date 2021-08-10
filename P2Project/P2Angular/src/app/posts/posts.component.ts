@@ -1,8 +1,10 @@
 import { stringify } from '@angular/compiler/src/util';
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { DisplayServiceService } from '../display-service.service';
+import { FriendServiceService } from '../friend-service.service';
 import { IBuy } from '../Models/IBuy';
 import { IPost } from '../Models/IPost';
 import { IType } from './IType';
@@ -30,8 +32,9 @@ export class PostsComponent implements OnInit {
   typeList : IType[] = [{TypeId : 1, TypeName: "Discussion"}, {TypeId : 2, TypeName: "Display"}, {TypeId : 3, TypeName: "Sale"}];
   bublapedia: string = 'https://bulbapedia.bulbagarden.net/wiki/';
   edit:boolean = false;
+  friendAction?: string;
 
-  constructor(private _displayService: DisplayServiceService, private cdr: ChangeDetectorRef) {
+  constructor(private route: Router, private _displayService: DisplayServiceService, private cdr: ChangeDetectorRef, private _friendService: FriendServiceService) {
     this.displayBoard = [];
     this.fullDisplayBoard = [];
   }
@@ -77,13 +80,8 @@ export class PostsComponent implements OnInit {
       }
     )
   }
-  //ngAfterContentInit() {
-    //this.currentPage = 1;
-    //this.lastpage = 1 + Math.floor(this.displayBoard.length / 5);
-    //this.cdr.detectChanges();
-  //}
 
-  filterPost(board : IPost[]):IPost[]{
+  filterPost(board : IPost[]):IPost[]{ //applys filter to post
     let oldLength = this.lastpage;
     //if(this.oldSearch != this.search){
     if(this.filterValue == 0){  
@@ -109,7 +107,7 @@ export class PostsComponent implements OnInit {
     return this.displayBoard;
   }
 
-  load(){
+  load(){ //handles pagination
     console.log("collenction length = " + this.displayBoard.length);
     this.currentIndex = 0;
     this.currentPage = 1;
@@ -117,8 +115,8 @@ export class PostsComponent implements OnInit {
     this.pageOfItems = this.displayBoard.slice(this.currentIndex, this.currentIndex + 5);
   }
 
-  buy(post: IPost): void {
-    this.attemptToBuy = true;
+  buy(post: IPost): void { //buys a card from a post
+    this.attemptToBuy = true; //used to display output from attempted purchase
     //Ouput: string,
     //Result: boolean,
     let Price = post.Price;
@@ -142,9 +140,10 @@ export class PostsComponent implements OnInit {
   }
 
 
-  clickt(post: IPost){
-    this.edit = !this.edit;
-    this.currentPost = post.PostId;
+  clickt(post: IPost){ //opens edit post options
+    this.edit = !this.edit; //can close after opened
+    this.currentPost = post.PostId; //only one post can be edited at a time
+
   }
 
   GetCardColor(rarityId: any): string {
@@ -202,7 +201,7 @@ export class PostsComponent implements OnInit {
     }
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit() {//detects changes to posts
     
     this.cdr.detectChanges();
   }
@@ -230,5 +229,28 @@ export class PostsComponent implements OnInit {
     console.log(this.currentIndex);
     this.pageOfItems = this.displayBoard.slice(this.currentIndex, this.currentIndex + 5);
     //this.pageOfItems = pageOfItems;
+  }
+
+  addFriend(friend: IPost){ //performs a friend action on author on post
+    if(this.userId){
+    this._friendService.FriendActionWithANumber(this.userId, friend.UserId).subscribe(
+      result => {
+        this.friendAction = result[0];
+        console.log(result);
+        },
+      error => {
+        this.friendAction = error.error.text;
+      }
+    );
+    }
+   //this.refresh();
+  }
+
+  refresh(){ //reloads home page
+    this.route.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+      this.route.navigate(['/Home']);
+    });
+    this.route.navigate(['/Home']);
+    this.route.navigateByUrl('/Home');
   }
 }

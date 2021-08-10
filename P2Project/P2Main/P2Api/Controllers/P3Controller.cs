@@ -45,12 +45,12 @@ namespace P2Api.Controllers
             foreach (Post post in playerList)
             {
                 DisplayBoard displayBoard = _businessModel.getPostInfo(post.PostId);
-                string mainSprite = "https://wiki.p-insurgence.com/images/0/09/722.png";
+                string mainSprite = "https://wiki.p-insurgence.com/images/0/09/722.png"; //if a discussion post, use default image
                 string cardName = "";
                 int cardRare = 0;
-                if (post.PokemonId != null)
+                if (post.PokemonId != null) //checks if it is sale or display post
                 {
-                    if (post.IsShiny == true)
+                    if (post.IsShiny == true) //checks with image to use
                     {
                         mainSprite = _businessModel.getPokemonById((int)post.PokemonId).SpriteLinkShiny;
                     }
@@ -62,7 +62,7 @@ namespace P2Api.Controllers
                     cardRare = _businessModel.getPokemonById((int)post.PokemonId).RarityId;
                 }
 
-                FullPost instance = new FullPost()
+                FullPost instance = new FullPost()//creates full post object to be displayed
                 {
                     PostId = post.PostId,
                     PokemonId = post.PokemonId,
@@ -132,14 +132,14 @@ namespace P2Api.Controllers
             return currentUser;
         }
 
-        
+
 
         /// <summary>
         /// https://localhost:44307/api/P2/Lootbox/2/1
         /// Gets a random pokemon and adds it the the users collection with the id passed in
         /// </summary>
         /// <param name="userId">user id for user rolling lootbox</param>
-        /// <param name="boxType">type of box to roll</param
+        /// <param name="boxType">type of box to roll</param>
         /// <returns>Serialized string of dict containing PokemonCard object of the random choice and shiny boolean</returns>
         [HttpGet("Lootbox/{userId}/{boxType}")]
         //public Dictionary<PokemonCard, bool> Lootbox(int userId)
@@ -147,6 +147,8 @@ namespace P2Api.Controllers
         {
             User currentUser = _businessModel.GetUserById(userId);
             Dictionary<PokemonCard, bool> newCard;
+
+            //check boxtype for each case
             if (boxType == 1)
             {
                 const int lootBoxCost = 100;
@@ -203,18 +205,6 @@ namespace P2Api.Controllers
             return json;
         }
 
-        /// <summary>
-        /// Returns User object by Id
-        /// </summary>
-        /// <param name="userId">user id to get object for</param>
-        /// <returns>User object</returns>
-        //[HttpGet("CoinBalance/{userId}")]
-        //public int CoinBalance(int userId)
-        //{
-        //    User currentUser = _businessModel.GetUserById(userId);
-        //    _businessModel.incrementUserBalance(currentUser, -100);
-        //    return currentUser.CoinBalance;
-        //}
 
         /// <summary>
         /// https://localhost:44307/api/P2/Signup
@@ -263,12 +253,10 @@ namespace P2Api.Controllers
             }
         }
 
-        ///<summary>
-        ///Returns new coin balance
-        /// </summary>
-        /// <param name="userId"> UserId who's balance was adjusted</param>
+       
         /// <summary>
         /// Returns User object by Id
+        /// https://localhost:44307/api/P2/Balance/2
         /// </summary>
         /// <param name="userId">user id to get object for</param>
         /// <returns>User object</returns>
@@ -280,7 +268,7 @@ namespace P2Api.Controllers
         }
 
         /// <summary>
-        /// https://localhost:44307/api/P2/Post/Create
+        /// https://localhost:44307/api/P2/newPost/150/true/3/description
         /// Creates a new Post
         /// </summary>
         /// <param name="userId">id of desired users collection</param>
@@ -289,11 +277,11 @@ namespace P2Api.Controllers
         public bool newPost(int pokemonId, int postPrice, bool isShiny, int userId, string descr)
         {
             User currentUser = _businessModel.GetUserById(userId);
-            Post post = new()
+            Post post = new() //creates new post object from info
             {
-                PokemonId = pokemonId == 0 ? null : pokemonId,
+                PokemonId = pokemonId == 0 ? null : pokemonId, //if id is 0, set it to null
                 PostDescription = descr,
-                Price = postPrice == 0 ? null : postPrice,
+                Price = postPrice == 0 ? null : postPrice, //if price is 0, set it to null
                 StillAvailable = true,
                 IsShiny = isShiny
             };
@@ -306,7 +294,9 @@ namespace P2Api.Controllers
             return false;
         }
 
+        ///<summary> 
         /// returns list of rarity type objects from Db
+        /// https://localhost:44307/api/P2/RarityTypes
         /// </summary>
         /// <returns>List of rarity type objects</returns>
         [HttpGet("RarityTypes")]
@@ -318,10 +308,11 @@ namespace P2Api.Controllers
 
         /// <summary>
         /// adds a specified number of coins to the users account
+        /// https://localhost:44307/api/P2/EarnCoins/2/100
         /// </summary>
         /// <param name="userId">user to add coins to</param>
         /// <param name="coinsAmount">amount of coins to add</param>
-        /// <returns></returns>
+        /// <returns>New coin balance</returns>
         [HttpGet("EarnCoins/{userId}/{coinsAmount}")]
         public int EarnCoins(int userId, int coinsAmount)
         {
@@ -331,7 +322,8 @@ namespace P2Api.Controllers
         }
 
         /// <summary>
-        /// Removes a post
+        /// Removes a post from displayboard
+        /// https://localhost:44307/api/P2/RemovePost/54
         /// </summary>
         /// <param name="postID">PostID</param>
         /// <returns>if successful removal</returns>
@@ -344,10 +336,11 @@ namespace P2Api.Controllers
 
         /// <summary>
         /// edits price of post
+        /// https://localhost:44307/api/P2/EditPrice/54/100
         /// </summary>
         /// <param name="postID">PostID</param>
         /// <param name="newPrice">new price</param>
-        /// <returns>if successful removal</returns>
+        /// <returns>if successful edits</returns>
         [HttpGet("EditPrice/{idpost}/{newPrice}")]
         public bool EditPrice(int idpost, int newPrice)
         {
@@ -377,6 +370,46 @@ namespace P2Api.Controllers
         }
 
 
+        /// Changes favorite status of a card in your collection
+        /// https://localhost:44307/api/P2/Favorite/3/151
+        /// </summary>
+        /// <param name="UserId">Current User ID</param>
+        /// <param name="Poke">Pokemon card id</param>
+        /// <returns>If action was successful</returns>
+        [HttpGet("Favorite/{UserId}/{Poke}")]
+        public bool Favorite(int UserId, int Poke)
+        {
+            bool result = _businessModel.favoriteCard(UserId, Poke);
+            return result;
+        }
+
+        /// <summary>
+        /// Gets friends list of a specific user
+        /// https://localhost:44307/api/P2/Friends/2
+        /// </summary>
+        /// <param name="UserId">Current User ID</param>
+        /// <returns>List of friends</returns>
+        [HttpGet("Friends/{UserId}")]
+        public List<FullFriend> Friends(int UserId)
+        {
+            List<FullFriend> result = _businessModel.GetFriends(UserId);
+            return result;
+        }
+
+
+        /// <summary>
+        /// Does various actions based on friendship status between two users
+        /// https://localhost:44307/api/P2/FriendAction/2/1
+        /// </summary>
+        /// <param name="UserId">Current User Id</param>
+        /// <param name="FriendId">Intended friend id</param>
+        /// <returns>Outputs a string with information on friendship status and if anything has changed</returns>
+        [HttpGet("FriendAction/{UserId}/{FriendId}")]
+        public string FriendAction(int UserId, int FriendId)
+        {
+            string result = _businessModel.friendAction(UserId, FriendId);
+            return result;
+        }
     } // end class
 } // end namespace
 

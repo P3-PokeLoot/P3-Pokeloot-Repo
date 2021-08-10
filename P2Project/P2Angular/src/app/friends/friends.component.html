@@ -1,3 +1,4 @@
+<div *ngIf="!friendAction">
 <div *ngIf="!selectFriend">
 <div class="col text-center">
     <h6></h6>
@@ -44,8 +45,22 @@
 </tr>
 </table>
 </div>
+</div>
+
 <div *ngIf="selectFriend">
     <button class="btn btn-success btn-sm" aria-disabled="true" id="editbutton" (click)="refresh()">Back to List</button>
     <app-cardcollect [differentUser]="selectFriend"></app-cardcollect>
+</div>
+
+
+<div *ngIf="friendAction" class="row d-flex justify-content-center">
+    <br>
+    <br>
+    <div>
+    <h1 class="col text-center" style="margin-top: 10%;">{{friendAction}}</h1>
+    </div>
+    <br>
+    
+    <button class="btn btn-success btn-sm" aria-disabled="true" id="editbutton" style="width: 50%;"(click)="refresh()">Back to List</button>
 </div>
 

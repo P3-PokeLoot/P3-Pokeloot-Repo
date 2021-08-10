@@ -20,7 +20,9 @@ namespace P3Database
 
         public virtual DbSet<CapgameStat> CapgameStats { get; set; }
         public virtual DbSet<GameInfo> GameInfos { get; set; }
+        public virtual DbSet<PhmgameStat> PhmgameStats { get; set; }
         public virtual DbSet<RpsgameStat> RpsgameStats { get; set; }
+        public virtual DbSet<WamgameStat> WamgameStats { get; set; }
         public virtual DbSet<WtpgameStat> WtpgameStats { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -62,9 +64,19 @@ namespace P3Database
                     .IsUnicode(false);
             });
 
+            modelBuilder.Entity<PhmgameStat>(entity =>
+            {
+                entity.ToTable("PHMGameStats");
+            });
+
             modelBuilder.Entity<RpsgameStat>(entity =>
             {
                 entity.ToTable("RPSGameStats");
+            });
+
+            modelBuilder.Entity<WamgameStat>(entity =>
+            {
+                entity.ToTable("WAMGameStats");
             });
 
             modelBuilder.Entity<WtpgameStat>(entity =>

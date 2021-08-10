@@ -9,9 +9,9 @@ namespace BuisinessLayerMethods
 {
     public interface ILeaderboardMethods
     {
-        List<User> TopCurrentBallance(int maxnumber);
-        List<User> TopEarnedCoins(int maxnumber);
-        List<User> TopSpentCoins(int maxnumber);
+        List<UserCoinBalance> TopCurrentBallance(int maxnumber);
+        List<UserCoinEarned> TopEarnedCoins(int maxnumber);
+        List<UserCoinSpent> TopSpentCoins(int maxnumber);
 
         List<TopPersentCompletedCollectionModel> TopPercentageCompletedCollection(int maxnumber);
 
