@@ -46,19 +46,20 @@ Simply signup for an account and start playing!
 
 ## Contributors
 
+* Malia Labor (SCRUM Master)
+* Tyler Mire (Team Lead)
+* Greg Agnew (Team Lead)
+* Mason Sanborn (Team Lead)
 * Alain Duplan
 * Adam Sepulveda
 * Adrian Gonzalez
 * Brian Corbett
 * Christian Romero
 * Ethan Baker
-* Greg Agnew
 * Guillermo Delgado
-* Malia Labor (SCRUM Master)
-* Mason Sanborn
 * Qais Qaisi
 * Sekou Dosso
-* Tyler Mire
+
 
 
 ## License

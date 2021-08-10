@@ -110,6 +110,8 @@ export class FriendsComponent implements OnInit {
         this.friendAction = result[0];},
       error => {
         console.log(error);
+         //From Alain: for some reason the call is returning an error due to parsing issues, the status code is 200 and the database is succefully updated on each call.
+        //Since the issue is unresolved, i instead grabbed the error text which actually holds the output intended from the api
         this.friendAction = error.error.text;
       }
     );
