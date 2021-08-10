@@ -28,8 +28,8 @@ stages:
         projectKey: 'p3pokeloot_Pokeloot_MainAPI'
         projectName: 'p3pokeloot_Pokeloot_MainAPI'
         extraProperties: |
-          sonar.cs.vstest.reportsPaths='$(Agent.TempDirectory)\**\*.trx'
-          sonar.cs.vscoveragexml.reportsPaths='$(Agent.TempDirectory)/**/coverage.cobertura.xml'
+          sonar.cs.vstest.reportsPaths='$(Agent.TempDirectory)\**\*.trx
+          sonar.cs.vscoveragexml.reportsPaths='$(Agent.TempDirectory)/**/coverage.cobertura.xml
 
     - task: DotNetCoreCLI@2
       inputs:
