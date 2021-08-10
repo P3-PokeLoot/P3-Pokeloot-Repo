@@ -36,15 +36,14 @@ stages:
     - task: DotNetCoreCLI@2
       inputs:
         command: 'test'
+        arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura'
+        publishTestResults: true
         projects: '$(Build.SourcesDirectory)/P2Project/P2Main/P2Main.sln'
-        arguments: '/p:CollectCoverage=true /p:CoverletOutputFormat=cobertura --no-restore'
-        workingDirectory: '$(Build.SourcesDirectory)\src'
-        configuration: "$(buildConfiguration)"
 
     - task: PublishCodeCoverageResults@1
       inputs:
         codeCoverageTool: 'Cobertura'
-        summaryFileLocation: '$(Build.SourcesDirectory)\src\*.UnitTests\coverage.cobertura.xml'
+        summaryFileLocation: '$(Build.SourcesDirectory)/**/coverage.cobertura.xml'
 
     - task: SonarCloudAnalyze@1
 
