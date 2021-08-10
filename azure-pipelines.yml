@@ -44,6 +44,7 @@ stages:
       inputs:
         command: 'publish'
         publishWebProjects: true
+        projects: '$(Build.SourcesDirectory)/P2Project/P2Main/P2Main.sln'
 
     - task: SonarCloudAnalyze@1
 
