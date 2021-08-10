@@ -10,23 +10,24 @@ import { PercentageOwnCardModel_Shiny } from '../Models/IPercentageOwnCard_Shiny
 export class LbChildWhoHasComponent implements OnInit {
 
   constructor( private _leaderboardService:LeaderboardStatsService) {
-    this.userStringInput='ditto';
+    this.userStringInput="ditto";
   }
 
   chosenPokemon:PercentageOwnCardModel_Shiny ={
-    PokemonId:0,
-    RarityId:0,
-    SpriteLink:'',
-    SpriteLinkShiny:'',
-    PokemonName:'',
-    Total_Qy:0,
-    Total_Users:0,
-    Percentage_OwnCard:0
+    pokemonId:0,
+    rarityId:0,
+    spriteLink:'',
+    spriteLinkShiny:'',
+    pokemonName:'',
+    total_Qy:0,
+    total_Users:0,
+    percentage_OwnCard:0
   };
 
   userStringInput:string;
 
   ngOnInit(): void {
+    
   }
 
   //This method takes the observable data and puts it into a class property
@@ -34,6 +35,8 @@ export class LbChildWhoHasComponent implements OnInit {
     this._leaderboardService.GetCardPercentage(pokemonName).subscribe(
       result => {
         this.chosenPokemon=result;
+        console.log(this.chosenPokemon);
+        console.log(this.chosenPokemon.total_Users);
       }
     );
   }

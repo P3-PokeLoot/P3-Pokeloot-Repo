@@ -62,7 +62,7 @@ export class LeaderboardStatsService {
     return this.http.get<UserCollectionModel_Shiny2[]>(this.baseURL+'/api/ShiningPokemon/GetTotalCardUserHave/'+topUser);
   }
   GetCardPercentage(pokename:string):Observable<PercentageOwnCardModel_Shiny>{
-    return this.http.get<PercentageOwnCardModel_Shiny>(this.baseURL+'api/ShiningPokemon/GetCardPorcentage/'+pokename);
+    return this.http.get<PercentageOwnCardModel_Shiny>(this.baseURL+'/api/ShiningPokemon/GetCardPorcentage/'+pokename);
   }
 
 
