@@ -114,13 +114,13 @@ stages:
     - task: DotNetCoreCLI@2
       inputs:
         command: 'build'
-        projects: '$(Build.SourcesDirectory)/Statistics-and-Leaderboard/P3_Statistics_API/P3_Statistics_API.sln'
+        projects: '$(Build.SourcesDirectory)/Statistics-and-Leaderboard/P3_Statistics_API/P3_Statistics_API/P3_Statistics_API.sln'
         arguments: '--configuration $(buildConfiguration)'
     - task: DotNetCoreCLI@2
       inputs:
         command: 'test'
         arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura'
-        projects: '$(Build.SourcesDirectory)/Statistics-and-Leaderboard/P3_Statistics_API/P3_Statistics_API.sln'
+        projects: '$(Build.SourcesDirectory)/Statistics-and-Leaderboard/P3_Statistics_API/P3_Statistics_API/P3_Statistics_API.sln'
 
     - task: PublishCodeCoverageResults@1
       inputs:
