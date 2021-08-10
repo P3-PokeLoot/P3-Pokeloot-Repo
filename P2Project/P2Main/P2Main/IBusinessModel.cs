@@ -46,7 +46,7 @@ namespace BusinessLayer
 
         public bool newPostComment(int userId, int postId, string content);
 
-        public List<PostComment> getCommentList(int postId);
+        public Dictionary<PostComment, string> getCommentList(int postId);
         
     }
 }

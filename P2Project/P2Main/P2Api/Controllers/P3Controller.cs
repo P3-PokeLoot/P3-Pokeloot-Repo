@@ -362,18 +362,83 @@ namespace P2Api.Controllers
         /// <param name="postId">The id to the post the comment is created on</param>
         /// <param name="content">The contents of the comment being created</param>
         /// <returns>true or false based on creation status</returns>
-        [HttpPost("PostComment/{userId}/{postId}/{content}")]
+        [HttpGet("PostComment/{userId}/{postId}/{content}")]
         public bool PostComment(int userId, int postId, string content)
-        {   
+        {
             bool isCreated = _businessModel.newPostComment(userId, postId, content);
             return isCreated;
         }
 
 
+        //[HttpPost("PostComment/{newComment}")]
+        //public bool PostComment(string newComment)
+        //{
+        //    bool isCreated = true;// _businessModel.newPostComment(userId, postId, content);
+        //    return isCreated;
+        //}
+
         [HttpGet("Comments/{postId}")]
-        public List<PostComment> Comments(int postId)
+        public string Comments(int postId)
         {
-            return _businessModel.getCommentList(postId);
+            Dictionary<PostComment, string> commentDict = _businessModel.getCommentList(postId);
+            string json = JsonConvert.SerializeObject(commentDict.ToList());
+            return json;
+        }
+
+
+
+        [HttpGet("FullPostById/{postId}")]
+        public FullPost FullPost(int postId)
+        {
+            Post currentPost = _businessModel.getPostById(postId);
+            DisplayBoard curretntDisplayBoard = _businessModel.getPostInfo(postId);
+
+
+            string mainSprite = "https://wiki.p-insurgence.com/images/0/09/722.png";
+            string cardName = "";
+            int cardRare = 0;
+
+            if (currentPost != null)
+            {
+                if (currentPost.IsShiny == true && currentPost.PokemonId != null)
+                {
+                    mainSprite = _businessModel.getPokemonById((int)currentPost.PokemonId).SpriteLinkShiny;
+                }
+                else if (currentPost.PokemonId != null)
+                {
+                    mainSprite = _businessModel.getPokemonById((int)currentPost.PokemonId).SpriteLink;
+                }
+                if(currentPost.PokemonId != null)
+                {
+                    cardName = _businessModel.getPokemonById((int)currentPost.PokemonId).PokemonName;
+                    cardRare = _businessModel.getPokemonById((int)currentPost.PokemonId).RarityId;
+                }
+                else
+                {
+                    cardName = "";
+                    cardRare = 0;
+                }
+                
+            }
+
+            FullPost currentFullPost = new FullPost()
+            {
+                PostId = currentPost.PostId,
+                PokemonId = currentPost.PokemonId,
+                PostTime = currentPost.PostTime,
+                PostDescription = currentPost.PostDescription,
+                Price = currentPost.Price,
+                StillAvailable = currentPost.StillAvailable,
+                IsShiny = currentPost.IsShiny,
+                UserId = curretntDisplayBoard.UserId,
+                PostType = curretntDisplayBoard.PostType,
+                PokemonName = cardName,
+                RarityId = cardRare,
+                UserName = _businessModel.GetUserById(curretntDisplayBoard.UserId).UserName,
+                SpriteLink = mainSprite
+
+            };
+            return currentFullPost;
         }
 
 
