@@ -130,6 +130,17 @@ stages:
   - job: Build
     displayName: Build
     steps:
+    - task: SonarCloudPrepare@1
+      inputs:
+        SonarCloud: 'GamesAPI_SonarCloud'
+        organization: 'p3pokeloot'
+        scannerMode: 'MSBuild'
+        projectKey: 'p3pokeloot_Pokeloot_GamesAPI'
+        projectName: 'p3pokeloot_Pokeloot_MainAPI'
+        extraProperties: |
+          sonar.cs.vstest.reportsPaths='$(Agent.TempDirectory)\**\*.trx
+          sonar.cs.vscoveragexml.reportsPaths='$(Agent.TempDirectory)/**/coverage.cobertura.xml
+
     - task: Docker@2
       inputs:
         containerRegistry: 'DockerHub'
