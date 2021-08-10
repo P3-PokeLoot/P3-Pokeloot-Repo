@@ -49,7 +49,6 @@ const routes: Routes = [
   { path: 'Game/WhosThatPokemon', component: WtpGameComponent, canActivate: [AuthGuard] },
   { path: 'Game/CAP', component: CapGameComponent, canActivate: [AuthGuard] },
   { path: 'Game/WhackADiglett', component: WamGameComponent, canActivate: [AuthGuard] },
-  { path: 'Game/PokemonCardMatch', component: PokemonCardMatchComponent, canActivate: [AuthGuard] },
   { path: 'Comments/:postId', component: CommentsComponent, canActivate: [AuthGuard] },
   { path: 'Game/GameForm', component: GameFormComponent, canActivate: [AuthGuard] },
   { path: 'Game/DeleteGame', component: DeleteGameComponent, canActivate: [AuthGuard] },

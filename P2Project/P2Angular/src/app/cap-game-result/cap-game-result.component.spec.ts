@@ -4,7 +4,7 @@ import { CapGameResultComponent } from './cap-game-result.component';
 
 describe('CapGameResultComponent', () => {
   let component: CapGameResultComponent;
-  let fixture: ComponentFixture<CapGameResultComponent>;
+  let fixture: ComponentFixture<CapGameResultComponent>; 
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
