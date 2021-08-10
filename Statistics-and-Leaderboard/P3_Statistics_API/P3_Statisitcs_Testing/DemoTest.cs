@@ -712,14 +712,14 @@ namespace P3_Statisitcs_Testing
                 context.SaveChanges();
 
                 // Assert
-                List<UsersCollection> listTest = leaderTest.GetUserTotalCollection(3);
+                List<UserCollection2> listTest = leaderTest.GetUserTotalCollection(3);
 
                 Assert.NotNull(listTest);
                 Assert.Equal(3, listTest.Count());
                 Assert.Collection(listTest,
-               info => Assert.Equal(3, info.Total_Collection),
-               info => Assert.Equal(2, info.Total_Collection),
-               info => Assert.Equal(1, info.Total_Collection)
+               info => Assert.Equal(3, info.Total_Unique_Cards),
+               info => Assert.Equal(2, info.Total_Unique_Cards),
+               info => Assert.Equal(1, info.Total_Unique_Cards)
                );
             }
 

@@ -75,7 +75,7 @@ namespace P3_Statistics_API.Controllers
         public IActionResult UsersTotalCollection(int topUsers)
         {
 
-            List<UsersCollection> userCollectionQty = _leaderboard.GetUserTotalCollection(topUsers);
+            List<UserCollection2> userCollectionQty = _leaderboard.GetUserTotalCollection(topUsers);
 
             if (userCollectionQty == null)
             {
@@ -146,13 +146,13 @@ namespace P3_Statistics_API.Controllers
             PercentageOwnCard cardporcentage = _leaderboard.GetPercentageOwnCard(pokemonName);
 
 
-            if (pokemonName == null)
+            if (cardporcentage == null)
             {
                 return StatusCode(400);
             }
             else
             {
-                return StatusCode(200, pokemonName);
+                return StatusCode(200, cardporcentage);
             }
         }
 

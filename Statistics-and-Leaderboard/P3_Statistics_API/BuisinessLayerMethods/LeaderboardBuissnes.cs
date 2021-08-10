@@ -85,7 +85,7 @@ namespace BuisinessLayerMethods
         /// </summary>
         /// <param name="topUsers"></param>
         /// <returns></returns>
-        public List<UsersCollection> GetUserTotalCollection(int topUsers)
+        public List<UserCollection2> GetUserTotalCollection(int topUsers)
         {
             List<User> table_1 = context.Users.ToList();
             List<CardCollection> table_2 = context.CardCollections.ToList();
@@ -95,14 +95,14 @@ namespace BuisinessLayerMethods
                                   on table2.UserId equals table1.UserId
                                   group table2 by table1.UserId into temp
 
-                                  select new UsersCollection
+                                  select new UserCollection2
                                   {
                                       UserId = temp.Key,
                                       FirstName = temp.First().User.FirstName,
                                       LastName = temp.First().User.LastName,
-                                      Total_Collection = temp.Count(x => x.PokemonId >= 0) 
+                                      Total_Unique_Cards = temp.Count(x => x.PokemonId >= 0) 
 
-                                  }).OrderByDescending(x => x.Total_Collection).Take(topUsers).ToList();
+                                  }).OrderByDescending(x => x.Total_Unique_Cards).Take(topUsers).ToList();
 
             return userCollection;
         }

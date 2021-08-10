@@ -12,7 +12,7 @@ namespace BuisinessLayerMethods
     {
         List<CardCollection> UserMostShinyPokemon(int number);
         List<MVPShiny> TopShinyTotal(int number);
-        List<UsersCollection> GetUserTotalCollection(int number);
+        List<UserCollection2> GetUserTotalCollection(int number);
         int GetTotalPokemon();
         List<UsersCollection> GetUserTotalAmount(int number);
         PercentageOwnCard GetPercentageOwnCard(string name);
