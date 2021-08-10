@@ -9,9 +9,23 @@ import { PercentageOwnCardModel_Shiny } from '../Models/IPercentageOwnCard_Shiny
 })
 export class LbChildWhoHasComponent implements OnInit {
 
-  constructor( private _leaderboardService:LeaderboardStatsService) {}
+  constructor( private _leaderboardService:LeaderboardStatsService) {
+    this.userStringInput='ditto';
+  }
 
-  chosenPokemon:PercentageOwnCardModel_Shiny[] =[];
+  chosenPokemon:PercentageOwnCardModel_Shiny ={
+    PokemonId:0,
+    RarityId:0,
+    SpriteLink:'',
+    SpriteLinkShiny:'',
+    PokemonName:'',
+    Total_Qy:0,
+    Total_Users:0,
+    Percentage_OwnCard:0
+  };
+
+  userStringInput:string;
+
   ngOnInit(): void {
   }
 
@@ -24,5 +38,8 @@ export class LbChildWhoHasComponent implements OnInit {
     );
   }
 
-  
+  //This method resets the text box
+  ResetMethod(){
+
+  }
 }

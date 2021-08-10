@@ -22,6 +22,7 @@ export class LeaderboardsComponent implements OnInit {
     chosenService:number;
     chosenRarity:string;
     chosenPokename:string;
+    
     //store observable streams into here so that it can be iterated on & displayed in html
     observableData:any[]=[];
     headersArray:any[]=[];
@@ -30,6 +31,7 @@ export class LeaderboardsComponent implements OnInit {
     
 
     //array of all options that will reflect onto the "categorical dropdown list"
+    tableExists:string;
     allStatsOptions:string[]=[
       'Coin Balance',
       'Total Earned Coins',
@@ -63,6 +65,7 @@ export class LeaderboardsComponent implements OnInit {
     this.chosenService=1;
     this.chosenRarity = 'Mythic';
     this.chosenPokename='pikachu';
+    this.tableExists='false';
    }
 
   ngOnInit(): void {
@@ -109,6 +112,7 @@ CreateArraysFromObservable(){
   //Method 5: Runs method 4 to get a 'case value', then executes different cases based on the returned 'case value'
   SelectChosenService(){
     //step 1: get case number based off string
+    this.tableExists='true';
     this.AssignChosenService();
     //step 2: run a case, based off return value from step 1
     console.log('this is the start selectChosenService');
@@ -188,35 +192,32 @@ CreateArraysFromObservable(){
         });
         console.log('this is case'+this.chosenService);
         break;
-     case  9:
-       this._leaderboardservice.GetCardPercentage(this.chosenPokename).subscribe(
-         result => {
-           this.observableData = result; 
-           this.CreateArraysFromObservable();
-         });
-         console.log('this is case'+this.chosenService);
-         break;
+    //  case  9:
+    //    this._leaderboardservice.GetCardPercentage(this.chosenPokename).subscribe(
+    //      result => {
+    //        this.observableData = result; 
+    //        this.CreateArraysFromObservable();
+    //      });
+    //      console.log('this is case'+this.chosenService);
+    //      break;
   
     }
   }
-   method69(){
-     this._leaderboardservice.GetTopCurrentBalanceList(15).subscribe(
-       result => 
-       this.observableData = result);
-       this.observableData.forEach(element => {//these 2 lines of code allows us to create table columns
-         this.headersArray=Object.keys(element);
-         console.log(this.headersArray);
-       });
-       this.observableData.forEach(element => {//these 2 lines of code allows us to create table cells and fill them
-         this.columnsArray.push(Object.values(element));
-         console.log(this.columnsArray);
-       });
-   }
+  CheckTableExists(){
+    if(this.tableExists == 'false'){
+      this.SelectChosenService();
+    }
+    if(this.tableExists=='true'){
+      console.log('Leaderboard table already exists');
+      return;
+    }
+  }
   //Method 6: Clean up table by "resetting" the observable stream arrays 
-  ResetDataArrays(){
+  ResetData(){
     this.observableData=[];
     this.headersArray=[];
     this.columnsArray=[];
+    this.tableExists='false';
   }
 
   //============================================PAGINATION SECTION======================================

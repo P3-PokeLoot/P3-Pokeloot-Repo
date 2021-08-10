@@ -16,7 +16,7 @@ as a parameter to the internal component method-->
     <div class="flex-child">
         <label for="categoricaldropdownlist">
             Leaderboard Stats:
-            <select class="categoricaldropdownlist" [(ngModel)]="chosenStat" (change)="AssignChosenStatFromDropdown(chosenStat); ResetDataArrays()">
+            <select class="categoricaldropdownlist" [(ngModel)]="chosenStat" (change)="AssignChosenStatFromDropdown(chosenStat); ResetData()">
                 <option  *ngFor= "let item of allStatsOptions" [ngValue]="item" >
                    {{item}}
                 </option>
@@ -33,7 +33,7 @@ as a parameter to the internal component method-->
         </label>
     <!--3: Rarity dropdown that shows up only if categorical dropdown chosen is -->
     <!--buttons & logo-->
-        <input type="button" (click)="SelectChosenService()" value="Show Leaderboard"/>
+        <input type="button" (click)="CheckTableExists()" value="Show Leaderboard"/>
         <img class="bigbrain" src='/assets/img/leaderboards_component_adobespark.png' alt-text="mega-alakazam"/>
     </div>
 
