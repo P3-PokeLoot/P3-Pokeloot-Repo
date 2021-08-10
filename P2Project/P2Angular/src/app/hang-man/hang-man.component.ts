@@ -8,7 +8,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class HangManComponent implements OnInit {
 // note the switch toUpperCase(), we want to always work in upper case letters
   // to avoid confusing 'a' and 'A' as unequal.
-  wordArray : string[] = ["Grookey", "Rallaboom","Scorbunny", "Raboot",
+  wordArray : string[] = ["Grookey", "Rillaboom","Scorbunny", "Raboot",
                           "Cinderace", "Sobble","Drizzile", "Inteleon",
                           "Greedent", "Rookidee","Dottler", "Nickit"
                         ];
