@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { LeaderboardStatsService } from '../service/leaderboards/leaderboard-stats.service';
 import { PercentageOwnCardModel_Shiny } from '../Models/IPercentageOwnCard_ShinyLB';
+import { IUnlockCard } from '../unlock-card-page/IUnlockCard';
 
 @Component({
   selector: 'app-lb-child-who-has',
@@ -9,30 +10,36 @@ import { PercentageOwnCardModel_Shiny } from '../Models/IPercentageOwnCard_Shiny
 })
 export class LbChildWhoHasComponent implements OnInit {
 
+  // @Input() newcard;
+
   constructor( private _leaderboardService:LeaderboardStatsService) {
-    this.userStringInput="ditto";
+
   }
 
+  // card:IUnlockCard = this.newcard;
   chosenPokemon:PercentageOwnCardModel_Shiny ={
     pokemonId:0,
     rarityId:0,
     spriteLink:'',
     spriteLinkShiny:'',
     pokemonName:'',
-    total_Qy:0,
+    totalQy:0,
     total_Users:0,
     percentage_OwnCard:0
   };
 
-  userStringInput:string;
+  userStringInput:string='ditto';
 
   ngOnInit(): void {
     
   }
 
+  ChangeInput(value:string){
+    this.userStringInput = value;
+  }
   //This method takes the observable data and puts it into a class property
-  GetPercentOwnCard(pokemonName:string){
-    this._leaderboardService.GetCardPercentage(pokemonName).subscribe(
+  GetPercentOwnCard(userStringInput:string){
+    this._leaderboardService.GetCardPercentage(userStringInput).subscribe(
       result => {
         this.chosenPokemon=result;
         console.log(this.chosenPokemon);
@@ -42,7 +49,5 @@ export class LbChildWhoHasComponent implements OnInit {
   }
 
   //This method resets the text box
-  ResetMethod(){
 
-  }
 }

@@ -4,7 +4,7 @@ export interface PercentageOwnCardModel_Shiny{
     spriteLink:string,
     spriteLinkShiny:string,
     pokemonName:string,
-    total_Qy:number,
+    totalQy:number,
     total_Users:number,
     percentage_OwnCard:number
 }
