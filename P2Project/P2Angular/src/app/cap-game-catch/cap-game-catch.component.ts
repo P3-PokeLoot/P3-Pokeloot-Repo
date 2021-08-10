@@ -47,7 +47,7 @@ export class CapGameCatchComponent implements OnInit {
   pokemonName?: string;
   isOpen = true;
   timeLeft: number = intervalTime;
-  interval?: NodeJS.Timeout;
+  interval?: any;
   pictureUrl?: string;
 
   constructor(private _gamesService: GameService) { }
