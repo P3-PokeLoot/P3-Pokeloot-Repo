@@ -41,7 +41,7 @@ stages:
       inputs:
         command: 'test'
         arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura'
-        publishTestResults: false
+        publishTestResults: true
         projects: '$(Build.SourcesDirectory)/P2Project/P2Main/P2Main.sln'
 
     - task: PublishCodeCoverageResults@1
