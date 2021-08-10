@@ -52,6 +52,7 @@
     <br>
     <div class="container text-center">
     <p id="result" *ngIf="gameOver == true"> You earned {{numCoinsToAdd}} coins!</p>
+    <p id="result" *ngIf="highScore">HighScore: {{highScore}} coins.</p>
     <div *ngIf = 'gameStart == false'>
       <div class = "dif">
         <p>Select Difficulty:</p>

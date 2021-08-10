@@ -26,5 +26,8 @@ namespace BusinessLayer
         Task<GameDetail> SingleGameAsync(int id);
         Task<GameInfo> ModifyGameAsync(GameDetail gameDetail);
         Task<GameInfo> DeleteGameAsync(int id);
+        Task<bool> PhmWinAsync(int userId);
+        Task<bool> PhmPlayedAsync(int userId);
+        Task<string> PhmRecordAsync(int userId);
     }
 }
