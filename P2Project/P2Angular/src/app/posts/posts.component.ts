@@ -139,10 +139,11 @@ export class PostsComponent implements OnInit {
     )
   }
 
-  
+
   clickt(post: IPost){ //opens edit post options
     this.edit = !this.edit; //can close after opened
     this.currentPost = post.PostId; //only one post can be edited at a time
+
   }
 
   GetCardColor(rarityId: any): string {

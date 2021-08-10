@@ -45,6 +45,12 @@ namespace BusinessLayer
 
         public List<FullFriend> GetFriends(int UserId); //tested
 
+        public bool editPrice(int postID, int newPrice);
+
+        public bool newPostComment(int userId, int postId, string content);
+
+        public List<PostComment> getCommentList(int postId);
+        
         public string friendAction(int userid, int friendId); //tested
     }
 }

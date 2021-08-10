@@ -3,6 +3,8 @@ import { HttpClient } from "@angular/common/http";
 import { Observable, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { IComment } from './Models/IComment';
+import { serialize } from 'v8';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +19,11 @@ export class DisplayServiceService {
 
   private localurl = `${environment.urlmainlocalonly}EditPrice/`;
   private urltobuy = `${environment.urlmain}buyCard/`;
+  private fullPosturl = `${environment.urlmain}FullPostById/`;
+  private postCommentsurl = `${environment.urlmain}Comments/`;
+  private newCommenturl = `${environment.urlmain}PostComment/`;
+
+
 
 
   constructor( private router:Router, private http:HttpClient) { }
@@ -34,5 +41,21 @@ export class DisplayServiceService {
     let newUrl = this.localurl + postId + '/' + newPrice + '/';
     return this.http.get<any>(newUrl);
   }
+
+  FullPost(postId : number):Observable<any>{
+    console.log("PostId Path:" +  this.fullPosturl + postId);
+    return this.http.get<any>(this.fullPosturl + postId);
+  }
+
+  PostComments(postId : number):Observable<any[]>{
+    return this.http.get<any>(this.postCommentsurl + postId);
+  }
+
+  NewComment(userId : string, postId : number, content : string):Observable<any>{
+    let status = this.http.get<any>(this.newCommenturl + userId + '/' + postId + '/' + encodeURI(content));
+    return status;
+  }
+
+
 
 }

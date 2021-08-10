@@ -1,0 +1,69 @@
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+<div class="container mt-4 mb-3 shadow-sm p-3 bg-body rounded">
+    <div class="col-md-7">
+        <div class="d-flex justify-content-between">
+            <div class="d-flex flex-row align-items-center">
+                <img height="50px" width="50px"
+                    style="box-shadow: 4px 4px 5px 0px #131313; border-radius: 25px;"
+                    src='https://www.popsockets.com/dw/image/v2/BDFW_PRD/on/demandware.static/-/Sites-popsockets-master-catalog/default/dwc69e17a6/images/hi-res/Master-Ball-Gloss_01_Top-View.png?sw=200&sh=200' />
+                <div class="ms-3 c-details">
+                    <h6 class="mb-1">{{fullPost.UserName}}</h6> <span>{{fullPost.PostTime | date: 'short'}}</span>
+                    <span class="dot mx-2"></span>
+                    <span>{{fullPost.PostType}}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex align-items-start flex-column bd-highlight" style="height: 280px;">
+            <div class="mb-auto mt-4 p-2 bd-highlight">
+                <p class="h5">{{fullPost.PostDescription}}</p>
+            </div>
+        </div>
+    </div>
+
+
+    <div *ngIf="fullPost.RarityId != 0;" class="col-md-3">
+            <img class="card-img-top" height="200" src={{fullPost.SpriteLink}} alt="{{fullPost.PokemonName}} Image">
+            <div class="card-body">
+                <h5 *ngIf="fullPost.IsShiny as true; else elseBlock" class="card-title">★
+                    {{fullPost.PokemonName}} ★</h5>
+                <ng-template #elseBlock>
+                    <h5 class="card-title">{{fullPost.PokemonName}}</h5>
+                </ng-template>
+                <a href="https://bulbapedia.bulbagarden.net/wiki/{{fullPost.PokemonName}}" target="_blank"
+                    rel="noopener noreferrer" class="btn btn-danger">View Details</a>
+    </div>
+</div>
+
+</div>
+<div class="container mt-4 mb-3 shadow-sm p-3 bg-body rounded">
+    <h3>Comments</h3>
+
+    <div *ngFor="let comment of commentList" style="width: 95%; margin: 1rem;" >
+        <div class="container mt-4 mb-3 shadow-sm p-3 bg-body rounded">
+            <span>
+                <h6>
+                    {{comment.UserName}} <span style="font-size: x-small; color: gray;">{{fullPost.PostTime | date: 'short'}}</span>
+                </h6> 
+            </span>
+            {{comment.Content}}
+        
+        </div>
+    
+    
+    </div>
+
+
+    <form ng-submit="submit()">
+        <input type="text" [(ngModel)]="commentInput" name="commentInputField" value="1" style="margin-left: 2rem;">
+        <button (click) = 'Submit()' style="justify-self: center; font-size: small;">Post</button>
+    </form>
+</div>
