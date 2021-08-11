@@ -1,9 +1,46 @@
 table{
     border-collapse: collapse;
+    display: flex;
+    flex-direction: row;
+}
+#friend-list-container {
+    display: flex;
+    flex-direction: row;
+    background-color: beige;
+}
+.user-card {
+    display: flex;
+    flex-direction: column;
+    margin: 0 2% 3% 0;
+    font-size: 1.5em;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 1%;
+}
+.user-card span:first-child {
+    font-size: 1.2em;
+}
+.user-card div span {
+  font-size: 1em;
+}
+
+#message-friend {
+    transform: translateY(-120%);
+    position: absolute;
+    background-color: #00acac;
+    width: fit-content;
+}
+#accept-button {
+    width: fit-content;
+}
+
+span {
+    margin: .5em 0 .5em 0;
 }
 tr{
 
-    display: table;
+    display: flex;
+    flex-direction: column;
     border-bottom: 2px;
     border-style: solid;
     border-color: grey;
@@ -12,7 +49,6 @@ tr{
 
 }
 td{
-    
     vertical-align: middle;
     display: table-cell;
 }

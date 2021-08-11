@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 //import { resourceLimits } from 'worker_threads';
 import { LeaderboardStatsService } from '../service/leaderboards/leaderboard-stats.service';
+import { NgxPaginationModule } from 'ngx-pagination'; //Imports NgxPaginationModule 
 
 @Component({
   selector: 'app-leaderboards',
@@ -15,7 +16,7 @@ export class LeaderboardsComponent implements OnInit {
     currentIndex : number = 0;
     currentPage: number = 1;
     lastpage: number = 1;
-
+    
     //component property that will be updated everytime user selects a dropdown option and click button
     chosenNumber:number;
     chosenStat:string='';
@@ -34,15 +35,13 @@ export class LeaderboardsComponent implements OnInit {
     tableExists:string;
     allStatsOptions:string[]=[
       'Coin Balance',
-      'Total Earned Coins',
-      'Total Coins Spent',
-      'Collection Completion',
-      'Largest Rarity',
-      'Most of a Shiny Pokemon',
+      'Coins Earned',
+      'Coins Spent',
+      'Collection Completion (Percent)',
+      'Rarities',
       'Largest Shiny Collection',
-      'Collection Completion 2- Shiny',
+      'Card Collection (Unique)',
       'Largest Collection',
-      'Percent owning a card type',
     ];
     //array of all options that will reflect onto the "numerical dropdown list"
     allNumbersOptions:number[]=[
@@ -65,10 +64,10 @@ export class LeaderboardsComponent implements OnInit {
   constructor(private _leaderboardservice:LeaderboardStatsService) {
     this.observableData=[];
     this.pageOfItems=[];
-    this.chosenNumber=10;
-    this.chosenStat='Collection Completion',
+    this.chosenNumber=100;
+    this.chosenStat='Coin Balance',
     this.chosenService=1;
-    this.chosenRarity = 'Mythic';
+    this.chosenRarity = 'Common';
     this.chosenPokename='pikachu';
     this.tableExists='false';
    }
@@ -88,6 +87,7 @@ export class LeaderboardsComponent implements OnInit {
     this.chosenNumber = int;
     console.log('the number of items to return is:' + this.chosenNumber);
   }
+  //Method : rarity dropdown variable assignment
   AssignChosenRarityFromDropdown(rarity:string){
     this.chosenRarity = rarity;
     console.log('the number of items to return is:' + this.chosenRarity);
@@ -169,14 +169,6 @@ CreateArraysFromObservable(){
         console.log('this is case'+this.chosenService);
         break;
     case 5:
-      this._leaderboardservice.GetMostShinyList(this.chosenNumber).subscribe(
-        result => {
-          this.observableData = result; 
-          this.CreateArraysFromObservable();
-        });
-        console.log('this is case'+this.chosenService);
-        break;
-    case 6:
       this._leaderboardservice.GetMVPShinyUsersList(this.chosenNumber).subscribe(
         result => {
           this.observableData = result; 
@@ -184,7 +176,7 @@ CreateArraysFromObservable(){
         });
         console.log('this is case'+this.chosenService);
         break;
-    case 7:
+    case 6:
       this._leaderboardservice.GetUsersTotalCollectionList(this.chosenNumber).subscribe(
         result => {
           this.observableData = result; 
@@ -192,7 +184,7 @@ CreateArraysFromObservable(){
         });
         console.log('this is case'+this.chosenService);
         break;
-    case 8:
+    case 7:
       this._leaderboardservice.GetUserTotalAmountList(this.chosenNumber).subscribe(
         result => {
           this.observableData = result; 
@@ -220,13 +212,13 @@ CreateArraysFromObservable(){
     this.tableExists='false';
   }
 
+  ResetRarity(){
+    this.chosenRarity = 'Common';
+  }
   //============================================PAGINATION SECTION======================================
-  page = 1;
-  pageSize = 5;
-  collectionSize = this.observableData.length;
-  refreshEntries() {
-    this.pageOfItems = this.observableData
-    .map((entry, i) => ({id: i + 1, ...entry}))
-    .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
-}
+
+cp=1;
+config:any;
+
+
 }

@@ -34,7 +34,7 @@ export class FriendsComponent implements OnInit {
           let UserName = result[i].friendName;
           let UserID = result[i].friendId;
           let UserLevel = result[i].friendLevel;
-          let FriendSince = result[i].fateAdded;
+          let FriendSince = result[i].dateAdded;
           let IsPending= result[i].isPending;
           let TotalCards= result[i].totalCards;
 
@@ -119,7 +119,7 @@ export class FriendsComponent implements OnInit {
     
   }
 
-  refresh(){ //refreshes friends page
+  refresh() { //refreshes friends page
     this.route.navigateByUrl('/', {skipLocationChange: true}).then(() => {
       this.route.navigate(['/Friends']);
     });

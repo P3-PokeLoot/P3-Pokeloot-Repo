@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { IComment } from './Models/IComment';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -42,15 +41,18 @@ export class DisplayServiceService {
     return this.http.get<any>(newUrl);
   }
 
+  // Gets all the info needed to build a full post for the Post Comments component
   FullPost(postId : number):Observable<any>{
     console.log("PostId Path:" +  this.fullPosturl + postId);
     return this.http.get<any>(this.fullPosturl + postId);
   }
 
+  // Gets all the comments for a Post by Id for the Post Comments component
   PostComments(postId : number):Observable<any[]>{
     return this.http.get<any>(this.postCommentsurl + postId);
   }
 
+  // Generates a new comment object for the post and user being userd for the Post Comments component
   NewComment(userId : string, postId : number, content : string):Observable<any>{
     let status = this.http.get<any>(this.newCommenturl + userId + '/' + postId + '/' + encodeURI(content));
     return status;

@@ -15,5 +15,10 @@
         [pokemonName]="pokemonName"
         (playAgainEmitter)="playAgain()"
     ></app-cap-game-result>
+    <app-cap-game-wait
+        *ngIf="currentState === GameState.Wait"
+        (showResults)="showResults()"
+    >
+    </app-cap-game-wait>
 </div>
 

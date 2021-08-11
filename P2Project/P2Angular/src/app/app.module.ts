@@ -43,12 +43,13 @@ import { GameFormComponent } from './game-form/game-form.component';
 import { DeleteGameComponent } from './delete-game/delete-game.component';
 import { ModifyGameComponent } from './modify-game/modify-game.component';
 import { ModifyGameFormComponent } from './modify-game-form/modify-game-form.component';
+import { MessagesComponent } from './messages/messages.component';
 import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
-import { NbgdTablePaginationComponent } from './nbgd-table-pagination/nbgd-table-pagination.component';
 import { LbChildWhoHasComponent } from './lb-child-who-has/lb-child-who-has.component';
 import { HangManComponent } from './hang-man/hang-man.component';
 import { AchievementsStatisticComponent } from './achievements-statistic/achievements-statistic.component';
-//import {NgbPaginationModule}
+import { CapGameWaitComponent } from './cap-game-wait/cap-game-wait.component';
+import { NgxPaginationModule } from 'ngx-pagination'; //Imports NgxPaginationModule 
 
 @NgModule({
   declarations: [
@@ -90,11 +91,12 @@ import { AchievementsStatisticComponent } from './achievements-statistic/achieve
     DeleteGameComponent,
     ModifyGameComponent,
     ModifyGameFormComponent,
+    MessagesComponent,
     LeaderboardsComponent,
-    NbgdTablePaginationComponent,
     LbChildWhoHasComponent,
     HangManComponent,
-    AchievementsStatisticComponent
+    AchievementsStatisticComponent,
+    CapGameWaitComponent
   ],
   imports: [
     BrowserModule,
@@ -103,7 +105,8 @@ import { AchievementsStatisticComponent } from './achievements-statistic/achieve
     ReactiveFormsModule,
     HttpClientModule,
     CommonModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgxPaginationModule
   ],
   providers: [CardServiceService,AccountService],
   bootstrap: [AppComponent]

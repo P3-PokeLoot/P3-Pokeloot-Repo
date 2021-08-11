@@ -23,6 +23,10 @@ export class CapGameComponent implements OnInit {
     this.pokemonName = incomingInfo.pokemonName;
     this.catchChance = incomingInfo.catchChance;
     this.pokemonUrl = incomingInfo.pokemonImgSrc;
+    this.currentState = this.GameState.Wait;
+  }
+
+  showResults(){
     this.currentState = this.GameState.Result;
   }
 
@@ -33,5 +37,6 @@ export class CapGameComponent implements OnInit {
 
 enum GameState{
   Catch,
-  Result
+  Result,
+  Wait
 }
