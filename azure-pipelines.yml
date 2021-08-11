@@ -13,6 +13,40 @@ variables:
 
 stages:
 # Main API Build, Test, Publish to Sonar Cloud
+- stage: API
+  jobs:
+  - job: apijob
+    steps:
+
+    - task: SonarCloudPrepare@1
+      inputs:
+        SonarCloud: 'MainAPI_SonarCloud'
+        organization: 'p3pokeloot'
+        scannerMode: 'MSBuild'
+        projectKey: 'p3pokeloot_Pokeloot_MainAPI'
+        projectName: 'p3pokeloot_Pokeloot_MainAPI'
+    - task: DotNetCoreCLI@2
+      displayName: buildproj
+      inputs:
+        command: 'build'
+        projects: '$(Build.SourcesDirectory)/P2Project/P2Main/P2Main.sln'
+        arguments: '--configuration $(buildConfiguration)'
+
+    - task: DotNetCoreCLI@2
+      displayName: testproj
+      inputs:
+        command: 'test'
+        projects: '$(Build.SourcesDirectory)/P2Project/P2Main/P2Main.sln'
+        arguments: '--configuration $(buildConfiguration) --collect "Code Coverage"'
+        #workingDirectory: '$(Build.SourcesDirectory)/P2Project/P2Main'
+
+    - task: PublishCodeCoverageResults@1
+      inputs:
+        codeCoverageTool: 'Cobertura'
+        summaryFileLocation: '**/coburtura/coverage.xml'
+
+    - task: SonarCloudAnalyze@1
+    - task: SonarCloudPublish@1
 # - stage: P2MainSonarCloud
 #   displayName: P2 Main Sonar Cloud
 #   jobs:
