@@ -68,26 +68,13 @@ as a parameter to the internal component method-->
         </thead>
         <tbody>
             <!--This creates rows for each object "c" in columnsArray, then a table cell for each property "o" of each object "c" in columnsArray-->
-            <tr class="datarow" *ngFor="let c of columnsArray"> 
+            <tr class="datarow" *ngFor="let c of columnsArray | paginate: { itemsPerPage: 5, currentPage: cp }" class="listMargin"> 
                 <td class="datarowcell" *ngFor="let o of c"> 
                     {{o}}
                 </td>
             </tr>
         </tbody>
     </table>
-
+    <pagination-controls (pageChange)="cp = $event"></pagination-controls>
 </div>
 
-
-<!-- Uncomment this once bootstrap added to project
-    <app-nbgd-table-pagination  [(page)]="page"  [pageSize]="pageSize" [collectionSize]="observableData.length">
-
-</app-nbgd-table-pagination> -->
-<!-- <div class="d-flex justify-content-between p-2">
-  
-    <select class="custom-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshEntries()">
-      <option [ngValue]="5">5 items per page</option>
-      <option [ngValue]="10">10 items per page</option>
-      <option [ngValue]="20">20 items per page</option>
-    </select>
-  </div> -->

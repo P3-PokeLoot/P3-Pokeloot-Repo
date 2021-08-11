@@ -48,7 +48,7 @@ import { NbgdTablePaginationComponent } from './nbgd-table-pagination/nbgd-table
 import { LbChildWhoHasComponent } from './lb-child-who-has/lb-child-who-has.component';
 import { HangManComponent } from './hang-man/hang-man.component';
 import { AchievementsStatisticComponent } from './achievements-statistic/achievements-statistic.component';
-//hold
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -99,7 +99,8 @@ import { AchievementsStatisticComponent } from './achievements-statistic/achieve
     ReactiveFormsModule,
     HttpClientModule,
     CommonModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgxPaginationModule
   ],
   providers: [CardServiceService,AccountService],
   bootstrap: [AppComponent]

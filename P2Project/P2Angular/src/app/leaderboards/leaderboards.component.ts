@@ -15,7 +15,7 @@ export class LeaderboardsComponent implements OnInit {
     currentIndex : number = 0;
     currentPage: number = 1;
     lastpage: number = 1;
-
+    
     //component property that will be updated everytime user selects a dropdown option and click button
     chosenNumber:number;
     chosenStat:string='';
@@ -222,12 +222,17 @@ CreateArraysFromObservable(){
     this.chosenRarity = 'Common';
   }
   //============================================PAGINATION SECTION======================================
-  page = 1;
-  pageSize = 5;
-  collectionSize = this.observableData.length;
-  refreshEntries() {
-    this.pageOfItems = this.observableData
-    .map((entry, i) => ({id: i + 1, ...entry}))
-    .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
-}
+//   page = 1;
+//   pageSize = 5;
+//   collectionSize = this.observableData.length;
+//   refreshEntries() {
+//     this.pageOfItems = this.observableData
+//     .map((entry, i) => ({id: i + 1, ...entry}))
+//     .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
+// }
+
+cp=1;
+config:any;
+
+
 }
