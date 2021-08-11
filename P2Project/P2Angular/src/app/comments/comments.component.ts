@@ -61,6 +61,7 @@ export class CommentsComponent implements OnInit {
         let RarityId = result.rarityId;
 
         this.fullPost = { PostId, PokemonId, PostTime, PostDescription, Price, StillAvailable, IsShiny, UserId, UserName, SpriteLink, PostType, PokemonName, RarityId }
+        console.log(this.fullPost);
       }
     )
     this.BuildComments();
@@ -102,6 +103,31 @@ export class CommentsComponent implements OnInit {
         });
       }
     )
+  }
+  GetCardColor(rarityId: any): string {
+    switch (rarityId) {
+      case 1:
+        return 'card1'
+        break;
+      case 2:
+        return 'card2'
+        break;
+      case 3:
+        return 'card3'
+        break;
+      case 4:
+        return 'card4'
+        break;
+      case 5:
+        return 'card5'
+        break;
+      case 6:
+        return 'card6'
+        break
+      default:
+        return ''
+        break;
+    }
   }
 
 }
