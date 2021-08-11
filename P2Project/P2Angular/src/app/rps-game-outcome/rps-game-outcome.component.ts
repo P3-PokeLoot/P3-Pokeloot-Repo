@@ -98,7 +98,6 @@ export class RpsGameOutcomeComponent implements OnInit {
     let timer = setInterval(() => {
       this._gameService.RpsRecord().subscribe(
         result => {
-          console.log(result);
           this.outcome += "Win record: " + result;
         });
       clearInterval(timer);
