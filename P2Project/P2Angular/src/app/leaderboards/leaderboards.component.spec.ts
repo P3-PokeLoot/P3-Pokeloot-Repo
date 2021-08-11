@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LeaderboardStatsService } from '../service/leaderboards/leaderboard-stats.service';
@@ -13,7 +14,10 @@ describe('LeaderboardsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ LeaderboardsComponent ],
-      imports: [HttpClientTestingModule],
+      imports: [
+        HttpClientModule,
+        HttpClientTestingModule
+      ],
       providers:[{
         provide: LeaderboardStatsService, use: MockLeaderBoardService
       },
@@ -31,14 +35,14 @@ describe('LeaderboardsComponent', () => {
 
   //create a suite of tests - wrap this around the unit tests
   //describe('Leaderboard component tests',()=>{});
-  
-  
+
+
   //testing pagination properties
   it('should create an array of pages based on received data',()=>{
     expect(component.pageOfItems[1]).toBe(5);
   });
   //testing pagination methods
-  
+
   //testing dropdown arrays
   it('should be an array of strings',()=>{
     expect(component.allStatsOptions[0]).toBe('topcoinbalance');
@@ -76,7 +80,7 @@ describe('LeaderboardsComponent', () => {
   it('should assign a class property value (based off a different class property) by iterating through an array',()=>{
     let testcoin:MockCoinBalanceObservable = new MockCoinBalanceObservable();
     component.observableData = testcoin.MockCoinDataArray;
-    
+
   });
   //Testing Method 5
   it('should invoke a service method, insert observable stream to class property, and invoke another method',()=>{
@@ -86,7 +90,7 @@ describe('LeaderboardsComponent', () => {
   //Method 6:
   it('should set arrays filled with data to empty arrays',()=>{
     //Arrange
-    
+
     //Act
 
     //Assert

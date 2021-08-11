@@ -6,13 +6,14 @@ import { environment } from 'src/environments/environment';
 import { IComment } from './Models/IComment';
 import { serialize } from 'v8';
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class DisplayServiceService {
 
-  
-  
+
+
 
   private url = `${environment.urlmain}DisplayBoard`;
   //private url: string = '';
