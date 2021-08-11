@@ -20,7 +20,11 @@
      <div class="row">
           <div class="col" *ngFor="let b of JohtoBadges; let i = index">
                <div class="johtobadge">{{b.Title}}</div>
-               <img class ="badgepic" *ngIf= " b.Completed == true"  src='/assets/img/ach{{1+i}}.jpg'/> 
+               <div data-lit-hue='60' data-lit-count='100' class='lit-container' >
+                    <div class='minimal element-2'>
+                         <img class ="badgepic" *ngIf= " b.Completed == true"  src='/assets/img/ach{{1+i}}.jpg'/> 
+                    </div>
+               </div>
           </div>   
      </div>
 </div> 
