@@ -72,7 +72,7 @@ table {
     text-align: center;
 }
 th{
-    background-color: rgb(204, 136, 204);
+    background-color: rgb(204, 172, 136);
 }
 tbody>tr:nth-child(even){
     background-color: #83bee2;
