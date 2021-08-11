@@ -6,8 +6,8 @@ trigger:
 - main
 pool:
   vmimage: Windows-latest
-# resources:
-# - repo: self
+resources:
+- repo: self
 variables:
   buildConfiguration: 'Release'
 
