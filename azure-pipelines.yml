@@ -13,7 +13,7 @@ variables:
 
 stages:
 # Main API Build, Test, Publish to Sonar Cloud
-- stage: API
+- stage: APIMainTest
   jobs:
   - job: apijob
     steps:
