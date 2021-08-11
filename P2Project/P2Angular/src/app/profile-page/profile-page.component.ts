@@ -5,7 +5,6 @@ import { ICard } from '../cardcollect/ICard';
 import { Badge } from './IBadge';
 import { User } from './IUser';
 
-declare var name: any;
 
 @Component({
   selector: 'app-profile-page',
@@ -56,7 +55,7 @@ export class ProfilePageComponent implements OnInit {
       y => {console.log(`there was an error ${y}`)}
     );
 
-    new name();
+
     this.ViewJohto(this.currentProfile,this.JohtoBadges);
   }
   
