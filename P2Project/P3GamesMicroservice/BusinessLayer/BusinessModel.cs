@@ -127,7 +127,7 @@ namespace BusinessLayer
         {
             // get random number for pokemon id
             var rand = new Random();
-            int id = rand.Next(1, 899); // 898 total pokemon?
+            int id = rand.Next(1, 899); // 898 total pokemon
             // make http request
             var client = new RestClient(_pokeApi + id);
             client.Timeout = -1;
@@ -148,21 +148,27 @@ namespace BusinessLayer
             bool success = false;
             try
             {
+                // search database for record for user
                 var record = await _context.RpsgameStats.Where(x => x.UserId == userId).FirstOrDefaultAsync();
                 if (record != null) // record exists for user
                 {
+                    // add to wins and games played
                     record.GamesWon += 1;
                     record.TotalGamesPlayed += 1;
+                    // update the database
                     _context.RpsgameStats.Update(record);
                     await _context.SaveChangesAsync();
                     success = true;
                 }
                 else // no record for user
                 {
+                    // create new record for user
                     RpsgameStat newRecord = new RpsgameStat();
                     newRecord.UserId = userId;
+                    // new record wins and gamesplayed will be 1
                     newRecord.GamesWon = 1;
                     newRecord.TotalGamesPlayed = 1;
+                    // add to database
                     _context.RpsgameStats.Add(newRecord);
                     await _context.SaveChangesAsync();
                     success = true;
@@ -185,19 +191,25 @@ namespace BusinessLayer
             bool success = false;
             try
             {
+                // check database for record with user
                 var record = await _context.RpsgameStats.Where(x => x.UserId == userId).FirstOrDefaultAsync();
                 if (record != null) // record exists for user
                 {
+                    // add to games played
                     record.TotalGamesPlayed += 1;
+                    // update record in database
                     _context.RpsgameStats.Update(record);
                     await _context.SaveChangesAsync();
                     success = true;
                 }
                 else // no record for user
                 {
+                    // create new record
                     RpsgameStat newRecord = new RpsgameStat();
                     newRecord.UserId = userId;
+                    // games played is 1 for a new record
                     newRecord.TotalGamesPlayed = 1;
+                    // add to database
                     _context.RpsgameStats.Add(newRecord);
                     await _context.SaveChangesAsync();
                     success = true;
@@ -220,21 +232,27 @@ namespace BusinessLayer
             bool success = false;
             try
             {
+                // check database for record for user
                 var record = await _context.WtpgameStats.Where(x => x.UserId == userId).FirstOrDefaultAsync();
                 if (record != null) // record exists for user
                 {
+                    // add to wins and games played
                     record.GamesWon += 1;
                     record.TotalGamesPlayed += 1;
+                    // update database
                     _context.WtpgameStats.Update(record);
                     await _context.SaveChangesAsync();
                     success = true;
                 }
                 else // no record for user
                 {
+                    // create new record for user
                     WtpgameStat newRecord = new WtpgameStat();
                     newRecord.UserId = userId;
+                    // wins and games played will be 1 for a new record
                     newRecord.GamesWon = 1;
                     newRecord.TotalGamesPlayed = 1;
+                    // add to database
                     _context.WtpgameStats.Add(newRecord);
                     await _context.SaveChangesAsync();
                     success = true;
@@ -257,19 +275,25 @@ namespace BusinessLayer
             bool success = false;
             try
             {
+                // check database for record for user
                 var record = await _context.WtpgameStats.Where(x => x.UserId == userId).FirstOrDefaultAsync();
                 if (record != null) // record exists for user
                 {
+                    // add to games played
                     record.TotalGamesPlayed += 1;
+                    // update record
                     _context.WtpgameStats.Update(record);
                     await _context.SaveChangesAsync();
                     success = true;
                 }
                 else // no record for user
                 {
+                    // create new record for user
                     WtpgameStat newRecord = new WtpgameStat();
                     newRecord.UserId = userId;
+                    // games played is 1 for new record
                     newRecord.TotalGamesPlayed = 1;
+                    // add to database
                     _context.WtpgameStats.Add(newRecord);
                     await _context.SaveChangesAsync();
                     success = true;
@@ -292,21 +316,27 @@ namespace BusinessLayer
             bool success = false;
             try
             {
+                // check database for record for user
                 var record = await _context.CapgameStats.Where(x => x.UserId == userId).FirstOrDefaultAsync();
                 if (record != null) // record exists for user
                 {
+                    // add to wins and games played
                     record.GamesWon += 1;
                     record.TotalGamesPlayed += 1;
+                    // update record
                     _context.CapgameStats.Update(record);
                     await _context.SaveChangesAsync();
                     success = true;
                 }
                 else // no record for user
                 {
+                    // create new record for user
                     CapgameStat newRecord = new CapgameStat();
                     newRecord.UserId = userId;
+                    // wins and games played is 1 for a new record
                     newRecord.GamesWon = 1;
                     newRecord.TotalGamesPlayed = 1;
+                    // add to database
                     _context.CapgameStats.Add(newRecord);
                     await _context.SaveChangesAsync();
                     success = true;
@@ -329,19 +359,25 @@ namespace BusinessLayer
             bool success = false;
             try
             {
+                // check database for record for user
                 var record = await _context.CapgameStats.Where(x => x.UserId == userId).FirstOrDefaultAsync();
                 if (record != null) // record exists for user
                 {
+                    // add to games played
                     record.TotalGamesPlayed += 1;
+                    // update record
                     _context.CapgameStats.Update(record);
                     await _context.SaveChangesAsync();
                     success = true;
                 }
                 else // no record for user
                 {
+                    // create new record
                     CapgameStat newRecord = new CapgameStat();
                     newRecord.UserId = userId;
+                    // games played is 1 for a new record
                     newRecord.TotalGamesPlayed = 1;
+                    // add to database
                     _context.CapgameStats.Add(newRecord);
                     await _context.SaveChangesAsync();
                     success = true;
@@ -364,9 +400,11 @@ namespace BusinessLayer
             string winRecord = null;
             try
             {
+                // check database for record for user
                 var record = await _context.RpsgameStats.Where(x => x.UserId == userId).FirstOrDefaultAsync();
-                if (record != null)
+                if (record != null) // if record exists for user
                 {
+                    // prepare string to return
                     winRecord = $"{record.GamesWon}/{record.TotalGamesPlayed}";
                 }
                 return winRecord;
@@ -387,9 +425,11 @@ namespace BusinessLayer
             string winRecord = null;
             try
             {
+                // check database for record for user
                 var record = await _context.WtpgameStats.Where(x => x.UserId == userId).FirstOrDefaultAsync();
-                if (record != null)
+                if (record != null) // if record exists for user
                 {
+                    // prepare string to return
                     winRecord = $"{record.GamesWon}/{record.TotalGamesPlayed}";
                 }
                 return winRecord;
@@ -410,9 +450,11 @@ namespace BusinessLayer
             string winRecord = null;
             try
             {
+                // check database for record for user
                 var record = await _context.CapgameStats.Where(x => x.UserId == userId).FirstOrDefaultAsync();
-                if (record != null)
+                if (record != null) // if record exists for user
                 {
+                    // prepare string to return
                     winRecord = $"{record.GamesWon}/{record.TotalGamesPlayed}";
                 }
                 return winRecord;
@@ -433,8 +475,9 @@ namespace BusinessLayer
             string winRecord = null;
             try
             {
+                // check database for record for user
                 var record = await _context.WamgameStats.Where(x => x.UserId == userId).FirstOrDefaultAsync();
-                if (record != null)
+                if (record != null) // if record exist for user
                 {
                     winRecord = $"{record.HighScore}";
                 }
@@ -453,27 +496,35 @@ namespace BusinessLayer
         /// </summary>
         /// <param name="userId"></param>
         /// <returns>Boolean indicating whether the update was successful (true) or not (false)</returns>
-        public async Task<bool> WamPlayedAsync(int userId, int highScore)
+        public async Task<bool> WamPlayedAsync(int userId, int score)
         {
             bool success = false;
             try
             {
+                // check database for record for user
                 var record = await _context.WamgameStats.Where(x => x.UserId == userId).FirstOrDefaultAsync();
                 if (record != null) // record exists for user
                 {
-                    if (record.HighScore < highScore)
-                        record.HighScore = highScore;
+                    // check if score is higher than recorded high score
+                    if (record.HighScore < score)
+                        record.HighScore = score; // change high score to new score if higher
+                    // add to games played
                     record.TotalGamesPlayed += 1;
+                    // update record
                     _context.WamgameStats.Update(record);
                     await _context.SaveChangesAsync();
                     success = true;
                 }
                 else // no record for user
                 {
+                    // create new record for user
                     WamgameStat newRecord = new WamgameStat();
                     newRecord.UserId = userId;
-                    newRecord.HighScore = highScore;
+                    // only score is high score
+                    newRecord.HighScore = score;
+                    // games played is 1 for new record
                     newRecord.TotalGamesPlayed = 1;
+                    // add to database
                     _context.WamgameStats.Add(newRecord);
                     await _context.SaveChangesAsync();
                     success = true;
@@ -493,18 +544,25 @@ namespace BusinessLayer
             bool success = false;
             try
             {
+                // check database for record for user
                 var record = await _context.PhmgameStats.Where(x => x.UserId == userId).FirstOrDefaultAsync();
                 if (record != null) // record exists for user
                 {
+                    // add to games won
                     record.GamesWon += 1;
+                    // update database
+                    _context.PhmgameStats.Update(record);
                     await _context.SaveChangesAsync();
                     success = true;
                 }
                 else // no record for user
                 {
+                    // create new record for user
                     PhmgameStat newRecord = new PhmgameStat();
                     newRecord.UserId = userId;
+                    // games won is 1 for new record
                     newRecord.GamesWon = 1;
+                    // add to database
                     _context.PhmgameStats.Add(newRecord);
                     await _context.SaveChangesAsync();
                     success = true;
@@ -521,18 +579,25 @@ namespace BusinessLayer
             bool success = false;
             try
             {
+                // check database for record for user
                 var record = await _context.PhmgameStats.Where(x => x.UserId == userId).FirstOrDefaultAsync();
                 if (record != null) // record exists for user
                 {
+                    // add to games played
                     record.TotalGamesPlayed += 1;
+                    // update database
+                    _context.PhmgameStats.Update(record);
                     await _context.SaveChangesAsync();
                     success = true;
                 }
                 else // no record for user
                 {
+                    // create new record for user
                     PhmgameStat newRecord = new PhmgameStat();
                     newRecord.UserId = userId;
+                    // games played is 1 for new record
                     newRecord.TotalGamesPlayed = 1;
+                    // add to database
                     _context.PhmgameStats.Add(newRecord);
                     await _context.SaveChangesAsync();
                     success = true;
@@ -550,9 +615,11 @@ namespace BusinessLayer
             string winRecord = null;
             try
             {
+                // check database for record for user
                 var record = await _context.PhmgameStats.Where(x => x.UserId == userId).FirstOrDefaultAsync();
-                if (record != null)
+                if (record != null) // record exists for user
                 {
+                    // prepare string to return
                     winRecord = $"{record.GamesWon}/{record.TotalGamesPlayed}";
                 }
                 return winRecord;

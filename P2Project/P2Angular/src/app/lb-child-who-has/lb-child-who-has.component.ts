@@ -10,10 +10,9 @@ import { IUnlockCard } from '../unlock-card-page/IUnlockCard';
 })
 export class LbChildWhoHasComponent implements OnInit {
 
-  // @Input() newcard;
+  @Input() newCard={} as IUnlockCard;
 
-  constructor( private _leaderboardService:LeaderboardStatsService) {
-
+  constructor(private _leaderboardService:LeaderboardStatsService) {
   }
 
   // card:IUnlockCard = this.newcard;
@@ -28,26 +27,22 @@ export class LbChildWhoHasComponent implements OnInit {
     percentage_OwnCard:0
   };
 
-  userStringInput:string='ditto';
 
   ngOnInit(): void {
-    
   }
 
-  ChangeInput(value:string){
-    this.userStringInput = value;
+  ngOnChanges():void{
+    this.GetPercentOwnCard();
   }
+
   //This method takes the observable data and puts it into a class property
-  GetPercentOwnCard(userStringInput:string){
-    this._leaderboardService.GetCardPercentage(userStringInput).subscribe(
+  GetPercentOwnCard(){
+    this._leaderboardService.GetCardPercentage(this.newCard.PokemonName).subscribe(
       result => {
         this.chosenPokemon=result;
         console.log(this.chosenPokemon);
-        console.log(this.chosenPokemon.total_Users);
       }
     );
   }
-
-  //This method resets the text box
 
 }

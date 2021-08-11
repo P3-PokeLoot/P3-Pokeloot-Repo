@@ -29,16 +29,7 @@ describe('LeaderboardsComponent', () => {
     fixture.detectChanges();
   });
 
-  //create a suite of tests - wrap this around the unit tests
-  //describe('Leaderboard component tests',()=>{});
-  
-  
-  //testing pagination properties (this test is not working)
-  // it('should create an array of pages based on received data',()=>{
-  //   expect(component.pageOfItems[1]).toBe(5);
-  // });
 
-  //testing pagination methods
   
   //testing dropdown arrays
   it('should be an array of strings',()=>{
@@ -53,6 +44,11 @@ describe('LeaderboardsComponent', () => {
     expect(component.allNumbersOptions[3]).toBe(100);
   });
 
+  it('should be an array of string with "rarities" ',()=>{
+    expect(component.allRarityOptions[0]).toBe('Common')
+    expect(component.allRarityOptions[2]).toBe('Rare');
+    expect(component.allRarityOptions[4]).toBe('Legendary');
+  });
   // Method 1
   it('should set "chosenStat" property equal to a string input',()=>{
     component.chosenStat = 'assignment';
@@ -65,13 +61,27 @@ describe('LeaderboardsComponent', () => {
     expect(component.chosenNumber).toBe(420);
   });
   //Testing Method 3
+  it('should set "chosenNumber" property equal to a number input',()=>{
+    component.chosenRarity = 'rarity';
+    expect(component.chosenRarity).toBe('rarity');
+  });
+  //method 4
   it('should create two arrays from 1 observable stream',()=>{
     //Arange
-    let testcoin:MockCoinBalanceObservable=new MockCoinBalanceObservable();
-
+    let testcoin:MockCoinBalanceObservable = new MockCoinBalanceObservable();
     //Act
-
+    component.observableData = testcoin.MockCoinDataArray;
+    component.observableData.forEach(item => component.headersArray = Object.keys(item));
+    component.observableData.forEach(data => component.columnsArray = Object.values(data));
     //Assert
+    expect(component.headersArray.length).toBe(10);
+    expect(component.headersArray[0]).toBe('UserName');
+    expect(component.headersArray[4]).toBe('Email');
+    expect(component.headersArray[9]).toBe('DisplayBoards');
+    expect(component.columnsArray.length).toBe(10);
+    expect(component.headersArray[0][1]).toBe('bing');
+    expect(component.headersArray[0][5]).toBe(1);
+    expect(component.headersArray[0][8]).toBeNull;
   });
   //Testing Method 4
   it('should assign a class property value (based off a different class property) by iterating through an array',()=>{
