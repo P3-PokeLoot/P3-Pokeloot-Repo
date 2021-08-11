@@ -6,8 +6,13 @@ trigger:
 - main
 pool:
   vmimage: Windows-latest
+<<<<<<< .merge_file_a13128
 resources:
 - repo: self
+=======
+# resources:
+# - repo: self
+>>>>>>> .merge_file_a24680
 variables:
   buildConfiguration: 'Release'
 
@@ -26,8 +31,9 @@ stages:
         scannerMode: 'MSBuild'
         projectKey: 'p3pokeloot_Pokeloot_MainAPI'
         projectName: 'p3pokeloot_Pokeloot_MainAPI'
+                  #sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/**/*.trx
         extraProperties: |
-          sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/**/*.trx
+
           sonar.cs.vscoveragexml.reportsPaths=$(Agent.TempDirectory)/**/*.xml
           sonar.cs.xunit.reportsPaths=$(Agent.TempDirectory)/**/*.trx
 
