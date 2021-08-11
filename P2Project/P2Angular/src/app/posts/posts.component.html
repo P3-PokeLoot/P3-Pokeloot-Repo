@@ -167,7 +167,7 @@
                     <p class="h5">{{post.PostDescription}}</p>
                   </div>
                   <div style="margin-bottom: 3px;">
-                    <a routerLink="/Comments/{{post.PostId}}"><button class="btn btn-success btn-sm">Comments</button></a>
+                    <a routerLink="/Comments/{{post.PostId}}"><button class="btn btn-success btn-sm" id="commentbutton">Comments</button></a>
                     <div *ngIf="userId != post.UserId">
                       <button class="btn btn-success btn-sm" aria-disabled="true" id="addbutton" (click)="addFriend(post)">Add Friend</button>
                     </div>
