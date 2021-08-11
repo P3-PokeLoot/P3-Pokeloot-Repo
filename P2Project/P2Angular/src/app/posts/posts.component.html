@@ -156,6 +156,7 @@
     <div *ngFor="let post of pageOfItems">
         <div class="container mt-4 mb-3 shadow-sm p-3 bg-body rounded">
             <div *ngIf="attemptToBuy == false" class="row">
+            
                 <div class="col-md-7">
                     <div class="d-flex justify-content-between">
                         <div class="d-flex flex-row align-items-center">
@@ -175,24 +176,24 @@
                             <p class="h5">{{post.PostDescription}}</p>
                         </div>
                         <div style="margin-bottom: 3px;">
-                            <a routerLink="/Comments/{{post.PostId}}"><button class="btn btn-success btn-sm">Comments</button></a>
+                            <a routerLink="/Comments/{{post.PostId}}"><button class="btn btn-success btn-sm" id="commentbutton">Comments</button></a>
                         <div *ngIf="userId != post.UserId">
                             <button class="btn btn-success btn-sm" aria-disabled="true" id="addbutton" (click)="addFriend(post)">Add Friend</button>
                         </div>
                         <div *ngIf="post.PostType == 'Sale'">
-
-                            <button (click)='buy(post)' class="btn btn-success btn-sm" aria-disabled="true" id="buybutton">Price:
-                                {{post.Price}} coins</button>  
-                                <button *ngIf="userId == post.UserId" class="btn btn-success btn-sm" aria-disabled="true" id="editbutton" (click)="clickt(post)">Edit</button>
-                                
-                                <div>
+                            <button (click)='buy(post)' class="btn btn-success btn-sm" aria-disabled="true" id="buybutton">Price: {{post.Price}} coins</button>  
+                            <button *ngIf="userId == post.UserId" class="btn btn-success btn-sm" aria-disabled="true" id="editbutton" (click)="clickt(post)">Edit</button>
+                            <div>
                                 <app-edit-post *ngIf="edit && userId == post.UserId && currentPost == post.PostId" [currentPost]="post"></app-edit-post>
-                                </div>
+                            </div>
                         </div>
                     </div>
-
+                    </div>
                 </div>
-                <div class="col-md-3">
+                
+    
+                
+                <div class="col-md-3" style="float:right">
                     <div [ngClass]="GetCardColor(post.RarityId)" class="card text-center" style="width: 18rem;">
                         <img class="card-img-top" height="200" src={{post.SpriteLink}} alt="{{post.PokemonName}} Image">
                         <div class="card-body">
@@ -208,11 +209,13 @@
                     </div>
                 </div>
             </div>
-        </div>
+        
+                
+                </div>
+        </div></div></div></div>
 
-    </div>
-
-    <div class="container">
+    <!--
+        <div class="container">
         <div *ngIf='broughtCard'>
             <h2 class="row display: flex justify-content-center">{{broughtCard.Output}}</h2>
             <div class="row display: flex justify-content-center">
@@ -228,7 +231,7 @@
                         </ng-template>
                         <a href="{{bublapedia}}{{broughtCard.PokemonName}}" target="_blank" rel="noopener noreferrer"
                             class="btn btn-primary">View Details</a>
-                        <!-- make button hyperlink to pokemon info page or remove -->
+                        
                     </div>
                 </div>
                 <div *ngIf="broughtCard.RarityId == 2" class="card2 text-center border-dark mb-3"
@@ -243,7 +246,7 @@
                         </ng-template>
                         <a href="{{bublapedia}}{{broughtCard.PokemonName}}" target="_blank" rel="noopener noreferrer"
                             class="btn btn-primary">View Details</a>
-                        <!-- make button hyperlink to pokemon info page or remove -->
+                        
                     </div>
                 </div>
                 <div *ngIf="broughtCard.RarityId == 3" class="card3 text-center border-dark mb-3"
@@ -258,7 +261,7 @@
                         </ng-template>
                         <a href="{{bublapedia}}{{broughtCard.PokemonName}}" target="_blank" rel="noopener noreferrer"
                             class="btn btn-primary">View Details</a>
-                        <!-- make button hyperlink to pokemon info page or remove -->
+                        
                     </div>
                 </div>
                 <div *ngIf="broughtCard.RarityId == 4" class="card4 text-center border-dark mb-3"
@@ -273,7 +276,7 @@
                         </ng-template>
                         <a href="{{bublapedia}}{{broughtCard.PokemonName}}" target="_blank" rel="noopener noreferrer"
                             class="btn btn-primary">View Details</a>
-                        <!-- make button hyperlink to pokemon info page or remove -->
+                        
                     </div>
                 </div>
                 <div *ngIf="broughtCard.RarityId == 5" class="card5 text-center border-dark mb-3"
@@ -288,7 +291,7 @@
                         </ng-template>
                         <a href="{{bublapedia}}{{broughtCard.PokemonName}}" target="_blank" rel="noopener noreferrer"
                             class="btn btn-primary">View Details</a>
-                        <!-- make button hyperlink to pokemon info page or remove -->
+                        
                     </div>
                 </div>
                 <div *ngIf="broughtCard.RarityId == 6 " class="card6 text-center border-dark mb-3"
@@ -306,13 +309,14 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
-</div>
 
-</div>
-</div>
-</div>
+
+
+
+
+
 
 
 

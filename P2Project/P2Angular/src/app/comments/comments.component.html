@@ -31,6 +31,7 @@
 
 
     <div *ngIf="fullPost.RarityId != 0;" class="col-md-3">
+        <div [ngClass]="GetCardColor(fullPost.RarityId)" class="card text-center" style="width: 18rem;">
             <img class="card-img-top" height="200" src={{fullPost.SpriteLink}} alt="{{fullPost.PokemonName}} Image">
             <div class="card-body">
                 <h5 *ngIf="fullPost.IsShiny as true; else elseBlock" class="card-title">★
@@ -40,8 +41,21 @@
                 </ng-template>
                 <a href="https://bulbapedia.bulbagarden.net/wiki/{{fullPost.PokemonName}}" target="_blank"
                     rel="noopener noreferrer" class="btn btn-danger">View Details</a>
+            </div>
+        </div>
     </div>
-</div>
+    <div *ngIf="fullPost.RarityId == 0;" class="col-md-3">
+        <div class="card card6 text-center" style="width: 18rem;">
+            <br>
+            <h3>No Card Attached</h3>
+            <img class="card-img-top" height="200" src={{fullPost.SpriteLink}} alt="MissingNo Image">
+            <div class="card-body">
+                <h5 class="card-title">MissingNo</h5>
+                <a href="https://bulbapedia.bulbagarden.net/wiki/{{fullPost.PokemonName}}" target="_blank"
+                    rel="noopener noreferrer" class="btn btn-danger">View Details</a>
+            </div>
+        </div>
+    </div>
 
 </div>
 <div class="container mt-4 mb-3 shadow-sm p-3 bg-body rounded">

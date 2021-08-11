@@ -30,18 +30,25 @@
 }
 
 #buybutton{
-  margin-right: 5px;
+  margin: 2.5px;
 }
 #editbutton{
   background-color: rgb(66, 66, 243);
-  margin-left: 5px;
+  margin: 2.5px;
 }
 #editbutton:hover{
   background-color: rgb(57, 57, 204);
 }
+#commentbutton{
+  background-color: rgb(204, 57, 57);
+  margin: 2.5px;
+}
+#commentbutton:hover{
+  background-color: rgb(168, 52, 52);
+}
 #addbutton{
   background-color: rgb(193, 66, 243);
-  margin-left: 5px;
+  margin: 2.5px;
 }
 #addbutton:hover{
   background-color: rgb(193, 57, 204);
