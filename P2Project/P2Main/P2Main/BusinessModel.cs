@@ -441,6 +441,45 @@ namespace BusinessLayer
         }
 
         /// <summary>
+        /// Gets a specialized user object for messaging functionality by id
+        /// </summary>
+        /// <param name="id">the ID of the user</param>
+        /// <returns>A specialized user object or null</returns>
+        public MessageUser GetMessageUserById(int id)
+        {
+            User userResult = GetUserById(id);
+            MessageUser returnUser = null;
+            if (userResult != null)
+            {
+                returnUser = new MessageUser
+                {
+                    UserId = userResult.UserId,
+                    UserName = userResult.UserName,
+                    FirstName = userResult.FirstName,
+                    LastName = userResult.LastName
+                };
+            }
+            return returnUser;
+        }
+
+        public MessageUser GetMessageUserByUsername(string username)
+        {
+            var dbResult = context.Users.Where(x => x.UserName == username).FirstOrDefault();
+            MessageUser returnUser = null;
+            if (dbResult != null)
+            {
+                returnUser = new()
+                {
+                    UserId = dbResult.UserId,
+                    UserName = dbResult.UserName,
+                    FirstName = dbResult.FirstName,
+                    LastName = dbResult.LastName
+                };
+            }
+            return returnUser;
+        }
+
+        /// <summary>
         /// Removes user object by its Id
         /// </summary>
         /// <param name="id">User Id</param>
@@ -757,7 +796,110 @@ namespace BusinessLayer
 
             return "Oops, we hit a weird edge case...";
         }
-        
+
+        /// <summary>
+        /// Gets all the message objects between two users
+        /// </summary>
+        /// <param name="senderId">The ID of user 1</param>
+        /// <param name="receiverId">The ID of user 2</param>
+        /// <returns>A list of Message objects</returns>
+        public List<Message> GetMessagesBetween(int senderId, int receiverId)
+        {
+            var dbResult = context.Messages.Where(x => (x.SenderId == senderId && x.ReceiverId == receiverId) ||
+                                                    (x.ReceiverId == senderId && x.SenderId == receiverId))
+                                        .OrderByDescending(x => x.Timestamp).ToList();
+            List<Message> messages = new();
+            foreach (var res in dbResult)
+            {
+                Message message = new Message()
+                {
+                    MessageId = res.MessageId,
+                    SenderId = res.SenderId,
+                    ReceiverId = res.ReceiverId,
+                    Content = res.Content,
+                    Timestamp = res.Timestamp
+                };
+                messages.Add(message);
+            }
+            return messages;
+        }
+
+        /// <summary>
+        /// Deletes all the messages between user at user1Id and user at user2Id
+        /// </summary>
+        /// <param name="user1Id">The ID of user 1</param>
+        /// <param name="user2Id">The ID of user 2</param>
+        /// <returns>A boolean representing whether the deletion was successful</returns>
+        public bool DeleteMessagesBetween(int user1Id, int user2Id)
+        {
+            var dbResult = context.Messages.Where(x => (x.SenderId == user1Id && x.ReceiverId == user2Id) ||
+                                                    (x.ReceiverId == user1Id && x.SenderId == user2Id))
+                                           .ToList();
+            foreach (var res in dbResult)
+            {
+                context.Remove(res);
+            }
+            try { context.SaveChanges(); }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Inserts a new Message object into the database
+        /// </summary>
+        /// <param name="newMessage">The Message object to insert into the database</param>
+        /// <returns>A boolean representing whether the insert was successful</returns>
+        public bool PostMessage(Message newMessage)
+        {
+            context.Messages.Add(newMessage);
+            try { context.SaveChanges(); }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Gets all the users that the user at userId currently has an ongoing conversation with
+        /// </summary>
+        /// <param name="userId">Id of the user to get ongoing conversation users for</param>
+        /// <returns>A list of User objects</returns>
+        public List<User> GetOngoingConversationUsers(int userId)
+        {
+            var MsgTable = context.Messages;
+            var UsersTable = context.Users;
+            var dbResult = (from m in MsgTable
+                            join u1 in UsersTable on m.SenderId equals u1.UserId
+                            join u2 in UsersTable on m.ReceiverId equals u2.UserId
+                            where m.SenderId == userId || m.ReceiverId == userId
+                            select new
+                            {
+                                awayId = userId == m.SenderId ? m.ReceiverId : m.SenderId,
+                                awayUsername = userId == m.SenderId ? m.Receiver.UserName : m.Sender.UserName,
+                                awayFName = userId == m.SenderId ? m.Receiver.FirstName : m.Sender.FirstName,
+                                awayLName = userId == m.SenderId ? m.Receiver.LastName : m.Sender.LastName
+                            }).Distinct().ToList();
+            List<User> users = new List<User>();
+            foreach (var res in dbResult)
+            {
+                users.Add(new User()
+                {
+                    UserId = res.awayId,
+                    UserName = res.awayUsername,
+                    FirstName = res.awayFName,
+                    LastName = res.awayLName
+                });
+            }
+            Console.WriteLine(users);
+            return users;
+        }
+
 
 
     }//class BusinessModel

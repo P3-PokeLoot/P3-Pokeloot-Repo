@@ -28,6 +28,8 @@ namespace BusinessLayer
         public PokemonCard getPokemonById(int id); //tested
 
         public User GetUserById(int id); //tested
+        public MessageUser GetMessageUserById(int id);
+        public MessageUser GetMessageUserByUsername(string username);
 
         public bool RemoveUser(int id); //tested
 
@@ -46,6 +48,11 @@ namespace BusinessLayer
         public List<FullFriend> GetFriends(int UserId); //tested
 
         public bool newPostComment(int userId, int postId, string content); //tested
+
+        public List<Message> GetMessagesBetween(int senderId, int receiverId); //tested
+        public bool PostMessage(Message newMessage); //tested
+        public bool DeleteMessagesBetween(int user1Id, int user2Id); //tested
+        public List<User> GetOngoingConversationUsers(int userId); //tested
 
         public Dictionary<PostComment, string> getCommentList(int postId);
         
