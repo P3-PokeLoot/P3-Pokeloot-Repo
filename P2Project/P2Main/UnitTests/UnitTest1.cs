@@ -1403,10 +1403,10 @@ namespace UnitTests
 
                 // Assert
                 Assert.Equal(3, resultUser1.Count);
-                Assert.Single(resultUser2.Count);
-                Assert.Single(resultUser3.Count);
-                Assert.Single(resultUser4.Count);
-                Assert.Empty(resultUser5.Count);
+                Assert.Equal(1, resultUser2.Count);
+                Assert.Equal(1, resultUser3.Count);
+                Assert.Equal(1, resultUser4.Count);
+                Assert.Equal(0, resultUser5.Count);
 
 
             }
