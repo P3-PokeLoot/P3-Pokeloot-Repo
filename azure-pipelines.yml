@@ -62,23 +62,23 @@ stages:
 
     - task: SonarCloudPrepare@1
       inputs:
-        SonarCloud: 'MainAPI_SonarCloud'
+        SonarCloud: 'GamesAPI_SonarCloud'
         organization: 'p3pokeloot'
         scannerMode: 'MSBuild'
-        projectKey: 'p3pokeloot_Pokeloot_MainAPI'
-        projectName: 'p3pokeloot_Pokeloot_MainAPI'
+        projectKey: 'p3pokeloot_Pokeloot_GamesAPI'
+        projectName: 'p3pokeloot_Pokeloot_GamesAPI'
     - task: DotNetCoreCLI@2
       displayName: buildproj
       inputs:
         command: 'build'
-        projects: '$(Build.SourcesDirectory)/P2Project/P2Main/P2Main.sln'
+        projects: '$(Build.SourcesDirectory)/P2Project/P3GamesMicroservice/P3GamesMicroservice.sln'
         arguments: '--configuration $(buildConfiguration)'
 
     - task: DotNetCoreCLI@2
       displayName: testproj
       inputs:
         command: 'test'
-        projects: '$(Build.SourcesDirectory)/P2Project/P2Main/P2Main.sln'
+        projects: '$(Build.SourcesDirectory)/P2Project/P3GamesMicroservice/P3GamesMicroservice.sln'
         arguments: '--configuration $(buildConfiguration) --collect "Code Coverage"'
 
     - task: PublishCodeCoverageResults@1
