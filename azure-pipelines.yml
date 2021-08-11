@@ -12,7 +12,7 @@ variables:
   buildConfiguration: 'Release'
 stages:
 # Main API Build, Test, Publish to Sonar Cloud
-- stage: APIMain
+- stage: APIMainSonarCloud
   jobs:
   - job: apijob
     steps:
@@ -48,7 +48,7 @@ stages:
     - task: SonarCloudPublish@1
 
 # Games API Build, Test, Publish to Sonar Cloud
-- stage: APIGames
+- stage: APIGamesSonarCloud
   jobs:
   - job: apijob
     steps:
@@ -83,7 +83,7 @@ stages:
     - task: SonarCloudPublish@1
 
 # API Build, Test, Publish to Sonar Cloud
-- stage: APIStatistics
+- stage: APIStatisticsSonarCloud
   jobs:
   - job: apijob
     steps:
@@ -117,47 +117,55 @@ stages:
     - task: SonarCloudAnalyze@1
     - task: SonarCloudPublish@1
 
-# Build Angular for Sonar Cloud
-# - stage: Angular
-#   jobs:
-#   - job: angularjob
-#     steps:
-#     - task: NodeTool@0
-#       inputs:
-#         versionSpec: '14.x'
-#       displayName: 'Install Node.js'
+#Build Angular for Sonar Cloud
+- stage: Angular
+  jobs:
+  - job: angularjob
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '14.x'
+      displayName: 'Install Node.js'
 
-#     - task: Npm@1
-#       inputs:
-#         command: 'custom'
-#         workingDir: '$(Build.Repository.LocalPath)\P2Project\P2Angular'
-#         customCommand: 'install -g @angular/cli'
+    - task: Npm@1
+      inputs:
+        command: 'custom'
+        workingDir: '$(Build.Repository.LocalPath)\P2Project\P2Angular'
+        customCommand: 'install -g @angular/cli'
 
-#     - task: Npm@1
-#       inputs:
-#         command: 'install'
-#         workingDir: '$(Build.Repository.LocalPath)\P2Project\P2Angular'
+    - task: Npm@1
+      inputs:
+        command: 'install'
+        workingDir: '$(Build.Repository.LocalPath)\P2Project\P2Angular'
 
-#     - task: SonarCloudPrepare@1
-#       inputs:
-#         SonarCloud: 'Angular_SonarCloud'
-#         organization: 'p3pokeloot'
-#         scannerMode: 'CLI'
-#         configMode: 'manual'
-#         cliProjectKey: 'p3pokeloot_Pokeloot_Angular'
-#         cliProjectName: 'p3pokeloot_Pokeloot_Angular'
-#         cliSources: '.'
+    - task: SonarCloudPrepare@1
+      inputs:
+        SonarCloud: 'Angular_SonarCloud'
+        organization: 'p3pokeloot'
+        scannerMode: 'CLI'
+        configMode: 'manual'
+        cliProjectKey: 'p3pokeloot_Pokeloot_Angular'
+        cliProjectName: 'p3pokeloot_Pokeloot_Angular'
+        cliSources: '$(Build.Repository.LocalPath)\P2Project\P2Angular\src'
+        extraProperties: 'sonar.javascript.lcov.reportPaths=$(Build.Repository.LocalPath)\P2Project\P2Angular\coverage\P2Angular\lcov.info'
 
-#     - task: CmdLine@2
-#       inputs:
-#         script: 'ng build'
-#         workingDirectory: '$(Build.Repository.LocalPath)\P2Project\P2Angular'        
+    - task: CmdLine@2
+      inputs:
+        script: 'ng build'
+        workingDirectory: '$(Build.Repository.LocalPath)\P2Project\P2Angular'        
 
-#     - task: SonarCloudAnalyze@1
+    - task: Npm@1
+      displayName: 'NPM Test'
+      inputs:
+        command: 'custom'
+        workingDir: $(Build.Repository.LocalPath)\P2Project\P2Angular
+        customCommand: 'run test-headless'
+
+    - task: SonarCloudAnalyze@1
     
-#     - task: SonarCloudPublish@1
-#       inputs:
-#         pollingTimeoutSec: '300'
+    - task: SonarCloudPublish@1
+      inputs:
+        pollingTimeoutSec: '300'
 
 
 # Create Docker containers and push to repo
@@ -185,7 +193,7 @@ stages:
 
 # Main API Docker container      
 - stage: BuildMain
-  displayName: Build image
+  displayName: MainDockerBuildandPush
   jobs:
   - job: Build
     displayName: Build
@@ -208,7 +216,7 @@ stages:
 
 # Statistics API Docker container
 - stage: BuildStatistics
-  displayName: Build image
+  displayName: StatisticsDockerBuildandPush
   jobs:
   - job: Build
     displayName: Build
@@ -231,7 +239,7 @@ stages:
 
 # Games API Docker container
 - stage: BuildGames
-  displayName: Build image
+  displayName: GamesDockerBuildandPush
   jobs:
   - job: Build
     displayName: Build
