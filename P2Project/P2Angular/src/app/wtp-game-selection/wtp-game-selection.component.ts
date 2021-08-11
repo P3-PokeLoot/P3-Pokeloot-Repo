@@ -17,9 +17,12 @@ export class WtpGameSelectionComponent implements OnInit {
   ngOnInit(): void {
     this._gameService.GetWtpGame().subscribe(
       result => {
-        this.pictureUrl = result.pictureUrl;
-        this.correctPokemon = result.correctPokemon;
-        this.options = result.options;
+        console.log(result.PictureUrl)
+        this.pictureUrl = result.PictureUrl;
+        console.log(this.pictureUrl);
+        this.correctPokemon = result.CorrectPokemon;
+        console.log(this.correctPokemon);
+        this.options = result.Options;
       });
   }
 

@@ -43,12 +43,15 @@ import { GameFormComponent } from './game-form/game-form.component';
 import { DeleteGameComponent } from './delete-game/delete-game.component';
 import { ModifyGameComponent } from './modify-game/modify-game.component';
 import { ModifyGameFormComponent } from './modify-game-form/modify-game-form.component';
+import { MessagesComponent } from './messages/messages.component';
+
 import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
 import { NbgdTablePaginationComponent } from './nbgd-table-pagination/nbgd-table-pagination.component';
 import { LbChildWhoHasComponent } from './lb-child-who-has/lb-child-who-has.component';
 import { HangManComponent } from './hang-man/hang-man.component';
 import { AchievementsStatisticComponent } from './achievements-statistic/achievements-statistic.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { CapGameWaitComponent } from './cap-game-wait/cap-game-wait.component';
 
 @NgModule({
   declarations: [
@@ -69,28 +72,34 @@ import { NgxPaginationModule } from 'ngx-pagination';
     AddCardComponent,
     FilterPipe, RpsGameOutcomeComponent,
     FilterPipe, RpsGamePokemonSelectionComponent,
-    //Games-Angular-Service,
     RpsGameComponent,
     FilterPipe,
-    RpsGamePokemonSelectionComponent, WtpGameComponent, WtpGameSelectionComponent, WtpGameOutcomeComponent, CapGameComponent, CapGameCatchComponent, CapGameResultComponent,
+    RpsGamePokemonSelectionComponent, 
+    WtpGameComponent, 
+    WtpGameSelectionComponent, 
+    WtpGameOutcomeComponent, 
+    CapGameComponent, 
+    CapGameCatchComponent, 
+    CapGameResultComponent,
     RpsGamePokemonSelectionComponent,
     WtpGameComponent,
     WtpGameSelectionComponent,
     WtpGameOutcomeComponent,
     FriendsComponent,
     EditPostComponent,
-    //JwPaginationComponent,
     WamGameComponent,
     CommentsComponent,
     GameFormComponent,
     DeleteGameComponent,
     ModifyGameComponent,
     ModifyGameFormComponent,
+    MessagesComponent,
     LeaderboardsComponent,
     NbgdTablePaginationComponent,
     LbChildWhoHasComponent,
     HangManComponent,
-    AchievementsStatisticComponent
+    AchievementsStatisticComponent,
+    CapGameWaitComponent
   ],
   imports: [
     BrowserModule,

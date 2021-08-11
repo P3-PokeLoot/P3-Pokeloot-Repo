@@ -490,6 +490,7 @@ namespace GamesApiTests
             }
         }
 
+        [Fact]
         public void WamPlayedNotNullPass()
         {
             using (var context = new DataContext(options))
@@ -538,6 +539,7 @@ namespace GamesApiTests
             }
         }
       
+        [Fact]
         public void WamPlayedNullPass()
         {
             using (var context = new DataContext(options))

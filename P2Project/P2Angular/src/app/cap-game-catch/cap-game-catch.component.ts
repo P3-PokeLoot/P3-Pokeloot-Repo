@@ -36,7 +36,7 @@ const intervalTime = 2;
       transition('medium => high', [
         animate('1s')
       ])
-    ]),
+    ])
   ],
   templateUrl: './cap-game-catch.component.html',
   styleUrls: ['./cap-game-catch.component.css']
@@ -49,6 +49,7 @@ export class CapGameCatchComponent implements OnInit {
   timeLeft: number = intervalTime;
   interval?: any;
   pictureUrl?: string;
+  isImageLoaded: boolean = false;
 
   constructor(private _gamesService: GameService) { }
 
@@ -87,8 +88,8 @@ export class CapGameCatchComponent implements OnInit {
   ngOnInit(): void {
     this._gamesService.GetWtpGame().subscribe(
       result => {
-        this.pictureUrl = result.pictureUrl;
-        this.pokemonName = result.correctPokemon;
+        this.pictureUrl = result.PictureUrl;
+        this.pokemonName = result.CorrectPokemon;
       });
     this.startTimer();
   }

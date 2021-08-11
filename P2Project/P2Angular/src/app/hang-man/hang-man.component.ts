@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { GameService } from '../service/game/game-service';
 
 @Component({
   selector: 'app-hang-man',
@@ -21,7 +22,12 @@ export class HangManComponent implements OnInit {
   strikeLetters : string[] = []; //new Array(maxStrikes);
   strikeWord : string = "" ;
 
-  constructor() { }
+  // gameOver:string = "";
+  // playerLoose:string = "SORRY GAME OVER YOU LOOSE.";
+  // playerWin:string = "YOU WIN ";
+  score : number = 0;
+
+  constructor(private _gamesService: GameService) { }
 
   ngOnInit(): void {
     // run this now, to draw the empty word at the start of the game.
@@ -57,13 +63,15 @@ export class HangManComponent implements OnInit {
 
     checkGameWinner() : void {
             if(this.strikes >= this.maxStrikes) {
-              alert("The game is over!");
-              alert("YOU LOOSE.");
+              // alert("The game is over!");
+              // this.playerLoose = "YOU LOOSE."; // alert("YOU LOOSE.");
               this.resetFunction();
             }
             else if(!this.revealWord.includes("_"))
             {
-              alert("YOU WIN.");
+              // alert("YOU WIN.");
+              this.score += 10;
+              this._gamesService.AddCoins(10).subscribe(); // add 1 coin to player's coins
               this.resetFunction();
             }
     }
@@ -79,6 +87,7 @@ export class HangManComponent implements OnInit {
       this.revealWord = ""; // reset to empty
       this.revealWord = this.revealedLetters.join(" ");
       this.strikeWord = ""; // reset to empty
+
     }
 
 }

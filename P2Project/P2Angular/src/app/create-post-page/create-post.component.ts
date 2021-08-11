@@ -28,7 +28,7 @@ export class CreatePostComponent implements OnInit {
   userName!: string;
   bublapedia: string = 'https://bulbapedia.bulbagarden.net/wiki/';
   userCollection: ICard[];
-  postType:string[] = ["Display","Sale","Discussion"];
+  postType: string[] = ["Display", "Sale", "Discussion"];
   raritiesList: IRarities[] = [];
   filterValue: number = 0;
   filterValueShiny: boolean = false;
@@ -47,36 +47,37 @@ export class CreatePostComponent implements OnInit {
 
   ngOnInit(): void {
 
-    for(let i: number = 0; i <= 809; i++){//create list if the generation
-      if(i <= 151){
-        this.genList.push({PokemonId: i, GenName: "Kanto"});
+    for (let i: number = 0; i <= 809; i++) {//create list if the generation
+      if (i <= 151) {
+        this.genList.push({ PokemonId: i, GenName: "Kanto" });
       }
-      else if(i > 151 && i <= 251 ){
-        this.genList.push({PokemonId: i, GenName: "Johto"});
+      else if (i > 151 && i <= 251) {
+        this.genList.push({ PokemonId: i, GenName: "Johto" });
       }
-      else if(i > 251 && i <= 386 ){
-        this.genList.push({PokemonId: i, GenName: "Hoen"});
+      else if (i > 251 && i <= 386) {
+        this.genList.push({ PokemonId: i, GenName: "Hoen" });
       }
-      else if(i > 386 && i <= 493 ){
-        this.genList.push({PokemonId: i, GenName: "Sinnoh"});
+      else if (i > 386 && i <= 493) {
+        this.genList.push({ PokemonId: i, GenName: "Sinnoh" });
       }
-      else if(i > 493 && i <= 649 ){
-        this.genList.push({PokemonId: i, GenName: "Unova"});
+      else if (i > 493 && i <= 649) {
+        this.genList.push({ PokemonId: i, GenName: "Unova" });
       }
-      else if(i > 649 && i <= 721 ){
-        this.genList.push({PokemonId: i, GenName: "Kalos"});
+      else if (i > 649 && i <= 721) {
+        this.genList.push({ PokemonId: i, GenName: "Kalos" });
       }
-      else if(i > 721 && i <= 809 ){
-        this.genList.push({PokemonId: i, GenName: "Alola"});
+      else if (i > 721 && i <= 809) {
+        this.genList.push({ PokemonId: i, GenName: "Alola" });
       }
-      else{
-        this.genList.push({PokemonId: i, GenName: "Galar"});
+      else {
+        this.genList.push({ PokemonId: i, GenName: "Galar" });
       }
     }
 
     console.log(this.postType);
     let parseObj = JSON.parse(this.user);
-    this.userName = parseObj['userName'];
+    if (parseObj != null)
+      this.userName = parseObj['userName'];
     if (this.userId != null) {
       this._cardcollectionService.GetCardsList(this.userId).subscribe(
         result => {
@@ -137,15 +138,15 @@ export class CreatePostComponent implements OnInit {
     //checks edge cases for different filter combination
     if (this.filterValue == 0) {
       if (this.filterValueShiny == false) {
-        if(this.genValue == "Any"){
-        this.userCollection = this.fullUserCollection;
-        }else{
+        if (this.genValue == "Any") {
+          this.userCollection = this.fullUserCollection;
+        } else {
           this.fullUserCollection.forEach(element => {
             if (element.IsShiny == this.filterValueShiny) {
               let generation = this.genList.filter(x => x.PokemonId == element.PokemonId)[0];
               //console.log(generation);
-              if(generation.GenName == this.genValue){
-              this.userCollection.push(element);
+              if (generation.GenName == this.genValue) {
+                this.userCollection.push(element);
               }
             }
           });
@@ -154,14 +155,14 @@ export class CreatePostComponent implements OnInit {
       else {
         this.fullUserCollection.forEach(element => {
           if (element.IsShiny == this.filterValueShiny) {
-            if(this.genValue == "Any"){
+            if (this.genValue == "Any") {
               this.userCollection.push(element);
-            }else{
-            let generation = this.genList.filter(x => x.PokemonId == element.PokemonId)[0];
-            //console.log(generation);
-            if(generation.GenName == this.genValue){
-            this.userCollection.push(element);
-            }
+            } else {
+              let generation = this.genList.filter(x => x.PokemonId == element.PokemonId)[0];
+              //console.log(generation);
+              if (generation.GenName == this.genValue) {
+                this.userCollection.push(element);
+              }
             }
           }
         });
@@ -172,38 +173,38 @@ export class CreatePostComponent implements OnInit {
       this.fullUserCollection.forEach(element => {
         if (this.filterValueShiny == false) {
           if (element.RarityId == this.filterValue) {
-            if(this.genValue == "Any"){
+            if (this.genValue == "Any") {
               this.userCollection.push(element);
-            }else{
-            let generation = this.genList.filter(x => x.PokemonId == element.PokemonId)[0];
-            if(generation.GenName == this.genValue){
-            this.userCollection.push(element);
+            } else {
+              let generation = this.genList.filter(x => x.PokemonId == element.PokemonId)[0];
+              if (generation.GenName == this.genValue) {
+                this.userCollection.push(element);
+              }
             }
-          }
           }
         }
         else {
           if (element.RarityId == this.filterValue && element.IsShiny == this.filterValueShiny) {
-            if(this.genValue == "Any"){
+            if (this.genValue == "Any") {
               this.userCollection.push(element);
-            }else{
-            let generation = this.genList.filter(x => x.PokemonId == element.PokemonId)[0];
-            if(generation.GenName == this.genValue){
-            this.userCollection.push(element);
-            }
+            } else {
+              let generation = this.genList.filter(x => x.PokemonId == element.PokemonId)[0];
+              if (generation.GenName == this.genValue) {
+                this.userCollection.push(element);
+              }
             }
           }
         }
       });
     }
-    
-    if(this.checkFavorites){//check for favorites
+
+    if (this.checkFavorites) {//check for favorites
       this.userCollection = this.userCollection.filter(x => x.IsFavorite == true);
     }
 
-    }
+  }
 
-  
+
 
 
   OnSubmit(postForm: NgForm) {
@@ -211,9 +212,6 @@ export class CreatePostComponent implements OnInit {
     this.isPostTypeSelect = false;
     this.isPokemonId = false;
     this.isDescription = false;
-
-
-
     if (postForm.value.postType === 'Sale') { //price only appears in sale posts
       this.isPriceValid
       if (!postForm.controls.Price.valid) {
@@ -232,29 +230,29 @@ export class CreatePostComponent implements OnInit {
       return;
     }
 
-    if(postForm.value.postType != 'Discussion'){ //pokemon cards dont appear in discussion posts
+    if (postForm.value.postType != 'Discussion') { //pokemon cards dont appear in discussion posts
       if (postForm.value.PokemonId == null || postForm.value.PokemonId.length == 0) {
         this.isPokemonId = true;
         return;
       }
-    
 
-    var card: any;
 
-    for (var cards of this.userCollection) {
-      // console.log(`${cards.PokemonId} === ${postForm.value.PokemonId}`)
-      if (cards.PokemonId == postForm.value.PokemonId) {
-        card = cards;
-        break;
-      } else {
-        card = null;
+      var card: any;
+
+      for (var cards of this.userCollection) {
+        // console.log(`${cards.PokemonId} === ${postForm.value.PokemonId}`)
+        if (cards.PokemonId == postForm.value.PokemonId) {
+          card = cards;
+          break;
+        } else {
+          card = null;
+        }
       }
     }
-  }
 
     console.log("a post was created");
     let post: FullPost = {
-      
+
       pokemonId: postForm.value.postType !== 'Discussion' ? card.PokemonId : 0,
       postTime: new Date(),
       postDescription: postForm.value.textDescription,
@@ -286,22 +284,16 @@ export class CreatePostComponent implements OnInit {
     switch (rarityId) {
       case 1:
         return 'Common'
-        break;
       case 2:
         return 'Uncommon'
-        break;
       case 3:
         return 'Rare'
-        break;
       case 4:
         return 'Mythic'
-        break;
       case 5:
         return 'Lengendary'
-        break;
       default:
         return 'No Card Attached'
-        break;
     }
   }
 }

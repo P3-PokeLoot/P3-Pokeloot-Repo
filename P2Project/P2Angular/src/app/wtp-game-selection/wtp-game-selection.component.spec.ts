@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WtpGameSelectionComponent } from './wtp-game-selection.component';
@@ -8,6 +9,7 @@ describe('WtpGameSelectionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [HttpClientModule],
       declarations: [ WtpGameSelectionComponent ]
     })
     .compileComponents();
