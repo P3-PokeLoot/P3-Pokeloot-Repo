@@ -17,12 +17,15 @@ export class CapGameResultComponent implements OnInit {
   numCoinsToAdd: number = 100;
   waitTime: any = 1;
   @Input() pokeballImg = new Image();
+  
 
   constructor(private _gameService: GameService) { }
 
   playAgain(){
     this.playAgainEmitter.emit();
   }
+
+  
 
   ngOnInit(): void {
     if(this.catchChanceResult != undefined){
