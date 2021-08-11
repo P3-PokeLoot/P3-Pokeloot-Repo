@@ -1,7 +1,7 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LeaderboardStatsService } from '../service/leaderboards/leaderboard-stats.service';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 import { LeaderboardsComponent } from './leaderboards.component';
 import { MockCoinBalanceObservable } from './leaderboards_mocks/MockCoinBalanceData';
 import { MockLeaderBoardService } from './leaderboards_mocks/MockLeaderboardService';
@@ -13,7 +13,7 @@ describe('LeaderboardsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ LeaderboardsComponent ],
-      imports: [HttpClientTestingModule],
+      imports: [HttpClientTestingModule, NgxPaginationModule],
       providers:[{
         provide: LeaderboardStatsService, use: MockLeaderBoardService
       },
@@ -79,17 +79,21 @@ describe('LeaderboardsComponent', () => {
     expect(component.headersArray[4]).toBe('Email');
     expect(component.headersArray[9]).toBe('DisplayBoards');
     expect(component.columnsArray.length).toBe(10);
-    expect(component.headersArray[0][1]).toBe('bing');
+    expect(component.headersArray[0][1]).toBe('s');
     expect(component.headersArray[0][5]).toBe(1);
     expect(component.headersArray[0][8]).toBeNull;
   });
-  //Testing Method 4
+  //Testing Method 5
   it('should assign a class property value (based off a different class property) by iterating through an array',()=>{
-    let testcoin:MockCoinBalanceObservable = new MockCoinBalanceObservable();
-    component.observableData = testcoin.MockCoinDataArray;
+    // let testing = ['a','b','c','d'];
+    // let letter = testing[2];
+    // //act
+    // for (let i=0; i< testing.length; i++){
+    //   if 
+    // }
     
   });
-  //Testing Method 5
+  //Testing Method 6
   it('should invoke a service method, insert observable stream to class property, and invoke another method',()=>{
 
   });

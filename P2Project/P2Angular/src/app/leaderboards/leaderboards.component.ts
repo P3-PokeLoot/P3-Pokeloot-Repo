@@ -86,12 +86,13 @@ export class LeaderboardsComponent implements OnInit {
     this.chosenNumber = int;
     console.log('the number of items to return is:' + this.chosenNumber);
   }
-  //Method : rarity dropdown variable assignment
+  //Method 3: rarity dropdown variable assignment
   AssignChosenRarityFromDropdown(rarity:string){
+    this.ResetRarity();
     this.chosenRarity = rarity;
     console.log('the number of items to return is:' + this.chosenRarity);
   }
-//Method 3: This is a generic method that makes arrays to loop over for html display
+//Method 4: This is a generic method that makes arrays to loop over for html display
 CreateArraysFromObservable(){
   this.observableData.forEach(element => {//these 2 lines of code allows us to create table columns
     this.headersArray=Object.keys(element);
@@ -100,7 +101,7 @@ CreateArraysFromObservable(){
     this.columnsArray.push(Object.values(element));
   });
 }
- //METHOD 4: Looks at the chosenStat variable and returns it's index value to be used as a 'case value'
+ //METHOD 5: Looks at the chosenStat variable and returns it's index value to be used as a 'case value'
   AssignChosenService() {
     console.log('this is the start AssignChosenService');
     console.log(this.chosenService);
@@ -116,7 +117,7 @@ CreateArraysFromObservable(){
       console.log('this is the end AssignChosenService');
   }  
 
-  //Method 5: Runs method 4 to get a 'case value', then executes different cases based on the returned 'case value'
+  //Method 6: Runs method 4 to get a 'case value', then executes different cases based on the returned 'case value'
   SelectChosenService(){
     //step 1: get case number based off string
     this.tableExists='true';
@@ -203,7 +204,7 @@ CreateArraysFromObservable(){
       return;
     }
   }
-  //Method 6: Clean up table by "resetting" the observable stream arrays 
+  //Method 7: Clean up table by "resetting" the observable stream arrays 
   ResetData(){
     this.observableData=[];
     this.headersArray=[];
@@ -211,8 +212,14 @@ CreateArraysFromObservable(){
     this.tableExists='false';
   }
 
+  ResetNumber(int:number){
+    this.chosenNumber=int;
+    this.ResetData();
+    this.SelectChosenService();
+  }
+  //
   ResetRarity(){
-    this.chosenRarity = 'Common';
+    this.chosenRarity = '';
   }
   //============================================PAGINATION SECTION======================================
 

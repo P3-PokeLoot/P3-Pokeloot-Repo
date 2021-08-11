@@ -52,12 +52,17 @@ table th , table td{
     text-align: center;
 }
 
+.floater{
+    margin-left: 40px;
+    
+}
 /* stats messages*/
 .bigbrain{
     height: 100px;
     width: 100px;
     transform: scaleX(-1);
     align-self: right;
+    margin-left: 40px;
 }
 
 table {

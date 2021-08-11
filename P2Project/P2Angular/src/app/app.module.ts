@@ -97,7 +97,7 @@ import { CapGameWaitComponent } from './cap-game-wait/cap-game-wait.component';
     LbChildWhoHasComponent,
     HangManComponent,
     AchievementsStatisticComponent,
-    CapGameWaitComponent
+    CapGameWaitComponent,
   ],
   imports: [
     BrowserModule,
