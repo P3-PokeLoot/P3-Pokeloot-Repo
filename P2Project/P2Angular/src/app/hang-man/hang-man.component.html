@@ -1,28 +1,31 @@
 
   <div class=" mainDivStyle">
-    <section id="gallows" class="generalSection">
+    <section id="gallows" class="generalSection1">
         <h4>gallows</h4>
         <img id = "image" class="strike" src="./assets/hang-man/strike-{{strikes}}.png" alt="strike">
         <p id="dashes">{{revealWord}} </p>
     </section>
 
     <section id="strikes" class="generalSection">
-        <!-- <h4>strikes</h4> -->
-        <h4 class="divStyle strike">strikes :  {{ strikeWord }}</h4>
-        <p id="strikesLetters"></p>
+      <h4 class="divStyle strike">strikes :  {{ strikeWord }}</h4>
+      <p id="strikesLetters"></p>
     </section>
 
     <section id="guess" class="generalSection">
-        <!-- <h4>guess</h4> -->
-            <form id="guessForm">
-                <fieldset>
-                    <legend>Guess a letter Please</legend>
-                    <label>
-                        Letter: <input id="guessWord" type="text" name="letter" [(ngModel)]="userGuess" placeholder="Guess Letter" />
-                    </label>
-                </fieldset>
-                <button type="submit" (click)="drawWordProgress()" >Submit</button>
-            </form>
+      <!-- <h4>guess</h4> -->
+      <form id="guessForm">
+        <fieldset>
+          <legend>Guess a letter Please</legend>
+          <label>
+            Letter: <input id="guessWord" type="text" name="letter" [(ngModel)]="userGuess" placeholder="Guess Letter" />
+          </label>
+        </fieldset>
+        <button type="submit" (click)="drawWordProgress()" >Submit</button>
+      </form>
+      <!-- {{ gameOver }} {{ playerLoose }} -->
+      <div *ngIf="score>0">
+        <p> YOU WIN {{score}} COINS.</p>
+      </div>
     </section>
 </div>
 

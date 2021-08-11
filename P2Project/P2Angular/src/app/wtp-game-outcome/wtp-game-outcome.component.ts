@@ -22,13 +22,8 @@ export class WtpGameOutcomeComponent implements OnInit {
 
   ngOnInit(): void {
     let timer = setInterval(() => {
-      if(this.waitTime <= 1){
-        this.determineResult();
-        clearInterval(timer);
-      } 
-      else{
-        this.waitTime -= 1;
-      }
+      this.determineResult();
+      clearInterval(timer);
     },500);
   }
 

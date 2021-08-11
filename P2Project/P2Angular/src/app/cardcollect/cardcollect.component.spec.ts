@@ -1,7 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CardCollectComponent } from './cardcollect.component';
-import{ HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import { CardServiceService } from '../card-service.service';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterTestingModule } from '@angular/router/testing';
+import { FormsModule } from '@angular/forms';
 
 describe('CardCollectComponent', () => {
   let component: CardCollectComponent;
@@ -17,7 +19,7 @@ describe('CardCollectComponent', () => {
   }*/ 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-       imports: [HttpClientTestingModule], 
+       imports: [HttpClientModule, RouterTestingModule, FormsModule],
        providers: [
          {provide: CardServiceService}], 
       declarations: [ CardCollectComponent]
