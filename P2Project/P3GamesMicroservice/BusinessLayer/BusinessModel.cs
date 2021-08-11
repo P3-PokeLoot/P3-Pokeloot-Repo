@@ -209,6 +209,7 @@ namespace BusinessLayer
                     newRecord.UserId = userId;
                     // games played is 1 for a new record
                     newRecord.TotalGamesPlayed = 1;
+                    newRecord.GamesWon = 0;
                     // add to database
                     _context.RpsgameStats.Add(newRecord);
                     await _context.SaveChangesAsync();
@@ -293,6 +294,7 @@ namespace BusinessLayer
                     newRecord.UserId = userId;
                     // games played is 1 for new record
                     newRecord.TotalGamesPlayed = 1;
+                    newRecord.GamesWon = 0;
                     // add to database
                     _context.WtpgameStats.Add(newRecord);
                     await _context.SaveChangesAsync();
@@ -377,6 +379,7 @@ namespace BusinessLayer
                     newRecord.UserId = userId;
                     // games played is 1 for a new record
                     newRecord.TotalGamesPlayed = 1;
+                    newRecord.GamesWon = 0;
                     // add to database
                     _context.CapgameStats.Add(newRecord);
                     await _context.SaveChangesAsync();

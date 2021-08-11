@@ -65,7 +65,7 @@
         <div class="container mt-4 mb-3 shadow-sm p-3 bg-body rounded">
             <span>
                 <h6>
-                    {{comment.UserName}} <span style="font-size: x-small; color: gray;">{{fullPost.PostTime | date: 'short'}}</span>
+                    {{comment.UserName}} <span style="font-size: x-small; color: gray;">{{comment.Timestamp | date: 'short'}}</span>
                 </h6> 
             </span>
             {{comment.Content}}
