@@ -43,21 +43,21 @@ namespace BuisinessLayerMethods
         {
 
             List<UserRarityMapperModel> result = new List<UserRarityMapperModel>();
-            List<User> users = context.Users.ToList();
-            List<CardCollection> cardcollections = context.CardCollections.ToList();
-            List<RarityType> rare = context.RarityTypes.ToList();
-            List<PokemonCard> pokemoncard = context.PokemonCards.ToList();
+            //List<User> users = context.Users.ToList();
+            //List<CardCollection> cardcollections = context.CardCollections.ToList();
+            //List<RarityType> rare = context.RarityTypes.ToList();
+            //List<PokemonCard> pokemoncard = context.PokemonCards.ToList();
 
 
             try
             {
                 // Query List of UserIds and Quantities by Most Rarity Category in form of Key value Pairs
-                var topUsers = (from u in users
+                var topUsers = (from u in context.Users.ToList()
                                     // Join all four tables
-                                join c in cardcollections on u.UserId equals c.UserId
-                                join p in pokemoncard on c.PokemonId equals p.PokemonId
-                                join r in rare on p.RarityId equals r.RarityId
-                                where r.RarityCategory == rarityCategory
+                                join c in context.CardCollections.ToList() on u.UserId equals c.UserId
+                                join p in context.PokemonCards.ToList() on c.PokemonId equals p.PokemonId
+                                join r in context.RarityTypes.ToList() on p.RarityId equals r.RarityId
+                                where r.RarityCategory == rarityCategory.Trim()
                                 // Group by User ID
                                 group c by c.UserId into GroupModel
                                 orderby GroupModel.Count() descending 
