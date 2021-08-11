@@ -86,6 +86,7 @@ export class LeaderboardsComponent implements OnInit {
     this.chosenNumber = int;
     console.log('the number of items to return is:' + this.chosenNumber);
   }
+  //Method : rarity dropdown variable assignment
   AssignChosenRarityFromDropdown(rarity:string){
     this.chosenRarity = rarity;
     console.log('the number of items to return is:' + this.chosenRarity);

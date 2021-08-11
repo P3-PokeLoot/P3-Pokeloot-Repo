@@ -46,7 +46,6 @@ import { ModifyGameFormComponent } from './modify-game-form/modify-game-form.com
 import { MessagesComponent } from './messages/messages.component';
 
 import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
-import { NbgdTablePaginationComponent } from './nbgd-table-pagination/nbgd-table-pagination.component';
 import { LbChildWhoHasComponent } from './lb-child-who-has/lb-child-who-has.component';
 import { HangManComponent } from './hang-man/hang-man.component';
 import { AchievementsStatisticComponent } from './achievements-statistic/achievements-statistic.component';
@@ -95,7 +94,6 @@ import { CapGameWaitComponent } from './cap-game-wait/cap-game-wait.component';
     ModifyGameFormComponent,
     MessagesComponent,
     LeaderboardsComponent,
-    NbgdTablePaginationComponent,
     LbChildWhoHasComponent,
     HangManComponent,
     AchievementsStatisticComponent,
