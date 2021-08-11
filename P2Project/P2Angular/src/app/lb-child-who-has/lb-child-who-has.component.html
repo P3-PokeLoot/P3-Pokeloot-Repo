@@ -1,15 +1,63 @@
-<p>This is the start of the LB-child component. It will display percent of users that have a pokemon card</p>
+<div class="card text-center">
 
-<!--This input textbox is going to take the value of the text and then make new service call-->
-<input type="text" [(ngModel)]="userStringInput"/>
-<input type="button" value="Submit" (click)="ChangeInput(userStringInput);GetPercentOwnCard(userStringInput)"/>
+  <div class="card-header">
+      <h3> Users with this Pokemon</h3>
+  </div>
 
-<div class="card">
-    <div class="card-header">
-    </div>
-    <div class="card-body">
-      <p class="card-title">Number of users: {{chosenPokemon.total_Users}}</p>
-      <p>Number of {{chosenPokemon.pokemonName}}: {{chosenPokemon.totalQy}}</p>
-      <p class="card-text">Percent of users: {{chosenPokemon.percentage_OwnCard}}</p>
-    </div>
+  <div class="container">
+      <!-- image -->
+      <!-- <div class="row">
+          <div class="col-md-6 offset-md-3">
+              <div class="card container-sm">
+                  <img class="card-img-top" src="..." alt="Card image cap">
+              </div>
+          </div>
+      </div> -->
+
+
+      <div class="card-body">
+
+          <!-- <h5 class="card-title">Number of users: {{chosenPokemon.total_Users}}</h5> -->
+
+          <h5>Number of {{chosenPokemon.pokemonName}}: {{chosenPokemon.totalQy}}</h5>
+
+          <!-- percent of user -->
+          <div class="container">
+              <div class="row">
+                  <div class="col-md-6 offset-md-3">
+                      <h5 class="card-title">Percent of users: {{chosenPokemon.percentage_OwnCard.toFixed(2)}}</h5>
+                  </div>
+              </div>
+
+              <!-- progress bar -->
+              <div class="row">
+                  <div class="col-md-3 offset-md-4">
+                      <div class="progress">
+                          <div class="progress-bar progress-bar-striped" role="progressbar" style="width:{{chosenPokemon.percentage_OwnCard.toFixed(2)}}%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">{{chosenPokemon.percentage_OwnCard.toFixed(2)}}%</div>
+                      </div>
+                  </div>
+              </div>
+
+          </div>
+
+      </div>
+
+
+
+      <!-- <div class="row">
+          <div class="col align-self-center">
+              <form class="form-inline my-2 my-sm-0">
+                  <input class="form-control mr-sm-2" type="text" [value]="userStringInput" placeholder="Search" aria-label="Search">
+                  <button class="btn btn-success my-2 my-sm-0" type="submit" (click)="GetPercentOwnCard(userStringInput)">Search</button>
+              </form>
+          </div>
+      </div> -->
+
+  </div>
+
+
+  <div class="card-footer text-muted">
+
+  </div>
+
 </div>

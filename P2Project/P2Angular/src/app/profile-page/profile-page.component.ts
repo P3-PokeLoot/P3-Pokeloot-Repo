@@ -5,12 +5,17 @@ import { ICard } from '../cardcollect/ICard';
 import { Badge } from './IBadge';
 import { User } from './IUser';
 
+declare var name: any;
+
 @Component({
   selector: 'app-profile-page',
   templateUrl: './profile-page.component.html',
   styleUrls: ['./profile-page.component.css']
 })
 export class ProfilePageComponent implements OnInit {
+
+  
+
   currentProfile:User= {     UserId:0,
   FirstName:'',
   LastName:'',
@@ -51,10 +56,10 @@ export class ProfilePageComponent implements OnInit {
       y => {console.log(`there was an error ${y}`)}
     );
 
-    
+    new name();
     this.ViewJohto(this.currentProfile,this.JohtoBadges);
   }
-
+  
   ViewJohto(currentprof:User, johtobadges:Badge[]){ //open badges
     this.currentProfile = currentprof;
     this.JohtoBadges=johtobadges;
