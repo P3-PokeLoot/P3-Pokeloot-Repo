@@ -1162,14 +1162,14 @@ namespace UnitTests
                 PokemonId = 150,
                 PostDescription = "this is a display post",
             };
-            
+
 
             bool post1;
             bool post2;
             bool post3;
             Post result;
-            
-            
+
+
 
 
             // Act
@@ -1188,7 +1188,7 @@ namespace UnitTests
 
                 post1 = testBusinessModel.editPrice(1, 200);
                 post2 = testBusinessModel.editPrice(2, 200);
-                post3= testBusinessModel.editPrice(3, 200);
+                post3 = testBusinessModel.editPrice(3, 200);
                 result = context.Posts.Where(x => x.PostId == testPost1.PostId).FirstOrDefault();
 
 
@@ -1197,8 +1197,8 @@ namespace UnitTests
                 Assert.True(!post2);
                 Assert.True(!post3);
                 Assert.True(result.Price == 200);
-              
-                
+
+
 
 
             }
@@ -1403,10 +1403,11 @@ namespace UnitTests
 
                 // Assert
                 Assert.Equal(3, resultUser1.Count);
-                Assert.Single(resultUser2.Count);
-                Assert.Single(resultUser3.Count);
-                Assert.Single(resultUser4.Count);
-                Assert.Empty(resultUser5.Count);
+                Assert.Equal(1, resultUser2.Count);
+                Assert.Equal(1, resultUser3.Count);
+                Assert.Equal(1, resultUser4.Count);
+                Assert.Equal(0, resultUser5.Count);
+
 
 
             }
@@ -1613,7 +1614,7 @@ namespace UnitTests
                 Assert.True(context.Messages.ToList().Any());
                 Assert.True(newTestMessage.Content == aMessage.Content);
             }
-            
+
         }
 
         [Fact]
@@ -1792,9 +1793,86 @@ namespace UnitTests
                 Assert.True(result1[0].UserId == user2.UserId && result2[0].UserId == user1.UserId);
             }
         }
+    
+
+
+        [Fact]
+        public void newPostCommentTest()
+        {
+            // Arange
+            int userId = 1;
+            int postId = 1;
+            string content = "test";
+
+            // Act
+            using (var context = new P3DbClass(options))    // creates in memory database
+            {
+                context.Database.EnsureDeleted();
+                context.Database.EnsureCreated();
+
+                BusinessModel testBusinessModel = new BusinessModel(context);
+
+                testBusinessModel.newPostComment(userId, postId, content);
+
+                PostComment testResult = context.PostComments.Where(x => x.CommentPostId == 1).FirstOrDefault();
+
+                // Assert
+                Assert.Equal(userId, testResult.CommentUserId);
+                Assert.Equal(postId, testResult.CommentPostId);
+            }
+        }
+
+        [Fact]
+        public void getCommentListTest()
+        {
+            // Arange
+            User testUser = new User()
+            {
+                FirstName = "Test",
+                LastName = "User",
+                Email = "generic@email.com",
+                UserName = "genericUser",
+                Password = "Password"
+            };
+
+            PostComment post1 = new PostComment()
+            {
+                CommentUserId = 1,
+                CommentPostId = 1,
+                CommentContent = "test comment",
+                CommentTimestamp = DateTime.Now
+            };
+
+            PostComment post2 = new PostComment()
+            {
+                CommentUserId = 1,
+                CommentPostId = 1,
+                CommentContent = "test comment 2",
+                CommentTimestamp = DateTime.Now
+            };
+
+            // Act
+            using (var context = new P3DbClass(options))    // creates in memory database
+            {
+                context.Database.EnsureDeleted();
+                context.Database.EnsureCreated();
+
+                context.Users.Add(testUser);
+                context.PostComments.Add(post1);
+                context.PostComments.Add(post2);
+
+                context.SaveChanges();
+
+                BusinessModel testBusinessModel = new BusinessModel(context);
+
+                var resultTestList = testBusinessModel.getCommentList(1);
+
+                // Assert
+                Assert.Equal(2, resultTestList.Count());
+            }
+        }
+
     }
-
-
 }
 
 

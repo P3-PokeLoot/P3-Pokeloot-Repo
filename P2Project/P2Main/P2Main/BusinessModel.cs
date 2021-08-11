@@ -589,6 +589,13 @@ namespace BusinessLayer
             return true;
         }
 
+        /// <summary>
+        /// Creates a new PostComment object in the database based on inputs
+        /// </summary>
+        /// <param name="userId">user creating the comment</param>
+        /// <param name="postId">post the comment is for</param>
+        /// <param name="content">the content of the comment</param>
+        /// <returns>boolean value based on success of creating comment</returns>
         public bool newPostComment(int userId, int postId, string content)
         {      
             PostComment newPostComment = new PostComment();

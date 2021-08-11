@@ -33,7 +33,7 @@ namespace BusinessLayer
 
         public bool RemoveUser(int id); //tested
 
-        public DisplayBoard getPostInfo(int id);
+        public DisplayBoard getPostInfo(int id); //tested
 
         public Post getPostById(int id); //tested
 
@@ -47,7 +47,7 @@ namespace BusinessLayer
 
         public List<FullFriend> GetFriends(int UserId); //tested
 
-        public bool newPostComment(int userId, int postId, string content);
+        public bool newPostComment(int userId, int postId, string content); //tested
 
         public List<Message> GetMessagesBetween(int senderId, int receiverId); //tested
         public bool PostMessage(Message newMessage); //tested

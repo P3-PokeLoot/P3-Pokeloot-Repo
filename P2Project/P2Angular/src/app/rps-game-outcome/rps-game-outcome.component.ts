@@ -24,7 +24,6 @@ export class RpsGameOutcomeComponent implements OnInit {
   public totalEarned: string = `You won ${this.numCoinsToAdd} Congratulations!`
   //Boolean if user won
   public userWon: boolean = false;
-  waitTime: any = 1;
   @Output() playAgainEmitter = new EventEmitter();
 
   constructor(private _gameService: GameService) { }
@@ -97,18 +96,12 @@ export class RpsGameOutcomeComponent implements OnInit {
       this._gameService.RpsLose().subscribe();
     }
     let timer = setInterval(() => {
-      if(this.waitTime <= 1){
-        this._gameService.RpsRecord().subscribe(
-          result => {
-            console.log(result);
-            this.outcome += "Win record: " + result;
-          });
-        clearInterval(timer);
-      } 
-      else{
-        this.waitTime -= 1;
-      }
-    },500);
+      this._gameService.RpsRecord().subscribe(
+        result => {
+          this.outcome += "Win record: " + result;
+        });
+      clearInterval(timer);
+    }, 500);
   }
 
   playAgain() {
