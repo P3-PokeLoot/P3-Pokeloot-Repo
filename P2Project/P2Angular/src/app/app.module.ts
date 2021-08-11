@@ -48,6 +48,7 @@ import { NbgdTablePaginationComponent } from './nbgd-table-pagination/nbgd-table
 import { LbChildWhoHasComponent } from './lb-child-who-has/lb-child-who-has.component';
 import { HangManComponent } from './hang-man/hang-man.component';
 import { AchievementsStatisticComponent } from './achievements-statistic/achievements-statistic.component';
+import { CapGameWaitComponent } from './cap-game-wait/cap-game-wait.component';
 //import {NgbPaginationModule}
 
 @NgModule({
@@ -90,7 +91,8 @@ import { AchievementsStatisticComponent } from './achievements-statistic/achieve
     NbgdTablePaginationComponent,
     LbChildWhoHasComponent,
     HangManComponent,
-    AchievementsStatisticComponent
+    AchievementsStatisticComponent,
+    CapGameWaitComponent
   ],
   imports: [
     BrowserModule,
