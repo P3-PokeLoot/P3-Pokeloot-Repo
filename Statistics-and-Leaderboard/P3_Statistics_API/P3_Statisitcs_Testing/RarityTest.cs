@@ -122,7 +122,7 @@ namespace P3_Statisitcs_Testing
                 // Arrange
                 List<UserRarityMapperModel> result = new List<UserRarityMapperModel>();
                 User user1 = new User();
-                context.Users.Add(user1);
+                //context.Users.Add(user1);
                 context.SaveChanges();
                 RarityMethods r = new RarityMethods(context);
                 result = r.UserListByMostRarityCategory("Legendary", 100);
