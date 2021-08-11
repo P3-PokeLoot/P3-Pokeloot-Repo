@@ -27,6 +27,7 @@
         <button class="btn btn-success btn-sm " id="message-friend" routerLink="../Messages/{{friend.UserID}}">Message</button>
         <span>Level: {{friend.UserLevel}}</span>
         <span>Total cards: {{friend.TotalCards}}</span>
+        <span><button class="btn btn-success btn-sm" aria-disabled="true" id="editbutton" (click)="selectFriend = friend.UserID">View Collection</button></span>
         <span *ngIf="isPending">Friends Since: <br /> {{friend.FriendSince | date: 'short'}}</span>
         <span *ngIf="!isPending">Pending Since: <br /> {{friend.FriendSince | date: 'short'}}</span>
       </div>
