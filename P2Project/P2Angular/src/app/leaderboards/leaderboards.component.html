@@ -68,7 +68,7 @@ as a parameter to the internal component method-->
         </thead>
         <tbody>
             <!--This creates rows for each object "c" in columnsArray, then a table cell for each property "o" of each object "c" in columnsArray-->
-            <tr class="datarow" *ngFor="let c of columnsArray | paginate: { itemsPerPage: 5, currentPage: cp }" class="listMargin"> 
+            <tr class="datarow" *ngFor="let c of columnsArray | paginate: { itemsPerPage: 20, currentPage: cp }" class="listMargin"> 
                 <td class="datarowcell" *ngFor="let o of c"> 
                     {{o}}
                 </td>
