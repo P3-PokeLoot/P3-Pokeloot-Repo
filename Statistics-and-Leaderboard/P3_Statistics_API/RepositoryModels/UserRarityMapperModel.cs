@@ -10,10 +10,13 @@ namespace RepositoryModels
     {
         public int UserId { get; set; }
         public string UserName { get; set; }
-        public int TotalCommon { get; set; }
-        public int TotalUncommon { get; set; }
-        public int TotalRare { get; set; }
-        public int TotalMythic { get; set; }
-        public int TotalLegendary {get; set;}
+
+        public int Quantity { get; set; }
+
+       // public int TotalCommon { get; set; }
+       // public int TotalUncommon { get; set; }
+       // public int TotalRare { get; set; }
+       // public int TotalMythic { get; set; }
+       // public int TotalLegendary {get; set;}
     }
 }
