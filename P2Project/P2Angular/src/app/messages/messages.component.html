@@ -1,0 +1,41 @@
+<div id="main-container">
+  <div id="m-list">
+    <p style="font-size: 1.5em;">Conversations</p>
+    <form #usersearchform="ngForm">
+      <input type="text" placeholder="Search by username" name="usersearch" id="usersearch" #usersearch />
+      <button type="submit" (click)="SearchMessageUserByUsername(usersearch.value); usersearchform.reset();">Search</button>
+    </form>
+    <div *ngFor="let user of ongoing_users" class="convo-item"
+         (click)="onSelect(user.userId);">
+      <span>{{user.userName}}</span>
+    </div>
+  </div>
+  <div id="m-between">
+    <div id="view">
+      <div id="convo-box-title">
+        <div *ngIf="receiver; else Else" id="inner-title">
+          <span id="receiver-uname">{{receiver.userName}}</span>
+          <button id="delete-conversation" (click)="DeleteMessages(receiver.userId);">Delete</button>
+        </div>
+        <ng-template #Else><span id="receiver-uname">No conversation selected</span></ng-template>
+      </div>
+      <div id="conversation-box">
+        <div *ngFor="let message of messages"
+             class="message {{message.senderId == this.senderId ? 'right' : ''}}">
+          <span class="timestamp">{{message.timestamp | date:'short'}}</span>
+          <br />
+          <span>{{message.content}}</span>
+        </div>
+      </div>
+    </div>
+    <div id="interact">
+      <form id="message-form" #messageForm="ngForm"
+            (ngSubmit)="onSubmit(); messageForm.resetForm();"
+            (keyup.enter)="onSubmit(); messageForm.resetForm();">
+        <input id="message-box" type="text" [(ngModel)]="this.content" name="content" autocomplete="off" />
+        <button id="send-button" type="submit">Send</button>
+      </form>
+    </div>
+  </div>
+</div>
+

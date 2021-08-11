@@ -1,9 +1,13 @@
+
+
 <div class="catchButton text-center">
-    <button class="btn btn-primary" (click)="emitCatchChance()">Throw pokeball!</button>
+    <div *ngIf="!isImageLoaded" class="spinner-border"></div>
+    <button *ngIf="isImageLoaded" class="btn btn-primary" (click)="emitCatchChance()">Throw pokeball!</button>
 </div>
 
 
-<img src="{{pictureUrl}}" class="center">
-<div class="center">
+
+<img src="{{pictureUrl}}" (load)="isImageLoaded = true" class="center">
+<div *ngIf="isImageLoaded" class="center">
     <div [@catchChance]="determineCatchChance()" ></div>
 </div>
