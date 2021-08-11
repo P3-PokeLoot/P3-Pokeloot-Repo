@@ -43,43 +43,50 @@ namespace BuisinessLayerMethods
         {
 
             List<UserRarityMapperModel> result = new List<UserRarityMapperModel>();
+            List<User> users = context.Users.ToList();
+            List<CardCollection> cardcollections = context.CardCollections.ToList();
+            List<RarityType> rare = context.RarityTypes.ToList();
+            List<PokemonCard> pokemoncard = context.PokemonCards.ToList();
+
 
             try
             {
                 // Query List of UserIds and Quantities by Most Rarity Category in form of Key value Pairs
-                var topUsers = (from u in context.Users
+                var topUsers = (from u in users
                                     // Join all four tables
-                                join c in context.CardCollections on u.UserId equals c.UserId
-                                join p in context.PokemonCards on c.PokemonId equals p.PokemonId
-                                join r in context.RarityTypes on p.RarityId equals r.RarityId
+                                join c in cardcollections on u.UserId equals c.UserId
+                                join p in pokemoncard on c.PokemonId equals p.PokemonId
+                                join r in rare on p.RarityId equals r.RarityId
                                 where r.RarityCategory == rarityCategory
                                 // Group by User ID
                                 group c by c.UserId into GroupModel
-                                orderby GroupModel.Count() descending
-                                select new
+                                orderby GroupModel.Count() descending 
+                                select new UserRarityMapperModel
                                 {
-                                    GroupModel.Key,
-                                    Quantity = GroupModel.Sum(x => x.QuantityNormal) + GroupModel.Sum(x => x.QuantityShiny)
+                                    UserId= GroupModel.Key,
+                                    UserName= GroupModel.First().User.UserName,
+                                    
+                                    Quantity = GroupModel.Sum(x => x.QuantityNormal) + GroupModel.Sum(x => x.QuantityShiny),
                                 }
 
                              ).OrderByDescending(o => o.Quantity).Take(maxnumber).ToList();
                 // Create List of Users from list of Key value pairs
-                foreach (var userDict in topUsers)
-                {
-                    var user = context.Users.Where(x => x.UserId == userDict.Key).FirstOrDefault();
-                    UserRarityMapperModel model = new UserRarityMapperModel()
-                    {
-                        UserId = user.UserId,
-                        UserName = user.UserName,
-                        TotalCommon = TotalRarityCategoryForUser(user.UserId, "Common"),
-                        TotalUncommon = TotalRarityCategoryForUser(user.UserId, "Uncommon"),
-                        TotalRare = TotalRarityCategoryForUser(user.UserId, "Rare"),
-                        TotalMythic = TotalRarityCategoryForUser(user.UserId, "Mythic"),
-                        TotalLegendary = TotalRarityCategoryForUser(user.UserId, "Legendary")
-                    };
-                    result.Add(model);
-                }
-                return result;
+            //    foreach (var userDic//t in topUsers)
+            //    {
+            //        var user = context.Users.Where(x => x.UserId == userDict.Key).FirstOrDefault();
+            //        UserRarityMapperModel model = new UserRarityMapperModel()
+            //        {
+            //            UserId = user.UserId,
+            //            UserName = user.UserName,
+                        //TotalCommon = TotalRarityCategoryForUser(user.UserId, "Common"),
+                        //TotalUncommon = TotalRarityCategoryForUser(user.UserId, "Uncommon"),
+                        //TotalRare = TotalRarityCategoryForUser(user.UserId, "Rare"),
+            //            TotalMythic = TotalRarityCategoryForUser(user.UserId, "Mythic"),
+                        //TotalLegendary = TotalRarityCategoryForUser(user.UserId, "Legendary")
+           //         };
+             //       result.Add(model);
+             //   }
+                return topUsers;
             }
             catch(Exception e)
             {
@@ -124,13 +131,13 @@ namespace BuisinessLayerMethods
                                               RarityId = p.RarityId,
                                               Quantity = c.QuantityNormal + c.QuantityShiny
                                           }
-                         ).ToList();
+                         ).Sum(x => x.Quantity);
             // Sums Quantity in Query
-            foreach (var x in totalRarityCardsOfUser)
-            {
-                result += x.Quantity;
-            }
-            return result;
+            //foreach (var x in totalRarityCardsOfUser)
+            //{
+            //    result += x.Quantity;
+            //}
+            return totalRarityCardsOfUser;
         }
     }
 }

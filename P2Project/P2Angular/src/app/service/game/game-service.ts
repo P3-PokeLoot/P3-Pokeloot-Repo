@@ -108,9 +108,9 @@ export class GameService {
 }
 
 export interface WtpGame {
-  pictureUrl: string,
-  correctPokemon: string,
-  options: string[],
+  PictureUrl: string,
+  CorrectPokemon: string,
+  Options: string[],
 };
 
 export interface GameInfo {
