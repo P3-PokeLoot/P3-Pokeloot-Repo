@@ -10,11 +10,11 @@ namespace BuisinessLayerMethods
 {
     public interface ILeaderboardBuissnes
     {
-        List<CardCollection> UserMostShinyPokemon(int number);
-        List<MVPShiny> TopShinyTotal(int number);
-        List<UsersCollection> GetUserTotalCollection(int number);
+        List<CardCollection> UserMostShinyPokemon(int userMost);
+        List<MVPShiny> TopShinyTotal(int topUser);
+        List<UsersCollection> GetUserTotalCollection(int topUsers);
         int GetTotalPokemon();
-        List<UsersCollection> GetUserTotalAmount(int number);
-        PercentageOwnCard GetPercentageOwnCard(string name);
+        List<UsersCollection> GetUserTotalAmount(int topUser);
+        PercentageOwnCard GetPercentageOwnCard(string pokemon_name);
     }
 }

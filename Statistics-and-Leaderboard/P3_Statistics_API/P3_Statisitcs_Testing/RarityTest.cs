@@ -111,7 +111,7 @@ namespace P3_Statisitcs_Testing
 
                 // Assert
                 Assert.NotNull(result);
-                Assert.Equal(5, result.ElementAt(0).TotalLegendary);
+                Assert.Equal(5, result.ElementAt(0).Quantity);
             }
         }
         [Fact]
@@ -126,6 +126,7 @@ namespace P3_Statisitcs_Testing
                 context.SaveChanges();
                 RarityMethods r = new RarityMethods(context);
                 result = r.UserListByMostRarityCategory("Legendary", 100);
+                Assert.Empty(result);
             }
         }
 
