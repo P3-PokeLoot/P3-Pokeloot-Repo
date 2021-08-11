@@ -13,83 +13,84 @@ variables:
 
 stages:
 # Main API Build, Test, Publish to Sonar Cloud
-- stage: P2MainSonarCloud
-  displayName: P2 Main Sonar Cloud
-  jobs:
-  - job: P2Main
-    steps:
-      
-    - task: SonarCloudPrepare@1
-      inputs:
-        SonarCloud: 'MainAPI_SonarCloud'
-        organization: 'p3pokeloot'
-        scannerMode: 'MSBuild'
-        projectKey: 'p3pokeloot_Pokeloot_MainAPI'
-        projectName: 'p3pokeloot_Pokeloot_MainAPI'
-                  #sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/**/*.trx
-        extraProperties: |
-
-          sonar.cs.vscoveragexml.reportsPaths=$(Agent.TempDirectory)/**/*.xml
-          sonar.cs.xunit.reportsPaths=$(Agent.TempDirectory)/**/*.trx
-
-    - task: DotNetCoreCLI@2
-      inputs:
-        command: 'build'
-        projects: '$(Build.SourcesDirectory)/P2Project/P2Main/P2Main.sln'
-        arguments: '--configuration $(buildConfiguration)'
-    - task: DotNetCoreCLI@2
-      inputs:
-        command: 'test'
-        arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura'
-        publishTestResults: true
-        projects: '$(Build.SourcesDirectory)/P2Project/P2Main/P2Main.sln'
-
-    - task: PublishCodeCoverageResults@1
-      inputs:
-        codeCoverageTool: 'Cobertura'
-        summaryFileLocation: '$(Agent.TempDirectory)/**/*.xml'
-
-    - task: SonarCloudAnalyze@1
-
-    - task: SonarCloudPublish@1
-      inputs:
-        pollingTimeoutSec: '300'
-
-
-# ALT Main API Build, Test, Publish to Sonar Cloud
-# - stage: API
+# - stage: P2MainSonarCloud
+#   displayName: P2 Main Sonar Cloud
 #   jobs:
-#   - job: apijob
+#   - job: P2Main
 #     steps:
-
+      
 #     - task: SonarCloudPrepare@1
 #       inputs:
-#         SonarCloud: 'GamesAPI_SonarCloud'
+#         SonarCloud: 'MainAPI_SonarCloud'
 #         organization: 'p3pokeloot'
 #         scannerMode: 'MSBuild'
-#         projectKey: 'p3pokeloot_Pokeloot_GamesAPI'
-#         projectName: 'p3pokeloot_Pokeloot_GamesAPI'
-#     - task: DotNetCoreCLI@2
-#       displayName: buildproj
-#       inputs:
-#         command: 'build'
-#         projects: '$(Build.SourcesDirectory)/P2Project/P3GamesMicroservice/P3GamesMicroservice.sln'
-#         arguments: '--configuration $(buildConfiguration)'
+#         projectKey: 'p3pokeloot_Pokeloot_MainAPI'
+#         projectName: 'p3pokeloot_Pokeloot_MainAPI'
+#                   #sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/**/*.trx
+#         extraProperties: |
+
+#           sonar.cs.vscoveragexml.reportsPaths=$(Agent.TempDirectory)/**/*.xml
+#           sonar.cs.xunit.reportsPaths=$(Agent.TempDirectory)/**/*.trx
 
 #     - task: DotNetCoreCLI@2
-#       displayName: testproj
+#       inputs:
+#         command: 'build'
+#         projects: '$(Build.SourcesDirectory)/P2Project/P2Main/P2Main.sln'
+#         arguments: '--configuration $(buildConfiguration)'
+#     - task: DotNetCoreCLI@2
 #       inputs:
 #         command: 'test'
-#         projects: '$(Build.SourcesDirectory)/P2Project/P3GamesMicroservice/P3GamesMicroservice.sln'
-#         arguments: '--configuration $(buildConfiguration) --collect "Code Coverage"'
+#         arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura'
+#         publishTestResults: true
+#         projects: '$(Build.SourcesDirectory)/P2Project/P2Main/P2Main.sln'
 
 #     - task: PublishCodeCoverageResults@1
 #       inputs:
 #         codeCoverageTool: 'Cobertura'
-#         summaryFileLocation: '**/coburtura/coverage.xml'
+#         summaryFileLocation: '$(Agent.TempDirectory)/**/*.xml'
 
 #     - task: SonarCloudAnalyze@1
+
 #     - task: SonarCloudPublish@1
+#       inputs:
+#         pollingTimeoutSec: '300'
+
+
+# ALT Main API Build, Test, Publish to Sonar Cloud
+- stage: API
+  jobs:
+  - job: apijob
+    steps:
+
+    - task: SonarCloudPrepare@1
+      inputs:
+        SonarCloud: 'GamesAPI_SonarCloud'
+        organization: 'p3pokeloot'
+        scannerMode: 'MSBuild'
+        projectKey: 'p3pokeloot_Pokeloot_GamesAPI'
+        projectName: 'p3pokeloot_Pokeloot_GamesAPI'
+    - task: DotNetCoreCLI@2
+      displayName: buildproj
+      inputs:
+        command: 'build'
+        projects: '$(Build.SourcesDirectory)/P2Project/P3GamesMicroservice/P3GamesMicroservice.sln'
+        arguments: '--configuration $(buildConfiguration)'
+
+    - task: DotNetCoreCLI@2
+      displayName: testproj
+      inputs:
+        command: 'test'
+        projects: '$(Build.SourcesDirectory)/P2Project/P3GamesMicroservice/P3GamesMicroservice.sln'
+        arguments: '--configuration $(buildConfiguration) --collect "Code Coverage"'
+        workingDirectory: '$(Build.SourcesDirectory)/P2Project/P3GamesMicroservice'
+
+    - task: PublishCodeCoverageResults@1
+      inputs:
+        codeCoverageTool: 'Cobertura'
+        summaryFileLocation: '**/coburtura/coverage.xml'
+
+    - task: SonarCloudAnalyze@1
+    - task: SonarCloudPublish@1
 
 
 # Games API Build, Test, Publish to Sonar Cloud
