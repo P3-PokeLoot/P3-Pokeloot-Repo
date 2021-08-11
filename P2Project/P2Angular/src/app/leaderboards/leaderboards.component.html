@@ -14,18 +14,18 @@ as a parameter to the internal component method-->
 <div class="flex-container"> 
     <!--1: Categorical dropdown list-->
     <div class="flex-child">
-        <label for="categoricaldropdownlist">
+        <label class="floater" for="categoricaldropdownlist">
             Leaderboard Stats:
-            <select class="categoricaldropdownlist" [(ngModel)]="chosenStat" (change)="AssignChosenStatFromDropdown(chosenStat); ResetData()">
+            <select class="floater" class="categoricaldropdownlist" [(ngModel)]="chosenStat" (change)="AssignChosenStatFromDropdown(chosenStat); ResetData()">
                 <option  *ngFor= "let item of allStatsOptions" [ngValue]="item" >
                    {{item}}
                 </option>
             </select>
         </label>
     <!--2: Numerical dropwdown list-->
-        <label for="numericaldropdownlist">
+        <label class="floater" for="numericaldropdownlist">
             Results Number:
-            <select class="numericaldropdownlist" [(ngModel)]="chosenNumber" (change)="AssignChosenNumberFromDropdown(chosenNumber)">
+            <select class="numericaldropdownlist" [(ngModel)]="chosenNumber" (change)="AssignChosenNumberFromDropdown(chosenNumber); ResetNumber(chosenNumber);">
                 <option *ngFor= "let option of allNumbersOptions" [ngValue]="option"> <!--Whenever user selects dropdown, we want "currentChosenNumber" to equal that option via the bound method-->
                     {{option}}
                 </option>
@@ -33,9 +33,9 @@ as a parameter to the internal component method-->
         </label>
     <!--3: Rarity dropdown that shows up only if categorical dropdown chosen is displaying rarity leaderboard-->
 
-            <label *ngIf="chosenStat == 'Rarities' " for="raritydropdownlist">
+            <label  class="floater" *ngIf="chosenStat == 'Rarities' " for="raritydropdownlist">
                 Rarity:
-                <select class="raritydropdownlist" [(ngModel)]="chosenRarity" (change)="AssignChosenRarityFromDropdown(chosenRarity); ResetRarity()">
+                <select class="raritydropdownlist" [(ngModel)]="chosenRarity" (change)="AssignChosenRarityFromDropdown(chosenRarity); ResetData()">
                     <option  *ngFor= "let rarity of allRarityOptions" [ngValue]="rarity" >
                     {{rarity}}
                     </option>
@@ -43,8 +43,8 @@ as a parameter to the internal component method-->
             </label>
 
     <!--buttons & logo-->
-        <input type="button" (click)="CheckTableExists()" value="Show Leaderboard"/>
-        <img class="bigbrain" src='/assets/img/leaderboards_component_adobespark.png' alt-text="mega-alakazam"/>
+        <input class="floater" type="button" (click)="CheckTableExists()" value="Show Leaderboard"/>
+        <img  class="bigbrain" src='/assets/img/leaderboards_component_adobespark.png' alt-text="mega-alakazam"/>
     </div>
 
 </div>
