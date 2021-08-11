@@ -12,7 +12,7 @@ variables:
   buildConfiguration: 'Release'
 stages:
 # Main API Build, Test, Publish to Sonar Cloud
-- stage: API MainTest
+- stage: API Mains
   jobs:
   - job: apijob
     steps:
@@ -82,7 +82,7 @@ stages:
     - task: SonarCloudAnalyze@1
     - task: SonarCloudPublish@1
 
-# ALT Main API Build, Test, Publish to Sonar Cloud
+# API Build, Test, Publish to Sonar Cloud
 - stage: API Statistics
   jobs:
   - job: apijob
