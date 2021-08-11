@@ -87,8 +87,8 @@ export class CapGameCatchComponent implements OnInit {
   ngOnInit(): void {
     this._gamesService.GetWtpGame().subscribe(
       result => {
-        this.pictureUrl = result.pictureUrl;
-        this.pokemonName = result.correctPokemon;
+        this.pictureUrl = result.PictureUrl;
+        this.pokemonName = result.CorrectPokemon;
       });
     this.startTimer();
   }

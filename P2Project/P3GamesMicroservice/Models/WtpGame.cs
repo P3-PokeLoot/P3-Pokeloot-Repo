@@ -8,9 +8,24 @@ namespace Models
 {
     public class WtpGame
     {
-        public string pictureUrl;
-        public string correctPokemon;
-        public string[] options;
+        private string pictureUrl;
+        private string correctPokemon;
+        private string[] options;
+
+        public string PictureUrl {
+            get { return pictureUrl; }
+            set { pictureUrl = value; }
+        }
+        public string CorrectPokemon
+        {
+            get { return correctPokemon; }
+            set { correctPokemon = value; }
+        }
+        public string[] Options
+        {
+            get { return options; }
+            set { options = value; }
+        }
 
         public WtpGame(string picture, string pokemon, string[] optionsArray)
         {

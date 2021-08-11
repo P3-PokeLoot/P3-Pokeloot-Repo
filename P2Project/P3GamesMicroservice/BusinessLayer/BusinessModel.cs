@@ -18,6 +18,7 @@ namespace BusinessLayer
     {
         private readonly DataContext _context;
         private readonly ILogger<BusinessModel> _logger;
+        private readonly string _pokeApi = "https://pokeapi.co/api/v2/pokemon/";
 
         public BusinessModel(DataContext context, ILogger<BusinessModel> logger)
         {
@@ -85,28 +86,28 @@ namespace BusinessLayer
         public async Task<string> WhosThatPokemonGameAsync()
         {
             string gameObject = "";
-            int numOptions = 4;
+            int numOptions = 4; // number of options to be available including correct answer
             string pictureUrl, correctPokemon;
-            string[] options = new string[numOptions];
+            string[] options = new string[numOptions]; // array to hold options for shuffling later
 
             // get the pokemon to guess
             dynamic temp = JsonConvert.DeserializeObject(await RandomPokemonAsync());
             pictureUrl = temp.sprites.front_default;
             correctPokemon = temp.name;
-            // first option is correct name to start
+            // add correct name to options array
             options[0] = correctPokemon;
 
             // get random options
-            for (int i = 1; i < numOptions - 1; i++) // numOptions - 1 for last item to be pikachu
+            for (int i = 1; i < numOptions - 1; i++) // numOptions - 1 for pikachu to always be an option
             {
                 while (options[i] == null)
                 {
                     temp = JsonConvert.DeserializeObject(await RandomPokemonAsync());
-                    if (options.Where(x => x == temp.name.ToString()).FirstOrDefault() == null && temp.name.ToString() != "pikachu") // if name not already an option and not pikachu, because pikachu always option
+                    if (options.Any(x => x == temp.name.ToString()) == false && temp.name.ToString() != "pikachu") // if name not already an option and not pikachu, because pikachu always option
                         options[i] = temp.name;
                 }
             }
-            options[numOptions - 1] = "pikachu"; // pikachu always an option for the lolz
+            options[numOptions - 1] = "pikachu"; // pikachu always an option
 
             // shuffle options array
             Random rand = new Random();
@@ -128,7 +129,7 @@ namespace BusinessLayer
             var rand = new Random();
             int id = rand.Next(1, 899); // 898 total pokemon?
             // make http request
-            var client = new RestClient("https://pokeapi.co/api/v2/pokemon/" + id);
+            var client = new RestClient(_pokeApi + id);
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
             var body = @"";

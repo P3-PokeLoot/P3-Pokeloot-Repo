@@ -19,7 +19,6 @@ namespace P3Api.Controllers
     public class GamesController : ControllerBase
     {
         private readonly ILogger<GamesController> _logger;
-        //private readonly DataContext _dataContext;
         private readonly IBusinessModel _businessModel;
         private readonly IWebHostEnvironment _hostEnvironment;
 
@@ -27,7 +26,6 @@ namespace P3Api.Controllers
         {
             _businessModel = businessModel;
             _logger = logger;
-            //_dataContext = dataContext;
             _hostEnvironment = hostEnvironment;
         }
 
@@ -285,7 +283,7 @@ namespace P3Api.Controllers
         [HttpPut("PhmWin/{userId}")]
         public async Task<IActionResult> PhmWin(int userId)
         {
-            var success = await _businessModel.PhmPlayedAsync(userId);
+            var success = await _businessModel.PhmWinAsync(userId);
             return StatusCode(200, success);
         }
 
