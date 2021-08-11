@@ -34,8 +34,8 @@ describe('LeaderboardsComponent', () => {
   //testing dropdown arrays
   it('should be an array of strings',()=>{
     expect(component.allStatsOptions[0]).toBe('Coin Balance');
-    expect(component.allStatsOptions[1]).toBe('Total Earned Coins');
-    expect(component.allStatsOptions[2]).toBe('Total Coins Spent');
+    expect(component.allStatsOptions[1]).toBe('Coins Earned');
+    expect(component.allStatsOptions[2]).toBe('Coins Spent');
   });
 
   it('should be an array of numbers',()=>{
@@ -80,7 +80,7 @@ describe('LeaderboardsComponent', () => {
     expect(component.headersArray[9]).toBe('DisplayBoards');
     expect(component.columnsArray.length).toBe(10);
     expect(component.headersArray[0][1]).toBe('s');
-    expect(component.headersArray[0][5]).toBe(1);
+    expect(component.headersArray[0][5]).toBe('a');
     expect(component.headersArray[0][8]).toBeNull;
   });
   //Testing Method 5
