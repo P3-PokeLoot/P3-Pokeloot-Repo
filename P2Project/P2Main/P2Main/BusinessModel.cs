@@ -790,6 +790,12 @@ namespace BusinessLayer
             return "Oops, we hit a weird edge case...";
         }
 
+        /// <summary>
+        /// Gets all the message objects between two users
+        /// </summary>
+        /// <param name="senderId">The ID of user 1</param>
+        /// <param name="receiverId">The ID of user 2</param>
+        /// <returns>A list of Message objects</returns>
         public List<Message> GetMessagesBetween(int senderId, int receiverId)
         {
             var dbResult = context.Messages.Where(x => (x.SenderId == senderId && x.ReceiverId == receiverId) ||
@@ -811,6 +817,12 @@ namespace BusinessLayer
             return messages;
         }
 
+        /// <summary>
+        /// Deletes all the messages between user at user1Id and user at user2Id
+        /// </summary>
+        /// <param name="user1Id">The ID of user 1</param>
+        /// <param name="user2Id">The ID of user 2</param>
+        /// <returns>A boolean representing whether the deletion was successful</returns>
         public bool DeleteMessagesBetween(int user1Id, int user2Id)
         {
             var dbResult = context.Messages.Where(x => (x.SenderId == user1Id && x.ReceiverId == user2Id) ||
@@ -829,6 +841,11 @@ namespace BusinessLayer
             return true;
         }
 
+        /// <summary>
+        /// Inserts a new Message object into the database
+        /// </summary>
+        /// <param name="newMessage">The Message object to insert into the database</param>
+        /// <returns>A boolean representing whether the insert was successful</returns>
         public bool PostMessage(Message newMessage)
         {
             context.Messages.Add(newMessage);
@@ -841,6 +858,11 @@ namespace BusinessLayer
             return true;
         }
 
+        /// <summary>
+        /// Gets all the users that the user at userId currently has an ongoing conversation with
+        /// </summary>
+        /// <param name="userId">Id of the user to get ongoing conversation users for</param>
+        /// <returns>A list of User objects</returns>
         public List<User> GetOngoingConversationUsers(int userId)
         {
             var MsgTable = context.Messages;

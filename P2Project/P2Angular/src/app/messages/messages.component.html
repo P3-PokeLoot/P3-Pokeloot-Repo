@@ -2,7 +2,7 @@
   <div id="m-list">
     <p style="font-size: 1.5em;">Conversations</p>
     <form #usersearchform="ngForm">
-      <input type="text" placeholder="Search by username" name="usersearch" id="usersearch" #usersearch/>
+      <input type="text" placeholder="Search by username" name="usersearch" id="usersearch" #usersearch />
       <button type="submit" (click)="SearchMessageUserByUsername(usersearch.value); usersearchform.reset();">Search</button>
     </form>
     <div *ngFor="let user of ongoing_users" class="convo-item"

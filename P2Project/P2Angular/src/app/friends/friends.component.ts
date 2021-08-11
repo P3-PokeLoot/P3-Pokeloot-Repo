@@ -119,7 +119,7 @@ export class FriendsComponent implements OnInit {
     
   }
 
-  refresh(){ //refreshes friends page
+  refresh() { //refreshes friends page
     this.route.navigateByUrl('/', {skipLocationChange: true}).then(() => {
       this.route.navigate(['/Friends']);
     });

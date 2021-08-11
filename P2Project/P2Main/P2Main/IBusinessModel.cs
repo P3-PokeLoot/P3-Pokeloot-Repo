@@ -49,10 +49,10 @@ namespace BusinessLayer
 
         public bool newPostComment(int userId, int postId, string content);
 
-        public List<Message> GetMessagesBetween(int senderId, int receiverId);
-        public bool PostMessage(Message newMessage);
-        public bool DeleteMessagesBetween(int user1Id, int user2Id);
-        public List<User> GetOngoingConversationUsers(int userId);
+        public List<Message> GetMessagesBetween(int senderId, int receiverId); //tested
+        public bool PostMessage(Message newMessage); //tested
+        public bool DeleteMessagesBetween(int user1Id, int user2Id); //tested
+        public List<User> GetOngoingConversationUsers(int userId); //tested
 
         public Dictionary<PostComment, string> getCommentList(int postId);
         

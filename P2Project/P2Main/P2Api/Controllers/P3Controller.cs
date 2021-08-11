@@ -473,12 +473,22 @@ namespace P2Api.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Gets a specific user by Id
+        /// </summary>
+        /// <param name="userId">The ID of the user</param>
+        /// <returns>A MessageUser object representing the desired user that contains necessary messaging information</returns>
         [HttpGet("[action]/{userId}")]
         public MessageUser GetMessageUser(int userId)
         {
             return _businessModel.GetMessageUserById(userId);
         }
 
+        /// <summary>
+        /// Gets a specific user by username
+        /// </summary>
+        /// <param name="username">The username of the user</param>
+        /// <returns>A MessageUser object representing the desired user that contains necessary messaging information</returns>
         [HttpGet("[action]/{username}")]
         public MessageUser GetMessageUserByUsername(string username)
         {
