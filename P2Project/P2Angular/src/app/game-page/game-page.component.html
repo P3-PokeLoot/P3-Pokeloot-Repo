@@ -8,13 +8,13 @@
         <a routerLink="/Game/DeleteGame" type="button" class="btn btn-warning btn-lg">Delete</a>
     </div>
 </div>
-<div class="container">
+<div class="container" style="padding: 10em;">
     <br>
     <br>
     <div style="font-size: small;" class="row row-cols-2 row-cols-md-3 g-4 mt-3">
         <div *ngFor="let game of gameList" class="card mx-4" style="width: 20rem;">
             <div class="col">
-                <img style="background-color: chocolate;" src="{{game.imageSource}}" class="card-img-top" height="325">
+                <img style="background-color: grey;" src="{{game.imageSource}}" class="card-img-top" height="325">
                 <div class="card-body">
                     <h5 class="card-title">{{game.title}}</h5>
                     <p class="card-text">{{game.description}}</p>

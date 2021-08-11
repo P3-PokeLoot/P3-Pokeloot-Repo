@@ -23,7 +23,7 @@ export class WtpGameOutcomeComponent implements OnInit {
   // amount of coins to award for winning
   numCoinsToAdd: number = 100;
   // variable to hold user's coin balance
-  currentUserCoinBalance = {} as any;
+  currentUserCoinBalance?:any;
 
   constructor(private _gameService: GameService) { }
 
