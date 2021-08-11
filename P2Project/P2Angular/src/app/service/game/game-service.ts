@@ -41,22 +41,18 @@ export class GameService {
   }
 
   RpsWin(): Observable<any> {
-    console.log("RPS win...");
     return this.http.post<any>(this.GamesUrl + "RpsWin?userId=" + localStorage.getItem('userId'), {});
   }
 
   RpsLose(): Observable<any> {
-    console.log("RPS lose...");
     return this.http.post(this.GamesUrl + "RpsLose?userId=" + localStorage.getItem('userId'), {});
   }
 
   RpsRecord(): Observable<any> {
-    console.log("RPS record...");
     return this.http.get(this.GamesUrl + "RpsRecord/" + localStorage.getItem('userId'), { responseType: 'text' });
   }
 
   WtpWin() {
-    console.log("WTP win...");
     return this.http.post<any>(this.GamesUrl + "WtpWin?userId=" + localStorage.getItem('userId'), {});
   }
 
@@ -65,12 +61,10 @@ export class GameService {
   }
 
   WtpLose(): Observable<any> {
-    console.log("WTP lose...");
     return this.http.post(this.GamesUrl + "WtpLose?userId=" + localStorage.getItem('userId'), {});
   }
 
   WtpRecord(): Observable<any> {
-    console.log("WTP record...");
     return this.http.get(this.GamesUrl + "WtpRecord/" + localStorage.getItem('userId'), { responseType: 'text' });
   }
 
