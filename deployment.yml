@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: p3angular
-        image: gregious/p3angular:v15
+        image: gregious/p3angular:v16
         imagePullPolicy: Always
         ports:
         - name: http
@@ -227,11 +227,18 @@ metadata:
     nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, DELETE, OPTIONS"
     nginx.ingress.kubernetes.io/cors-allow-origin: "20.106.65.153"
     nginx.ingress.kubernetes.io/cors-allow-headers: "*"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    cert-manager.io/issuer: "letsencrypt-prod"
+    # certmanager.k8s.io/acme-challenge-type: http01
 spec:
   tls:
-  - secretName: tls-secret
+  - hosts: 
+    - p3pokeloot.com
+    secretName: p3pokeloot-prod-certificate
   rules:
-  - http:
+  - host: p3pokeloot.com
+    http:
       paths:
       - path: /
         pathType: Prefix
