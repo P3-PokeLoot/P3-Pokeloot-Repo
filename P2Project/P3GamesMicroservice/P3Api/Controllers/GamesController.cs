@@ -127,15 +127,7 @@ namespace P3Api.Controllers
             {
                 DeleteImage(gameInfo.ImagePath);
             }
-
-            if (gameInfo != null)
-            {
-                return StatusCode(200, gameInfo);
-            }
-            else
-            {
-                return NotFound();
-            }
+            return StatusCode(200, gameInfo);
 
         }
         // Stores the image statically in the Image folder and returns a modified version of the name. 
