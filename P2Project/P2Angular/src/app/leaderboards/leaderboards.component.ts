@@ -166,14 +166,6 @@ CreateArraysFromObservable(){
         });
         console.log('this is case'+this.chosenService);
         break;
-    // case :
-    //   this._leaderboardservice.GetMostShinyList(this.chosenNumber).subscribe(
-    //     result => {
-    //       this.observableData = result; 
-    //       this.CreateArraysFromObservable();
-    //     });
-    //     console.log('this is case'+this.chosenService);
-    //     break;
     case 5:
       this._leaderboardservice.GetMVPShinyUsersList(this.chosenNumber).subscribe(
         result => {
@@ -222,14 +214,6 @@ CreateArraysFromObservable(){
     this.chosenRarity = 'Common';
   }
   //============================================PAGINATION SECTION======================================
-//   page = 1;
-//   pageSize = 5;
-//   collectionSize = this.observableData.length;
-//   refreshEntries() {
-//     this.pageOfItems = this.observableData
-//     .map((entry, i) => ({id: i + 1, ...entry}))
-//     .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
-// }
 
 cp=1;
 config:any;

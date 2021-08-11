@@ -59,7 +59,7 @@ export class ProfilePageComponent implements OnInit {
     new name();
     this.ViewJohto(this.currentProfile,this.JohtoBadges);
   }
-  title = 'app-js';
+  
   ViewJohto(currentprof:User, johtobadges:Badge[]){ //open badges
     this.currentProfile = currentprof;
     this.JohtoBadges=johtobadges;

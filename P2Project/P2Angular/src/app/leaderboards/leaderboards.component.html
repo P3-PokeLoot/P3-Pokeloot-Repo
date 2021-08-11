@@ -31,11 +31,11 @@ as a parameter to the internal component method-->
                 </option>
             </select>
         </label>
-    <!--3: Rarity dropdown that shows up only if categorical dropdown chosen is -->
+    <!--3: Rarity dropdown that shows up only if categorical dropdown chosen is displaying rarity leaderboard-->
 
             <label *ngIf="chosenStat == 'Rarities' " for="raritydropdownlist">
                 Rarity:
-                <select class="raritydropdownlist" [(ngModel)]="chosenRarity" (change)="AssignChosenRarityFromDropdown(chosenRarity)">
+                <select class="raritydropdownlist" [(ngModel)]="chosenRarity" (change)="AssignChosenRarityFromDropdown(chosenRarity); ResetRarity()">
                     <option  *ngFor= "let rarity of allRarityOptions" [ngValue]="rarity" >
                     {{rarity}}
                     </option>
