@@ -7,7 +7,7 @@
 <br/>
 
 
-<div class="container mt-4 mb-3 shadow-sm p-3 bg-body rounded">
+<div class="container mt-4 mb-3 p-3 bg-body rounded">
     <div class="col-md-7">
         <div class="d-flex justify-content-between">
             <div class="d-flex flex-row align-items-center">
@@ -44,11 +44,11 @@
 </div>
 
 </div>
-<div class="container mt-4 mb-3 shadow-sm p-3 bg-body rounded">
+<div class="container mt-4 mb-3 p-3 bg-body rounded">
     <h3>Comments</h3>
 
     <div *ngFor="let comment of commentList" style="width: 95%; margin: 1rem;" >
-        <div class="container mt-4 mb-3 shadow-sm p-3 bg-body rounded">
+        <div class="container mt-4 mb-3 p-3 bg-body rounded">
             <span>
                 <h6>
                     {{comment.UserName}} <span style="font-size: x-small; color: gray;">{{fullPost.PostTime | date: 'short'}}</span>
