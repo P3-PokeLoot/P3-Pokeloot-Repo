@@ -3,6 +3,11 @@ table{
     display: flex;
     flex-direction: row;
 }
+
+.bg-body{
+    --bs-bg-opacity: 0;
+}
+
 #friend-list-container {
     display: flex;
     flex-direction: row;
