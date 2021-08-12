@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  urlstat: "https://localhost:44303/api",
+  urlstat: "https://localhost:44303/api/",
   urlmain: "https://localhost:44307/api/P3/",
   urlgame: "https://localhost:44301/api/Games/",
   urlmainlocalonly: "https://localhost:44307/api/P3/",
