@@ -177,7 +177,7 @@ spec:
     spec:
       containers:
       - name: p3statisticsapi
-        image: gregious/p3statisticsapi:presentation
+        image: gregious/p3statisticsapi:presentationp
         imagePullPolicy: Always
         env:
           - name: ConnectionStrings__P3Database
