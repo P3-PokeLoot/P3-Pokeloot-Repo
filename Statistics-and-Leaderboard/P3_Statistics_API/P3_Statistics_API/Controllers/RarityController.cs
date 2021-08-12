@@ -24,7 +24,7 @@ namespace P3_Statistics_API.Controllers
             _RarityMethods = rarityMethods;
         }
 
-        [HttpGet("[action]")]
+        [HttpGet("api/[action]")]
         public IActionResult UserListByMostRarityCategory(string rarityCategory, int maxnumber)
         {
             List<UserRarityMapperModel> result;
@@ -35,14 +35,14 @@ namespace P3_Statistics_API.Controllers
                 return StatusCode(201, result);
             //return result;
         }
-        [HttpGet("[action]")]
+        [HttpGet("api/[action]")]
         public IActionResult PercentOfRarityCategory(int userId, string rarityCategory)
         {
             int result;
             result = _RarityMethods.PercentOfRarityCategory(userId, rarityCategory);
             return Ok(result);
         }
-        [HttpGet("[action]")]
+        [HttpGet("api/[action]")]
         public IActionResult TotalRarityCategoryForUser(int userId, string rarityCategory)
         {
             int result;

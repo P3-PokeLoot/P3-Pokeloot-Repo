@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: p3angular
-        image: gregious/p3angular:620am
+        image: gregious/p3angular:912am
         imagePullPolicy: Always
         ports:
         - name: http
@@ -177,7 +177,7 @@ spec:
     spec:
       containers:
       - name: p3statisticsapi
-        image: gregious/p3statisticsapi:presentationp
+        image: gregious/p3statisticsapi:912am
         imagePullPolicy: Always
         env:
           - name: ConnectionStrings__P3Database

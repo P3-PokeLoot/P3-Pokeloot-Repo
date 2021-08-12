@@ -31,7 +31,7 @@ namespace P3_Statistics_API.Controllers
             return View();
         }
 
-        [HttpGet("TopCurrentBalanceList")]
+        [HttpGet("api/TopCurrentBalanceList")]
         public IActionResult TopCurrentBallanceController(int maxnumber )
         {
             var result = _LeaderboardMethods.TopCurrentBallance(maxnumber);
@@ -42,7 +42,7 @@ namespace P3_Statistics_API.Controllers
                 return StatusCode(201, result);
         }
 
-        [HttpGet("TopEarnedCoinsist")]
+        [HttpGet("api/TopEarnedCoinsist")]
         public IActionResult TopEarnedCoinsController(int maxnumber)
         {
             var result = _LeaderboardMethods.TopEarnedCoins(maxnumber);
@@ -54,7 +54,7 @@ namespace P3_Statistics_API.Controllers
         }
 
 
-        [HttpGet("TopSpentCoinsist")]
+        [HttpGet("api/TopSpentCoinsist")]
         public IActionResult TopSpentCoinsController(int maxnumber)
         {
             var result = _LeaderboardMethods.TopSpentCoins(maxnumber);
@@ -65,7 +65,7 @@ namespace P3_Statistics_API.Controllers
                 return StatusCode(201, result);
         }
 
-        [HttpGet("TopCompletedCollection")]
+        [HttpGet("api/TopCompletedCollection")]
         public IActionResult TopCompletedCollectionController(int maxnumber)
         {
             var result = _LeaderboardMethods.TopPercentageCompletedCollection(maxnumber);
