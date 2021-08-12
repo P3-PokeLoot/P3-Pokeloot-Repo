@@ -9,6 +9,7 @@ import { MVPShinyModel_Shiny } from 'src/app/Models/IMVPShiny_ShinyLB';
 import { UserCollectionModel_Shiny } from 'src/app/Models/IUserCollection_ShinyLB';
 import { PercentageOwnCardModel_Shiny } from 'src/app/Models/IPercentageOwnCard_ShinyLB';
 import { UserCollectionModel_Shiny2 } from 'src/app/Models/IUserCollection_ShinyLB2';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class LeaderboardStatsService {
   constructor(private http:HttpClient) { }
   //Every method takes in an input, which will be the requested number of objects requested from Db. 
   //This input will be a property on the leaderboards component called 'chosenNumber'. 
-  baseURL:string='https://localhost:44303';
+  baseURL = `${environment.urlstat}`;
 
   //Coin Controller API service calls
   GetTopCurrentBalanceList(input:number):Observable<UserModel_Coin[]>{//outputs a list of User type
