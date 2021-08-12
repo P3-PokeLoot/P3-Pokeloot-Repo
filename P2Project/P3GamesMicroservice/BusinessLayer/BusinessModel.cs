@@ -18,7 +18,7 @@ namespace BusinessLayer
     {
         private readonly DataContext _context;
         private readonly ILogger<BusinessModel> _logger;
-        private readonly string _pokeApi = "https://pokeapi.com/api/v2/pokemon/";
+        private readonly string _pokeApi = "https://pokeapi.co/api/v2/pokemon/";
 
         public BusinessModel(DataContext context, ILogger<BusinessModel> logger)
         {
