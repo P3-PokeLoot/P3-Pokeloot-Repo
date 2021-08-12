@@ -49,21 +49,21 @@ export class LeaderboardStatsService {
   
   //ShiningPokemon Controller API service calls.
   // GetMostShinyList(userMost:number):Observable<CardCollectModel_Shiny[]>{//May need to be refactored based on the data retruned
-  //   return this.http.get<CardCollectModel_Shiny[]>(this.baseURL+'/api/ShiningPokemon/DisplayUserMostShinyPokemon/'+userMost);
+  //   return this.http.get<CardCollectModel_Shiny[]>(this.baseURL+'/ShiningPokemon/DisplayUserMostShinyPokemon/'+userMost);
   // }
 
   GetMVPShinyUsersList(topUsers:number):Observable<MVPShinyModel_Shiny[]>{
-    return this.http.get<MVPShinyModel_Shiny[]>(this.baseURL+'/api/ShiningPokemon/MVPShinyUsers/'+topUsers);
+    return this.http.get<MVPShinyModel_Shiny[]>(this.baseURL+'/ShiningPokemon/MVPShinyUsers/'+topUsers);
   }
   
   GetUsersTotalCollectionList(input:number):Observable<UserCollectionModel_Shiny[]>{
-    return this.http.get<UserCollectionModel_Shiny[]>(this.baseURL+'/api/ShiningPokemon/UsersTotalCollection/'+input);
+    return this.http.get<UserCollectionModel_Shiny[]>(this.baseURL+'/ShiningPokemon/UsersTotalCollection/'+input);
   }
   GetUserTotalAmountList(topUser:number):Observable<UserCollectionModel_Shiny2[]>{
-    return this.http.get<UserCollectionModel_Shiny2[]>(this.baseURL+'/api/ShiningPokemon/GetTotalCardUserHave/'+topUser);
+    return this.http.get<UserCollectionModel_Shiny2[]>(this.baseURL+'/ShiningPokemon/GetTotalCardUserHave/'+topUser);
   }
   GetCardPercentage(pokename:string):Observable<PercentageOwnCardModel_Shiny>{
-    return this.http.get<PercentageOwnCardModel_Shiny>(this.baseURL+'/api/ShiningPokemon/GetCardPorcentage/'+pokename);
+    return this.http.get<PercentageOwnCardModel_Shiny>(this.baseURL+'/ShiningPokemon/GetCardPorcentage/'+pokename);
   }
 
 
