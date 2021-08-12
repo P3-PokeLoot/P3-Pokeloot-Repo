@@ -11,10 +11,6 @@ spec:
     matchLabels:
       app: p3angular
   replicas: 2
-  # strategy:
-  #   type: RollingUpdate
-  #     maxSurge: 1
-  #     maxUnavailible: 0
   template:
     metadata:
       labels:
@@ -22,7 +18,7 @@ spec:
     spec:
       containers:
       - name: p3angular
-        image: gregious/p3angular:presentation
+        image: gregious/p3angular:presentationp
         imagePullPolicy: Always
         ports:
         - name: http
@@ -64,10 +60,6 @@ spec:
     matchLabels:
       app: p3mainapi
   replicas: 2
-  # strategy:
-  #   type: RollingUpdate
-  #     maxSurge: 1
-  #     maxUnavailible: 0
   template:
     metadata:
       labels:
@@ -123,10 +115,6 @@ spec:
     matchLabels:
       app: p3gamesapi
   replicas: 2
-  # strategy:
-  #   type: RollingUpdate
-  #     maxSurge: 1
-  #     maxUnavailible: 0
   template:
     metadata:
       labels:
@@ -182,10 +170,6 @@ spec:
     matchLabels:
       app: p3statisticsapi
   replicas: 2
-  # strategy:
-  #   type: RollingUpdate
-  #     maxSurge: 1
-  #     maxUnavailible: 0
   template:
     metadata:
       labels:
@@ -242,7 +226,6 @@ metadata:
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     cert-manager.io/issuer: "letsencrypt-prod"
-    # certmanager.k8s.io/acme-challenge-type: http01
 spec:
   tls:
   - hosts: 
