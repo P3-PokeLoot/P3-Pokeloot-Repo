@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: p3angular
-        image: gregious/p3angular:final
+        image: gregious/p3angular:presentation
         imagePullPolicy: Always
         ports:
         - name: http
@@ -75,14 +75,14 @@ spec:
     spec:
       containers:
       - name: p3mainapi
-        image: gregious/p3mainapi:final
+        image: gregious/p3mainapi:presentation
         imagePullPolicy: Always
-        # env:
-        #   - name: ConnectionStrings__P3Database
-        #     valueFrom:
-        #       secretKeyRef:
-        #         name: p3connection
-        #         key: string
+        env:
+          - name: ConnectionStrings__P3Database
+            valueFrom:
+              secretKeyRef:
+                name: p3connection
+                key: string
         ports:
         - name: http
           containerPort: 8081
@@ -134,8 +134,14 @@ spec:
     spec:
       containers:
       - name: p3gamesapi
-        image: gregious/p3gamesapi:final
+        image: gregious/p3gamesapi:presentation
         imagePullPolicy: Always
+        env:
+          - name: ConnectionStrings__P3Database
+            valueFrom:
+              secretKeyRef:
+                name: p3connection
+                key: string
         ports:
         - name: http
           containerPort: 8082
@@ -187,8 +193,14 @@ spec:
     spec:
       containers:
       - name: p3statisticsapi
-        image: gregious/p3statisticsapi:final
+        image: gregious/p3statisticsapi:presentation
         imagePullPolicy: Always
+        env:
+          - name: ConnectionStrings__P3Database
+            valueFrom:
+              secretKeyRef:
+                name: p3connection
+                key: string
         ports:
         - name: http
           containerPort: 8083
