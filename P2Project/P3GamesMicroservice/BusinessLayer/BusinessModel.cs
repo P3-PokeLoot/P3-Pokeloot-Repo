@@ -18,7 +18,7 @@ namespace BusinessLayer
     {
         private readonly DataContext _context;
         private readonly ILogger<BusinessModel> _logger;
-        private readonly string _pokeApi = "https://pokeapi.co/api/v2/pokemon/";
+        private readonly string _pokeApi = "https://pokeapi.com/api/v2/pokemon/";
 
         public BusinessModel(DataContext context, ILogger<BusinessModel> logger)
         {
@@ -685,7 +685,7 @@ namespace BusinessLayer
                     Description = game.Description,
                     ImageName = game.ImagePath,
                     Route = game.Route,
-                    ImageSource = String.Format("https://localhost:44301/images/{0}", game.ImagePath)
+                    ImageSource = String.Format("https://p3pokeloot.com/api/Games/images/{0}", game.ImagePath)
                 };
 
                 gameDetails.Add(gamedetail);
@@ -763,7 +763,7 @@ namespace BusinessLayer
                         Description = gameInfo.Description,
                         ImageName = gameInfo.ImagePath,
                         Route = gameInfo.Route,
-                        ImageSource = String.Format("https://localhost:44301/images/{0}", gameInfo.ImagePath)
+                        ImageSource = String.Format("https://p3pokeloot.com/api/Games/images/{0}", gameInfo.ImagePath)
                     };
                     return gamedetail;
                 }
