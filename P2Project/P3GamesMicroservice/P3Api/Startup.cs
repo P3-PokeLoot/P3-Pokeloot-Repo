@@ -68,7 +68,7 @@ namespace P3Api
 
             var imagePath = Path.Combine(env.ContentRootPath, "Images");
 
-            if (Directory.Exists(imagePath))
+            if (!Directory.Exists(imagePath))
                 Directory.CreateDirectory(imagePath);
 
             app.UseStaticFiles(new StaticFileOptions
