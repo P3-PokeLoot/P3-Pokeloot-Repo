@@ -30,7 +30,7 @@
     </div>
 
 
-    <div *ngIf="fullPost.RarityId != 0;" class="col-md-3">
+    <div *ngIf="fullPost.RarityId != 0;" class="col-md-3" style="float:right;">
         <div [ngClass]="GetCardColor(fullPost.RarityId)" class="card text-center" style="width: 18rem;">
             <img class="card-img-top" height="200" src={{fullPost.SpriteLink}} alt="{{fullPost.PokemonName}} Image">
             <div class="card-body">
