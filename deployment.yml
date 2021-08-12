@@ -11,10 +11,6 @@ spec:
     matchLabels:
       app: p3angular
   replicas: 2
-  # strategy:
-  #   type: RollingUpdate
-  #     maxSurge: 1
-  #     maxUnavailible: 0
   template:
     metadata:
       labels:
@@ -22,7 +18,7 @@ spec:
     spec:
       containers:
       - name: p3angular
-        image: gregious/p3angular:final
+        image: gregious/p3angular:presentationp
         imagePullPolicy: Always
         ports:
         - name: http
@@ -64,10 +60,6 @@ spec:
     matchLabels:
       app: p3mainapi
   replicas: 2
-  # strategy:
-  #   type: RollingUpdate
-  #     maxSurge: 1
-  #     maxUnavailible: 0
   template:
     metadata:
       labels:
@@ -75,14 +67,14 @@ spec:
     spec:
       containers:
       - name: p3mainapi
-        image: gregious/p3mainapi:final
+        image: gregious/p3mainapi:presentation
         imagePullPolicy: Always
-        # env:
-        #   - name: ConnectionStrings__P3Database
-        #     valueFrom:
-        #       secretKeyRef:
-        #         name: p3connection
-        #         key: string
+        env:
+          - name: ConnectionStrings__P3Database
+            valueFrom:
+              secretKeyRef:
+                name: p3connection
+                key: string
         ports:
         - name: http
           containerPort: 8081
@@ -123,10 +115,6 @@ spec:
     matchLabels:
       app: p3gamesapi
   replicas: 2
-  # strategy:
-  #   type: RollingUpdate
-  #     maxSurge: 1
-  #     maxUnavailible: 0
   template:
     metadata:
       labels:
@@ -134,8 +122,14 @@ spec:
     spec:
       containers:
       - name: p3gamesapi
-        image: gregious/p3gamesapi:final
+        image: gregious/p3gamesapi:presentation
         imagePullPolicy: Always
+        env:
+          - name: ConnectionStrings__P3Database
+            valueFrom:
+              secretKeyRef:
+                name: p3connection
+                key: string
         ports:
         - name: http
           containerPort: 8082
@@ -176,10 +170,6 @@ spec:
     matchLabels:
       app: p3statisticsapi
   replicas: 2
-  # strategy:
-  #   type: RollingUpdate
-  #     maxSurge: 1
-  #     maxUnavailible: 0
   template:
     metadata:
       labels:
@@ -187,8 +177,14 @@ spec:
     spec:
       containers:
       - name: p3statisticsapi
-        image: gregious/p3statisticsapi:final
+        image: gregious/p3statisticsapi:presentation
         imagePullPolicy: Always
+        env:
+          - name: ConnectionStrings__P3Database
+            valueFrom:
+              secretKeyRef:
+                name: p3connection
+                key: string
         ports:
         - name: http
           containerPort: 8083
@@ -230,7 +226,6 @@ metadata:
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     cert-manager.io/issuer: "letsencrypt-prod"
-    # certmanager.k8s.io/acme-challenge-type: http01
 spec:
   tls:
   - hosts: 
