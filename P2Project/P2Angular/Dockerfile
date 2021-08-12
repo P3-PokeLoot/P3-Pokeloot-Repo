@@ -1,6 +1,7 @@
 FROM node:latest AS build
 WORKDIR /src
 COPY . .
+RUN npm install
 RUN npm run build
 
 FROM nginx:alpine

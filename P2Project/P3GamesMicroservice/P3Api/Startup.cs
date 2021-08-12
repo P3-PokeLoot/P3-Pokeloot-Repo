@@ -66,11 +66,19 @@ namespace P3Api
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseStaticFiles(new StaticFileOptions { 
+            var imagePath = Path.Combine(env.ContentRootPath, "Images");
+
+            if (Directory.Exists(imagePath))
+                Directory.CreateDirectory(imagePath);
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
                 FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "Images")),
                 RequestPath = "/Images"
-            
+
             });
+            
+            
 
             app.UseHttpsRedirection();
 
