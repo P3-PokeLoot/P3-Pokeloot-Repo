@@ -37,7 +37,7 @@ To-do list:
 
 ## Getting Started
    
-* [PokeLoot](https://pokelootapi.azurewebsites.net/).
+* [PokeLoot](https://p3pokeloot.com/).
 
 
 ## Usage
